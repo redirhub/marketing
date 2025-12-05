@@ -148,7 +148,56 @@ primary: {
 ```
 
 ## 📄 Pages
+Information Architecture
+`
+1. Home
+   - /
 
+2. SEO Landing Pages
+     - /free-redirect-service
+     - /301-redirect-service
+     - /url-redirect-service
+
+3. Features
+   - /features
+     - /manage-redirects
+     - /create-redirects
+     - /analyze-redirects
+     - /team-management
+     - /global-scale
+     - /security
+
+4. Solutions
+   - /solutions
+     - /solutions/domain-parking
+     - /solutions/website-migrations
+     - /solutions/scalable-enterprise-solutions
+     - /solutions/marketing-campaigns
+
+5. Enterprise / Business
+   - /enterprise
+
+6. Pricing
+   - /pricing
+   - /charge
+
+7. Support
+   - /support
+
+8. Legal
+   - /legal
+     - /legal/cookie-policy
+     - /legal/privacy-policy
+     - /legal/terms-of-service
+     - /legal/data-subprocessors
+     - /legal/security-compliance-information
+     - /legal/acceptable-use-policy
+     - /legal/data-processing-addendum
+
+9. Blog
+   - /blog
+
+`
 ### Current Pages
 
 - **/** - Home page (Hero, Key Metrics, CTA)
