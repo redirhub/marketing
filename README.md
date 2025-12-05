@@ -40,7 +40,7 @@ redirhub-marketing/
 ├── public/
 │   └── locales/                   # Generated translation files
 ├── i18n.config.js                 # i18next configuration
-└── .env.local                     # Environment variables
+└── .env.development               # Environment variables
 ```
 
 ## 🛠️ Development
@@ -102,7 +102,7 @@ This project uses the **HTTP backend translation pattern** :
 
 ### Configuration
 
-Edit `.env.local`:
+Edit `.env.development`:
 
 ```env
 # Site Configuration
