@@ -1,0 +1,27 @@
+{
+  "nav": {
+    "features": "Features",
+    "pricing": "Pricing",
+    "legal": "Legal",
+    "login": "Log In",
+    "getStarted": "Get Started"
+  },
+  "footer": {
+    "tagline": "Modern URL management for teams",
+    "product": "Product",
+    "features": "Features",
+    "pricing": "Pricing",
+    "legal": "Legal",
+    "privacy": "Privacy Policy",
+    "terms": "Terms of Service",
+    "rights": "All rights reserved."
+  },
+  "home": {
+    "hero": {
+      "title": "Your domains. Globally redirected. Instantly.",
+      "subtitle": "Effortlessly forward your domains with unmatched speed and reliability",
+      "cta": "Create redirects for free",
+      "ctaSecondary": "Learn More"
+    }
+  }
+}

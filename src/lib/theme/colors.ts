@@ -1,0 +1,41 @@
+export default {
+  primary: {
+    25: { value: '#E8F0F8' },
+    50: { value: '#D2E2F0' },
+    100: { value: '#BBD3E9' },
+    200: { value: '#8EB6DB' },
+    300: { value: '#6099CC' },
+    500: { value: '#337CBD' },
+    600: { value: '#1C6DB6' },
+    700: { value: '#1962A4' },
+    800: { value: '#165792' },
+    900: { value: '#135280' },
+  },
+  gray: {
+    50: { value: '#F9FAFB' },
+    100: { value: '#F2F4F7' },
+    200: { value: '#EAECF0' },
+    300: { value: '#D0D5DD' },
+    400: { value: '#98A2B3' },
+    500: { value: '#667085' },
+    600: { value: '#475467' },
+    700: { value: '#344054' },
+    800: { value: '#1D2939' },
+    900: { value: '#101828' },
+  },
+  success: {
+    50: { value: '#ECFDF3' },
+    500: { value: '#12B76A' },
+    700: { value: '#027A48' },
+  },
+  error: {
+    50: { value: '#FEF3F2' },
+    500: { value: '#F04438' },
+    700: { value: '#B42318' },
+  },
+  warning: {
+    50: { value: '#FFFAEB' },
+    500: { value: '#F79009' },
+    700: { value: '#C86407' },
+  },
+};
