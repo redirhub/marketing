@@ -82,20 +82,18 @@ export default function RatePage() {
           <Text fontSize="lg" color="gray.600" maxW="lg">
             {t('rate.lowRating.message', "We'd love to hear your feedback so we can improve. Please share your thoughts with us.")}
           </Text>
-          <Button
-            as="a"
-            href={SENJA_URL}
-            target="_blank"
-            rel="noopener noreferrer"
-            size="lg"
-            w="full"
-            colorScheme="blue"
-            color="white"
-            rightIcon={<FaExternalLinkAlt />}
-            mt={4}
-          >
-            {t('rate.lowRating.cta', 'Share Your Feedback')}
-          </Button>
+          <Box as="a" href={SENJA_URL} rel="noopener noreferrer" w="full">
+            <Button
+              size="lg"
+              w="full"
+              colorScheme="blue"
+              color="white"
+              rightIcon={<FaExternalLinkAlt />}
+              mt={4}
+            >
+              {t('rate.lowRating.cta', 'Share Your Feedback')}
+            </Button>
+          </Box>
           <Button
             variant="ghost"
             onClick={() => setSelectedRating(null)}
@@ -118,32 +116,28 @@ export default function RatePage() {
           {t('rate.highRating.message', 'Would you mind sharing your experience with others? Your review helps us grow!')}
         </Text>
         <VStack gap={3} w="full" maxW="md" mt={4}>
-          <Button
-            as="a"
-            href={G2_URL}
-            target="_blank"
-            rel="noopener noreferrer"
-            size="lg"
-            w="full"
-            colorScheme="blue"
-            color="white"
-            rightIcon={<FaExternalLinkAlt />}
-          >
-            {t('rate.highRating.ctaG2', 'Review on G2')}
-          </Button>
-          <Button
-            as="a"
-            href={TRUSTPILOT_URL}
-            target="_blank"
-            rel="noopener noreferrer"
-            size="lg"
-            colorScheme="green"
-            color="white"
-            w="full"
-            rightIcon={<FaExternalLinkAlt />}
-          >
-            {t('rate.highRating.ctaTrustpilot', 'Review on Trustpilot')}
-          </Button>
+          <Box as="a" href={G2_URL} target="_blank" rel="noopener noreferrer" w="full">
+            <Button
+              size="lg"
+              w="full"
+              colorScheme="blue"
+              color="white"
+              rightIcon={<FaExternalLinkAlt />}
+            >
+              {t('rate.highRating.ctaG2', 'Review on G2')}
+            </Button>
+          </Box>
+          <Box as="a" href={TRUSTPILOT_URL} target="_blank" rel="noopener noreferrer" w="full">
+            <Button
+              size="lg"
+              colorScheme="green"
+              color="white"
+              w="full"
+              rightIcon={<FaExternalLinkAlt />}
+            >
+              {t('rate.highRating.ctaTrustpilot', 'Review on Trustpilot')}
+            </Button>
+          </Box>
         </VStack>
         <Button
           variant="ghost"
