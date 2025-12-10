@@ -86,17 +86,20 @@ export default function RatePage() {
           <Button
             size="lg"
             w="full"
-            colorScheme="blue"
+            bg="purple.600"
             color="white"
             mt={4}
             onClick={() => window.open(SENJA_URL, '_blank', 'noopener,noreferrer')}
+            _hover={{ bg: 'purple.700' }}
           >
             {t('rate.lowRating.cta', 'Share Your Feedback')}
           </Button>
           <Button
-            variant="ghost"
+            variant="link"
+            color="gray.600"
             onClick={() => setSelectedRating(null)}
             mt={2}
+            _hover={{ textDecoration: 'underline', color: 'gray.800' }}
           >
             {t('rate.changeRating', 'Change Rating')}
           </Button>
@@ -118,26 +121,30 @@ export default function RatePage() {
           <Button
             size="lg"
             w="full"
-            colorScheme="blue"
+            bg="orange.500"
             color="white"
             onClick={() => window.open(G2_URL, '_blank', 'noopener,noreferrer')}
+            _hover={{ bg: 'orange.600' }}
           >
             {t('rate.highRating.ctaG2', 'Review on G2')}
           </Button>
           <Button
             size="lg"
-            colorScheme="green"
+            bg="teal.500"
             color="white"
             w="full"
             onClick={() => window.open(TRUSTPILOT_URL, '_blank', 'noopener,noreferrer')}
+            _hover={{ bg: 'teal.600' }}
           >
             {t('rate.highRating.ctaTrustpilot', 'Review on Trustpilot')}
           </Button>
         </VStack>
         <Button
-          variant="ghost"
+          variant="link"
+          color="gray.600"
           onClick={() => setSelectedRating(null)}
           mt={2}
+          _hover={{ textDecoration: 'underline', color: 'gray.800' }}
         >
           {t('rate.changeRating', 'Change Rating')}
         </Button>
@@ -151,7 +158,7 @@ export default function RatePage() {
       display="flex"
       alignItems="center"
       justifyContent="center"
-      bg="gray.50"
+      bg="gray.700"
       px={{ base: 4, md: 8 }}
       py={{ base: 8, md: 12 }}
     >
