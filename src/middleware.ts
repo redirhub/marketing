@@ -20,11 +20,15 @@ export function middleware(request: NextRequest) {
     if (pathname === `/${defaultLocale}`) {
       return NextResponse.redirect(new URL('/', request.url));
     }
-    return NextResponse.next();
+    const response = NextResponse.next();
+    response.headers.set('x-pathname', pathname);
+    return response;
   }
 
   // Rewrite to default locale for URLs without locale
-  return NextResponse.rewrite(new URL(`/${defaultLocale}${pathname}`, request.url));
+  const response = NextResponse.rewrite(new URL(`/${defaultLocale}${pathname}`, request.url));
+  response.headers.set('x-pathname', pathname);
+  return response;
 }
 
 export const config = {

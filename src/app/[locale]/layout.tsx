@@ -1,5 +1,6 @@
 import { ReactNode } from 'react';
 import { Inter } from 'next/font/google';
+import { headers } from 'next/headers';
 import { Provider } from '@/components/ui/provider';
 import TranslationsProvider from '@/components/TranslationsProvider';
 import Header from '@/components/layout/Header';
@@ -31,6 +32,10 @@ export default async function RootLayout({
   const { locale } = await params;
   const { resources } = await initTranslations(locale, i18nNamespaces);
 
+  const headersList = await headers();
+  const pathname = headersList.get('x-pathname') || '';
+  const hideHeaderFooter = pathname.includes('/rate');
+
   return (
     <html lang={locale} suppressHydrationWarning className={inter.variable}>
       <body style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column' }}>
@@ -40,11 +45,11 @@ export default async function RootLayout({
             namespaces={i18nNamespaces}
             resources={resources}
           >
-            <Header />
+            {!hideHeaderFooter && <Header />}
             <main style={{ flex: 1, display: 'flex', flexDirection: 'column' }}>
               {children}
             </main>
-            <Footer />
+            {!hideHeaderFooter && <Footer />}
           </TranslationsProvider>
         </Provider>
       </body>
