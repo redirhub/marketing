@@ -5,6 +5,7 @@ import { useSearchParams } from 'next/navigation';
 import { useTranslation } from 'react-i18next';
 import { Box, VStack, HStack, Text, Button, Heading } from '@chakra-ui/react';
 import { FaStar, FaExternalLinkAlt } from 'react-icons/fa';
+import { getAppName } from '@/lib/utils/constants';
 
 const SENJA_URL = 'https://senja.io/p/redirhub/r/aCUxmb';
 const G2_URL = 'https://www.g2.com/products/redirhub/reviews#reviews';
@@ -65,7 +66,7 @@ export default function RatePage() {
             {t('rate.title', 'How do you rate our product?')}
           </Heading>
           <Text fontSize="lg" color="gray.600">
-            {t('rate.subtitle', 'Your feedback helps us improve RedirHub')}
+            {t('rate.subtitle', `Your feedback helps us improve {{n}}`, { n: getAppName() })}
           </Text>
           {renderStars()}
         </VStack>
@@ -108,7 +109,7 @@ export default function RatePage() {
       <VStack gap={6} textAlign="center">
         <Box fontSize="5xl">{t('rate.highRating.emoji', '🎉')}</Box>
         <Heading size="xl" fontWeight="bold" color="gray.800">
-          {t('rate.highRating.title', "Thank you! We're thrilled you love RedirHub!")}
+          {t('rate.highRating.title', `Thank you! We're thrilled you love {{n}}`, { n: getAppName() })}
         </Heading>
         <Text fontSize="lg" color="gray.600" maxW="lg">
           {t('rate.highRating.message', 'Would you mind sharing your experience with others? Your review helps us grow!')}
