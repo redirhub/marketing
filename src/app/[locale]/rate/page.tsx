@@ -94,15 +94,16 @@ export default function RatePage() {
           >
             {t('rate.lowRating.cta', 'Share Your Feedback')}
           </Button>
-          <Button
-            variant="link"
+          <Text
+            as="button"
             color="gray.600"
             onClick={() => setSelectedRating(null)}
             mt={2}
+            cursor="pointer"
             _hover={{ textDecoration: 'underline', color: 'gray.800' }}
           >
             {t('rate.changeRating', 'Change Rating')}
-          </Button>
+          </Text>
         </VStack>
       );
     }
@@ -139,15 +140,16 @@ export default function RatePage() {
             {t('rate.highRating.ctaTrustpilot', 'Review on Trustpilot')}
           </Button>
         </VStack>
-        <Button
-          variant="link"
+        <Text
+          as="button"
           color="gray.600"
           onClick={() => setSelectedRating(null)}
           mt={2}
+          cursor="pointer"
           _hover={{ textDecoration: 'underline', color: 'gray.800' }}
         >
           {t('rate.changeRating', 'Change Rating')}
-        </Button>
+        </Text>
       </VStack>
     );
   };
