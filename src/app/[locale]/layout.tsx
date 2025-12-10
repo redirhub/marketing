@@ -1,25 +1,27 @@
-import { ReactNode } from 'react';
-import { Inter } from 'next/font/google';
-import { Provider } from '@/components/ui/provider';
-import TranslationsProvider from '@/components/TranslationsProvider';
-import Header from '@/components/layout/Header';
-import Footer from '@/components/layout/Footer';
-import initTranslations from '@/lib/i18n';
-import { i18nConfig } from '@/lib/i18n';
-import './globals.css';
+import { ReactNode } from "react";
+import { Inter } from "next/font/google";
+import { Provider } from "@/components/ui/provider";
+import TranslationsProvider from "@/components/TranslationsProvider";
+import Header from "@/components/layout/Header";
+import Footer from "@/components/layout/Footer";
+import initTranslations from "@/lib/i18n";
+import { i18nConfig } from "@/lib/i18n";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
+import "./globals.css";
 
 const inter = Inter({
-  subsets: ['latin'],
-  display: 'swap',
-  variable: '--font-inter',
-  weight: ['400', '500', '600', '700'],
+  subsets: ["latin"],
+  display: "swap",
+  variable: "--font-inter",
+  weight: ["400", "500", "600", "700"],
 });
 
 export function generateStaticParams() {
   return i18nConfig.locales.map((locale) => ({ locale }));
 }
 
-const i18nNamespaces = ['common'];
+const i18nNamespaces = ["common"];
 
 export default async function RootLayout({
   children,
@@ -33,7 +35,9 @@ export default async function RootLayout({
 
   return (
     <html lang={locale} suppressHydrationWarning className={inter.variable}>
-      <body style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column' }}>
+      <body
+        style={{ minHeight: "100vh", display: "flex", flexDirection: "column" }}
+      >
         <Provider>
           <TranslationsProvider
             locale={locale}
@@ -41,7 +45,7 @@ export default async function RootLayout({
             resources={resources}
           >
             <Header />
-            <main style={{ flex: 1, display: 'flex', flexDirection: 'column' }}>
+            <main style={{ flex: 1, display: "flex", flexDirection: "column" }}>
               {children}
             </main>
             <Footer />

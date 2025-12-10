@@ -1,78 +1,67 @@
-'use client';
+"use client";
 
-import { Box, Container, Flex, Heading, Text } from '@chakra-ui/react';
-import { useTranslation } from 'react-i18next';
-import Link from 'next/link';
-import { getDashboardBase } from '@/lib/utils/constants';
+import { Box, Container, Flex, Heading, Text } from "@chakra-ui/react";
+import { useTranslation } from "react-i18next";
+import Image from "next/image";
+import HeroTabs from "./HeroTabs";
+import styles from "./Hero.module.css";
+import LogoBar from "./LogoBar";
 
 export default function Hero() {
-  const { t } = useTranslation('common');
+  const { t } = useTranslation("common");
 
   return (
-    <Box bg="gradient-to-b" bgGradient="to-b" gradientFrom="gray.50" gradientTo="white" py={20}>
+    <Box pt={20} className={styles.heroContainer}>
       <Container maxW="7xl" mx="auto">
-        <Flex
-          direction="column"
-          align="center"
-          textAlign="center"
-          gap={8}
-        >
+        <Flex direction="column" align="center" textAlign="center" gap={8}>
           {/* Main Heading */}
-          <Heading
-            as="h1"
-            fontSize={{ base: '4xl', md: '5xl', lg: '6xl' }}
-            fontWeight="bold"
-            lineHeight="tight"
-            maxW="4xl"
-          >
-            {t(`home.hero.title`, 'Your domains. Globally redirected. Instantly.')}
-          </Heading>
-
+          <Box>
+            <Heading
+              as="h1"
+              fontSize={{
+                base: "4xl",
+                md: "5xl",
+                lg: "3.2rem",
+              }}
+              fontWeight="600"
+              lineHeight="tight"
+              maxW="4xl"
+              color="#fff"
+            >
+              {t(`home.hero.title`, "Your domains.")}
+            </Heading>
+            <Heading
+              as="h1"
+              fontSize={{ base: "4xl", md: "5xl", lg: "4rem" }}
+              fontWeight="bold"
+              lineHeight="tight"
+              maxW="5xl"
+              mt={-2}
+              color="#fff"
+              className={styles.globallyText}
+            >
+              {t(`home.hero.title2`, "Globally redirected. Instantly.")}
+            </Heading>
+          </Box>
           {/* Subheading */}
-          <Text
-            fontSize={{ base: 'lg', md: 'xl' }}
-            color="gray.600"
-            maxW="2xl"
-          >
-            {t(`home.hero.subtitle`, 'Manage your redirects, short URLs, and monitor your links with RedirHub')}
+          <Text fontSize={{ base: "lg", md: "xl" }} color="#fff" maxW="4xl">
+            {t(
+              `home.hero.subtitle`,
+              "Forward your domains instantly and manage all redirects from a real-time dashboard. Enhance your SEO with 301/302 redirects and secure every link with HTTPS."
+            )}
           </Text>
-
-          {/* CTAs */}
-          <Flex gap={4} flexWrap="wrap" justify="center">
-            <Link href={`${getDashboardBase()}/register`}>
-              <Box
-                as="button"
-                px={8}
-                py={4}
-                borderRadius="lg"
-                bg="primary.600"
-                color="white"
-                fontSize="lg"
-                fontWeight="semibold"
-                _hover={{ bg: 'primary.700' }}
-                transition="all 0.2s"
-              >
-                {t(`home.hero.cta`, 'Get Started For Free')}
-              </Box>
-            </Link>
-            <Link href="#features">
-              <Box
-                as="button"
-                px={8}
-                py={4}
-                borderRadius="lg"
-                borderWidth="2px"
-                borderColor="gray.300"
-                fontSize="lg"
-                fontWeight="semibold"
-                _hover={{ borderColor: 'gray.400', bg: 'gray.50' }}
-                transition="all 0.2s"
-              >
-                {t(`home.hero.ctaSecondary`, 'Learn More')}
-              </Box>
-            </Link>
-          </Flex>
+          <HeroTabs />
         </Flex>
+        <LogoBar />
+        <Box w="100%">
+          <Image
+            src="/assets/images/banner.png"
+            alt="Banner"
+            width={1920}
+            height={600}
+            style={{ width: "100%", height: "auto" }}
+          />
+        </Box>
       </Container>
     </Box>
   );
