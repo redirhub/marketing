@@ -103,7 +103,7 @@ export default function TestimonialsSlider() {
     speed: 500,
     slidesToShow: 1,
     slidesToScroll: 1,
-    autoplay: false,
+    autoplay: true,
     autoplaySpeed: 5000,
     pauseOnHover: true,
     prevArrow: <CustomPrevArrow />,
@@ -111,22 +111,26 @@ export default function TestimonialsSlider() {
   };
   return (
     <Box
-      py={{ base: 16, md: 20 }}
+      py={{ base: 16, md: 24 }}
       position="relative"
       overflow="hidden"
       borderRadius={{ base: "0", lg: "3xl" }}
-      my={{ base: 0, lg: 12 }}
+      my={{ base: 0, lg: 14 }}
       maxW="7xl"
       mx="auto"
       borderRight={"32px"}
       pl={"100px"}
       className={styles.container}
     >
-      <Container maxW="6xl" position="relative">
+      <Container
+        maxW="6xl"
+        position="relative"
+        className="testimonials-controiner"
+      >
         <Heading
           as="h2"
-          fontSize={{ base: "3xl", md: "4xl", lg: "5xl" }}
-          fontWeight="bold"
+          fontSize={{ base: "2rem", md: "2.5rem", lg: "2.5rem" }}
+          fontWeight={500}
           color="white"
           mb={12}
           textAlign="left"

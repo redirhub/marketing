@@ -176,7 +176,6 @@ export const StatsCard = ({
       gap="20px"
       w="100%"
     >
-      {/* Icon */}
       <Box
         w="70px"
         h="70px"
@@ -199,7 +198,6 @@ export const StatsCard = ({
         />
       </Box>
 
-      {/* Value + Label */}
       <Box flex="0.7">
         <Text
           fontSize="1.7rem"
@@ -222,7 +220,6 @@ export const StatsCard = ({
         </Text>
       </Box>
 
-      {/* Description */}
       <Box flex="2.4" pl="10px">
         <Text
           fontSize="1.1rem"
