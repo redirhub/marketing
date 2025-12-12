@@ -7,7 +7,6 @@ import {
   Grid,
   Stack,
   Text,
-  IconButton,
   Heading,
   Button,
   VStack,
@@ -15,18 +14,28 @@ import {
 } from "@chakra-ui/react";
 import { useTranslation } from "react-i18next";
 import Link from "next/link";
-import { useParams } from "next/navigation";
+import { useParams, useRouter, usePathname } from "next/navigation";
 import { getAppName } from "@/lib/utils/constants";
 import { FaYoutube, FaXTwitter, FaFacebook, FaLinkedin } from "react-icons/fa6";
 import React from "react";
 import styles from "./Footer.module.css";
 import Image from "next/image";
+import LanguageSelector from "../share/LanguageSelector";
 
 export default function Footer() {
-  const { t } = useTranslation("common");
+  const { t, i18n } = useTranslation();
   const params = useParams();
+  const router = useRouter();
+  const pathname = usePathname();
   const locale = (params?.locale as string) || "en";
-  const currentYear = new Date().getFullYear();
+  const currentLanguage = i18n.language;
+
+  const handleLanguageChange = (newLocale: string) => {
+    // Get the current path without the locale
+    const pathWithoutLocale = pathname.replace(/^\/[a-z]{2}/, "");
+    // Navigate to the new locale
+    router.push(`/${newLocale}${pathWithoutLocale}`);
+  };
 
   // Helper to generate URLs - hide /en for default locale
   const getLocalePath = (path: string) => {
@@ -48,51 +57,59 @@ export default function Footer() {
       },
       {
         label: t(`footer.demo`, "Request a demo"),
-        href: getLocalePath("/demo"),
+        href: getLocalePath("/enterprise"),
       },
       { label: t(`footer.blog`, "Blog"), href: getLocalePath("/blog") },
     ],
     resources: [
       {
         label: t(`footer.status`, "System Status"),
-        href: getLocalePath("/status"),
+        href: "https://redirhub.statuspage.io/",
+        target: "blank",
       },
       {
         label: t(`footer.changelog`, "Changelog"),
-        href: getLocalePath("/changelog"),
+        href: "https://headwayapp.co/redirhub-changelog",
+        target: "blank",
       },
       {
         label: t(`footer.api`, "API Documentation"),
-        href: getLocalePath("/api-docs"),
+        href: "https://dev.redirhub.com",
+        target: "blank",
       },
     ],
     products: [
       {
         label: t(`footer.free`, "Free Redirect Service"),
-        href: getLocalePath("/free"),
+        href: getLocalePath("/free-redirect-service"),
       },
       {
         label: t(`footer.url`, "URL Redirect Service"),
-        href: getLocalePath("/url-redirect"),
+        href: getLocalePath("/url-redirect-service"),
       },
       {
         label: t(`footer.301`, "301 Redirect Service"),
-        href: getLocalePath("/301-redirect"),
+        href: getLocalePath("/301-redirect-service"),
       },
       {
         label: t(`footer.checker`, "Redirect Checker"),
-        href: getLocalePath("/checker"),
+        href: "https://findredirect.com/",
+        target: "blank",
       },
       {
         label: t(`footer.expander`, "Short URL expander"),
-        href: getLocalePath("/expander"),
+        href: "https://findredirect.com/expander",
+        target: "blank",
       },
     ],
     contact: [
-      { label: t(`footer.login`, "Login"), href: getLocalePath("/login") },
+      {
+        label: t(`footer.login`, "Login"),
+        href: "https://dash.redirhub.com/login?redirect=/",
+      },
       {
         label: t(`footer.start`, "Start for Free"),
-        href: getLocalePath("/signup"),
+        href: "https://dash.redirhub.com/register",
       },
       {
         label: "Business Email / service[@]redirhub.com",
@@ -106,15 +123,15 @@ export default function Footer() {
     legal: [
       {
         label: t(`footer.terms`, "Terms of Service"),
-        href: getLocalePath("/legal/terms-of-service"),
+        href: getLocalePath("/terms-of-service"),
       },
       {
         label: t(`footer.privacy`, "Privacy Policy"),
-        href: getLocalePath("/legal/privacy-policy"),
+        href: getLocalePath("/privacy-policy"),
       },
       {
         label: t(`footer.cookie`, "Cookie Policy"),
-        href: getLocalePath("/legal/cookie-policy"),
+        href: getLocalePath("/cookie-policy"),
       },
     ],
   };
@@ -132,17 +149,17 @@ export default function Footer() {
       color="gray.700"
       mt="auto"
       className={styles.footerContainer}
-      pt="80px"
-      pb="120px"
+      pt={{ base: "3rem", md: "80px" }}
+      px={{ base: 4, md: 4, lg: 0 }}
     >
       <Container maxW="7xl" mx="auto">
         <VStack gap={6} textAlign="center" mb="60px">
           <Heading
             as="h1"
-            fontSize={{ base: "3rem", md: "3rem", lg: "3rem" }}
+            fontSize={{ base: "2rem", md: "3rem", lg: "3rem" }}
             fontWeight="600"
             color="white"
-            lineHeight="1.2"
+            lineHeight={{ base: "3rem", md: "3rem", lg: "3rem" }}
             maxW="900px"
             letterSpacing={"-1.8px"}
           >
@@ -153,7 +170,7 @@ export default function Footer() {
             <Text
               textAlign="center"
               color="#FFFFFFD1"
-              fontSize="1.1rem"
+              fontSize={{ base: "1rem", md: "1.1rem" }}
               fontWeight="500"
               letterSpacing="0.2px"
               textShadow="0px 0px 10px rgba(0, 0, 0, 0.3)"
@@ -172,28 +189,29 @@ export default function Footer() {
               RedirHub speeds up your workflow while keeping your domain safe.
             </Text>
           </VStack>
-
-          <Button
-            bg="#E49426"
-            color="white"
-            px="24px"
-            py="12px"
-            fontSize="1rem"
-            fontWeight="semibold"
-            borderRadius="8px"
-            _hover={{
-              bg: "#C78121",
-              transform: "translateY(-2px)",
-              boxShadow: "lg",
-            }}
-            _active={{
-              bg: "orange.700",
-              transform: "translateY(0)",
-            }}
-            transition="all 0.2s"
-          >
-            Get Started For Free
-          </Button>
+          <Link href={"https://dash.redirhub.com/register"} target={"_blank"}>
+            <Button
+              bg="#E49426"
+              color="white"
+              px="24px"
+              py="12px"
+              fontSize="1rem"
+              fontWeight="semibold"
+              borderRadius="8px"
+              _hover={{
+                bg: "#C78121",
+                transform: "translateY(-2px)",
+                boxShadow: "lg",
+              }}
+              _active={{
+                bg: "orange.700",
+                transform: "translateY(0)",
+              }}
+              transition="all 0.2s"
+            >
+              Get Started For Free
+            </Button>
+          </Link>
         </VStack>
 
         <Container
@@ -204,12 +222,18 @@ export default function Footer() {
           p={10}
         >
           <Grid
-            templateColumns={{ base: "1fr", md: "repeat(5, 1fr)" }}
+            templateColumns={{ base: "1fr", md: "1fr", lg: "repeat(5, 1fr)" }}
             gap={8}
             mb={8}
           >
-            {/* Brand & Social */}
-            <Stack gap={4}>
+            <Stack
+              gap={4}
+              alignItems={{
+                base: "center",
+                md: "center",
+                lg: "flex-start",
+              }}
+            >
               <Flex align="center" gap={2} mb={2}>
                 <Link href={getLocalePath("/")}>
                   <Image
@@ -219,10 +243,10 @@ export default function Footer() {
                     height={50}
                     style={{ height: "auto" }}
                   />
-                </Link>{" "}
+                </Link>
               </Flex>
 
-              <Flex gap={4}>
+              <Flex gap={6}>
                 {socialLinks.map((social) => (
                   <Icon
                     as={social.icon}
@@ -240,37 +264,47 @@ export default function Footer() {
               </Flex>
 
               <Box>
-                {/* <Select
-                size="sm"
-                maxW="150px"
-                bg="white"
-                borderColor="gray.300"
-                icon={<Text>🇬🇧</Text>}
-                defaultValue="en"
-              >
-                <option value="en">English</option>
-              </Select> */}
+                <LanguageSelector
+                  currentLanguage={currentLanguage}
+                  onLanguageChange={handleLanguageChange}
+                  openDirection="top"
+                />
               </Box>
             </Stack>
 
             {/* Company */}
-            <Stack gap={3}>
+            <Stack
+              gap={3}
+              alignItems={{ base: "center", md: "center", lg: "flex-start" }}
+            >
               <Text
                 fontSize="1.1rem"
                 fontWeight="700"
                 lineHeight="2rem"
                 letterSpacing="0.4px"
                 color="#667085"
+                pb={2}
               >
                 Company
               </Text>
               {footerLinks.company.map((link) => (
-                <Link key={link.href} href={link.href}>
+                <Link
+                  key={link.href}
+                  href={link.href}
+                  target={
+                    (link as any).target === "blank" ? "_blank" : undefined
+                  }
+                  rel={
+                    (link as any).target === "blank"
+                      ? "noopener noreferrer"
+                      : undefined
+                  }
+                >
                   <Text
-                    fontSize="sm"
-                    fontWeight="400"
+                    fontSize="15px"
+                    fontWeight={400}
                     letterSpacing="0.2px"
-                    color="gray.600"
+                    color="#101828"
                     _hover={{ color: "#1C6DB6" }}
                     transition="color 0.2s ease"
                   >
@@ -281,23 +315,38 @@ export default function Footer() {
             </Stack>
 
             {/* Resources */}
-            <Stack gap={3}>
+            <Stack
+              gap={3}
+              alignItems={{ base: "center", md: "center", lg: "flex-start" }}
+            >
               <Text
                 fontSize="1.1rem"
                 fontWeight="700"
                 lineHeight="2rem"
                 letterSpacing="0.4px"
                 color="#667085"
+                pb={2}
               >
                 Resources
               </Text>
               {footerLinks.resources.map((link) => (
-                <Link key={link.href} href={link.href}>
+                <Link
+                  key={link.href}
+                  href={link.href}
+                  target={
+                    (link as any).target === "blank" ? "_blank" : undefined
+                  }
+                  rel={
+                    (link as any).target === "blank"
+                      ? "noopener noreferrer"
+                      : undefined
+                  }
+                >
                   <Text
-                    fontSize="sm"
-                    fontWeight="400"
+                    fontSize="15px"
+                    fontWeight={400}
                     letterSpacing="0.2px"
-                    color="gray.600"
+                    color="#101828"
                     _hover={{ color: "#1C6DB6" }}
                     transition="color 0.2s ease"
                   >
@@ -308,23 +357,38 @@ export default function Footer() {
             </Stack>
 
             {/* Products */}
-            <Stack gap={3}>
+            <Stack
+              gap={3}
+              alignItems={{ base: "center", md: "center", lg: "flex-start" }}
+            >
               <Text
                 fontSize="1.1rem"
                 fontWeight="700"
                 lineHeight="2rem"
                 letterSpacing="0.4px"
                 color="#667085"
+                pb={2}
               >
                 Products
               </Text>
               {footerLinks.products.map((link) => (
-                <Link key={link.href} href={link.href}>
+                <Link
+                  key={link.href}
+                  href={link.href}
+                  target={
+                    (link as any).target === "blank" ? "_blank" : undefined
+                  }
+                  rel={
+                    (link as any).target === "blank"
+                      ? "noopener noreferrer"
+                      : undefined
+                  }
+                >
                   <Text
-                    fontSize="sm"
-                    fontWeight="400"
+                    fontSize="15px"
+                    fontWeight={400}
                     letterSpacing="0.2px"
-                    color="gray.600"
+                    color="#101828"
                     _hover={{ color: "#1C6DB6" }}
                     transition="color 0.2s ease"
                   >
@@ -335,24 +399,38 @@ export default function Footer() {
             </Stack>
 
             {/* Contact */}
-            <Stack gap={3}>
+            <Stack
+              gap={3}
+              alignItems={{ base: "center", md: "center", lg: "flex-start" }}
+            >
               <Text
                 fontSize="1.1rem"
                 fontWeight="700"
                 lineHeight="2rem"
                 letterSpacing="0.4px"
                 color="#667085"
+                pb={2}
               >
-                {" "}
                 Contact
               </Text>
               {footerLinks.contact.map((link) => (
-                <Link key={link.href} href={link.href}>
+                <Link
+                  key={link.href}
+                  href={link.href}
+                  target={
+                    (link as any).target === "blank" ? "_blank" : undefined
+                  }
+                  rel={
+                    (link as any).target === "blank"
+                      ? "noopener noreferrer"
+                      : undefined
+                  }
+                >
                   <Text
-                    fontSize="sm"
-                    fontWeight="400"
+                    fontSize="15px"
+                    fontWeight={400}
                     letterSpacing="0.2px"
-                    color="gray.600"
+                    color="#101828"
                     _hover={{ color: "#1C6DB6" }}
                     transition="color 0.2s ease"
                   >
@@ -366,7 +444,7 @@ export default function Footer() {
           {/* Bottom Bar */}
           <Flex
             direction={{ base: "column", md: "row" }}
-            justify="space-between"
+            justify={{ base: "center", md: "space-between" }}
             align="center"
             pt={8}
             borderTopWidth="0"

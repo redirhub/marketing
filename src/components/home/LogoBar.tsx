@@ -46,7 +46,7 @@ const LogoBar = () => {
     ],
   };
   return (
-    <Box py={{ base: 6, md: 16 }}>
+    <Box py={{ base: 6, md: 10, lg: 16 }}>
       <Slider {...settings}>
         {LOGOS.map((logo, index) => (
           <Box key={logo.id + "-" + index}>

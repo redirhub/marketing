@@ -16,7 +16,6 @@ interface FAQAccordionProps {
 export const FAQAccordion = ({ items }: FAQAccordionProps) => {
   return (
     <Box w="100%" maxW="6xl" mx="auto">
-      {/* Accordion */}
       <Accordion.Root defaultValue={[items[0].value]} collapsible>
         {items.map((item, index) => (
           <Box
@@ -35,18 +34,13 @@ export const FAQAccordion = ({ items }: FAQAccordionProps) => {
             <Accordion.Item value={item.value} border="none">
               <Accordion.ItemTrigger
                 p={6}
-                _hover={
-                  {
-                    // bg: "gray.50",
-                  }
-                }
                 transition="all 0.2s"
                 cursor="pointer"
               >
                 <Span
                   flex="1"
                   textAlign="left"
-                  fontSize={{ base: "1.1rem", md: "1.1rem" }}
+                  fontSize={{ base: "14px", md: "1.1rem" }}
                   fontWeight="semibold"
                   color="#1f2124"
                   pr={4}
@@ -78,7 +72,6 @@ export const FAQAccordion = ({ items }: FAQAccordionProps) => {
                       },
                     }}
                   >
-                    {/* Minus */}
                     <Box
                       display="flex"
                       alignItems="center"
@@ -93,7 +86,6 @@ export const FAQAccordion = ({ items }: FAQAccordionProps) => {
                       <MinusIcon boxSize={2} />
                     </Box>
 
-                    {/* Plus */}
                     <Box
                       display="flex"
                       alignItems="center"
@@ -113,7 +105,7 @@ export const FAQAccordion = ({ items }: FAQAccordionProps) => {
               <Accordion.ItemContent>
                 <Accordion.ItemBody pb={6} px={6}>
                   <Text
-                    fontSize={{ base: "15px", md: "15px" }}
+                    fontSize={{ base: "14px", md: "15px" }}
                     color="gray.600"
                     lineHeight="24px"
                     textAlign={"left"}

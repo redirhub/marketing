@@ -43,6 +43,7 @@ export default function Blogs() {
       <Box w="100%" maxW="7xl" mx="auto" textAlign="center">
         <Heading
           fontSize={{ base: "2rem", md: "3rem" }}
+          lineHeight={{ base: "2.5rem", md: "2.8rem" }}
           fontWeight={500}
           color="#344054"
           letterSpacing="0.4px"

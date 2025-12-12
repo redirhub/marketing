@@ -1,6 +1,5 @@
 "use client";
 
-import React from "react";
 import {
   Box,
   Container,
@@ -13,7 +12,6 @@ import {
 import Slider from "react-slick";
 import { ChevronLeftIcon, ChevronRightIcon } from "@chakra-ui/icons";
 import styles from "./Testimonials.module.css";
-import { FaQuoteRight } from "react-icons/fa";
 import { ImQuotesRight } from "react-icons/im";
 
 const testimonials = [
@@ -47,13 +45,13 @@ const testimonials = [
   },
 ];
 
-// Custom arrow components
 function CustomPrevArrow(props: any) {
   const { onClick } = props;
 
   return (
     <IconButton
       aria-label="Previous testimonial"
+      display={{ base: "none", md: "none", lg: "inline-flex" }}
       onClick={onClick}
       position="absolute"
       top="-80px"
@@ -77,6 +75,7 @@ function CustomNextArrow(props: any) {
 
   return (
     <IconButton
+      display={{ base: "none", md: "none", lg: "inline-flex" }}
       aria-label="Next testimonial"
       onClick={onClick}
       position="absolute"
@@ -111,15 +110,15 @@ export default function TestimonialsSlider() {
   };
   return (
     <Box
-      py={{ base: 16, md: 24 }}
+      py={{ base: 10, md: 14, lg: 24 }}
       position="relative"
       overflow="hidden"
-      borderRadius={{ base: "0", lg: "3xl" }}
-      my={{ base: 0, lg: 14 }}
+      borderRadius={{ base: "3xl", lg: "3xl" }}
+      my={{ base: 0, md: 8, lg: 14 }}
       maxW="7xl"
       mx="auto"
       borderRight={"32px"}
-      pl={"100px"}
+      pl={{ base: 0, md: "10px", lg: "100px" }}
       className={styles.container}
     >
       <Container
@@ -129,11 +128,11 @@ export default function TestimonialsSlider() {
       >
         <Heading
           as="h2"
-          fontSize={{ base: "2rem", md: "2.5rem", lg: "2.5rem" }}
+          fontSize={{ base: "1rem", md: "2.2rem", lg: "2.5rem" }}
           fontWeight={500}
           color="white"
-          mb={12}
-          textAlign="left"
+          mb={{ base: 4, md: 12 }}
+          textAlign={{ base: "center", md: "center", lg: "left" }}
         >
           Why Our Customers Love RedirHub
         </Heading>
@@ -150,7 +149,6 @@ export default function TestimonialsSlider() {
                   w="100%"
                   h="100%"
                 >
-                  {/* Quote Icon */}
                   <Box
                     as="span"
                     fontSize="6xl"
@@ -163,20 +161,22 @@ export default function TestimonialsSlider() {
                     <ImQuotesRight />
                   </Box>
 
-                  {/* Testimonial Text */}
                   <Text
-                    fontSize={{ base: "1.4rem", md: "1.4rem" }}
+                    fontSize={{ base: "1rem", md: "1.4rem" }}
                     fontWeight={400}
                     color="1.4rem"
                     textAlign={"left"}
-                    // lineHeight="2.7rem"
                     mb={8}
                   >
                     {testimonial.quote}
                   </Text>
 
-                  {/* Author Info */}
-                  <Flex align="center" gap={4}>
+                  <Flex
+                    gap={4}
+                    direction={{ base: "column", md: "row" }}
+                    align={{ base: "center", md: "center" }}
+                    justify={{ base: "center", md: "flex-start" }}
+                  >
                     <Avatar.Root
                       w={"90px"}
                       h="90px"
@@ -188,14 +188,18 @@ export default function TestimonialsSlider() {
                     </Avatar.Root>
                     <Box>
                       <Text
-                        fontSize="1.6rem"
+                        fontSize={{ base: "1rem", md: "1.6rem" }}
                         fontWeight="bold"
                         color="#333"
-                        textAlign={"left"}
+                        textAlign={{ base: "center", md: "left" }}
                       >
                         {testimonial.name}
                       </Text>
-                      <Text fontSize="1rem" color="#667085">
+                      <Text
+                        fontSize="1rem"
+                        color="#667085"
+                        textAlign={{ base: "center", md: "left" }}
+                      >
                         {testimonial.role}
                       </Text>
                     </Box>

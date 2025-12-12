@@ -31,20 +31,20 @@ export default function ChooseUsBox({
       borderColor="#222B271A"
       maxW={maxWidth}
       mx="auto"
-      mt={10}
+      mt={{ base: 4, md: 10 }}
     >
-      {/* Top Section */}
       <Flex
-        direction={{ base: "column", md: "row" }}
+        direction={{ base: "column", md: "column", lg: "row" }}
         justify="space-between"
-        align={{ base: "start", md: "center" }}
+        align={{ base: "start", md: "start", lg: "center" }}
         px={{ base: 4, md: 8 }}
         pt={{ base: 4, md: 8 }}
         pb={{ base: 1, md: 2 }}
+        wrap="wrap"
       >
-        <Box flex="1">
+        <Box flex="1" order={{ base: 1, md: 1 }}>
           <Heading
-            fontSize={{ base: "1.9rem", md: "1.9rem" }}
+            fontSize={{ base: "1rem", md: "1.2rem", lg: "1.9rem" }}
             fontWeight="600"
             color="#000"
             textAlign={"left"}
@@ -54,22 +54,30 @@ export default function ChooseUsBox({
         </Box>
 
         {buttonTitle && buttonLink && (
-          <Link href={buttonLink}>
-            <Button
-              mt={{ base: 4, md: 0 }}
-              variant="outline"
-              borderColor="gray.300"
-              p={"10px"}
-              borderRadius="md"
-              fontSize={"12px"}
-              color="#101828"
-              letterSpacing={"0.2px"}
-              bg="#fff"
-              _hover={{ bg: "#16538A00", color: "#1C6DB6" }}
-            >
-              {buttonTitle}
-            </Button>
-          </Link>
+          <Box
+            order={{ base: -1, md: -1, lg: 3 }}
+            w={{ base: "full", md: "auto" }}
+            mb={{ base: 3, md: 2, lg: 0 }}
+          >
+            <Link href={buttonLink}>
+              <Button
+                mt={{ base: 4, md: 2, lg: 0 }}
+                w={{ base: "full", md: "auto" }}
+                variant="outline"
+                borderColor="gray.300"
+                p={"10px"}
+                textAlign={"left"}
+                borderRadius="md"
+                fontSize={"12px"}
+                color="#101828"
+                letterSpacing={"0.2px"}
+                bg="#fff"
+                _hover={{ bg: "#16538A00", color: "#1C6DB6" }}
+              >
+                {buttonTitle}
+              </Button>
+            </Link>
+          </Box>
         )}
       </Flex>
 
@@ -79,6 +87,7 @@ export default function ChooseUsBox({
         align={{ base: "start", md: "center" }}
         mb={6}
         px={{ base: 4, md: 8 }}
+        order={{ base: 2, md: 2, lg: 2 }}
       >
         {subtitle && (
           <Text color="gray.600" mt={2} maxW="md" textAlign={"left"}>
@@ -86,7 +95,6 @@ export default function ChooseUsBox({
           </Text>
         )}
       </Flex>
-      {/* Image / Table Section */}
       <Box bg="white" borderRadius="lg" p={6}>
         <Image
           src={imageSrc}

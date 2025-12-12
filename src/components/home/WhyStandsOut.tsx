@@ -8,15 +8,11 @@ import {
   Box,
   Flex,
   Text,
-  Icon,
 } from "@chakra-ui/react";
 import Image from "next/image";
 import Link from "next/link";
 import { ArrowForwardIcon } from "@chakra-ui/icons";
-
-// Usage Example Component
 import { VStack } from "@chakra-ui/react";
-import { ReactNode } from "react";
 
 interface StatsCardProps {
   iconSrc: string;
@@ -76,24 +72,23 @@ export default function WhyStandsOut() {
   return (
     <Box
       w="100%"
-      py={{ base: 14, md: 20 }}
+      py={{ base: 10, md: 20 }}
       px={{ base: 4, md: 6 }}
       textAlign="center"
       bg={"#fff"}
     >
       <Box w="100%" maxW="7xl" mx="auto" textAlign="center">
-        {/* Main Title */}
         <Heading
-          fontSize={{ base: "2rem", md: "3rem" }}
+          fontSize={{ base: "1.6rem", md: "2rem", lg: "3rem" }}
           fontWeight={500}
           color="#344054"
           letterSpacing="0.4px"
-          mb={16}
+          mb={{ base: 8, md: 16 }}
         >
           Why RedirHub Stands Out
         </Heading>
 
-        <SimpleGrid columns={{ base: 1, md: 2 }} gap={6} mb={6}>
+        <SimpleGrid columns={{ base: 1, md: 1, lg: 2 }} gap={6} mb={6}>
           <Box
             bg={"#F2F4EF"}
             borderRadius="28px"
@@ -103,18 +98,29 @@ export default function WhyStandsOut() {
             textAlign="center"
             gap={6}
           >
-            <Image
-              src="/assets/images/stands-out/main.svg"
-              alt="Why RedirHub stands out"
-              width={100}
-              height={100}
-              style={{
-                width: "102px",
-                height: "102px",
-              }}
-            />
-            <Stack gap={4} textAlign="left" justify="center">
-              <Heading fontWeight={700} fontSize="3.2rem" color="#000">
+            <Box
+              display="flex"
+              justifyContent="center"
+              alignItems="center"
+              textAlign="center"
+              position="relative"
+              boxSize={{ base: "80px", md: "90px", lg: "102px" }}
+              flexShrink={0}
+            >
+              <Image
+                src="/assets/images/stands-out/main.svg"
+                alt="Why RedirHub stands out"
+                fill
+                sizes="(max-width: 480px) 80px, 102px"
+                style={{ objectFit: "contain" }}
+              />
+            </Box>
+            <Stack gap={{ base: 2, md: 4 }} textAlign="left" justify="center">
+              <Heading
+                fontWeight={{ base: 600, md: 600, lg: 700 }}
+                fontSize={{ base: "2rem", md: "2.2rem", lg: "3.2rem" }}
+                color="#000"
+              >
                 90ms
               </Heading>
               <Text color="#667085">Rapid redirect</Text>
@@ -125,10 +131,11 @@ export default function WhyStandsOut() {
 
               <ChakraLink
                 as={Link}
-                href="#"
-                fontSize="1.1rem"
+                href="https://findredirect.com/uptime"
+                target="_blank"
+                fontSize={{ base: "0.9rem", md: "1rem" }}
                 color="#1C6DB6"
-                fontWeight="600"
+                fontWeight={600}
                 display="inline-flex"
                 alignItems="center"
                 gap="6px"
@@ -172,9 +179,10 @@ export const StatsCard = ({
       bg="#F6F8F4"
       borderRadius="20px"
       p="20px"
-      align="center"
       gap="20px"
       w="100%"
+      align={{ base: "left", md: "center" }}
+      direction={{ base: "column", md: "row" }}
     >
       <Box
         w="70px"
@@ -200,12 +208,12 @@ export const StatsCard = ({
 
       <Box flex="0.7">
         <Text
-          fontSize="1.7rem"
-          fontWeight="700"
           color="#000"
           lineHeight="1"
           mb="2px"
           textAlign={"left"}
+          fontWeight={{ base: 600, md: 700 }}
+          fontSize={{ base: "1.7rem", md: "1.7rem", lg: "1.7rem" }}
         >
           {value}
         </Text>
@@ -220,7 +228,11 @@ export const StatsCard = ({
         </Text>
       </Box>
 
-      <Box flex="2.4" pl="10px">
+      <Box
+        flex={{ base: "none", md: "2.4" }}
+        w="full"
+        pl={{ base: "0", md: "10px" }}
+      >
         <Text
           fontSize="1.1rem"
           color="#667085"

@@ -1,4 +1,3 @@
-// BlogCard.tsx
 import { Box, Image, Text, Flex, Tag, Button, Heading } from "@chakra-ui/react";
 import { ArrowForwardIcon } from "@chakra-ui/icons";
 
@@ -68,21 +67,19 @@ export const BlogCard = ({
           </Text>
         </Flex>
 
-        {/* Title */}
         <Heading
           as="h3"
-          fontSize={{ base: "1.4rem", md: "1.4rem" }}
+          fontSize={{ base: "1rem", md: "1.2rem", lg: "1.2rem" }}
           fontWeight="700"
           color="gray.800"
           mb={0}
-          lineHeight="2.3rem"
+          lineHeight={{ base: "1.5rem", md: "1.8rem" }}
           flex={1}
           textAlign={"left"}
         >
           {title}
         </Heading>
 
-        {/* Read More Button */}
         <Button
           as="a"
           variant="ghost"
@@ -97,6 +94,7 @@ export const BlogCard = ({
             color: "#667085",
             bg: "transparent",
           }}
+          fontSize={{ base: "12px", md: "1rem" }}
         >
           Read More <ArrowForwardIcon />
         </Button>

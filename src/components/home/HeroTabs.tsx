@@ -17,11 +17,18 @@ import {
   InputProps,
 } from "@chakra-ui/react";
 import { FormControl, FormLabel } from "@chakra-ui/form-control";
-import { SearchIcon } from "@chakra-ui/icons";
 import { FaExpandArrowsAlt } from "react-icons/fa";
 import { FaLink } from "react-icons/fa6";
 import { IoIosSearch } from "react-icons/io";
 import { IconType } from "react-icons";
+import { useState } from "react";
+import {
+  ApiResponse,
+  checkRedirect,
+  createRedirect,
+  shortenUrl,
+  ShortenUrlParams,
+} from "@/app/api/redirhub";
 
 interface CustomTabTriggerProps {
   value: string;
@@ -49,8 +56,8 @@ const CustomTabTrigger: React.FC<CustomTabTriggerProps> = ({
   return (
     <Tabs.Trigger
       value={value}
-      flex={1}
-      px={4}
+      flex={{ base: 1, md: "inherit" }}
+      px={{ base: 1, md: 4 }}
       py={3}
       borderRadius="full"
       color="#344054"
@@ -65,9 +72,9 @@ const CustomTabTrigger: React.FC<CustomTabTriggerProps> = ({
         "& svg": { color: "#E49426" },
       }}
     >
-      <HStack gap={3} justify="center">
-        <Icon as={icon} boxSize={4} color="currentColor" />
-        <Text fontSize="sm" fontWeight="400">
+      <HStack gap={{ base: 1, md: 3 }} justify="center">
+        <Icon as={icon} boxSize={{ base: 3, md: 4 }} color="currentColor" />
+        <Text fontSize={{ base: "12px", md: "14px" }} fontWeight="400">
           {label}
         </Text>
       </HStack>
@@ -183,21 +190,126 @@ const PrimaryActionButton: React.FC<PrimaryActionButtonProps> = ({
   );
 };
 export default function HeroTabs() {
+  //  STATE FOR FORM INPUTS & API FEEDBACK
+  const [redirectFrom, setRedirectFrom] = useState("");
+  const [redirectTo, setRedirectTo] = useState("");
+  const [shortenDomain, setShortenDomain] =
+    useState<ShortenUrlParams["domain"]>("system");
+  const [shortenUrlValue, setShortenUrlValue] = useState("");
+  const [checkerUrl, setCheckerUrl] = useState("");
+
+  const [apiStatus, setApiStatus] = useState<string>("");
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [value, setValue] = useState<string | null>("tab1");
+
   const frameworks = createListCollection({
     items: [
       { label: "6x.work", value: "system" },
       { label: "Connect your domain", value: "Custom" },
     ],
   });
+
+  const handleApiResponse = (response: ApiResponse, targetUrl?: string) => {
+    setIsLoading(false);
+
+    if (response.success) {
+      const msg = response.data?.message || response.data?.data?.message || "";
+      let redirectUrl = response.data?.data?.data?.redirect_url;
+
+      if (redirectUrl) {
+        let finalUrl = "https://findredirect.com/";
+
+        if (
+          redirectUrl.startsWith("http://") ||
+          redirectUrl.startsWith("https://")
+        ) {
+          finalUrl = redirectUrl;
+        } else {
+          finalUrl += `?url=${redirectUrl}`;
+        }
+
+        if (targetUrl && !finalUrl.includes(encodeURIComponent(targetUrl))) {
+          finalUrl += finalUrl.includes("?") ? "&" : "?";
+          finalUrl += `target=${encodeURIComponent(targetUrl)}`;
+        }
+
+        window.location.href = finalUrl;
+        return;
+      }
+
+      setApiStatus(msg || "Success!");
+      clearInputs();
+      return;
+    } else {
+      let errorMessage =
+        response.error || response.message || "Unknown API Error";
+
+      try {
+        const jsonMatch = errorMessage.match(/HTTP Error \d+:\s*(\{.*\})/);
+        if (jsonMatch && jsonMatch[1]) {
+          const errorData = JSON.parse(jsonMatch[1]);
+          errorMessage = errorData.message || errorMessage;
+        }
+      } catch (e) {
+        // If parsing fails, use the original error message
+        console.error("Error parsing error message:", e);
+      }
+      setApiStatus(errorMessage);
+    }
+  };
+  const handleRedirectSubmit = async () => {
+    if (!redirectFrom || !redirectTo)
+      return setApiStatus("Please fill both Redirect URL fields.");
+    setIsLoading(true);
+    const response = await createRedirect({
+      from: redirectFrom,
+      to: redirectTo,
+    });
+    handleApiResponse(response);
+  };
+
+  const handleShortenSubmit = async () => {
+    if (!shortenUrlValue) return setApiStatus("Please enter the Long URL.");
+    setIsLoading(true);
+    const response = await shortenUrl({
+      domain: shortenDomain,
+      url: shortenUrlValue,
+    });
+    handleApiResponse(response);
+  };
+
+  const handleCheckerSubmit = async () => {
+    if (!checkerUrl) return setApiStatus("Please enter the URL to check.");
+    setIsLoading(true);
+    const response = await checkRedirect({ checkUrl: checkerUrl });
+    handleApiResponse(response, "https://findredirect.com/");
+  };
+
+  const clearInputs = () => {
+    setRedirectFrom("");
+    setRedirectTo("");
+    setShortenDomain("system");
+    setShortenUrlValue("");
+    setCheckerUrl("");
+  };
   return (
     <Box w="100%" maxW="6xl" mx="auto">
-      <Tabs.Root defaultValue="tab1" variant="enclosed">
+      <Tabs.Root
+        defaultValue="tab1"
+        variant="enclosed"
+        value={value}
+        onValueChange={(e) => {
+          setValue(e.value);
+          setApiStatus("");
+          clearInputs();
+        }}
+      >
         <Tabs.List
-          w="40%"
+          w={{ base: "full", md: "fit-content" }}
           fontSize={{ base: "md", md: "lg" }}
-          gap={"10px"}
+          gap={{ base: "5px", md: "10px" }}
           bg="#FFFFFF61"
-          p={"5px"}
+          p={{ base: "3px", md: "5px" }}
           borderRadius="full"
           mb={1}
         >
@@ -216,7 +328,7 @@ export default function HeroTabs() {
             description="No Credit Card Needed. Change destination at anytime."
           >
             <SimpleGrid
-              columns={{ base: 1, md: 5 }} // total 100% split into 5 parts
+              columns={{ base: 1, md: 5 }}
               gap={3}
               w="100%"
               gridTemplateColumns={{ base: "1fr", md: "2fr 2fr 1fr" }} // 40% 40% 20%
@@ -224,13 +336,26 @@ export default function HeroTabs() {
               <CustomInput
                 label="Destination URL"
                 placeholder="www.olddomain.com"
+                value={redirectTo}
+                onChange={(e) => setRedirectTo(e.target.value)}
               />
               <CustomInput
                 label="Custom slug"
                 placeholder="https://www.newdomain.com"
+                value={redirectFrom}
+                onChange={(e) => setRedirectFrom(e.target.value)}
               />
-              <PrimaryActionButton label="Redirect for free" />
+              <PrimaryActionButton
+                label={isLoading ? "Processing..." : "Redirect for free"}
+                onClick={handleRedirectSubmit}
+                disabled={isLoading}
+              />
             </SimpleGrid>
+            {apiStatus && (
+              <Text fontSize="sm" color={"#333"} textAlign={"left"}>
+                {apiStatus}
+              </Text>
+            )}
           </TabContentWrapper>
         </Tabs.Content>
 
@@ -255,7 +380,18 @@ export default function HeroTabs() {
                 >
                   Long URL
                 </FormLabel>
-                <Select.Root collection={frameworks} size="sm" width="100%">
+                <Select.Root
+                  collection={frameworks}
+                  multiple={false}
+                  value={[shortenDomain]}
+                  onValueChange={(details) => {
+                    const next = Array.isArray(details.value)
+                      ? details.value[0]
+                      : details.value;
+
+                    setShortenDomain(next as ShortenUrlParams["domain"]);
+                  }}
+                >
                   <Select.HiddenSelect />
 
                   <Select.Control
@@ -315,11 +451,22 @@ export default function HeroTabs() {
               </FormControl>
 
               <CustomInput
-                label=" Destination URL"
-                placeholder="www.olddomain.com"
+                label="Long URL"
+                placeholder="https://www.yourlongurl.com"
+                value={shortenUrlValue}
+                onChange={(e) => setShortenUrlValue(e.target.value)}
               />
-              <PrimaryActionButton label="Shorten URL" />
+              <PrimaryActionButton
+                label={isLoading ? "Processing..." : "Shorten URL"}
+                onClick={handleShortenSubmit}
+                disabled={isLoading}
+              />
             </SimpleGrid>
+            {apiStatus && (
+              <Text fontSize="sm" color={"#333"} textAlign={"left"}>
+                {apiStatus}
+              </Text>
+            )}
           </TabContentWrapper>
         </Tabs.Content>
 
@@ -334,9 +481,23 @@ export default function HeroTabs() {
               w="100%"
               gridTemplateColumns={{ base: "1fr", md: "3fr  1fr" }}
             >
-              <CustomInput label="URL" placeholder="https://redirhub.com" />
-              <PrimaryActionButton label="Check Redirect" />
+              <CustomInput
+                label="URL"
+                placeholder="https://redirhub.com"
+                value={checkerUrl}
+                onChange={(e) => setCheckerUrl(e.target.value)}
+              />
+              <PrimaryActionButton
+                label={isLoading ? "Checking..." : "Check Redirect"}
+                onClick={handleCheckerSubmit}
+                disabled={isLoading}
+              />
             </SimpleGrid>
+            {apiStatus && (
+              <Text fontSize="sm" color={"#333"} textAlign={"left"}>
+                {apiStatus}
+              </Text>
+            )}
           </TabContentWrapper>
         </Tabs.Content>
       </Tabs.Root>

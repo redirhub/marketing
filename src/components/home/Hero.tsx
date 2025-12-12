@@ -12,36 +12,42 @@ export default function Hero() {
 
   return (
     <Box pt={20} className={styles.heroContainer}>
-      <Container maxW="7xl" mx="auto">
+      <Container maxW="7xl" mx="auto" px={{ base: 2, md: 2, lg: 0 }}>
         <Flex direction="column" align="center" textAlign="center" gap={8}>
-          {/* Main Heading */}
           <Box>
             <Heading
               as="h1"
               fontSize={{
-                base: "4xl",
-                md: "5xl",
+                base: "2rem",
+                md: "2.5rem",
                 lg: "3.2rem",
               }}
               fontWeight="600"
               lineHeight="tight"
               maxW="4xl"
               color="#fff"
+              mb={{ base: 4, md: 0 }}
             >
               {t(`home.hero.title`, "Your domains.")}
             </Heading>
-            <Heading
-              as="h1"
-              fontSize={{ base: "4xl", md: "5xl", lg: "4rem" }}
-              fontWeight="bold"
-              lineHeight="tight"
-              maxW="5xl"
-              mt={-2}
-              color="#fff"
-              className={styles.globallyText}
-            >
-              {t(`home.hero.title2`, "Globally redirected. Instantly.")}
-            </Heading>
+            <Box>
+              <Heading
+                as="h1"
+                fontSize={{ base: "2rem", md: "2rem", lg: "4rem" }}
+                fontWeight="bold"
+                lineHeight="tight"
+                maxW="5xl"
+                mt={-2}
+                color="#fff"
+              >
+                <Text as="span" className={styles.globallyText}>
+                  {t(`home.hero.underLineText`, "Globally")}{" "}
+                </Text>
+                <Text as="span">
+                  {t(`home.hero.title2`, "redirected. Instantly.")}
+                </Text>
+              </Heading>
+            </Box>
           </Box>
           {/* Subheading */}
           <Text fontSize={{ base: "lg", md: "xl" }} color="#fff" maxW="4xl">

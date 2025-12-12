@@ -25,7 +25,8 @@
   "home": {
     "hero": {
       "title": "Your domains.",
-      "title2": "Globally redirected. Instantly.",
+      "title2": "redirected. Instantly.",
+      "underLineText": "Globally",
       "subtitle": "Forward your domains instantly and manage all redirects from a real-time dashboard. Enhance your SEO with 301/302 redirects and secure every link with HTTPS.",
       "cta": "Create redirects for free",
       "ctaSecondary": "Learn More"
