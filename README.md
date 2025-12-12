@@ -1,6 +1,6 @@
 # RedirHub Marketing Site
 
-Modern Next.js 16 marketing website for RedirHub with Chakra UI v3 and HTTP backend translations.
+Modern Next.js 16 marketing website for RedirHub with Chakra UI v3 and HTTP backend translations. 
 
 ## 🚀 Tech Stack
 
