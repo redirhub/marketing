@@ -217,28 +217,11 @@ export default function HeroTabs() {
       let redirectUrl = response.data?.data?.data?.redirect_url;
 
       if (redirectUrl) {
-        let finalUrl = "https://findredirect.com/";
-
-        if (
-          redirectUrl.startsWith("http://") ||
-          redirectUrl.startsWith("https://")
-        ) {
-          finalUrl = redirectUrl;
-        } else {
-          finalUrl += `?url=${redirectUrl}`;
-        }
-
-        if (targetUrl && !finalUrl.includes(encodeURIComponent(targetUrl))) {
-          finalUrl += finalUrl.includes("?") ? "&" : "?";
-          finalUrl += `target=${encodeURIComponent(targetUrl)}`;
-        }
-
-        window.location.href = finalUrl;
+        window.location.href = redirectUrl;
         return;
       }
 
       setApiStatus(msg || "Success!");
-      clearInputs();
       return;
     } else {
       let errorMessage =
@@ -277,12 +260,15 @@ export default function HeroTabs() {
     });
     handleApiResponse(response);
   };
-
   const handleCheckerSubmit = async () => {
     if (!checkerUrl) return setApiStatus("Please enter the URL to check.");
-    setIsLoading(true);
-    const response = await checkRedirect({ checkUrl: checkerUrl });
-    handleApiResponse(response, "https://findredirect.com/");
+    const formattedUrl = checkerUrl.startsWith("http://") || checkerUrl.startsWith("https://")
+      ? checkerUrl
+      : `https://${checkerUrl}`;
+    
+    window.location.href = `https://findredirect.com/?url=${encodeURIComponent(
+      formattedUrl
+    )}`;
   };
 
   const clearInputs = () => {
@@ -301,7 +287,6 @@ export default function HeroTabs() {
         onValueChange={(e) => {
           setValue(e.value);
           setApiStatus("");
-          clearInputs();
         }}
       >
         <Tabs.List
@@ -334,16 +319,16 @@ export default function HeroTabs() {
               gridTemplateColumns={{ base: "1fr", md: "2fr 2fr 1fr" }} // 40% 40% 20%
             >
               <CustomInput
-                label="Destination URL"
+                label="Redirect from"
                 placeholder="www.olddomain.com"
-                value={redirectTo}
-                onChange={(e) => setRedirectTo(e.target.value)}
-              />
-              <CustomInput
-                label="Custom slug"
-                placeholder="https://www.newdomain.com"
                 value={redirectFrom}
                 onChange={(e) => setRedirectFrom(e.target.value)}
+              />
+              <CustomInput
+                label="To"
+                placeholder="https://www.newdomain.com"
+                value={redirectTo}
+                onChange={(e) => setRedirectTo(e.target.value)}
               />
               <PrimaryActionButton
                 label={isLoading ? "Processing..." : "Redirect for free"}
@@ -378,7 +363,7 @@ export default function HeroTabs() {
                   letterSpacing={"0.2px"}
                   color="#333"
                 >
-                  Long URL
+                  Domain
                 </FormLabel>
                 <Select.Root
                   collection={frameworks}
