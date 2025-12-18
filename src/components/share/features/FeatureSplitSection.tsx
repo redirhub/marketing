@@ -30,10 +30,10 @@ const FeatureListItem: React.FC<FeatureListItemProps> = ({
       <PiCheckCircleFill />
     </Box>
     <Box textAlign="left">
-      <Text as="span" fontSize="sm" fontWeight="700" color="#101828">
+      <Text as="span" fontSize="sm" fontWeight="700" color="#222B27">
         {heading}
-      </Text>
-      <Text as="span" fontSize="sm" color="#667085" display="inline">
+      </Text>{" "}
+      <Text as="span" fontSize="1rem" color="#222B27" display="inline">
         {description}
       </Text>
     </Box>
@@ -205,24 +205,26 @@ export default function FeatureSplitSection({
               order={{ base: -1, lg: imageOrder }}
               mr={!reverseOrder ? { base: 0, lg: "-32px" } : 0}
             >
-              <Box
+              {/* <Box
                 w="100%"
                 h={{ base: "300px", md: "483px" }}
                 position="relative"
                 borderRadius="8px"
                 overflow="hidden"
-              >
-                <Image
-                  src={imageSrc}
-                  alt={imageAlt}
-                  // width={620}
-                  fill
-                  // height={420}
-                  style={{
-                    objectFit: "cover",
-                  }}
-                />
-              </Box>
+              > */}
+              <Image
+                src={imageSrc}
+                alt={imageAlt}
+                width={620}
+                // fill
+                height={420}
+                style={{
+                  // objectFit: "cover",
+                  width: "100%",
+                  height: "100%",
+                }}
+              />
+              {/* </Box> */}
             </Box>
           </SimpleGrid>
         </Box>

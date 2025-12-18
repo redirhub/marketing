@@ -49,7 +49,7 @@ export default async function PricingPage() {
 
   const URLPathCustomization = [
     {
-      heading: "Quick Setup:",
+      heading: "Forwarded Options:",
       description:
         "Choose which parts of the URL to forward to the destination, including path forwarding (a.com/one/two → b.com/one/two) and query forwarding (a.com/?one=two → b.com/?one=two).",
     },

@@ -88,7 +88,7 @@ export default function Header() {
       items: [
         {
           href: getLocalePath("/create-redirects"),
-          label: t(`nav.features.redirects`, "Create redirects"),
+          label: t(`nav.features.create-redirects`, "Create redirects"),
         },
         {
           href: getLocalePath("/manage-redirects"),
