@@ -27,8 +27,8 @@ import {
   CustomInput,
   CustomTabTrigger,
   PrimaryActionButton,
-  TabContentWrapper,
 } from "../home/HeroTabs";
+import { TabContentWrapper } from "../home/TabContentWrapper";
 
 export default function FooterTabs() {
   const [redirectFrom, setRedirectFrom] = useState("");
