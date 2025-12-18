@@ -94,7 +94,6 @@ export default function APIDocumentation() {
       bg={"#fff"}
     >
       <Box w="100%" maxW="7xl" mx="auto" textAlign="center">
-        {/* Main Title */}
         <Heading
           fontSize={{ base: "1.4rem", md: "2rem", lg: "3rem" }}
           lineHeight={{ base: "1.4rem", md: "3rem" }}

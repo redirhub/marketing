@@ -1,7 +1,8 @@
 import { Metadata } from "next";
-import { Box, Container, Heading, Text } from "@chakra-ui/react";
 import initTranslations from "@/lib/i18n";
 import { getAppName } from "@/lib/utils/constants";
+import BlogList from "@/components/blogs/BlogList";
+import BlogBanner from "@/components/share/banners/blog/BlogBanner";
 
 export async function generateMetadata({
   params,
@@ -26,15 +27,9 @@ export async function generateMetadata({
 
 export default async function PricingPage() {
   return (
-    <Box py={20}>
-      <Container maxW="7xl" mx="auto">
-        <Heading as="h1" size="2xl" mb={4}>
-          Blog
-        </Heading>
-        <Text fontSize="xl" color="gray.600">
-          Coming soon...
-        </Text>
-      </Container>
-    </Box>
+    <>
+      <BlogBanner />
+      <BlogList />
+    </>
   );
 }

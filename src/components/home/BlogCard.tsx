@@ -1,5 +1,6 @@
-import { Box, Image, Text, Flex, Tag, Button, Heading } from "@chakra-ui/react";
+import { Box, Image, Text, Flex, Button, Heading } from "@chakra-ui/react";
 import { ArrowForwardIcon } from "@chakra-ui/icons";
+import NextLink from "next/link";
 
 interface BlogCardProps {
   imageSrc: string;
@@ -8,6 +9,7 @@ interface BlogCardProps {
   date: string;
   title: string;
   link?: string;
+  isBlogPage?: boolean;
 }
 
 export const BlogCard = ({
@@ -17,17 +19,18 @@ export const BlogCard = ({
   date,
   title,
   link = "#",
+  isBlogPage = false,
 }: BlogCardProps) => {
   return (
     <Box
       p={4}
       bg="white"
-      borderRadius="24px"
+      borderRadius={isBlogPage ? "12px" : "24px"}
       overflow="hidden"
-      boxShadow="md"
+      boxShadow={isBlogPage ? "none" : "md"}
       transition="all 0.3s"
-      border="4px solid"
-      borderColor="#EAECF0"
+      border={isBlogPage ? "1px solid" : "4px solid"}
+      borderColor={isBlogPage ? "#222B271A" : "#EAECF0"}
       h="100%"
       display="flex"
       flexDirection="column"
@@ -50,7 +53,6 @@ export const BlogCard = ({
         />
       </Box>
 
-      {/* Content */}
       <Box flex={1} display="flex" flexDirection="column">
         <Flex gap={2} mb={3} align="center" justifyContent={"space-between"}>
           <Box
@@ -67,37 +69,42 @@ export const BlogCard = ({
           </Text>
         </Flex>
 
-        <Heading
-          as="h3"
-          fontSize={{ base: "1rem", md: "1.2rem", lg: "1.2rem" }}
-          fontWeight="700"
-          color="gray.800"
-          mb={0}
-          lineHeight={{ base: "1.5rem", md: "1.8rem" }}
-          flex={1}
-          textAlign={"left"}
-        >
-          {title}
-        </Heading>
+        <NextLink href={link} passHref>
+          <Heading
+            as="h3"
+            fontSize={{ base: "1rem", md: "1.2rem", lg: "1.2rem" }}
+            fontWeight="700"
+            color="gray.800"
+            mb={0}
+            lineHeight={{ base: "1.5rem", md: "1.8rem" }}
+            flex={1}
+            textAlign={"left"}
+          >
+            {title}
+          </Heading>
+        </NextLink>
 
-        <Button
-          as="a"
-          variant="ghost"
-          colorScheme="teal"
-          justifyContent="flex-start"
-          px={0}
-          gap={1}
-          fontWeight="semibold"
-          color="#1C6DB6"
-          _hover={{
-            textDecoration: "none",
-            color: "#667085",
-            bg: "transparent",
-          }}
-          fontSize={{ base: "12px", md: "1rem" }}
-        >
-          Read More <ArrowForwardIcon />
-        </Button>
+        <NextLink href={link} passHref>
+          <Button
+            as="button"
+            variant="ghost"
+            colorScheme="teal"
+            justifyContent="flex-start"
+            px={0}
+            gap={1}
+            fontWeight="semibold"
+            color="#1C6DB6"
+            _hover={{
+              textDecoration: "none",
+              color: "#667085",
+              bg: "transparent",
+            }}
+            fontSize={{ base: "12px", md: "1rem" }}
+          >
+            Read More
+            <ArrowForwardIcon />
+          </Button>
+        </NextLink>
       </Box>
     </Box>
   );

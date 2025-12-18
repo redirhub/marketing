@@ -53,7 +53,7 @@ function FeaturesDropdown({
               <Link href={subItem.href}>
                 <Box
                   fontSize="sm"
-                  color="gray.100"
+                  color="#000"
                   _hover={{ color: "primary.600" }}
                   py={2}
                   px={3}
@@ -87,26 +87,54 @@ export default function Header() {
       label: t(`nav.features`, "Features"),
       items: [
         {
-          href: getLocalePath("/features/redirects"),
-          label: t(`nav.features.redirects`, "Domain Redirects"),
+          href: getLocalePath("/create-redirects"),
+          label: t(`nav.features.redirects`, "Create redirects"),
         },
         {
-          href: getLocalePath("/features/analytics"),
-          label: t(`nav.features.analytics`, "Analytics"),
+          href: getLocalePath("/manage-redirects"),
+          label: t(`nav.features.manage-redirects`, "Manage Redirects"),
         },
         {
-          href: getLocalePath("/features/custom-domains"),
-          label: t(`nav.features.customDomains`, "Custom Domains"),
+          href: getLocalePath("/analyze-redirects"),
+          label: t(`nav.features.analyze-redirects`, "Analyze Redirects"),
         },
         {
-          href: getLocalePath("/features/api"),
-          label: t(`nav.features.api`, "API Access"),
+          href: getLocalePath("/team-management"),
+          label: t(`nav.features.team-management`, "Team Management"),
+        },
+        {
+          href: getLocalePath("/global-scale"),
+          label: t(`nav.features.global-scale`, "Global Scale"),
+        },
+        {
+          href: getLocalePath("/security"),
+          label: t(`nav.features.security-privacy`, "Security & Privacy"),
         },
       ],
     },
     {
-      href: getLocalePath("/solutions"),
       label: t(`nav.solutions`, "Solutions"),
+      items: [
+        {
+          href: getLocalePath("/website-migrations"),
+          label: t(`nav.features.website-migrations`, "Website Migrations"),
+        },
+        {
+          href: getLocalePath("/marketing-campaigns"),
+          label: t(`nav.features.marketing-campaigns`, "Marketing Campaigns"),
+        },
+        {
+          href: getLocalePath("/domain-parking"),
+          label: t(`nav.features.domain-parking`, "Domain Parking"),
+        },
+        {
+          href: getLocalePath("/scalable-enterprise-solutions"),
+          label: t(
+            `nav.features.scalable-enterprise-solutions`,
+            "Scalable Enterprise Solutions"
+          ),
+        },
+      ],
     },
     { href: getLocalePath("/pricing"), label: t(`nav.pricing`, "Pricing") },
     { href: getLocalePath("/support"), label: t(`nav.support`, "Support") },

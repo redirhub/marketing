@@ -39,7 +39,11 @@ export default async function RootLayout({
 
   const headersList = await headers();
   const pathname = headersList.get("x-pathname") || "";
-  const hideHeaderFooter = pathname.includes("/rate");
+  const hideHeaderAndFooter = pathname.includes("/rate");
+
+  const hideHeaderOnly = pathname.includes("/blog");
+
+  const shouldHideHeader = hideHeaderAndFooter || hideHeaderOnly;
 
   return (
     <html lang={locale} suppressHydrationWarning className={inter.variable}>
@@ -52,11 +56,11 @@ export default async function RootLayout({
             namespaces={i18nNamespaces}
             resources={resources}
           >
-            {!hideHeaderFooter && <Header />}
+            {!shouldHideHeader && <Header />}
             <main style={{ flex: 1, display: "flex", flexDirection: "column" }}>
               {children}
             </main>
-            {!hideHeaderFooter && <Footer />}
+            {!hideHeaderAndFooter && <Footer />}
           </TranslationsProvider>
         </Provider>
       </body>

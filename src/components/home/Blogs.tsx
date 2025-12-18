@@ -1,36 +1,46 @@
 "use client";
 
-import { Box, Heading, SimpleGrid } from "@chakra-ui/react";
+import { Box, Center, Heading, SimpleGrid, Spinner } from "@chakra-ui/react";
 import { BlogCard } from "./BlogCard";
-import FAQSection from "./FAQSection";
+import { useEffect, useState } from "react";
+import { BlogPost } from "@/app/api/blogs/route";
 
 export default function Blogs() {
-  const blogPosts = [
-    {
-      imageSrc: "/assets/images/blog.jpeg",
-      imageAlt: "Blog post 1",
-      category: "Technology",
-      date: "3 mins read",
-      title: "How to Build Scalable Web Applications with Modern Tools",
-      link: "/blog/scalable-web-apps",
-    },
-    {
-      imageSrc: "/assets/images/blog.jpeg",
-      imageAlt: "Blog post 2",
-      category: "Design",
-      date: "3 mins read",
-      title: "10 UI/UX Design Principles Every Developer Should Know",
-      link: "/blog/ui-ux-principles",
-    },
-    {
-      imageSrc: "/assets/images/blog.jpeg",
-      imageAlt: "Blog post 3",
-      category: "Development",
-      date: "3 mins read",
-      title: "Getting Started with Next.js 14: A Complete Guide",
-      link: "/blog/nextjs-guide",
-    },
-  ];
+  const [posts, setPosts] = useState<BlogPost[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    async function fetchBlogPosts() {
+      try {
+        const response = await fetch("/api/blogs");
+
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+
+        const data: BlogPost[] = await response.json();
+        setPosts(data);
+      } catch (e) {
+        console.error("Failed to fetch blog posts:", e);
+        setError("Failed to load blog posts. Please try again.");
+      } finally {
+        setIsLoading(false);
+      }
+    }
+
+    fetchBlogPosts();
+  }, []);
+
+  if (isLoading) {
+    return (
+      <Center py={20}>
+        <Spinner size="xl" color="orange.500" />
+      </Center>
+    );
+  }
+
+  const postsToShow = posts.slice(0, 3);
 
   return (
     <Box
@@ -56,7 +66,7 @@ export default function Blogs() {
           columns={{ base: 1, md: 2, lg: 3 }}
           gap={{ base: 6, md: 8 }}
         >
-          {blogPosts.map((post, index) => (
+          {postsToShow.slice(0, 3).map((post, index) => (
             <BlogCard
               key={index}
               imageSrc={post.imageSrc}
@@ -68,19 +78,6 @@ export default function Blogs() {
             />
           ))}
         </SimpleGrid>
-
-        <Heading
-          fontSize={{ base: "2rem", md: "3rem" }}
-          fontWeight={500}
-          color="#344054"
-          letterSpacing="0.4px"
-          mt={24}
-          mb={16}
-        >
-          Frequently asked questions
-        </Heading>
-
-        <FAQSection />
       </Box>
     </Box>
   );

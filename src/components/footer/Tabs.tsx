@@ -3,18 +3,12 @@
 import {
   Tabs,
   Box,
-  Heading,
   Text,
-  HStack,
-  Icon,
   SimpleGrid,
-  Input,
-  Button,
-  Stack,
   Portal,
   Select,
   createListCollection,
-  InputProps,
+  Heading,
 } from "@chakra-ui/react";
 import { FormControl, FormLabel } from "@chakra-ui/form-control";
 import { FaExpandArrowsAlt } from "react-icons/fa";
@@ -29,168 +23,14 @@ import {
   shortenUrl,
   ShortenUrlParams,
 } from "@/app/api/redirhub";
+import {
+  CustomInput,
+  CustomTabTrigger,
+  PrimaryActionButton,
+  TabContentWrapper,
+} from "../home/HeroTabs";
 
-interface CustomTabTriggerProps {
-  value: string;
-  icon: IconType;
-  label: string;
-}
-interface TabContentWrapperProps {
-  title: string;
-  description: string;
-  children: React.ReactNode;
-}
-interface CustomInputProps extends InputProps {
-  label: string;
-  placeholder?: string;
-}
-interface PrimaryActionButtonProps extends React.ComponentProps<typeof Button> {
-  label: string;
-}
-
-export const CustomTabTrigger: React.FC<CustomTabTriggerProps> = ({
-  value,
-  icon,
-  label,
-}) => {
-  return (
-    <Tabs.Trigger
-      value={value}
-      flex={{ base: 1, md: "inherit" }}
-      px={{ base: 1, md: 4 }}
-      py={3}
-      borderRadius="full"
-      color="#344054"
-      transition="all 0.3s ease"
-      _hover={{
-        bg: "rgba(255, 255, 255, 0.5)",
-      }}
-      _selected={{
-        bg: "white",
-        color: "#344054",
-        fontWeight: "semibold",
-        "& svg": { color: "#E49426" },
-      }}
-    >
-      <HStack gap={{ base: 1, md: 3 }} justify="center">
-        <Icon as={icon} boxSize={{ base: 3, md: 4 }} color="currentColor" />
-        <Text fontSize={{ base: "12px", md: "14px" }} fontWeight="400">
-          {label}
-        </Text>
-      </HStack>
-    </Tabs.Trigger>
-  );
-};
-
-export const TabContentWrapper: React.FC<TabContentWrapperProps> = ({
-  title,
-  description,
-  children,
-}) => {
-  return (
-    <Box
-      w="80%"
-      maxW="4xl"
-      mx="auto"
-      p={6}
-      mt={4}
-      bg="white"
-      borderRadius="24px"
-      border="1px solid #222B271A"
-      boxShadow="0px 51px 44px -25px rgba(0, 0, 0, 0.17)"
-      display="flex"
-      flexDirection="column"
-      flexGrow={1}
-      alignSelf="stretch"
-      flexWrap={{ base: "wrap", md: "nowrap" }}
-    >
-      <Stack gap={4}>
-        <Box textAlign="left">
-          <Heading
-            fontSize="1.5rem"
-            textAlign="left"
-            fontWeight="600"
-            letterSpacing="0.4px"
-            color="#333"
-          >
-            {title}
-          </Heading>
-          <Text color="#667085" fontSize="1rem" mt={1}>
-            {description}
-          </Text>
-        </Box>
-        {children}
-      </Stack>
-    </Box>
-  );
-};
-
-export const CustomInput: React.FC<CustomInputProps> = ({
-  label,
-  placeholder,
-  ...rest
-}) => {
-  const inputStyles = {
-    bg: "#ffffff",
-    border: "1px solid",
-    borderColor: "#D0D5DD",
-    borderRadius: "12px",
-    h: "47px",
-    px: 3,
-    fontSize: "sm",
-    _placeholder: {
-      color: "gray.400",
-      opacity: 1,
-    },
-    _focus: {
-      borderColor: "blue.500",
-      boxShadow: "0 0 0 1px #3182ce",
-    },
-  };
-  const labelStyles = {
-    fontSize: "1rem",
-    fontWeight: "500",
-    pb: "5px",
-    letterSpacing: "0.2px",
-    color: "#333",
-  };
-  return (
-    <FormControl>
-      <FormLabel {...labelStyles}>{label}</FormLabel>
-      <Input placeholder={placeholder} {...inputStyles} {...rest} />
-    </FormControl>
-  );
-};
-
-export const PrimaryActionButton: React.FC<PrimaryActionButtonProps> = ({
-  label,
-  ...rest
-}) => {
-  const buttonStyles = {
-    colorScheme: "blue",
-    px: 2,
-    py: 2,
-    w: { base: "full", md: "full" },
-    bg: "#E49426",
-    color: "white",
-    borderRadius: "12px",
-    h: "47px",
-    fontWeight: "700",
-    fontSize: "1rem",
-    _hover: {
-      bg: "#C78121",
-    },
-  };
-  return (
-    <HStack justify={{ base: "flex-start", md: "flex-end" }} align="flex-end">
-      <Button {...buttonStyles} {...rest}>
-        {label}
-      </Button>
-    </HStack>
-  );
-};
-export default function HeroTabs() {
-  //  STATE FOR FORM INPUTS & API FEEDBACK
+export default function FooterTabs() {
   const [redirectFrom, setRedirectFrom] = useState("");
   const [redirectTo, setRedirectTo] = useState("");
   const [shortenDomain, setShortenDomain] =
@@ -293,7 +133,19 @@ export default function HeroTabs() {
     setCheckerUrl("");
   };
   return (
-    <Box w="100%" maxW="6xl" mx="auto">
+    <Box w="100%" maxW="6xl" mx="auto" mb={14}>
+      <Heading
+        as="h1"
+        fontSize={{ base: "2rem", md: "3rem", lg: "3rem" }}
+        fontWeight="600"
+        color="white"
+        lineHeight={{ base: "3rem", md: "3rem", lg: "3rem" }}
+        letterSpacing={"-1.8px"}
+        textAlign={"center"}
+        mb={{ base: "2rem", md: "3rem", lg: "3rem" }}
+      >
+        Fast, Secure, Effortless Link Management
+      </Heading>
       <Tabs.Root
         defaultValue="tab1"
         variant="enclosed"
@@ -303,6 +155,7 @@ export default function HeroTabs() {
           setApiStatus("");
           clearInputs();
         }}
+        textAlign={"center"}
       >
         <Tabs.List
           w={{ base: "full", md: "fit-content" }}
@@ -331,7 +184,7 @@ export default function HeroTabs() {
               columns={{ base: 1, md: 5 }}
               gap={3}
               w="100%"
-              gridTemplateColumns={{ base: "1fr", md: "2fr 2fr 1fr" }} // 40% 40% 20%
+              gridTemplateColumns={{ base: "1fr", md: "2fr 2fr 1fr" }}
             >
               <CustomInput
                 label="Destination URL"

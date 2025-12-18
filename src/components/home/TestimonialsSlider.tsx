@@ -95,7 +95,12 @@ function CustomNextArrow(props: any) {
     </IconButton>
   );
 }
-export default function TestimonialsSlider() {
+
+interface Props {
+  marginBottom?: string;
+}
+
+export default function TestimonialsSlider({ marginBottom }: Props) {
   const settings = {
     dots: false,
     infinite: true,
@@ -108,13 +113,17 @@ export default function TestimonialsSlider() {
     prevArrow: <CustomPrevArrow />,
     nextArrow: <CustomNextArrow />,
   };
+
+  const baseVerticalPadding = { base: 10, md: 14, lg: 24 };
+  const baseVerticalMargin = { base: 0, md: 8, lg: 14 };
   return (
     <Box
-      py={{ base: 10, md: 14, lg: 24 }}
+      py={baseVerticalPadding}
       position="relative"
       overflow="hidden"
       borderRadius={{ base: "3xl", lg: "3xl" }}
-      my={{ base: 0, md: 8, lg: 14 }}
+      mt={baseVerticalMargin}
+      mb={marginBottom ? marginBottom : baseVerticalMargin}
       maxW="7xl"
       mx="auto"
       borderRight={"32px"}

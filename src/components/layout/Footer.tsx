@@ -1,26 +1,18 @@
 "use client";
 
-import {
-  Box,
-  Container,
-  Flex,
-  Grid,
-  Stack,
-  Text,
-  Heading,
-  Button,
-  VStack,
-  Icon,
-} from "@chakra-ui/react";
+import { Box, Container, Flex, Grid, Stack, Icon } from "@chakra-ui/react";
 import { useTranslation } from "react-i18next";
 import Link from "next/link";
 import { useParams, useRouter, usePathname } from "next/navigation";
 import { getAppName } from "@/lib/utils/constants";
 import { FaYoutube, FaXTwitter, FaFacebook, FaLinkedin } from "react-icons/fa6";
-import React from "react";
 import styles from "./Footer.module.css";
 import Image from "next/image";
 import LanguageSelector from "../share/LanguageSelector";
+import { FooterBottomBar } from "../footer/FooterBottomBar";
+import { FooterLinkColumn } from "../footer/FooterLinkColumn";
+import { FooterCtaHeader } from "../footer/FooterCtaHeader";
+import FooterTabs from "../footer/Tabs";
 
 export default function Footer() {
   const { t, i18n } = useTranslation();
@@ -30,14 +22,26 @@ export default function Footer() {
   const locale = (params?.locale as string) || "en";
   const currentLanguage = i18n.language;
 
+  const tabRoutes = [
+    "/create-redirects",
+    "/manage-redirects",
+    "/analyze-redirects",
+    "/team-management",
+    "/global-scale",
+    "/security",
+    "/scalable-enterprise-solutions",
+    "/domain-parking",
+    "/marketing-campaigns",
+    "/website-migrations",
+  ];
+  const showTabs = tabRoutes.includes(pathname);
+
   const handleLanguageChange = (newLocale: string) => {
     // Get the current path without the locale
     const pathWithoutLocale = pathname.replace(/^\/[a-z]{2}/, "");
-    // Navigate to the new locale
     router.push(`/${newLocale}${pathWithoutLocale}`);
   };
 
-  // Helper to generate URLs - hide /en for default locale
   const getLocalePath = (path: string) => {
     if (locale === "en") {
       return path;
@@ -153,66 +157,8 @@ export default function Footer() {
       px={{ base: 4, md: 4, lg: 0 }}
     >
       <Container maxW="7xl" mx="auto">
-        <VStack gap={6} textAlign="center" mb="60px">
-          <Heading
-            as="h1"
-            fontSize={{ base: "2rem", md: "3rem", lg: "3rem" }}
-            fontWeight="600"
-            color="white"
-            lineHeight={{ base: "3rem", md: "3rem", lg: "3rem" }}
-            maxW="900px"
-            letterSpacing={"-1.8px"}
-          >
-            Redirect 5x Faster with Built-in Security
-          </Heading>
-
-          <VStack gap={0} maxW="700px">
-            <Text
-              textAlign="center"
-              color="#FFFFFFD1"
-              fontSize={{ base: "1rem", md: "1.1rem" }}
-              fontWeight="500"
-              letterSpacing="0.2px"
-              textShadow="0px 0px 10px rgba(0, 0, 0, 0.3)"
-            >
-              Experience the power of rapid, secure redirects and effortless
-              management.
-            </Text>
-            <Text
-              textAlign="center"
-              color="#FFFFFFD1"
-              fontSize="1.1rem"
-              fontWeight="500"
-              letterSpacing="0.2px"
-              textShadow="0px 0px 10px rgba(0, 0, 0, 0.3)"
-            >
-              RedirHub speeds up your workflow while keeping your domain safe.
-            </Text>
-          </VStack>
-          <Link href={"https://dash.redirhub.com/register"} target={"_blank"}>
-            <Button
-              bg="#E49426"
-              color="white"
-              px="24px"
-              py="12px"
-              fontSize="1rem"
-              fontWeight="semibold"
-              borderRadius="8px"
-              _hover={{
-                bg: "#C78121",
-                transform: "translateY(-2px)",
-                boxShadow: "lg",
-              }}
-              _active={{
-                bg: "orange.700",
-                transform: "translateY(0)",
-              }}
-              transition="all 0.2s"
-            >
-              Get Started For Free
-            </Button>
-          </Link>
-        </VStack>
+        {!showTabs && <FooterCtaHeader />}
+        {showTabs && <FooterTabs />}
 
         <Container
           maxW="7xl"
@@ -273,7 +219,9 @@ export default function Footer() {
             </Stack>
 
             {/* Company */}
-            <Stack
+            <FooterLinkColumn title="Company" links={footerLinks.company} />
+
+            {/* <Stack
               gap={3}
               alignItems={{ base: "center", md: "center", lg: "flex-start" }}
             >
@@ -312,10 +260,12 @@ export default function Footer() {
                   </Text>
                 </Link>
               ))}
-            </Stack>
+            </Stack> */}
 
             {/* Resources */}
-            <Stack
+            <FooterLinkColumn title="Resources" links={footerLinks.resources} />
+
+            {/* <Stack
               gap={3}
               alignItems={{ base: "center", md: "center", lg: "flex-start" }}
             >
@@ -354,10 +304,12 @@ export default function Footer() {
                   </Text>
                 </Link>
               ))}
-            </Stack>
+            </Stack> */}
 
             {/* Products */}
-            <Stack
+            <FooterLinkColumn title="Products" links={footerLinks.products} />
+
+            {/* <Stack
               gap={3}
               alignItems={{ base: "center", md: "center", lg: "flex-start" }}
             >
@@ -396,10 +348,12 @@ export default function Footer() {
                   </Text>
                 </Link>
               ))}
-            </Stack>
+            </Stack> */}
 
             {/* Contact */}
-            <Stack
+
+            <FooterLinkColumn title="Contact" links={footerLinks.contact} />
+            {/* <Stack
               gap={3}
               alignItems={{ base: "center", md: "center", lg: "flex-start" }}
             >
@@ -438,47 +392,11 @@ export default function Footer() {
                   </Text>
                 </Link>
               ))}
-            </Stack>
+            </Stack> */}
           </Grid>
 
           {/* Bottom Bar */}
-          <Flex
-            direction={{ base: "column", md: "row" }}
-            justify={{ base: "center", md: "space-between" }}
-            align="center"
-            pt={8}
-            borderTopWidth="0"
-            gap={4}
-          >
-            <Flex
-              gap={4}
-              flexWrap="wrap"
-              justify={{ base: "center", md: "flex-start" }}
-            >
-              {footerLinks.legal.map((link, index) => (
-                <React.Fragment key={link.href}>
-                  <Link href={link.href}>
-                    <Text
-                      fontSize="sm"
-                      color="gray.600"
-                      _hover={{ color: "blue.600" }}
-                    >
-                      {link.label}
-                    </Text>
-                  </Link>
-                  {index < footerLinks.legal.length - 1 && (
-                    <Text fontSize="sm" color="gray.400">
-                      -
-                    </Text>
-                  )}
-                </React.Fragment>
-              ))}
-            </Flex>
-
-            <Text fontSize="sm" color="gray.600">
-              © Copyright - RedirHub
-            </Text>
-          </Flex>
+          <FooterBottomBar footerLinks={footerLinks} />
         </Container>
       </Container>
     </Box>
