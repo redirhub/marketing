@@ -20,7 +20,7 @@ export async function generateMetadata({
   };
 
   return {
-    title: `${t("meta-domain-parking.title", "domain-parking")} - ${getAppName()}`,
+    title: `${t("meta-domain-parking.title", "Domain Parking")} - ${getAppName()}`,
     description: t(
       "meta.domain-parking.description",
       "Simple, transparent enterprise for RedirHub"
@@ -85,6 +85,10 @@ export default async function WebsiteMigrations() {
       heading:
         "Offload traffic filtering, SSL provisioning, and uptime monitoring",
       description: "",
+    },
+    {
+      heading: "Reduce engineering hours",
+      description: "spent building and maintaining redirect logic",
     },
   ];
   const RedirectSmarter = [
@@ -192,6 +196,7 @@ export default async function WebsiteMigrations() {
           imageAlt="UTM-Builder"
           reverseOrder={true}
           subTitleWidth="100%"
+          imageBorderRadius="0px 15px 0px 0px"
         />
         <FeatureSplitSection
           mainTitle="Optimize Costs"
@@ -209,6 +214,7 @@ export default async function WebsiteMigrations() {
           imageAlt="UTM-Builder"
           reverseOrder={true}
           subTitleWidth="100%"
+          imageBorderRadius="0px 15px 0px 0px"
         />{" "}
         <FeatureSplitSection
           mainTitle="Reliable at Any Volume"
@@ -217,6 +223,7 @@ export default async function WebsiteMigrations() {
           imageSrc="/assets/images/solutions/Reliable-at-AnyVolume.jpeg"
           imageAlt="Reliable-at-AnyVolume"
           subTitleWidth="100%"
+          removePaddingBottom={true}
         />
       </Box>
       <TestimonialsSlider marginBottom={"20px"} />

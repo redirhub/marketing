@@ -7,10 +7,10 @@ import {
   SimpleGrid,
   Button,
   Stack,
+  Image as ChakraImage,
 } from "@chakra-ui/react";
 import Link from "next/link";
-import { PiCheckCircleFill } from "react-icons/pi";
-import Image from "next/image";
+import { GoCheckCircle } from "react-icons/go";
 
 interface FeatureListItemProps {
   heading: string;
@@ -23,11 +23,11 @@ const FeatureListItem: React.FC<FeatureListItemProps> = ({
   <Box as="li" display="flex" gap={2} listStyleType="none">
     <Box
       flexShrink={0}
-      fontSize={{ base: "1.5rem", md: "1.75rem" }}
-      mt={{ base: "1px", md: "2px" }}
+      fontSize={{ base: "16px", md: "16px" }}
+      mt={{ base: "5px", md: "4px" }}
       color="#E49426"
     >
-      <PiCheckCircleFill />
+      <GoCheckCircle />
     </Box>
     <Box textAlign="left">
       <Text as="span" fontSize="sm" fontWeight="700" color="#222B27">
@@ -65,22 +65,24 @@ const ActionButton: React.FC<
   };
 
   return (
-    <Link href={href} target={isPrimary ? "_blank" : undefined}>
-      <Button
-        px="24px"
-        py="12px"
-        fontSize="1rem"
-        fontWeight="normal"
-        borderRadius="8px"
-        transition="all 0.2s"
-        _active={{ transform: "translateY(0)" }}
-        w={{ base: "full", sm: "auto" }}
-        {...(isPrimary ? primaryStyles : secondaryStyles)}
-        {...rest}
-      >
-        {label}
-      </Button>
-    </Link>
+    <Box w={{ base: "100%", md: "auto" }}>
+      <Link href={href} target={isPrimary ? "_blank" : undefined}>
+        <Button
+          px="24px"
+          py="12px"
+          fontSize="1rem"
+          fontWeight="normal"
+          borderRadius="8px"
+          transition="all 0.2s"
+          _active={{ transform: "translateY(0)" }}
+          w={{ base: "full", md: "auto" }}
+          {...(isPrimary ? primaryStyles : secondaryStyles)}
+          {...rest}
+        >
+          {label}
+        </Button>
+      </Link>
+    </Box>
   );
 };
 
@@ -94,6 +96,9 @@ interface FeatureSplitSectionProps {
   buttonLabel?: string;
   buttonHref?: string;
   subTitleWidth?: string;
+  imageWidth?: string;
+  imageBorderRadius?: string;
+  removePaddingBottom?: boolean;
 }
 export default function FeatureSplitSection({
   mainTitle,
@@ -105,6 +110,9 @@ export default function FeatureSplitSection({
   buttonHref,
   reverseOrder = false,
   subTitleWidth = "",
+  imageWidth = "478px",
+  imageBorderRadius = "",
+  removePaddingBottom = false,
 }: FeatureSplitSectionProps) {
   // Determine the grid order based on the reverseOrder prop
   const listOrder = reverseOrder ? 2 : 1;
@@ -112,13 +120,13 @@ export default function FeatureSplitSection({
 
   // FIX: Dynamically determine the column ratio based on the reverseOrder prop
   const gridTemplateColumns = reverseOrder
-    ? "5.5fr 4.5fr" // Reversed: Image (55%) then List (45%)
-    : "4.5fr 5.5fr"; // Normal: List (45%) then Image (55%)
+    ? "5.7fr 4.3fr" // Reversed: Image (55%) then List (45%)
+    : "4.3fr 5.7fr"; // Normal: List (45%) then Image (55%)
   return (
     <>
       <Box
         w="100%"
-        pb={{ base: 14, md: 36 }}
+        pb={removePaddingBottom ? 0 : { base: 14, md: 36 }}
         pt={0}
         px={{ base: 2, md: 6 }}
         textAlign="center"
@@ -141,7 +149,7 @@ export default function FeatureSplitSection({
               color="#667085"
               letterSpacing={"0.2px"}
               mb={"12px"}
-              w={{ base: "98%", md: subTitleWidth ? subTitleWidth : "50%" }}
+              w={{ base: "100%", md: subTitleWidth ? subTitleWidth : "50%" }}
               mx={"auto"}
             >
               {subTitle}
@@ -153,19 +161,19 @@ export default function FeatureSplitSection({
           w="100%"
           maxW="7xl"
           mx="auto"
-          mt={4}
+          mt={{ base: 0, md: 4 }}
           bg="white"
           borderRadius="12px"
-          pt="40px"
-          pb="0px"
-          pl={{ base: "0px", lg: reverseOrder ? "0px" : "32px" }}
-          pr={{ base: "0px", lg: !reverseOrder ? "0px" : "32px" }}
+          pt={{ base: "28px", md: "48px" }}
+          pb={{ base: "28px", md: "0" }}
+          pl={{ base: "15px", lg: reverseOrder ? "0px" : "32px" }}
+          pr={{ base: "15px", lg: !reverseOrder ? "0px" : "32px" }}
           border={"4px solid"}
           borderColor={"#EAECF0"}
         >
           <SimpleGrid
             columns={{ base: 1, md: 1, lg: 2 }}
-            gap={8}
+            gap={{ base: 4, md: 10 }}
             alignItems="center"
             templateColumns={{
               base: "1fr", // On small screens (base), use a single column (1 fraction)
@@ -173,7 +181,7 @@ export default function FeatureSplitSection({
             }}
           >
             <Box textAlign="left" order={{ base: 1, lg: listOrder }}>
-              <Box as="ul" pl={0} color="#667085" display="grid" rowGap={3}>
+              <Box as="ul" pl={0} color="#667085" display="grid" rowGap={4}>
                 {features.map((feature, index) => (
                   <FeatureListItem
                     key={index}
@@ -198,33 +206,21 @@ export default function FeatureSplitSection({
 
             <Box
               w="100%"
-              h="100%"
-              display="flex"
-              alignItems="center"
-              justifyContent="center"
+              h={"auto"}
               order={{ base: -1, lg: imageOrder }}
               mr={!reverseOrder ? { base: 0, lg: "-32px" } : 0}
             >
-              {/* <Box
-                w="100%"
-                h={{ base: "300px", md: "483px" }}
-                position="relative"
-                borderRadius="8px"
-                overflow="hidden"
-              > */}
-              <Image
+              <ChakraImage
                 src={imageSrc}
                 alt={imageAlt}
-                width={620}
-                // fill
-                height={420}
-                style={{
-                  // objectFit: "cover",
-                  width: "100%",
-                  height: "100%",
-                }}
+                w="100%"
+                h={{ base: "auto", md: imageWidth }}
+                objectFit={"cover"}
+                objectPosition="top left"
+                display="block"
+                loading="lazy"
+                borderRadius={imageBorderRadius ?? ""}
               />
-              {/* </Box> */}
             </Box>
           </SimpleGrid>
         </Box>

@@ -1,6 +1,5 @@
 import { Metadata } from "next";
 import Hero from "@/components/home/Hero";
-import KeyMetrics from "@/components/home/KeyMetrics";
 import initTranslations from "@/lib/i18n";
 import { getAppName } from "@/lib/utils/constants";
 import ChooseUs from "@/components/home/ChooseUs";

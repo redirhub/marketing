@@ -26,3 +26,16 @@
   opacity: 0.3;
   pointer-events: none;
 }
+
+@media (max-width: 768px) {
+  .container {
+    height: auto;
+    min-height: 250px;
+    padding: 40px 20px;
+  }
+
+  .container::before {
+    background-position: center;
+    opacity: 0.2;
+  }
+}

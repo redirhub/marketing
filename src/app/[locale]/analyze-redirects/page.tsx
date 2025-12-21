@@ -20,7 +20,7 @@ export async function generateMetadata({
   };
 
   return {
-    title: `${t("meta.Analyze-Redirects.title", "Analyze-Redirects")} - ${getAppName()}`,
+    title: `${t("meta.Analyze-Redirects.title", "Analyze redirects")} - ${getAppName()}`,
     description: t(
       "meta.Analyze-Redirects.description",
       "Simple, transparent enterprise for RedirHub"
@@ -126,6 +126,7 @@ export default async function AnalyzeRedirects() {
         title="Analyze Redirects"
         subtitle="Transform your redirect data into actionable insights with comprehensive analytics and real-time monitoring."
         imageSrc="/assets/images/feature/create-redirects.png"
+        subtitleWidth="100%"
       />
       <Box
         w="100%"
@@ -148,6 +149,7 @@ export default async function AnalyzeRedirects() {
           imageSrc="/assets/images/feature/Visit-Details.jpeg"
           imageAlt="Visit-Details"
           reverseOrder={true}
+          imageBorderRadius="0px 15px 0px 0px"
         />
         <FeatureSplitSection
           mainTitle="Technical Analysis"
@@ -155,6 +157,7 @@ export default async function AnalyzeRedirects() {
           features={TechnicalAnalysis}
           imageSrc="/assets/images/feature/Technical-Analysis.jpeg"
           imageAlt="Technical-Analysis"
+          removePaddingBottom={true}
         />
       </Box>
       <TestimonialsSlider marginBottom={"20px"} />

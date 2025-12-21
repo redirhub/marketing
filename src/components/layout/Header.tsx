@@ -116,19 +116,19 @@ export default function Header() {
       label: t(`nav.solutions`, "Solutions"),
       items: [
         {
-          href: getLocalePath("/website-migrations"),
+          href: getLocalePath("/solutions/website-migrations"),
           label: t(`nav.features.website-migrations`, "Website Migrations"),
         },
         {
-          href: getLocalePath("/marketing-campaigns"),
+          href: getLocalePath("/solutions/marketing-campaigns"),
           label: t(`nav.features.marketing-campaigns`, "Marketing Campaigns"),
         },
         {
-          href: getLocalePath("/domain-parking"),
+          href: getLocalePath("/solutions/domain-parking"),
           label: t(`nav.features.domain-parking`, "Domain Parking"),
         },
         {
-          href: getLocalePath("/scalable-enterprise-solutions"),
+          href: getLocalePath("/solutions/scalable-enterprise-solutions"),
           label: t(
             `nav.features.scalable-enterprise-solutions`,
             "Scalable Enterprise Solutions"

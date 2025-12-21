@@ -20,7 +20,7 @@ export async function generateMetadata({
   };
 
   return {
-    title: `${t("meta.Analyze-Redirects.title", "Analyze-Redirects")} - ${getAppName()}`,
+    title: `${t("meta.Analyze-Redirects.title", "Team management")} - ${getAppName()}`,
     description: t(
       "meta.Analyze-Redirects.description",
       "Simple, transparent enterprise for RedirHub"
@@ -94,6 +94,7 @@ export default async function AnalyzeRedirects() {
         title="Team Management"
         subtitle="Collaborate securely across your organization with powerful team management tools."
         imageSrc="/assets/images/feature/create-redirects.png"
+        subtitleWidth="100%"
       />
 
       <Box
@@ -117,6 +118,8 @@ export default async function AnalyzeRedirects() {
           imageSrc="/assets/images/feature/Workspace-Organization.jpeg"
           imageAlt="Workspace-Organization"
           reverseOrder={true}
+          imageBorderRadius="0px 15px 0px 0px"
+          removePaddingBottom={true}
         />
       </Box>
       <TestimonialsSlider marginBottom={"20px"} />

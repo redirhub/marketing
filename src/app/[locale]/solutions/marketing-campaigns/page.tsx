@@ -134,6 +134,7 @@ export default async function WebsiteMigrations() {
         title="Marketing Campaigns"
         subtitle="Amplify your campaign reach with streamlined link management, data-driven A/B testing, and real-time insights."
         imageSrc="/assets/images/feature/create-redirects.png"
+        subtitleWidth="40%"
       />
 
       <Box
@@ -157,6 +158,8 @@ export default async function WebsiteMigrations() {
           imageSrc="/assets/images/solutions/UTM-Builder.jpeg"
           imageAlt="UTM-Builder"
           reverseOrder={true}
+          subTitleWidth={"100%"}
+          imageBorderRadius="0px 15px 0px 0px"
         />
         <FeatureSplitSection
           mainTitle="Random Redirects for A/B Split Testing"
@@ -172,6 +175,9 @@ export default async function WebsiteMigrations() {
           imageSrc="/assets/images/solutions/UTM-Builder.jpeg"
           imageAlt="UTM-Builder"
           reverseOrder={true}
+          subTitleWidth={"100%"}
+          imageBorderRadius="0px 15px 0px 0px"
+          removePaddingBottom={true}
         />
       </Box>
       <TestimonialsSlider marginBottom={"20px"} />

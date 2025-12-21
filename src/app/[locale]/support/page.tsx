@@ -1,7 +1,11 @@
 import { Metadata } from "next";
-import { Box, Container, Heading, Text } from "@chakra-ui/react";
 import initTranslations from "@/lib/i18n";
 import { getAppName } from "@/lib/utils/constants";
+import SupportBanner from "@/components/share/banners/support/SupportBanner";
+import { Box, Flex, Heading, Container, Stack, VStack } from "@chakra-ui/react";
+import Sidebar from "@/components/support/Sidebar";
+import { SUPPORT_ARTICLES } from "@/lib/dummy-data/support-data";
+import { ArticleItem } from "@/components/support/ArticleItem";
 
 export async function generateMetadata({
   params,
@@ -24,17 +28,43 @@ export async function generateMetadata({
   };
 }
 
-export default async function PricingPage() {
+export default async function SupportPage() {
   return (
-    <Box py={20}>
-      <Container maxW="7xl" mx="auto">
-        <Heading as="h1" size="2xl" mb={4}>
-          Support
-        </Heading>
-        <Text fontSize="xl" color="gray.600">
-          Coming soon...
-        </Text>
-      </Container>
-    </Box>
+    <>
+      <SupportBanner />
+      <Box w="100%" px={{ base: 4, md: 6 }}>
+        <Box w="100%" maxW="7xl" mx="auto" my={"59px"}>
+          <Flex direction={{ base: "column", md: "row" }} gap={12}>
+            <Box as="aside" w={{ base: "full", md: "25%", lg: "20%" }}>
+              <Heading
+                as="h3"
+                fontSize={"0.9rem"}
+                fontWeight={600}
+                color="#667085"
+                textTransform="uppercase"
+                mb={4}
+                letterSpacing="0.2px"
+                textAlign={{ base: "center", md: "left" }}
+              >
+                Categories
+              </Heading>
+              <Sidebar />
+            </Box>
+            <Box as="section" w={{ base: "full", md: "75%", lg: "80%" }}>
+              <VStack align="stretch" gap={0}>
+                {SUPPORT_ARTICLES.map((article) => (
+                  <ArticleItem
+                    key={article.id}
+                    title={article.title}
+                    category={article.category}
+                    slug={article.slug}
+                  />
+                ))}
+              </VStack>
+            </Box>
+          </Flex>
+        </Box>
+      </Box>
+    </>
   );
 }

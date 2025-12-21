@@ -20,7 +20,7 @@ export async function generateMetadata({
   };
 
   return {
-    title: `${t("meta-domain-parking.title", "domain-parking")} - ${getAppName()}`,
+    title: `${t("meta-domain-parking.title", "Scalable Enterprise Solutions")} - ${getAppName()}`,
     description: t(
       "meta.domain-parking.description",
       "Simple, transparent enterprise for RedirHub"
@@ -76,16 +76,16 @@ export default async function WebsiteMigrations() {
   ];
   const RedirectSmarter = [
     {
-      heading: "Ultra-Fast Response :",
-      description: "Minimize wait times for users worldwide.",
+      heading: "Guaranteed Reliability:",
+      description: "Protect revenue and user experience with ironclad SLAs.",
     },
     {
-      heading: "Resilient Architecture :",
-      description: "Reroute traffic to the nearest available node.",
+      heading: "Priority Support:",
+      description: "Access premium, round-the-clock assistance.",
     },
     {
-      heading: "99.999% Uptime :",
-      description: "Ensure consistent, always-online redirect services.",
+      heading: "Compliance Ready:",
+      description: "Meet strict data and security requirements at scale.",
     },
   ];
   const dedicatedInfrastructure = [
@@ -169,6 +169,7 @@ export default async function WebsiteMigrations() {
           imageAlt="Bulk-Import"
           reverseOrder={true}
           subTitleWidth="100%"
+          imageBorderRadius="0px 15px 0px 0px"
         />
         <FeatureSplitSection
           mainTitle="High-Speed Global Edge Network"
@@ -186,14 +187,8 @@ export default async function WebsiteMigrations() {
           imageAlt="UTM-Builder"
           reverseOrder={true}
           subTitleWidth="100%"
-        />{" "}
-        <FeatureSplitSection
-          mainTitle="Dedicated Infrastructure for 100% SLAs"
-          subTitle="Rely on an enterprise-grade environment built for mission-critical deployments."
-          features={dedicatedInfrastructure}
-          imageSrc="/assets/images/solutions/Reliable-at-AnyVolume.jpeg"
-          imageAlt="Reliable-at-AnyVolume"
-          subTitleWidth="100%"
+          imageBorderRadius="0px 15px 0px 0px"
+          removePaddingBottom={true}
         />
       </Box>
       <TestimonialsSlider marginBottom={"20px"} />

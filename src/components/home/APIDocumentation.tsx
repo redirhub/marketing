@@ -10,7 +10,7 @@ import {
 } from "@chakra-ui/react";
 import Image from "next/image";
 import Link from "next/link";
-import { PiCheckCircleFill } from "react-icons/pi";
+import { GoCheckCircle } from "react-icons/go";
 
 interface FeatureListItemProps {
   heading: string;
@@ -24,11 +24,11 @@ const FeatureListItem: React.FC<FeatureListItemProps> = ({
   <Box as="li" display="flex" gap={2} listStyleType="none">
     <Box
       flexShrink={0}
-      fontSize={{ base: "1.5rem", md: "1.75rem" }}
-      mt={{ base: "1px", md: "2px" }}
+      fontSize={{ base: "16px", md: "16px" }}
+      mt={{ base: "5px", md: "4px" }}
       color="#E49426"
     >
-      <PiCheckCircleFill />
+      <GoCheckCircle />
     </Box>
     <Box textAlign="left">
       <Text as="span" fontSize="sm" fontWeight="700" color="#101828">

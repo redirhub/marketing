@@ -112,6 +112,7 @@ export default async function WebsiteMigrations() {
         title="Website Migrations"
         subtitle="Transform your website migration into a seamless process while preserving SEO and user experience."
         imageSrc="/assets/images/feature/create-redirects.png"
+        subtitleWidth="100%"
       />
 
       <Box
@@ -136,6 +137,7 @@ export default async function WebsiteMigrations() {
           imageSrc="/assets/images/solutions/Bulk-301-Redirects.jpeg"
           imageAlt="Bulk-301-Redirects"
           reverseOrder={true}
+          imageBorderRadius="0px 15px 0px 0px"
         />
         <FeatureSplitSection
           mainTitle="Match Old Pages to New URLs"
@@ -143,6 +145,7 @@ export default async function WebsiteMigrations() {
           features={MatchOldPages}
           imageSrc="/assets/images/solutions/Match-Old-Pages-New-URLs.jpeg"
           imageAlt="Match-Old-Pages-New-URLs"
+          removePaddingBottom={true}
         />
       </Box>
       <TestimonialsSlider marginBottom={"20px"} />

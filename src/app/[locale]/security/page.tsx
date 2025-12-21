@@ -20,7 +20,7 @@ export async function generateMetadata({
   };
 
   return {
-    title: `${t("meta.global-scale.title", "global-scale")} - ${getAppName()}`,
+    title: `${t("meta.global-scale.title", "Security & Privacy")} - ${getAppName()}`,
     description: t(
       "meta.global-scale.description",
       "Simple, transparent enterprise for RedirHub"
@@ -114,6 +114,7 @@ export default async function Globalscale() {
         title="Security & Privacy"
         subtitle="Keep all your audiences and web properties safe with enterprise-grade security features."
         imageSrc="/assets/images/feature/create-redirects.png"
+        subtitleWidth="100%"
       />
 
       <Box
@@ -144,6 +145,7 @@ export default async function Globalscale() {
           features={dataProtection}
           imageSrc="/assets/images/feature/Data-Protection.jpeg"
           imageAlt="Data-Protection"
+          removePaddingBottom={true}
         />
       </Box>
       <TestimonialsSlider marginBottom={"20px"} />

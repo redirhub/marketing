@@ -93,10 +93,15 @@ export default async function PricingPage() {
     {
       heading: "URL Monitoring:",
       description:
-        " Stay ahead of broken links with automated checks, notifications, and fallback options for broken destinations.",
+        "Stay ahead of broken links with automated checks, notifications, and fallback options for broken destinations.",
     },
     {
       heading: "Bot Security:",
+      description:
+        "Control bot access with multiple protection layers including crawler blocking and JavaScript challenges.",
+    },
+    {
+      heading: "Platform Handling:",
       description:
         "Customize redirect behavior for specific platforms like WeChat to ensure optimal user experience.",
     },
@@ -187,6 +192,7 @@ URLs, destination paths, and redirect types in seconds"
           imageSrc="/assets/images/feature/URL-Path-Customization.png"
           imageAlt="URL-Path-Customization"
           reverseOrder={true}
+          imageWidth="500px"
         />
         <FeatureSplitSection
           mainTitle="Bulk Import & Export"
@@ -202,6 +208,7 @@ URLs, destination paths, and redirect types in seconds"
           imageSrc="/assets/images/feature/Bot-Protection-Monitoring.png"
           imageAlt="Bot-Protection-Monitoring"
           reverseOrder={true}
+          imageWidth="500px"
         />{" "}
         <FeatureSplitSection
           mainTitle="Domain Configuration"

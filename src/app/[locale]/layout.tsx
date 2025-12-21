@@ -41,7 +41,8 @@ export default async function RootLayout({
   const pathname = headersList.get("x-pathname") || "";
   const hideHeaderAndFooter = pathname.includes("/rate");
 
-  const hideHeaderOnly = pathname.includes("/blog");
+  const hideHeaderOnly =
+    pathname.includes("/blog") && !pathname.includes("/support-category");
 
   const shouldHideHeader = hideHeaderAndFooter || hideHeaderOnly;
 

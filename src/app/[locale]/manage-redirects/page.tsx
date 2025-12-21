@@ -138,6 +138,7 @@ export default async function PricingPage() {
         title="Manage Redirects"
         subtitle="Take control of your redirect infrastructure with powerful management tools and real-time updates."
         imageSrc="/assets/images/feature/create-redirects.png"
+        subtitleWidth="100%"
       />
 
       <Box
@@ -153,6 +154,7 @@ export default async function PricingPage() {
           features={SearchFilter}
           imageSrc="/assets/images/feature/Search-Filter.jpg"
           imageAlt="Search-Filter"
+          imageBorderRadius="12px 0px 0px 0px"
         />{" "}
         <FeatureSplitSection
           mainTitle="Status Management"
@@ -161,6 +163,7 @@ export default async function PricingPage() {
           imageSrc="/assets/images/feature/Status-Management.jpeg"
           imageAlt="Search-Filter"
           reverseOrder={true}
+          imageBorderRadius="0px 15px 0px 0px"
         />
         <FeatureSplitSection
           mainTitle="Bulk Operations"
@@ -168,6 +171,7 @@ export default async function PricingPage() {
           features={BulkOperations}
           imageSrc="/assets/images/feature/Bulk-Operations.jpg"
           imageAlt="Search-Filter"
+          imageBorderRadius="12px 0px 0px 0px"
         />{" "}
         <FeatureSplitSection
           mainTitle="Performance Tracking"
@@ -176,6 +180,8 @@ export default async function PricingPage() {
           imageSrc="/assets/images/feature/Performance-Tracking.jpeg"
           imageAlt="Search-Filter"
           reverseOrder={true}
+          imageBorderRadius="0px 15px 0px 0px"
+          removePaddingBottom={true}
         />
       </Box>
 

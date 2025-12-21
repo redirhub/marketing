@@ -49,12 +49,13 @@ export default async function Globalscale() {
 
   const WorkspaceOrganization = [
     {
-      heading: "Shared Workspaces:",
-      description: "Create dedicated spaces for different teams or projects",
+      heading: "Smart Routing:",
+      description:
+        "Automatically route requests through the fastest available path",
     },
     {
-      heading: "Resource Sharing:",
-      description: "Share redirect configurations and templates across teams",
+      heading: "Load Balancing:",
+      description: "Distribute traffic evenly across our global infrastructure",
     },
     {
       heading: "Caching:",
@@ -124,6 +125,7 @@ export default async function Globalscale() {
         title="Global Scale"
         subtitle="Deliver seamless customer experiences across your websites and domains with enterprise-grade infrastructure."
         imageSrc="/assets/images/feature/create-redirects.png"
+        subtitleWidth="60%"
       />
 
       <Box
@@ -147,6 +149,7 @@ export default async function Globalscale() {
           imageSrc="/assets/images/feature/Performance-Optimization.jpeg"
           imageAlt="Workspace-Organization"
           reverseOrder={true}
+          imageBorderRadius="0px 15px 0px 0px"
         />{" "}
         <FeatureSplitSection
           mainTitle="Enterprise Infrastructure"
@@ -154,6 +157,7 @@ export default async function Globalscale() {
           features={EnterpriseInfrastructure}
           imageSrc="/assets/images/feature/Enterprise-Infrastructure.jpeg"
           imageAlt="Enterprise-Infrastructure"
+          removePaddingBottom={true}
         />
       </Box>
       <TestimonialsSlider marginBottom={"20px"} />

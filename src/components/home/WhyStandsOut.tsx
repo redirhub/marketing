@@ -9,14 +9,20 @@ import {
   Flex,
   Text,
 } from "@chakra-ui/react";
-import Image from "next/image";
 import Link from "next/link";
 import { ArrowForwardIcon } from "@chakra-ui/icons";
 import { VStack } from "@chakra-ui/react";
+import {
+  HostnamesIcon,
+  MainIcon,
+  RapidRequestsIcon,
+  SSLIcon,
+  UptimeIcon,
+  LocationsIcon,
+} from "@/components/icons";
 
 interface StatsCardProps {
-  iconSrc: string;
-  iconAlt?: string;
+  icon: React.ReactNode;
   value: string;
   label: string;
   description: string;
@@ -27,7 +33,7 @@ interface StatsCardProps {
 export default function WhyStandsOut() {
   const statsData = [
     {
-      iconSrc: "/assets/images/stands-out/itme-1.svg",
+      icon: <RapidRequestsIcon />,
       value: "100M+",
       label: "Rapid requests",
       description:
@@ -35,7 +41,7 @@ export default function WhyStandsOut() {
       iconBg: "teal.500",
     },
     {
-      iconSrc: "/assets/images/stands-out/itme-2.svg",
+      icon: <HostnamesIcon />,
       value: "500K+",
       label: "Hostnames",
       description:
@@ -43,8 +49,7 @@ export default function WhyStandsOut() {
       iconBg: "teal.500",
     },
     {
-      iconSrc: "/assets/images/stands-out/itme-3.svg",
-
+      icon: <SSLIcon />,
       value: "900K+",
       label: "SSL",
       description:
@@ -52,15 +57,14 @@ export default function WhyStandsOut() {
       iconBg: "teal.500",
     },
     {
-      iconSrc: "/assets/images/stands-out/itme-4.svg",
-
+      icon: <LocationsIcon />,
       value: "10+",
       label: "Locations",
       description: "Points of Presence worldwide for reliable, global coverage",
       iconBg: "teal.500",
     },
     {
-      iconSrc: "/assets/images/stands-out/itme-5.svg",
+      icon: <UptimeIcon />,
       value: "99.99%",
       label: "Uptime",
       description:
@@ -104,16 +108,10 @@ export default function WhyStandsOut() {
               alignItems="center"
               textAlign="center"
               position="relative"
-              boxSize={{ base: "80px", md: "90px", lg: "102px" }}
+              boxSize={{ base: "80px", md: "90px", lg: "108px" }}
               flexShrink={0}
             >
-              <Image
-                src="/assets/images/stands-out/main.svg"
-                alt="Why RedirHub stands out"
-                fill
-                sizes="(max-width: 480px) 80px, 102px"
-                style={{ objectFit: "contain" }}
-              />
+              <MainIcon />
             </Box>
             <Stack gap={{ base: 2, md: 4 }} textAlign="left" justify="center">
               <Heading
@@ -152,7 +150,7 @@ export default function WhyStandsOut() {
               {statsData.map((stat, index) => (
                 <StatsCard
                   key={index}
-                  iconSrc={stat.iconSrc}
+                  icon={stat.icon}
                   value={stat.value}
                   label={stat.label}
                   description={stat.description}
@@ -168,8 +166,7 @@ export default function WhyStandsOut() {
 }
 
 export const StatsCard = ({
-  iconSrc,
-  iconAlt = "stat icon",
+  icon,
   value,
   label,
   description,
@@ -193,17 +190,7 @@ export const StatsCard = ({
         alignItems="center"
         justifyContent="center"
       >
-        <Image
-          src={iconSrc}
-          alt={iconAlt}
-          width={60}
-          height={60}
-          style={{
-            width: "100%",
-            height: "100%",
-            objectFit: "cover",
-          }}
-        />
+        {icon}
       </Box>
 
       <Box flex="0.7">
