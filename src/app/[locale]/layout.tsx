@@ -1,4 +1,5 @@
 import { ReactNode } from "react";
+import { Metadata } from "next";
 import { Inter } from "next/font/google";
 import { headers } from "next/headers";
 import { Provider } from "@/components/ui/provider";
@@ -15,6 +16,16 @@ const inter = Inter({
   variable: "--font-inter",
   weight: ["400", "500", "600", "700"],
 });
+
+export const metadata: Metadata = {
+  title: "RedirHub",
+  description: "Simple, transparent enterprise URL management",
+  icons: {
+    icon: "/assets/images/favicon.png",
+    shortcut: "/assets/images/favicon.png",
+    apple: "/assets/images/favicon.png",
+  },
+};
 
 export const viewport = {
   width: "device-width",
