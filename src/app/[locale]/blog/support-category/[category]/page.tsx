@@ -3,6 +3,21 @@ import SupportBanner from "@/components/share/banners/support/SupportBanner";
 import Sidebar from "@/components/support/Sidebar";
 import { ArticleItem } from "@/components/support/ArticleItem";
 import { SUPPORT_ARTICLES } from "@/lib/dummy-data/support-data";
+import { Metadata } from "next";
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ category: string }>;
+}): Promise<Metadata> {
+  const { category } = await params;
+  const capitalizedCategory =
+    category.charAt(0).toUpperCase() + category.slice(1);
+
+  return {
+    title: `${capitalizedCategory} - RedirHub`,
+  };
+}
 
 export default async function CategoryPage({
   params,

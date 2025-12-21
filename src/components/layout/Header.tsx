@@ -47,7 +47,15 @@ function FeaturesDropdown({
         </Box>
       </Menu.Trigger>
       <Menu.Positioner>
-        <Menu.Content minW="200px">
+        <Menu.Content
+          minW="200px"
+          bg="white"
+          boxShadow="lg"
+          borderRadius="md"
+          border="1px solid"
+          borderColor="gray.100"
+          p={1}
+        >
           {items.map((subItem) => (
             <Menu.Item key={subItem.href} value={subItem.href} asChild>
               <Link href={subItem.href}>
@@ -57,6 +65,7 @@ function FeaturesDropdown({
                   _hover={{ color: "primary.600" }}
                   py={2}
                   px={3}
+                  cursor={"pointer"}
                 >
                   {subItem.label}
                 </Box>

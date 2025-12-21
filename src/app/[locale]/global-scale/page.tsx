@@ -20,7 +20,7 @@ export async function generateMetadata({
   };
 
   return {
-    title: `${t("meta.global-scale.title", "global scale")} - ${getAppName()}`,
+    title: `${t("meta.global-scale.title", "Global scale")} - ${getAppName()}`,
     description: t(
       "meta.global-scale.description",
       "Simple, transparent enterprise for RedirHub"

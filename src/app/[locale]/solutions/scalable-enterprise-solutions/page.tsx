@@ -88,20 +88,6 @@ export default async function WebsiteMigrations() {
       description: "Meet strict data and security requirements at scale.",
     },
   ];
-  const dedicatedInfrastructure = [
-    {
-      heading: "Guaranteed Reliability :",
-      description: "Protect revenue and user experience with ironclad SLAs.",
-    },
-    {
-      heading: "Priority Support :",
-      description: "Access premium, round-the-clock assistance.",
-    },
-    {
-      heading: "Compliance Ready :",
-      description: "Meet strict data and security requirements at scale.",
-    },
-  ];
 
   const faqData = [
     {

@@ -30,8 +30,8 @@ export function ArticleItem({ title, category, slug }: ArticleItemProps) {
           transition="all 0.2s"
         >
           <Text
-            fontSize={{ base: "1rem", md: "1.25rem" }}
-            fontWeight="bold"
+            fontSize={{ base: "1rem", md: "1rem" }}
+            fontWeight="600"
             color="#344054"
             transition="color 0.2s"
             _hover={{ color: "#D65334" }}
