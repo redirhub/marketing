@@ -94,16 +94,6 @@ export default function RatePage() {
           >
             {t('rate.lowRating.cta', 'Share Your Feedback')}
           </Button>
-          <Text
-            as="button"
-            color="gray.600"
-            onClick={() => setSelectedRating(null)}
-            mt={2}
-            cursor="pointer"
-            _hover={{ textDecoration: 'underline', color: 'gray.800' }}
-          >
-            {t('rate.changeRating', 'Change Rating')}
-          </Text>
         </VStack>
       );
     }
