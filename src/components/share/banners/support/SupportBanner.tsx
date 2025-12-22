@@ -46,7 +46,7 @@ const SupportBanner = () => {
               letterSpacing={"0.2px"}
               fontWeight={400}
               mt={4}
-              textAlign={{ base: "center", md: "left" }}
+              textAlign={{ base: "center", md: "center" }}
             >
               Get All Your Questions Answered With The RedirHub Support Explore
               our resources for expert articles, guides, and tutorials to help

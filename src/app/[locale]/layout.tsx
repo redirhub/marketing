@@ -9,6 +9,8 @@ import Footer from "@/components/layout/Footer";
 import initTranslations from "@/lib/i18n";
 import { i18nConfig } from "@/lib/i18n";
 import "./globals.css";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -52,8 +54,7 @@ export default async function RootLayout({
   const pathname = headersList.get("x-pathname") || "";
   const hideHeaderAndFooter = pathname.includes("/rate");
 
-  const hideHeaderOnly =
-    pathname.includes("/blog") && !pathname.includes("/support-category");
+  const hideHeaderOnly = pathname.includes("/support-category");
 
   const shouldHideHeader = hideHeaderAndFooter || hideHeaderOnly;
 

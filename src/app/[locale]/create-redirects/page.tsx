@@ -217,8 +217,8 @@ URLs, destination paths, and redirect types in seconds"
           imageSrc="/assets/images/feature/Domain-Configuration.png"
           imageAlt="Domain-Configuration"
         />
+        <TestimonialsSlider marginBottom={"20px"} />
       </Box>
-      <TestimonialsSlider marginBottom={"20px"} />
       <FAQSection faqData={faqData} />
     </>
   );

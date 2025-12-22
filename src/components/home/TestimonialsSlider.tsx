@@ -242,6 +242,11 @@ export default function TestimonialsSlider({ marginBottom }: Props) {
         .slick-slide.slick-active {
           opacity: 1;
         }
+        @media (max-width: 768px) {
+          .slick-list {
+            overflow: hidden !important;
+          }
+        }
       `}</style>
     </Box>
   );

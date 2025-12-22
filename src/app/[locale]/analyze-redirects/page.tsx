@@ -159,8 +159,8 @@ export default async function AnalyzeRedirects() {
           imageAlt="Technical-Analysis"
           removePaddingBottom={true}
         />
+        <TestimonialsSlider marginBottom={"20px"} />
       </Box>
-      <TestimonialsSlider marginBottom={"20px"} />
       <FAQSection faqData={faqData} />
     </>
   );

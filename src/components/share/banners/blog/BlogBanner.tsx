@@ -7,7 +7,6 @@ import Header from "../../../layout/Header";
 const BlogBanner = () => {
   return (
     <>
-      <Header />
       <Box pt={20} pb={10} className={styles.container}>
         <Container maxW="7xl" mx="auto" px={{ base: 2, md: 2, lg: 0 }}>
           <Flex direction="column" align="center" textAlign="center" gap={2}>

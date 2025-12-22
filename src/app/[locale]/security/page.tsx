@@ -147,8 +147,8 @@ export default async function Globalscale() {
           imageAlt="Data-Protection"
           removePaddingBottom={true}
         />
+        <TestimonialsSlider marginBottom={"20px"} />
       </Box>
-      <TestimonialsSlider marginBottom={"20px"} />
       <FAQSection faqData={faqData} />
     </>
   );

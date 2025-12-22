@@ -19,7 +19,11 @@ export function ArticleItem({ title, category, slug }: ArticleItemProps) {
       borderColor="#EAECF0"
       _last={{ borderBottom: "none" }}
     >
-      <Link href={`/blog/${slug}`} passHref style={{ textDecoration: "none" }}>
+      <Link
+        href={`/support/${slug}`}
+        passHref
+        style={{ textDecoration: "none" }}
+      >
         <Flex
           direction={{ base: "column-reverse", md: "row" }}
           align={{ base: "center", md: "center" }}

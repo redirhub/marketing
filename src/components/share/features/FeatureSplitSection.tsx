@@ -19,26 +19,51 @@ interface FeatureListItemProps {
 const FeatureListItem: React.FC<FeatureListItemProps> = ({
   heading,
   description,
-}) => (
-  <Box as="li" display="flex" gap={2} listStyleType="none">
-    <Box
-      flexShrink={0}
-      fontSize={{ base: "16px", md: "16px" }}
-      mt={{ base: "5px", md: "4px" }}
-      color="#E49426"
-    >
-      <GoCheckCircle />
-    </Box>
-    <Box textAlign="left">
-      <Text as="span" fontSize="sm" fontWeight="700" color="#222B27">
-        {heading}
-      </Text>{" "}
-      <Text as="span" fontSize="1rem" color="#222B27" display="inline">
-        {description}
-      </Text>
-    </Box>
-  </Box>
-);
+}) => {
+  const renderBoldText = (text: string) => {
+    const parts = text.split(/(\*\*.*?\*\*)/g);
+    return parts.map((part, index) => {
+      if (part.startsWith("**") && part.endsWith("**")) {
+        return (
+          <Text as="span" fontWeight="700" color="#222B27" key={index}>
+            {part.slice(2, -2)}
+          </Text>
+        );
+      }
+      return part;
+    });
+  };
+  return (
+    <>
+      <Box as="li" display="flex" gap={2} listStyleType="none">
+        <Box
+          flexShrink={0}
+          fontSize={{ base: "16px", md: "16px" }}
+          mt={{ base: "5px", md: "4px" }}
+          color="#E49426"
+        >
+          <GoCheckCircle />
+        </Box>
+        <Box textAlign="left">
+          {/* <Text as="span" fontSize="sm" fontWeight="700" color="#222B27">
+            {heading}
+          </Text>{" "} */}
+          {heading && (
+            <Text as="span" fontSize="sm" fontWeight="700" color="#222B27">
+              {heading}{" "}
+            </Text>
+          )}
+          {/* <Text as="span" fontSize="1rem" color="#222B27" display="inline">
+            {description}
+          </Text> */}
+          <Text as="span" fontSize="1rem" color="#222B27" display="inline">
+            {renderBoldText(description)}
+          </Text>{" "}
+        </Box>
+      </Box>
+    </>
+  );
+};
 
 const ActionButton: React.FC<
   React.ComponentProps<typeof Button> & {

@@ -31,55 +31,57 @@ export async function generateMetadata({
 export default async function WebsiteMigrations() {
   const ScaleWithoutLimits = [
     {
-      heading: "mass-scale domain portfolios:",
+      heading: "",
       description:
-        "Designed to handle mass-scale domain portfolios with high-speed infrastructure",
+        "Designed to handle **mass-scale domain portfolios** with high-speed infrastructure",
     },
     {
-      heading: "Bulk import, clone:",
-      description: "Custom domains keep ads looking polished and professional.",
+      heading: "",
+      description:
+        "**Bulk import, clone,** and manage thousands of redirects in one go",
     },
     {
-      heading: "Automated HTTPS:",
+      heading: "Automated HTTPS",
       description: "for every domain, regardless of scale",
     },
     {
-      heading: "domain parking use cases and high-volume traffic:",
+      heading: "",
       description:
-        "Purpose-built for domain parking use cases and high-volume traffic",
+        "Purpose-built for **domain parking use cases and high-volume traffic**",
     },
   ];
 
   const PreserveValue = [
     {
-      heading: "Relevant, working destinations:",
+      heading: "",
       description:
-        "Ensure all domains redirect to relevant, working destinations",
+        "Ensure all domains redirect to **relevant, working destinations**",
     },
     {
-      heading: "broken links and lost SEO equity:",
+      heading: "",
       description:
-        "Protect expired or unused domains from broken links and lost SEO equity",
+        "Protect expired or unused domains from **broken links and lost SEO equity**",
     },
     {
-      heading: "pass traffic trust signals:",
+      heading: "",
       description:
-        "Serve clean, secure redirects that pass traffic trust signals",
+        "Serve clean, secure redirects that **pass traffic trust signals**",
     },
     {
-      heading: "Avoid browser warnings or downtime:",
+      heading: "Avoid browser warnings or downtime",
       description: "with always-on HTTPS and health checks",
     },
   ];
 
   const OptimizeCosts = [
     {
-      heading: "servers or DNS infrastructure:",
-      description: "No need to maintain your own servers or DNS infrastructure",
+      heading: "",
+      description:
+        "No need to maintain your own **servers or DNS infrastructure**",
     },
     {
-      heading: "Predictable pricing:",
-      description: "Predictable pricing designed for high-volume redirection",
+      heading: "Predictable pricing",
+      description: "designed for high-volume redirection",
     },
     {
       heading:
@@ -98,32 +100,32 @@ export default async function WebsiteMigrations() {
       description: "",
     },
     {
-      heading: "Path, query, or bot signature:",
-      description: "Filter traffic by path, query, or bot signature",
+      heading: "",
+      description: "Filter traffic by **path, query, or bot signature**",
     },
     {
-      heading: "Analytics tools:",
+      heading: "",
       description:
-        "Integrate with analytics tools to monitor redirection effectiveness",
+        "Integrate with **analytics tools** to monitor redirection effectiveness",
     },
     {
-      heading: "Ad pages, expired landing pages, or SEO vaults:",
+      heading: "",
       description:
-        "Route parked domains to ad pages, expired landing pages, or SEO vaults",
+        "Route parked domains to **ad pages, expired landing pages, or SEO vaults**",
     },
   ];
   const ReliableatAnyVolume = [
     {
-      heading: "sub-100ms redirect latency",
-      description: "Global infrastructure with sub-100ms redirect latency",
+      heading: "",
+      description: "Global infrastructure with **sub-100ms redirect latency**",
     },
     {
-      heading: "Smart failover and load balancing :",
-      description: "Smart failover and load balancing across distributed nodes",
+      heading: "Smart failover and load balancing",
+      description: "across distributed nodes",
     },
     {
-      heading: "Auto-renewing SSL:",
-      description: "Auto-renewing SSL for every domain, with no manual steps",
+      heading: "Auto-renewing SSL",
+      description: "for every domain, with no manual steps",
     },
     {
       heading: "Daily performance monitoring and queue-based domain syncing",
@@ -225,8 +227,9 @@ export default async function WebsiteMigrations() {
           subTitleWidth="100%"
           removePaddingBottom={true}
         />
+        <TestimonialsSlider marginBottom={"20px"} />
       </Box>
-      <TestimonialsSlider marginBottom={"20px"} />
+
       <FAQSection faqData={faqData} />
     </>
   );

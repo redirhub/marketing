@@ -1,95 +1,95 @@
 export const SUPPORT_ARTICLES = [
-  // WALKTHROUGHS
+  // walkthrough
   {
     id: "1",
     title: "Azure DNS: URL redirects with HTTPS support",
-    category: "Walkthroughs",
+    category: "walkthrough",
     slug: "azure-dns-redirects",
   },
   {
     id: "2",
     title: "Network Solutions: URL redirects with HTTPS support",
-    category: "Walkthroughs",
+    category: "walkthrough",
     slug: "network-solutions-redirects",
   },
   {
     id: "3",
     title: "Namecheap: URL redirects with HTTPS support",
-    category: "Walkthroughs",
+    category: "walkthrough",
     slug: "namecheap-redirects",
   },
   {
     id: "4",
     title: "Hover: URL redirects with HTTPS support",
-    category: "Walkthroughs",
+    category: "walkthrough",
     slug: "hover-redirects",
   },
   {
     id: "5",
     title: "TransIP: URL redirects with HTTPS support",
-    category: "Walkthroughs",
+    category: "walkthrough",
     slug: "transip-redirects",
   },
   {
     id: "6",
     title: "NS1: URL redirects with HTTPS support",
-    category: "Walkthroughs",
+    category: "walkthrough",
     slug: "ns1-redirects",
   },
   {
     id: "7",
     title: "Amazon Route 53: URL redirects with HTTPS support",
-    category: "Walkthroughs",
+    category: "walkthrough",
     slug: "amazon-route-53-redirects",
   },
   {
     id: "8",
     title: "Google Cloud DNS: URL redirects with HTTPS support",
-    category: "Walkthroughs",
+    category: "walkthrough",
     slug: "google-cloud-dns-redirects",
   },
   {
     id: "9",
     title: "EuroDNS: URL redirects with HTTPS support",
-    category: "Walkthroughs",
+    category: "walkthrough",
     slug: "eurodns-redirects",
   },
   {
     id: "10",
     title: "DNS Made Easy: URL redirects with HTTPS support",
-    category: "Walkthroughs",
+    category: "walkthrough",
     slug: "dns-made-easy-redirects",
   },
   {
     id: "11",
     title:
       "Mijndomein: HTTPS URL Redirect Tutorial: Easy Step-by-Step Instructions",
-    category: "Walkthroughs",
+    category: "walkthrough",
     slug: "mijndomein-redirects",
   },
   {
     id: "12",
     title:
       "Freenom: HTTPS URL Redirect Tutorial: Easy Step-by-Step Instructions",
-    category: "Walkthroughs",
+    category: "walkthrough",
     slug: "freenom-redirects",
   },
   {
     id: "13",
     title: "DigitalOcean: URL redirects with HTTPS support",
-    category: "Walkthroughs",
+    category: "walkthrough",
     slug: "digitalocean-redirects",
   },
   {
     id: "14",
     title: "How to Redirect CloudFlare Domain to Another URL for Free",
-    category: "Walkthroughs",
+    category: "walkthrough",
     slug: "cloudflare-redirects",
   },
   {
     id: "15",
     title: "How to Forward GoDaddy Domain with HTTPS for Free",
-    category: "Walkthroughs",
+    category: "walkthrough",
     slug: "godaddy-redirects",
   },
 
