@@ -34,7 +34,11 @@ export default function Footer() {
     "/marketing-campaigns",
     "/website-migrations",
   ];
-  const showTabs = tabRoutes.includes(pathname);
+  // const showTabs = tabRoutes.includes(pathname);
+  const pathWithoutLocale = pathname.replace(/^\/[a-z]{2}(\/|$)/, "/") || "/";
+  const showTabs =
+    tabRoutes.includes(pathWithoutLocale) ||
+    pathWithoutLocale.startsWith("/support/");
 
   const handleLanguageChange = (newLocale: string) => {
     // Get the current path without the locale
@@ -221,178 +225,13 @@ export default function Footer() {
             {/* Company */}
             <FooterLinkColumn title="Company" links={footerLinks.company} />
 
-            {/* <Stack
-              gap={3}
-              alignItems={{ base: "center", md: "center", lg: "flex-start" }}
-            >
-              <Text
-                fontSize="1.1rem"
-                fontWeight="700"
-                lineHeight="2rem"
-                letterSpacing="0.4px"
-                color="#667085"
-                pb={2}
-              >
-                Company
-              </Text>
-              {footerLinks.company.map((link) => (
-                <Link
-                  key={link.href}
-                  href={link.href}
-                  target={
-                    (link as any).target === "blank" ? "_blank" : undefined
-                  }
-                  rel={
-                    (link as any).target === "blank"
-                      ? "noopener noreferrer"
-                      : undefined
-                  }
-                >
-                  <Text
-                    fontSize="15px"
-                    fontWeight={400}
-                    letterSpacing="0.2px"
-                    color="#101828"
-                    _hover={{ color: "#1C6DB6" }}
-                    transition="color 0.2s ease"
-                  >
-                    {link.label}
-                  </Text>
-                </Link>
-              ))}
-            </Stack> */}
-
             {/* Resources */}
             <FooterLinkColumn title="Resources" links={footerLinks.resources} />
-
-            {/* <Stack
-              gap={3}
-              alignItems={{ base: "center", md: "center", lg: "flex-start" }}
-            >
-              <Text
-                fontSize="1.1rem"
-                fontWeight="700"
-                lineHeight="2rem"
-                letterSpacing="0.4px"
-                color="#667085"
-                pb={2}
-              >
-                Resources
-              </Text>
-              {footerLinks.resources.map((link) => (
-                <Link
-                  key={link.href}
-                  href={link.href}
-                  target={
-                    (link as any).target === "blank" ? "_blank" : undefined
-                  }
-                  rel={
-                    (link as any).target === "blank"
-                      ? "noopener noreferrer"
-                      : undefined
-                  }
-                >
-                  <Text
-                    fontSize="15px"
-                    fontWeight={400}
-                    letterSpacing="0.2px"
-                    color="#101828"
-                    _hover={{ color: "#1C6DB6" }}
-                    transition="color 0.2s ease"
-                  >
-                    {link.label}
-                  </Text>
-                </Link>
-              ))}
-            </Stack> */}
 
             {/* Products */}
             <FooterLinkColumn title="Products" links={footerLinks.products} />
 
-            {/* <Stack
-              gap={3}
-              alignItems={{ base: "center", md: "center", lg: "flex-start" }}
-            >
-              <Text
-                fontSize="1.1rem"
-                fontWeight="700"
-                lineHeight="2rem"
-                letterSpacing="0.4px"
-                color="#667085"
-                pb={2}
-              >
-                Products
-              </Text>
-              {footerLinks.products.map((link) => (
-                <Link
-                  key={link.href}
-                  href={link.href}
-                  target={
-                    (link as any).target === "blank" ? "_blank" : undefined
-                  }
-                  rel={
-                    (link as any).target === "blank"
-                      ? "noopener noreferrer"
-                      : undefined
-                  }
-                >
-                  <Text
-                    fontSize="15px"
-                    fontWeight={400}
-                    letterSpacing="0.2px"
-                    color="#101828"
-                    _hover={{ color: "#1C6DB6" }}
-                    transition="color 0.2s ease"
-                  >
-                    {link.label}
-                  </Text>
-                </Link>
-              ))}
-            </Stack> */}
-
-            {/* Contact */}
-
             <FooterLinkColumn title="Contact" links={footerLinks.contact} />
-            {/* <Stack
-              gap={3}
-              alignItems={{ base: "center", md: "center", lg: "flex-start" }}
-            >
-              <Text
-                fontSize="1.1rem"
-                fontWeight="700"
-                lineHeight="2rem"
-                letterSpacing="0.4px"
-                color="#667085"
-                pb={2}
-              >
-                Contact
-              </Text>
-              {footerLinks.contact.map((link) => (
-                <Link
-                  key={link.href}
-                  href={link.href}
-                  target={
-                    (link as any).target === "blank" ? "_blank" : undefined
-                  }
-                  rel={
-                    (link as any).target === "blank"
-                      ? "noopener noreferrer"
-                      : undefined
-                  }
-                >
-                  <Text
-                    fontSize="15px"
-                    fontWeight={400}
-                    letterSpacing="0.2px"
-                    color="#101828"
-                    _hover={{ color: "#1C6DB6" }}
-                    transition="color 0.2s ease"
-                  >
-                    {link.label}
-                  </Text>
-                </Link>
-              ))}
-            </Stack> */}
           </Grid>
 
           {/* Bottom Bar */}

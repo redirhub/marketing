@@ -1,19 +1,19 @@
 "use client";
 
 import React from "react";
-import { Button, HStack, Text, Box } from "@chakra-ui/react";
+import { Button, HStack, Text } from "@chakra-ui/react";
+import NextLink from "next/link";
 
+const StyledLink = Button as React.FC<any>;
 interface PaginationControlsProps {
   currentPage: number;
   totalPages: number;
-  onPageChange: (page: number) => void;
   buttonProps?: React.ComponentProps<typeof Button>;
 }
 
 const PaginationControls: React.FC<PaginationControlsProps> = ({
   currentPage,
   totalPages,
-  onPageChange,
   buttonProps,
 }) => {
   if (totalPages <= 1) {
@@ -38,20 +38,21 @@ const PaginationControls: React.FC<PaginationControlsProps> = ({
     };
 
     return (
-      <Button
+      <StyledLink
         key={page}
+        as={NextLink}
+        href={getPageUrl(page)}
         fontSize={"14px"}
         borderRadius="8px"
         variant="ghost"
         p={"8px"}
         minWidth="32px"
         h="32px"
-        onClick={() => onPageChange(page)}
         {...(isCurrent ? activeStyle : inactiveStyle)}
         {...buttonProps}
       >
         {page}
-      </Button>
+      </StyledLink>
     );
   };
 
@@ -85,19 +86,22 @@ const PaginationControls: React.FC<PaginationControlsProps> = ({
     finalPages.push(page);
     lastPage = page;
   });
+  const getPageUrl = (page: number) => `?page=${page}`;
 
   return (
     <HStack gap={2} justify="center" align="center" py={8}>
-      <Button
+      <StyledLink
         px={3}
+        as={NextLink}
+        href={getPageUrl(currentPage - 1)}
         py={1}
         borderRadius={"8px"}
         fontSize={"14px"}
         bg="gray.100"
         color="gray.500"
         border="1px solid #d2e1f0"
-        onClick={() => onPageChange(currentPage - 1)}
         h="32px"
+        pointerEvents={currentPage === 1 ? "none" : "auto"}
         disabled={currentPage === 1}
         _hover={{
           border: "1px solid #1C6DB6",
@@ -106,7 +110,7 @@ const PaginationControls: React.FC<PaginationControlsProps> = ({
         {...buttonProps}
       >
         Previous
-      </Button>
+      </StyledLink>
 
       {finalPages.map((page, index) => (
         <React.Fragment key={index}>
@@ -120,16 +124,17 @@ const PaginationControls: React.FC<PaginationControlsProps> = ({
         </React.Fragment>
       ))}
 
-      <Button
+      <StyledLink
         px={3}
         py={1}
+        as={NextLink}
+        href={getPageUrl(currentPage + 1)}
         borderRadius={"8px"}
         fontSize={"14px"}
         fontWeight={600}
         bg="gray.100"
         h="32px"
         color="#798294"
-        onClick={() => onPageChange(currentPage + 1)}
         disabled={currentPage === totalPages}
         _hover={{
           border: "1px solid #1C6DB6",
@@ -138,7 +143,7 @@ const PaginationControls: React.FC<PaginationControlsProps> = ({
         {...buttonProps}
       >
         Next
-      </Button>
+      </StyledLink>
     </HStack>
   );
 };

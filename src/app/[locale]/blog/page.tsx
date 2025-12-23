@@ -25,11 +25,18 @@ export async function generateMetadata({
   };
 }
 
-export default async function PricingPage() {
+export default async function BlogPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ page?: string }>;
+}) {
+  // Await the params from the URL
+  const { page } = await searchParams;
+  const currentPage = Number(page) || 1;
   return (
     <>
       <BlogBanner />
-      <BlogList />
+      <BlogList currentPage={currentPage} />
     </>
   );
 }

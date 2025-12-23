@@ -6,12 +6,11 @@ export const LocationsIcon = () => {
       height="100%"
       fill="none"
       viewBox="0 0 64 64"
-      preserveAspectRatio="xMidYMid meet"
     >
       <rect
         width="64"
         height="64"
-        fill="url(#paint0_radial_location)"
+        fill="url(#paint0_radial_locations)"
         rx="16"
       />
       <path
@@ -19,19 +18,19 @@ export const LocationsIcon = () => {
         strokeLinecap="round"
         strokeLinejoin="round"
         strokeWidth="3.333"
-        d="M39.276 38.121 42 50.667c-7.144-4.44-12.856-4.44-20 0l2.724-12.546"
-        opacity=".28"
+        d="M43.666 21.475c0-1.482-2.777-.111-3.408.084-2.776.86-5.788.475-8.258-1.055a10.046 10.046 0 0 0-8.258-1.055l-2.41.746a1.417 1.417 0 0 0-.999 1.354v14.878c0 1.26 1.897.289 2.453.1a10.982 10.982 0 0 1 8.962.87 10.982 10.982 0 0 0 8.696.956l2.182-.675a1.477 1.477 0 0 0 1.04-1.41V21.474Z"
       />
       <path
         stroke="#fff"
         strokeLinecap="round"
         strokeLinejoin="round"
         strokeWidth="3.333"
-        d="M43.666 29c0 6.443-5.223 11.667-11.666 11.667-6.444 0-11.667-5.224-11.667-11.667S25.556 17.333 32 17.333c6.443 0 11.666 5.224 11.666 11.667Z"
+        d="M20.333 19v30"
+        opacity=".28"
       />
       <defs>
         <radialGradient
-          id="paint0_radial_location"
+          id="paint0_radial_locations"
           cx="0"
           cy="0"
           r="1"

@@ -16,13 +16,13 @@ export default function Hero() {
         <Flex direction="column" align="center" textAlign="center" gap={8}>
           <Box>
             <Heading
-              as="h1"
+              as="h2"
               fontSize={{
                 base: "2rem",
                 md: "2.5rem",
                 lg: "3.2rem",
               }}
-              fontWeight="600"
+              fontWeight={600}
               lineHeight="tight"
               maxW="4xl"
               color="#fff"
@@ -34,7 +34,7 @@ export default function Hero() {
               <Heading
                 as="h1"
                 fontSize={{ base: "2rem", md: "2rem", lg: "4rem" }}
-                fontWeight="bold"
+                fontWeight={800}
                 lineHeight="tight"
                 maxW="5xl"
                 mt={-2}
@@ -50,7 +50,12 @@ export default function Hero() {
             </Box>
           </Box>
           {/* Subheading */}
-          <Text fontSize={{ base: "lg", md: "xl" }} color="#fff" maxW="4xl">
+          <Text
+            fontSize={{ base: "1.2rem", md: "1.2rem" }}
+            color="#fff"
+            lineHeight={"1.75rem"}
+            maxW="4xl"
+          >
             {t(
               `home.hero.subtitle`,
               "Forward your domains instantly and manage all redirects from a real-time dashboard. Enhance your SEO with 301/302 redirects and secure every link with HTTPS."

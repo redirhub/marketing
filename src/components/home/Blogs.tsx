@@ -1,44 +1,12 @@
 "use client";
 
-import { Box, Center, Heading, SimpleGrid, Spinner } from "@chakra-ui/react";
+import { Box, Heading, SimpleGrid } from "@chakra-ui/react";
 import { BlogCard } from "./BlogCard";
-import { useEffect, useState } from "react";
 import { BlogPost } from "@/app/api/blogs/route";
+import { fetchBlogPosts } from "@/lib/services/blog";
 
-export default function Blogs() {
-  const [posts, setPosts] = useState<BlogPost[]>([]);
-  const [isLoading, setIsLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
-
-  useEffect(() => {
-    async function fetchBlogPosts() {
-      try {
-        const response = await fetch("/api/blogs");
-
-        if (!response.ok) {
-          throw new Error(`HTTP error! status: ${response.status}`);
-        }
-
-        const data: BlogPost[] = await response.json();
-        setPosts(data);
-      } catch (e) {
-        console.error("Failed to fetch blog posts:", e);
-        setError("Failed to load blog posts. Please try again.");
-      } finally {
-        setIsLoading(false);
-      }
-    }
-
-    fetchBlogPosts();
-  }, []);
-
-  if (isLoading) {
-    return (
-      <Center py={20}>
-        <Spinner size="xl" color="orange.500" />
-      </Center>
-    );
-  }
+export default async function Blogs() {
+  const posts: BlogPost[] = await fetchBlogPosts();
 
   const postsToShow = posts.slice(0, 3);
 

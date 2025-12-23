@@ -193,8 +193,6 @@ const CHECKER_GRID_PROPS = {
   gridTemplateColumns: { base: "1fr", md: "3fr 1fr" } as const,
 };
 
-// MAIN COMPONENT ===========================================================
-
 export default function HeroTabs() {
   // STATE: Form inputs
   const [redirectFrom, setRedirectFrom] = useState("");

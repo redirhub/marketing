@@ -2,10 +2,10 @@ import { Metadata } from "next";
 import initTranslations from "@/lib/i18n";
 import { getAppName } from "@/lib/utils/constants";
 import SupportBanner from "@/components/share/banners/support/SupportBanner";
-import { Box, Flex, Heading, Container, Stack, VStack } from "@chakra-ui/react";
+import { Box, Flex, Heading, VStack } from "@chakra-ui/react";
 import Sidebar from "@/components/support/Sidebar";
-import { SUPPORT_ARTICLES } from "@/lib/dummy-data/support-data";
 import { ArticleItem } from "@/components/support/ArticleItem";
+import { fetchSupportArticles } from "@/lib/services/support";
 
 export async function generateMetadata({
   params,
@@ -29,6 +29,7 @@ export async function generateMetadata({
 }
 
 export default async function SupportPage() {
+  const articles = await fetchSupportArticles();
   return (
     <>
       <SupportBanner />
@@ -52,14 +53,22 @@ export default async function SupportPage() {
             </Box>
             <Box as="section" w={{ base: "full", md: "75%", lg: "80%" }}>
               <VStack align="stretch" gap={0}>
-                {SUPPORT_ARTICLES.map((article) => (
-                  <ArticleItem
-                    key={article.id}
-                    title={article.title}
-                    category={article.category}
-                    slug={article.slug}
-                  />
-                ))}
+                {articles.length > 0 ? (
+                  articles.map((article: any) => (
+                    <ArticleItem
+                      key={article.id}
+                      title={article.title}
+                      category={article.category}
+                      slug={article.slug}
+                    />
+                  ))
+                ) : (
+                  <Box py={10} textAlign="center">
+                    <Heading size="sm" color="gray.500">
+                      No support articles found.
+                    </Heading>
+                  </Box>
+                )}
               </VStack>
             </Box>
           </Flex>

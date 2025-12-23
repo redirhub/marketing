@@ -2,8 +2,8 @@ import { Box, Flex, Heading, VStack } from "@chakra-ui/react";
 import SupportBanner from "@/components/share/banners/support/SupportBanner";
 import Sidebar from "@/components/support/Sidebar";
 import { ArticleItem } from "@/components/support/ArticleItem";
-import { SUPPORT_ARTICLES } from "@/lib/dummy-data/support-data";
 import { Metadata } from "next";
+import { fetchSupportArticles } from "@/lib/services/support";
 
 export async function generateMetadata({
   params,
@@ -24,9 +24,10 @@ export default async function CategoryPage({
 }: {
   params: Promise<{ category: string }>;
 }) {
+  const allArticles = await fetchSupportArticles();
   const { category } = await params;
-  const filteredArticles = SUPPORT_ARTICLES.filter(
-    (article) => article.category.toLowerCase() === category.toLowerCase()
+  const filteredArticles = allArticles.filter(
+    (article: any) => article.category.toLowerCase() === category.toLowerCase()
   );
 
   return (
@@ -54,7 +55,7 @@ export default async function CategoryPage({
             <Box as="section" w={{ base: "full", md: "75%", lg: "80%" }}>
               <VStack align="stretch" gap={0}>
                 {filteredArticles.length > 0 ? (
-                  filteredArticles.map((article) => (
+                  filteredArticles.map((article: any) => (
                     <ArticleItem
                       key={article.id}
                       title={article.title}

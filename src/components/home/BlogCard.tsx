@@ -1,5 +1,5 @@
 import { Box, Image, Text, Flex, Button, Heading } from "@chakra-ui/react";
-import { ArrowForwardIcon } from "@chakra-ui/icons";
+import { FaArrowRightLong } from "react-icons/fa6";
 import NextLink from "next/link";
 
 interface BlogCardProps {
@@ -102,7 +102,7 @@ export const BlogCard = ({
             fontSize={{ base: "12px", md: "1rem" }}
           >
             Read More
-            <ArrowForwardIcon />
+            <FaArrowRightLong />
           </Button>
         </NextLink>
       </Box>

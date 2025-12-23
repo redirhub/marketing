@@ -1,7 +1,9 @@
 import { Metadata } from "next";
-import { Box, Container, Heading, Text } from "@chakra-ui/react";
 import initTranslations from "@/lib/i18n";
 import { getAppName } from "@/lib/utils/constants";
+import BookADemo from "@/components/enterprise/BookADemo";
+import StandsOut from "@/components/enterprise/StandsOut";
+import EnterpriseBanner from "@/components/share/banners/enterprise/EnterpriseBanner";
 
 export async function generateMetadata({
   params,
@@ -24,17 +26,12 @@ export async function generateMetadata({
   };
 }
 
-export default async function PricingPage() {
+export default function PricingPage() {
   return (
-    <Box py={20}>
-      <Container maxW="7xl" mx="auto">
-        <Heading as="h1" size="2xl" mb={4}>
-          Enterprise
-        </Heading>
-        <Text fontSize="xl" color="gray.600">
-          Coming soon...
-        </Text>
-      </Container>
-    </Box>
+    <>
+      <EnterpriseBanner />
+      <BookADemo />
+      <StandsOut />
+    </>
   );
 }

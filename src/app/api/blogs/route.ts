@@ -8,7 +8,6 @@ export interface BlogPost {
   title: string;
   link: string;
 }
-
 const mockBlogPosts: BlogPost[] = [
   {
     imageSrc: "/assets/images/blog.jpeg",
@@ -58,11 +57,16 @@ const mockBlogPosts: BlogPost[] = [
     title: "Getting Started with Next.js 14: A Complete Guide",
     link: "/blog/nextjs-guide",
   },
+  {
+    imageSrc: "/assets/images/blog.jpeg",
+    imageAlt: "Blog post 3",
+    category: "Development",
+    date: "3 mins read",
+    title: "Getting Started with Next.js 14: A Complete Guide",
+    link: "/blog/nextjs-guide",
+  },
 ];
 
 export async function GET() {
-  // Simulate a network delay (optional)
-  await new Promise((resolve) => setTimeout(resolve, 500));
-
   return NextResponse.json(mockBlogPosts);
 }

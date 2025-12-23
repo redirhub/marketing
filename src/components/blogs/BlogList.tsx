@@ -1,53 +1,19 @@
-"use client";
-
-import { Box, Center, Container, SimpleGrid, Spinner } from "@chakra-ui/react";
+import { Box, Container, SimpleGrid, Spinner } from "@chakra-ui/react";
 import { BlogCard } from "../home/BlogCard";
-import { useEffect, useState } from "react";
 import PaginationControls from "../ui/PaginationControls";
 import { BlogPost } from "@/app/api/blogs/route";
+import { fetchBlogPosts } from "@/lib/services/blog";
 
-const BlogList = () => {
-  const [posts, setPosts] = useState<BlogPost[]>([]);
-  const [isLoading, setIsLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
+const BlogList = async ({ currentPage }: { currentPage: number }) => {
+  const posts: BlogPost[] = await fetchBlogPosts();
 
-  useEffect(() => {
-    async function fetchBlogPosts() {
-      try {
-        const response = await fetch("/api/blogs");
+  // Logic to slice your posts array for pagination
+  const postsPerPage = 6;
+  const startIndex = (currentPage - 1) * postsPerPage;
+  const endIndex = startIndex + postsPerPage;
+  const displayedPosts = posts.slice(startIndex, endIndex);
 
-        if (!response.ok) {
-          throw new Error(`HTTP error! status: ${response.status}`);
-        }
-
-        const data: BlogPost[] = await response.json();
-        setPosts(data);
-      } catch (e) {
-        console.error("Failed to fetch blog posts:", e);
-        setError("Failed to load blog posts. Please try again.");
-      } finally {
-        setIsLoading(false);
-      }
-    }
-
-    fetchBlogPosts();
-  }, []);
-
-  const [currentPage, setCurrentPage] = useState(1);
-  const totalPages = 10;
-
-  const handlePageChange = (page: number) => {
-    setCurrentPage(page);
-    console.log(`Navigating to page ${page}`);
-  };
-
-  if (isLoading) {
-    return (
-      <Center py={20}>
-        <Spinner size="xl" color="orange.500" />
-      </Center>
-    );
-  }
+  const totalPages = Math.ceil(posts.length / postsPerPage) || 1;
 
   return (
     <>
@@ -57,7 +23,7 @@ const BlogList = () => {
             columns={{ base: 1, md: 2, lg: 3 }}
             gap={{ base: 6, md: 6 }}
           >
-            {posts?.map((post, index) => (
+            {displayedPosts?.map((post, index) => (
               <BlogCard
                 key={index}
                 imageSrc={post.imageSrc}
@@ -74,7 +40,6 @@ const BlogList = () => {
           <PaginationControls
             currentPage={currentPage}
             totalPages={totalPages}
-            onPageChange={handlePageChange}
           />
         </Container>
       </Box>
