@@ -1,5 +1,3 @@
-"use client";
-
 import { Box, Heading, SimpleGrid } from "@chakra-ui/react";
 import { BlogCard } from "./BlogCard";
 import { BlogPost } from "@/app/api/blogs/route";

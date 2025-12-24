@@ -3,6 +3,7 @@ import { Box, Heading, Text, Stack } from "@chakra-ui/react";
 interface TabContentWrapperProps {
   title: string;
   description: string;
+  maxW?: string;
   children: React.ReactNode;
 }
 
@@ -14,11 +15,12 @@ export const TabContentWrapper: React.FC<TabContentWrapperProps> = ({
   title,
   description,
   children,
+  maxW,
 }) => {
   return (
     <Box
       w="100%"
-      maxW="4xl"
+      maxW={maxW ? maxW : "4xl"}
       mx="auto"
       p={6}
       mt={4}

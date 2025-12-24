@@ -104,7 +104,7 @@ export const FAQAccordion = ({ items }: FAQAccordionProps) => {
               </Accordion.ItemTrigger>
               <Accordion.ItemContent>
                 <Accordion.ItemBody pb={6} px={6}>
-                  <Text
+                  {/* <Text
                     fontSize={{ base: "14px", md: "15px" }}
                     color="gray.600"
                     lineHeight="24px"
@@ -112,7 +112,19 @@ export const FAQAccordion = ({ items }: FAQAccordionProps) => {
                     p="0px 23px 23px 23px"
                   >
                     {item.answer}
-                  </Text>
+                  </Text> */}
+                  <Box
+                    dangerouslySetInnerHTML={{ __html: item.answer }}
+                    css={{
+                      ul: { marginLeft: "20px", marginTop: "10px" },
+                      li: { marginBottom: "8px" },
+                    }}
+                    fontSize={{ base: "14px", md: "15px" }}
+                    color="gray.600"
+                    lineHeight="24px"
+                    textAlign={"left"}
+                    p="0px 23px 23px 23px"
+                  />
                 </Accordion.ItemBody>
               </Accordion.ItemContent>
             </Accordion.Item>
