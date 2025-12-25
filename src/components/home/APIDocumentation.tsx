@@ -31,10 +31,16 @@ const FeatureListItem: React.FC<FeatureListItemProps> = ({
       <GoCheckCircle />
     </Box>
     <Box textAlign="left">
-      <Text as="span" fontSize="sm" fontWeight="700" color="#101828">
-        {heading}
+      <Text as="span" fontSize="1rem" fontWeight="700" color="#222b27">
+        {heading}{" "}
       </Text>
-      <Text as="span" fontSize="sm" color="#667085" display="inline">
+      <Text
+        as="span"
+        fontSize="1rem"
+        display="inline"
+        color="#222b27"
+        letterSpacing={"0.2px"}
+      >
         {description}
       </Text>
     </Box>
@@ -122,7 +128,13 @@ export default function APIDocumentation() {
             alignItems="center"
           >
             <Box textAlign="left" order={{ base: 1, md: 1 }}>
-              <Text color="#667085" mb={4}>
+              <Text
+                color="#344054"
+                mb={4}
+                fontSize={"1rem"}
+                letterSpacing={"0.2px"}
+                lineHeight={"1.7rem"}
+              >
                 Unleash the full potential of RedirHub with our detailed API
                 documentation. Designed to support developers at every stage,
                 the documentation provides clear and concise guidance to
@@ -147,7 +159,7 @@ export default function APIDocumentation() {
                   description="Access a comprehensive API reference with examples to kickstart your implementation."
                 />
                 <FeatureListItem
-                  heading="Scalable Solutions"
+                  heading="Scalable Solutions:"
                   description="Leverage advanced features to automate workflows and scale your redirect management effortlessly."
                 />
               </Box>

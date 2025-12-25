@@ -172,10 +172,11 @@ export default function TestimonialsSlider({ marginBottom }: Props) {
 
                   <Text
                     fontSize={{ base: "1rem", md: "1.4rem" }}
-                    fontWeight={400}
-                    color="1.4rem"
+                    fontWeight={500}
                     textAlign={"left"}
                     mb={8}
+                    color="#344054"
+                    fontStyle={"italic"}
                   >
                     {testimonial.quote}
                   </Text>

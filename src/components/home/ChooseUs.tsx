@@ -20,7 +20,7 @@ export default function ChooseUs() {
           lineHeight={{ base: "2rem", md: "3rem" }}
           color="#344054"
           letterSpacing="0.4px"
-          mb={{ base: 4, md: 8 }}
+          mb={{ base: 4, md: 6 }}
         >
           Why should you choose us?
         </Heading>

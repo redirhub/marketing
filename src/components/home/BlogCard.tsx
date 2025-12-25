@@ -73,7 +73,7 @@ export const BlogCard = ({
           <Heading
             as="h3"
             fontSize={{ base: "1rem", md: "1.2rem", lg: "1.2rem" }}
-            fontWeight="700"
+            fontWeight="600"
             color="gray.800"
             mb={0}
             lineHeight={{ base: "1.5rem", md: "1.8rem" }}
@@ -84,27 +84,32 @@ export const BlogCard = ({
           </Heading>
         </NextLink>
 
-        <NextLink href={link} passHref>
-          <Button
-            as="button"
-            variant="ghost"
-            colorScheme="teal"
-            justifyContent="flex-start"
-            px={0}
-            gap={1}
-            fontWeight="semibold"
-            color="#1C6DB6"
-            _hover={{
-              textDecoration: "none",
-              color: "#667085",
-              bg: "transparent",
-            }}
-            fontSize={{ base: "12px", md: "1rem" }}
-          >
-            Read More
-            <FaArrowRightLong />
-          </Button>
-        </NextLink>
+        {!isBlogPage && (
+          <Box textAlign={"left"}>
+            <NextLink href={link} passHref>
+              <Button
+                as="button"
+                variant="ghost"
+                colorScheme="teal"
+                justifyContent="flex-start"
+                px={0}
+                gap={1}
+                fontWeight="semibold"
+                color="#1C6DB6"
+                _hover={{
+                  textDecoration: "none",
+                  color: "#667085",
+                  bg: "transparent",
+                }}
+                textAlign={"left"}
+                fontSize={{ base: "12px", md: "1rem" }}
+              >
+                Read More
+                <FaArrowRightLong />
+              </Button>
+            </NextLink>
+          </Box>
+        )}
       </Box>
     </Box>
   );

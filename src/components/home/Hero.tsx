@@ -23,10 +23,9 @@ export default function Hero() {
                 lg: "3.2rem",
               }}
               fontWeight={600}
-              lineHeight="tight"
               maxW="4xl"
               color="#fff"
-              mb={{ base: 4, md: 0 }}
+              mb={{ base: 4, md: "12px" }}
             >
               {t(`home.hero.title`, "Your domains.")}
             </Heading>
@@ -37,8 +36,8 @@ export default function Hero() {
                 fontWeight={800}
                 lineHeight="tight"
                 maxW="5xl"
-                mt={-2}
                 color="#fff"
+                letterSpacing={"-0.8px"}
               >
                 <Text as="span" className={styles.globallyText}>
                   {t(`home.hero.underLineText`, "Globally")}{" "}

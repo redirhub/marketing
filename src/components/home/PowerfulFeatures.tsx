@@ -61,8 +61,8 @@ const CustomTabTrigger: React.FC<CustomTabTriggerProps> = ({
         boxShadow: "md",
       }}
     >
-      <Text fontSize={{ base: "12px", md: "12px" }} fontWeight={400}>
-        {label}{" "}
+      <Text fontSize={{ base: "14px", md: "14px" }} fontWeight={400}>
+        {label}
       </Text>
     </Tabs.Trigger>
   );
@@ -82,11 +82,17 @@ const FeatureListItem: React.FC<FeatureListItemProps> = ({
       <GoCheckCircle />
     </Box>
     <Box>
-      <Text as="span" fontSize="sm" fontWeight="700" color="#101828">
+      <Text as="span" fontSize="1rem" fontWeight="700" color="#222b27">
         {heading}
       </Text>
 
-      <Text as="span" fontSize="sm" color="#667085" display="inline">
+      <Text
+        as="span"
+        fontSize="1rem"
+        letterSpacing={"0.2px"}
+        color="#222b27"
+        display="inline"
+      >
         {" "}
         {description}
       </Text>
@@ -163,14 +169,19 @@ const FeatureContent: React.FC<FeatureContentProps> = ({ data }) => {
       <SimpleGrid columns={{ base: 1, md: 1, lg: 2 }} gap={8}>
         <Box textAlign="left" order={{ base: 1, md: 1, lg: 1 }}>
           <Heading
-            fontSize={{ base: "1.2rem", md: "1.5rem", lg: "1.9rem" }}
+            fontSize={{ base: "1.2rem", md: "1.5rem", lg: "1.8rem" }}
             color="#101828"
             mb={6}
             fontWeight={600}
           >
             {title}
           </Heading>
-          <Text color="#667085" mb={4}>
+          <Text
+            color="#344054"
+            mb={4}
+            fontSize={"14px"}
+            letterSpacing={"0.2px"}
+          >
             {description}
           </Text>
           <Box as="ul" pl={0} display="grid" rowGap={3}>

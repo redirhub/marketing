@@ -76,18 +76,19 @@ export default function WhyStandsOut() {
   return (
     <Box
       w="100%"
-      py={{ base: 10, md: 20 }}
+      py={{ base: 10, md: 24 }}
       px={{ base: 4, md: 6 }}
       textAlign="center"
       bg={"#fff"}
+      pb={{ base: 16, md: 20 }}
     >
       <Box w="100%" maxW="7xl" mx="auto" textAlign="center">
         <Heading
-          fontSize={{ base: "1.6rem", md: "2rem", lg: "3rem" }}
+          fontSize={{ base: "1.6rem", md: "2rem", lg: "2.8rem" }}
           fontWeight={500}
           color="#344054"
           letterSpacing="0.4px"
-          mb={{ base: 8, md: 16 }}
+          mb={{ base: 8, md: 14 }}
         >
           Why RedirHub Stands Out
         </Heading>
@@ -108,21 +109,24 @@ export default function WhyStandsOut() {
               alignItems="center"
               textAlign="center"
               position="relative"
-              boxSize={{ base: "80px", md: "90px", lg: "108px" }}
+              boxSize={{ base: "80px", md: "90px", lg: "100px" }}
               flexShrink={0}
+              mb={4}
             >
               <MainIcon />
             </Box>
             <Stack gap={{ base: 2, md: 4 }} textAlign="left" justify="center">
               <Heading
                 fontWeight={{ base: 600, md: 600, lg: 700 }}
-                fontSize={{ base: "2rem", md: "2.2rem", lg: "3.2rem" }}
+                fontSize={{ base: "2rem", md: "2.2rem", lg: "3rem" }}
                 color="#000"
               >
                 90ms
               </Heading>
-              <Text color="#667085">Rapid redirect</Text>
-              <Text color="#667085">
+              <Text color="#667085" fontSize={{ base: "1rem", md: "1rem" }}>
+                Rapid redirect
+              </Text>
+              <Text color="#667085" fontSize={{ base: "1rem", md: "1.1rem" }}>
                 Average redirect latency, ensuring quick, seamless user
                 experiences
               </Text>
@@ -174,16 +178,16 @@ export const StatsCard = ({
   return (
     <Flex
       bg="#F6F8F4"
-      borderRadius="20px"
-      p="20px"
+      borderRadius="32px"
+      p="14px"
       gap="20px"
       w="100%"
       align={{ base: "left", md: "center" }}
       direction={{ base: "column", md: "row" }}
     >
       <Box
-        w="70px"
-        h="70px"
+        w="65px"
+        h="65px"
         borderRadius="18px"
         overflow="hidden"
         display="flex"
@@ -195,12 +199,12 @@ export const StatsCard = ({
 
       <Box flex="0.7">
         <Text
-          color="#000"
+          color="#333"
           lineHeight="1"
           mb="2px"
           textAlign={"left"}
           fontWeight={{ base: 600, md: 700 }}
-          fontSize={{ base: "1.7rem", md: "1.7rem", lg: "1.7rem" }}
+          fontSize={{ base: "1.5rem", md: "1.5rem" }}
         >
           {value}
         </Text>
@@ -223,7 +227,7 @@ export const StatsCard = ({
         <Text
           fontSize="1.1rem"
           color="#667085"
-          lineHeight="1.7rem"
+          lineHeight="1.4rem"
           fontWeight="400"
           textAlign={"left"}
         >

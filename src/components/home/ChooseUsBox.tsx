@@ -44,9 +44,9 @@ export default function ChooseUsBox({
       >
         <Box flex="1" order={{ base: 1, md: 1 }}>
           <Heading
-            fontSize={{ base: "1rem", md: "1.2rem", lg: "1.9rem" }}
+            fontSize={{ base: "1rem", md: "1.2rem", lg: "1.5rem" }}
             fontWeight="600"
-            color="#000"
+            color="#333"
             textAlign={"left"}
           >
             {title}
@@ -90,7 +90,13 @@ export default function ChooseUsBox({
         order={{ base: 2, md: 2, lg: 2 }}
       >
         {subtitle && (
-          <Text color="gray.600" mt={2} maxW="md" textAlign={"left"}>
+          <Text
+            color="#667085"
+            mt={2}
+            textAlign={"left"}
+            fontSize={"15px"}
+            fontWeight={400}
+          >
             {subtitle}
           </Text>
         )}

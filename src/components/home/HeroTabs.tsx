@@ -51,6 +51,7 @@ export const CustomTabTrigger: React.FC<CustomTabTriggerProps> = ({
   icon,
   label,
 }) => {
+  const isShortenUrl = label === "Shorten URL";
   return (
     <Tabs.Trigger
       value={value}
@@ -70,8 +71,13 @@ export const CustomTabTrigger: React.FC<CustomTabTriggerProps> = ({
         "& svg": { color: "#E49426" },
       }}
     >
-      <HStack gap={{ base: 1, md: 3 }} justify="center">
-        <Icon as={icon} boxSize={{ base: 3, md: 4 }} color="currentColor" />
+      <HStack gap={{ base: 1, md: 2 }} justify="center">
+        <Icon
+          as={icon}
+          boxSize={{ base: 3, md: 4 }}
+          color="currentColor"
+          transform={isShortenUrl ? "rotate(134deg)" : undefined}
+        />
         <Text fontSize={{ base: "12px", md: "14px" }} fontWeight="400">
           {label}
         </Text>
@@ -308,7 +314,7 @@ export default function HeroTabs() {
                 onChange={(e) => setRedirectFrom(e.target.value)}
               />
               <CustomInput
-                label="To"
+                label="Redirect to"
                 placeholder="https://www.newdomain.com"
                 value={redirectTo}
                 onChange={(e) => setRedirectTo(e.target.value)}
