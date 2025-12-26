@@ -47,7 +47,8 @@ export default function FeatureBanner({
             lineHeight="tight"
             maxW="4xl"
             color="#fff"
-            mb={{ base: 4, md: 0 }}
+            mb={{ base: 4, md: 2 }}
+            letterSpacing={"-1.8px"}
           >
             {title}
           </Heading>
@@ -87,9 +88,9 @@ export default function FeatureBanner({
             </Link>
           </VStack>
           <Text
-            fontSize={{ base: "1rem", md: "1rem" }}
+            fontSize={{ base: "1rem", md: "1.1rem" }}
             fontWeight={600}
-            color="#FFFFFFBA"
+            color="#FFFFFF9E"
             letterSpacing={"0.2px"}
             mb={"40px"}
           >

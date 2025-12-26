@@ -164,7 +164,7 @@ export default async function PricingPage() {
   return (
     <>
       <FeatureBanner
-        title="Create Individual Redirects"
+        title="Create and Deploy Redirects"
         subtitle="Transform your link management with powerful, intuitive
 redirect creation tools that put you in control"
         imageSrc="/assets/images/feature/create-redirects.png"

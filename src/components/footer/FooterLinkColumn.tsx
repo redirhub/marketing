@@ -23,7 +23,7 @@ export const FooterLinkColumn: React.FC<FooterLinkColumnProps> = ({
     >
       <Text
         fontSize="1.1rem"
-        fontWeight="700"
+        fontWeight={700}
         lineHeight="2rem"
         letterSpacing="0.4px"
         color="#667085"

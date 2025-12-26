@@ -68,6 +68,11 @@ export default function Footer() {
         href: getLocalePath("/enterprise"),
       },
       { label: t(`footer.blog`, "Blog"), href: getLocalePath("/blog") },
+      {
+        label: t(`footer.affiliate-program`, "Affiliate Program"),
+        href: "https://redirhub.getrewardful.com/signup",
+        target: "blank",
+      },
     ],
     resources: [
       {

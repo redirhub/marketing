@@ -45,18 +45,24 @@ const FeatureListItem: React.FC<FeatureListItemProps> = ({
           <GoCheckCircle />
         </Box>
         <Box textAlign="left">
-          {/* <Text as="span" fontSize="sm" fontWeight="700" color="#222B27">
-            {heading}
-          </Text>{" "} */}
           {heading && (
-            <Text as="span" fontSize="sm" fontWeight="700" color="#222B27">
+            <Text
+              as="span"
+              fontSize="1rem"
+              fontWeight="700"
+              color="#222b27"
+              letterSpacing={"0.2px"}
+            >
               {heading}{" "}
             </Text>
           )}
-          {/* <Text as="span" fontSize="1rem" color="#222B27" display="inline">
-            {description}
-          </Text> */}
-          <Text as="span" fontSize="1rem" color="#222B27" display="inline">
+          <Text
+            as="span"
+            fontSize="1rem"
+            color="#222B27"
+            display="inline"
+            letterSpacing={"0.2px"}
+          >
             {renderBoldText(description)}
           </Text>{" "}
         </Box>
@@ -160,7 +166,7 @@ export default function FeatureSplitSection({
         <Box w="100%" maxW="7xl" mx="auto" textAlign="center" mb={10}>
           <Box w="100%" maxW="7xl" mx="auto" textAlign="center">
             <Heading
-              fontSize={{ base: "1.4rem", md: "2rem", lg: "3rem" }}
+              fontSize={{ base: "1.4rem", md: "2rem", lg: "2.6rem" }}
               lineHeight={{ base: "1.4rem", md: "3rem" }}
               fontWeight={500}
               color="#344054"
