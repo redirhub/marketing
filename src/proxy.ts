@@ -33,7 +33,7 @@ export function proxy(request: NextRequest) {
 
 export const config = {
   matcher: [
-    // Skip all internal paths (_next, api, static files)
-    '/((?!api|_next/static|_next/image|favicon.ico|.*\\..*|locales).*)',
+    // Skip all internal paths (_next, api, static files, studio)
+    '/((?!api|_next/static|_next/image|favicon.ico|.*\\..*|locales|studio).*)',
   ],
 };
