@@ -29,9 +29,35 @@ export const structure: StructureResolver = (S) => {
             .params({ locale: selectedLanguage })
             .defaultOrdering([{ field: 'publishedAt', direction: 'desc' }])
         ),
+      S.listItem()
+        .id('support')
+        .title('Support Articles')
+        .icon(() => '❓')
+        .child(
+          S.documentTypeList('support')
+            .title(
+              `Support Articles - ${selectedLang.flag} ${selectedLang.nativeName || selectedLang.title}`
+            )
+            .filter('_type == "support" && locale == $locale')
+            .params({ locale: selectedLanguage })
+            .defaultOrdering([{ field: 'publishedAt', direction: 'desc' }])
+        ),
+      S.listItem()
+        .id('legal')
+        .title('Legal Documents')
+        .icon(() => '⚖️')
+        .child(
+          S.documentTypeList('legal')
+            .title(
+              `Legal Documents - ${selectedLang.flag} ${selectedLang.nativeName || selectedLang.title}`
+            )
+            .filter('_type == "legal" && locale == $locale')
+            .params({ locale: selectedLanguage })
+            .defaultOrdering([{ field: 'title', direction: 'asc' }])
+        ),
       S.divider(),
       ...S.documentTypeListItems().filter(
-        (listItem) => listItem.getId() !== 'post'
+        (listItem) => !['post', 'support', 'legal'].includes(listItem.getId() || '')
       ),
     ])
 }

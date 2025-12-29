@@ -1,0 +1,78 @@
+import { Metadata } from "next";
+import { notFound } from "next/navigation";
+import { PortableText } from '@portabletext/react'
+import { Box, Container, Heading } from "@chakra-ui/react";
+import { fetchLegalDocumentBySlug, fetchLegalDocumentTranslations } from "@/lib/services/legal";
+import { portableTextComponents } from '@/components/blog/PortableTextComponents'
+
+interface PageProps {
+  params: Promise<{
+    locale: string
+    slug: string
+  }>;
+}
+
+export async function generateMetadata({
+  params,
+}: PageProps): Promise<Metadata> {
+  const { locale, slug } = await params;
+
+  const document = await fetchLegalDocumentBySlug(slug, locale);
+  if (!document) {
+    return { title: "Document Not Found" };
+  }
+
+  // Fetch translations for hreflang alternates
+  const translations = await fetchLegalDocumentTranslations(slug)
+  const alternates: { languages?: Record<string, string> } = {}
+
+  if (translations.length > 0) {
+    alternates.languages = {}
+    translations.forEach((translation: { locale: string; slug: { current: string } }) => {
+      if (alternates.languages) {
+        alternates.languages[translation.locale] = `/${translation.locale}/legal/${translation.slug.current}`
+      }
+    })
+  }
+
+  return {
+    title: `${document.title} | RedirHub Legal`,
+    description: document.title,
+    alternates,
+  };
+}
+
+export default async function LegalDocumentPage({ params }: PageProps) {
+  const { locale, slug } = await params;
+
+  const document = await fetchLegalDocumentBySlug(slug, locale);
+  if (!document) {
+    notFound();
+  }
+
+  return (
+    <Box bg="white" py={20}>
+      <Container maxW="4xl" mx="auto" px={{ base: 4, md: 6 }}>
+        <Heading
+          as="h1"
+          fontSize={{ base: '3xl', md: '5xl' }}
+          fontWeight="800"
+          color="#222"
+          mb={8}
+          textAlign="center"
+        >
+          {document.title}
+        </Heading>
+
+        {document.content && (
+          <Box fontSize="lg" lineHeight="1.8" color="gray.700">
+            <PortableText
+              value={document.content}
+              components={portableTextComponents}
+            />
+          </Box>
+        )}
+      </Container>
+    </Box>
+  );
+}

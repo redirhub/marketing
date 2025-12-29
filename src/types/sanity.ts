@@ -104,6 +104,37 @@ export interface Post {
   needsTranslation?: boolean
 }
 
+export interface SupportArticle {
+  _id: string
+  _type: 'support'
+  _createdAt?: string
+  _updatedAt?: string
+  title: string
+  slug: {
+    _type: 'slug'
+    current: string
+  }
+  content?: PortableTextContent
+  tags?: string[]
+  publishedAt: string
+  locale: string
+}
+
+export interface LegalDocument {
+  _id: string
+  _type: 'legal'
+  _createdAt?: string
+  _updatedAt?: string
+  title: string
+  slug: {
+    _type: 'slug'
+    current: string
+  }
+  content?: PortableTextContent
+  publishedAt: string
+  locale: string
+}
+
 export interface Translation {
   locale: string
   slug: string

@@ -1,19 +1,68 @@
-import { getBaseUrl } from "../utils/constants";
+import { client } from '@/sanity/lib/client'
+import type { SupportArticle } from '@/types/sanity'
 
-/**
- * Fetches all support articles from the internal API.
- * Uses 'force-cache' for static generation.
- */
-export async function fetchSupportArticles() {
-  try {
-    const res = await fetch(`${getBaseUrl()}/api/support`, {
-      cache: "force-cache", // This ensures the page is static
-    });
+export async function fetchSupportArticles(locale: string = 'en') {
+  const query = `*[
+    _type == "support" &&
+    locale == $locale
+  ] | order(publishedAt desc) {
+    _id,
+    title,
+    slug,
+    tags,
+    publishedAt,
+    locale
+  }`
+  return client.fetch(query, { locale })
+}
 
-    if (!res.ok) throw new Error("Failed to fetch support articles");
-    return await res.json();
-  } catch (error) {
-    console.error("API Error:", error);
-    return [];
-  }
+export async function fetchSupportArticleBySlug(
+  slug: string,
+  locale: string = 'en'
+): Promise<SupportArticle | null> {
+  const query = `*[
+    _type == "support" &&
+    slug.current == $slug &&
+    locale == $locale
+  ][0] {
+    _id,
+    _createdAt,
+    _updatedAt,
+    title,
+    slug,
+    content,
+    tags,
+    publishedAt,
+    locale
+  }`
+  return client.fetch(query, { slug, locale })
+}
+
+export async function fetchSupportArticlesByTag(
+  tag: string,
+  locale: string = 'en'
+) {
+  const query = `*[
+    _type == "support" &&
+    locale == $locale &&
+    $tag in tags
+  ] | order(publishedAt desc) {
+    _id,
+    title,
+    slug,
+    tags,
+    publishedAt,
+    locale
+  }`
+  return client.fetch(query, { tag, locale })
+}
+
+export async function fetchSupportArticleTranslations(slug: string) {
+  const query = `*[_type == "support" && slug.current == $slug]{
+    _id,
+    locale,
+    title,
+    slug
+  }`
+  return client.fetch(query, { slug })
 }
