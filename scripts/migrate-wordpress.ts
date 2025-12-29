@@ -4,7 +4,7 @@
  *
  * Migrates all blog posts from WordPress to Sanity CMS
  *
- * Usage: npx tsx scripts/migrate-wordpress.ts
+ * Usage: npm run migrate:wordpress
  */
 
 import { writeClient } from '../src/sanity/lib/client'
