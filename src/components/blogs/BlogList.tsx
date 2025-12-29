@@ -24,16 +24,17 @@ const BlogList = async ({ currentPage, locale = 'en' }: BlogListProps) => {
             {posts?.map((post: PostPreview) => (
               <BlogCard
                 key={post._id}
-                imageSrc={post.image ? urlFor(post.image).width(600).height(400).url() : '/images/blog-placeholder.jpg'}
+                imageSrc={post.image ? urlFor(post.image).width(800).height(450).url() : '/images/blog-placeholder.jpg'}
                 imageAlt={post.title}
-                category={post.tags?.[0] || 'Blog'}
+                category={post.tags?.[0]}
                 date={new Date(post.publishedAt).toLocaleDateString(locale, {
                   year: 'numeric',
                   month: 'long',
                   day: 'numeric',
                 })}
                 title={post.title}
-                link={`/blog/${post.slug.current}`}
+                excerpt={post.excerpt}
+                link={`/${locale}/blog/${post.slug.current}`}
                 isBlogPage={true}
               />
             ))}

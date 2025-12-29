@@ -1,7 +1,6 @@
 import { PortableTextComponents } from '@portabletext/react'
-import { Box, Heading, Text, Code } from '@chakra-ui/react'
+import { Box, Heading, Text, Code, Image as ChakraImage } from '@chakra-ui/react'
 import { urlFor } from '@/sanity/lib/image'
-import Image from 'next/image'
 
 // Track heading index for unique IDs
 let currentHeadingIndex = -1
@@ -68,7 +67,7 @@ export const portableTextComponents: PortableTextComponents = {
       </Heading>
     ),
     normal: ({ children }) => (
-      <Text fontSize="lg" lineHeight="1.8" mb={4}>
+      <Text fontSize={{ base: 'md', md: 'lg' }} lineHeight="1.8" color="gray.700" mb={4}>
         {children}
       </Text>
     ),
@@ -89,24 +88,24 @@ export const portableTextComponents: PortableTextComponents = {
   },
   list: {
     bullet: ({ children }) => (
-      <Box as="ul" mb={4} pl={8} css={{ '& li': { marginBottom: '0.5rem' } }}>
+      <Box as="ul" mb={4} pl={6}>
         {children}
       </Box>
     ),
     number: ({ children }) => (
-      <Box as="ol" mb={4} pl={8} css={{ '& li': { marginBottom: '0.5rem' } }}>
+      <Box as="ol" mb={4} pl={6}>
         {children}
       </Box>
     ),
   },
   listItem: {
     bullet: ({ children }) => (
-      <Box as="li" fontSize="lg" lineHeight="1.8">
+      <Box as="li" fontSize={{ base: 'md', md: 'lg' }} color="gray.700" mb={2}>
         {children}
       </Box>
     ),
     number: ({ children }) => (
-      <Box as="li" fontSize="lg" lineHeight="1.8">
+      <Box as="li" fontSize={{ base: 'md', md: 'lg' }} color="gray.700" mb={2}>
         {children}
       </Box>
     ),
@@ -133,7 +132,7 @@ export const portableTextComponents: PortableTextComponents = {
           href={value?.href}
           target={target}
           rel={target === '_blank' ? 'noopener noreferrer' : undefined}
-          style={{ color: '#3182ce', textDecoration: 'underline' }}
+          style={{ color: '#7D65DB', textDecoration: 'underline' }}
         >
           {children}
         </a>
@@ -142,24 +141,31 @@ export const portableTextComponents: PortableTextComponents = {
   },
   types: {
     image: ({ value }) => {
-      if (!value?.asset?._ref) {
+      if (!value?.asset) {
         return null
       }
 
-      const imageUrl = urlFor(value).width(800).height(450).url()
+      const src = value?.asset
+        ? urlFor(value).width(1200).fit('max').url()
+        : value?.url
+
+      if (!src) return null
 
       return (
-        <Box my={6} borderRadius="lg" overflow="hidden">
-          <Image
-            src={imageUrl}
-            alt={value.alt || 'Blog post image'}
-            width={800}
-            height={450}
-            style={{ width: '100%', height: 'auto' }}
+        <Box my={6} textAlign="center">
+          <ChakraImage
+            src={src}
+            alt={value?.alt || value?.caption || 'Blog post image'}
+            mx="auto"
+            maxH="640px"
+            maxWidth="800px"
+            w="100%"
+            objectFit="contain"
+            loading="lazy"
           />
-          {value.alt && (
-            <Text fontSize="sm" color="gray.600" textAlign="center" mt={2} fontStyle="italic">
-              {value.alt}
+          {value?.caption && (
+            <Text mt={2} fontSize="sm" color="gray.500">
+              {value.caption}
             </Text>
           )}
         </Box>

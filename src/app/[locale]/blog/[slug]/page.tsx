@@ -38,7 +38,7 @@ export async function generateMetadata({
 
   if (translations.length > 0) {
     alternates.languages = {}
-    translations.forEach((translation) => {
+    translations.forEach((translation: { _id: string; locale: string; title: string; slug: { current: string } }) => {
       if (alternates.languages) {
         alternates.languages[translation.locale] = `/${translation.locale}/blog/${translation.slug.current}`
       }
@@ -171,50 +171,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
                 <article>
                   {/* Post Content */}
                   {post.content && (
-                    <Box
-                      mb={4}
-                      sx={{
-                        '& p': {
-                          fontSize: { base: 'md', md: 'lg' },
-                          lineHeight: '1.8',
-                          color: 'gray.700',
-                          mb: 4,
-                        },
-                        '& h1': {
-                          fontSize: { base: '2xl', md: '3xl' },
-                          fontWeight: 'bold',
-                          mt: 10,
-                          mb: 4,
-                          color: 'gray.900',
-                        },
-                        '& h4': {
-                          fontSize: { base: 'lg', md: 'xl' },
-                          fontWeight: 'bold',
-                          mt: 6,
-                          mb: 3,
-                          color: 'gray.900',
-                        },
-                        '& ul, & ol': {
-                          pl: 6,
-                          mb: 4,
-                        },
-                        '& li': {
-                          fontSize: { base: 'md', md: 'lg' },
-                          color: 'gray.700',
-                          mb: 2,
-                        },
-                        '& a': {
-                          color: '#7D65DB',
-                          textDecoration: 'underline',
-                          _hover: {
-                            color: '#6550C0',
-                          },
-                        },
-                        '& img': {
-                          my: 4,
-                        },
-                      }}
-                    >
+                    <Box mb={4}>
                       <PortableText value={post.content} components={portableTextComponents} />
                     </Box>
                   )}

@@ -8,14 +8,18 @@
  */
 
 import { writeClient } from '../src/sanity/lib/client'
-import { allLanguages } from '../src/sanity/config/i18n'
+import { parse, HTMLElement } from 'node-html-parser'
+import { decode } from 'html-entities'
+import { randomUUID } from 'crypto'
 
 const WORDPRESS_API_BASE = process.env.WORDPRESS_API_BASE || 'https://managed-builder.redirhub.com/wp-json/wp/v2'
-const BATCH_SIZE = 10
+const DEFAULT_LOCALE = process.env.WORDPRESS_DEFAULT_LOCALE || 'en'
+const PAGE_SIZE = 100
 
 interface WordPressPost {
   id: number
   date: string
+  date_gmt?: string
   modified: string
   slug: string
   status: string
@@ -34,6 +38,12 @@ interface WordPressPost {
   tags: number[]
   lang?: string
   translations?: Record<string, number>
+  _embedded?: {
+    author?: WordPressAuthor[]
+    'wp:featuredmedia'?: Array<{ source_url: string }>
+    'wp:term'?: Array<Array<{ taxonomy: string; name: string }>>
+  }
+  jetpack_featured_media_url?: string
 }
 
 interface WordPressAuthor {
@@ -60,277 +70,386 @@ interface WordPressCategory {
   slug: string
 }
 
-// Convert HTML to Portable Text blocks
-function htmlToPortableText(html: string): any[] {
-  // Remove HTML tags and convert to simple paragraphs
-  const cleanText = html
-    .replace(/<p>/gi, '\n')
-    .replace(/<\/p>/gi, '\n')
-    .replace(/<br\s*\/?>/gi, '\n')
-    .replace(/<[^>]+>/g, '')
-    .replace(/&nbsp;/g, ' ')
-    .replace(/&amp;/g, '&')
-    .replace(/&lt;/g, '<')
-    .replace(/&gt;/g, '>')
-    .replace(/&quot;/g, '"')
+// Utility functions
+const slugify = (value: string = ''): string =>
+  value
+    .toString()
+    .toLowerCase()
     .trim()
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/^-+|-+$/g, '')
+    .slice(0, 96) || 'post'
 
-  const paragraphs = cleanText
-    .split('\n')
-    .filter(p => p.trim().length > 0)
+const decodeEntities = (value: string = ''): string => decode(value)
 
-  return paragraphs.map(text => ({
-    _type: 'block',
-    _key: Math.random().toString(36).substring(2, 11),
-    style: 'normal',
-    children: [
-      {
-        _type: 'span',
-        _key: Math.random().toString(36).substring(2, 11),
-        text: text.trim(),
-        marks: []
+const stripHtml = (html: string): string => {
+  const text = html ? html.replace(/<[^>]*>/g, '').replace(/\s+/g, ' ').trim() : ''
+  return decodeEntities(text)
+}
+
+const genKey = (): string =>
+  typeof randomUUID === 'function'
+    ? randomUUID()
+    : `${Date.now()}-${Math.random().toString(16).slice(2)}`
+
+const filenameFromUrl = (url: string, fallback: string = 'wp-image.jpg'): string => {
+  try {
+    const parsed = new URL(url)
+    const name = parsed.pathname.split('/').filter(Boolean).pop()
+    if (!name) return fallback
+    return name.split('?')[0] || fallback
+  } catch (_) {
+    return fallback
+  }
+}
+
+// Upload image from URL to Sanity
+async function uploadImageFromUrl(url: string, label?: string): Promise<any | undefined> {
+  if (!url) return undefined
+  try {
+    const response = await fetch(url)
+    if (!response.ok) throw new Error(`Failed to fetch: ${response.statusText}`)
+
+    const buffer = await response.arrayBuffer()
+    const filename = label || filenameFromUrl(url)
+    const asset = await writeClient.assets.upload('image', Buffer.from(buffer), { filename })
+
+    return {
+      _type: 'image',
+      asset: { _type: 'reference', _ref: asset._id },
+    }
+  } catch (error: any) {
+    console.warn(`⚠️  Skipped image ${url}: ${error.message}`)
+    return undefined
+  }
+}
+
+// Upload image with fallback support for srcset
+async function uploadImageWithFallback(sources: string[]): Promise<any | undefined> {
+  for (const source of sources) {
+    const uploaded = await uploadImageFromUrl(source, filenameFromUrl(source))
+    if (uploaded) return uploaded
+  }
+  return undefined
+}
+
+// Convert HTML to Portable Text
+async function htmlToPortableText(html: string = ''): Promise<any[]> {
+  const root = parse(html, {
+    blockTextElements: {
+      script: true,
+      style: true,
+      pre: true,
+    },
+  })
+
+  const blocks: any[] = []
+  const linkKeyCache = new Map<string, string>()
+
+  const ensureLinkKey = (href: string | undefined, markDefs: any[]): string | null => {
+    if (!href) return null
+    if (linkKeyCache.has(href)) return linkKeyCache.get(href)!
+    const key = `link-${linkKeyCache.size + 1}`
+    linkKeyCache.set(href, key)
+    markDefs.push({ _key: key, _type: 'link', href })
+    return key
+  }
+
+  const buildSpans = (node: any, activeMarks: string[], markDefs: any[]): any[] => {
+    if (!node) return []
+
+    // Text node
+    if (node.nodeType === 3) {
+      const text = decodeEntities(node.rawText || '')
+      if (!text || !text.trim()) return []
+      return [
+        {
+          _key: genKey(),
+          _type: 'span',
+          text,
+          marks: activeMarks,
+        },
+      ]
+    }
+
+    // Non-element node
+    if (node.nodeType !== 1) return []
+
+    let marks = [...activeMarks]
+    const tag = (node.tagName || '').toLowerCase()
+
+    // Handle line breaks
+    if (tag === 'br') {
+      return [
+        {
+          _key: genKey(),
+          _type: 'span',
+          text: '\n',
+          marks,
+        },
+      ]
+    }
+
+    // Apply formatting marks
+    if (tag === 'strong' || tag === 'b') marks = [...marks, 'strong']
+    if (tag === 'em' || tag === 'i') marks = [...marks, 'em']
+    if (tag === 'code') marks = [...marks, 'code']
+    if (tag === 'a') {
+      const href = node.getAttribute('href')
+      const linkKey = ensureLinkKey(href, markDefs)
+      if (linkKey) marks = [...marks, linkKey]
+    }
+
+    return node.childNodes.flatMap((child: any) => buildSpans(child, marks, markDefs))
+  }
+
+  const findImageInfo = (node: any): { sources: string[]; alt: string; caption: string } | null => {
+    const tag = (node.tagName || '').toLowerCase()
+    const imgNode = tag === 'img' ? node : node.querySelector && node.querySelector('img')
+    if (!imgNode) return null
+
+    const src = imgNode.getAttribute('src')
+    const srcsetRaw = imgNode.getAttribute('srcset') || ''
+    const sourcesFromSrcset = srcsetRaw
+      .split(',')
+      .map((entry: string) => entry.trim().split(' ')[0])
+      .filter(Boolean)
+    const sources = Array.from(new Set([src, ...sourcesFromSrcset].filter(Boolean)))
+    if (!sources.length) return null
+
+    const alt = decodeEntities(imgNode.getAttribute('alt') || '')
+    const captionNode =
+      node.querySelector && node.querySelector('figcaption') ? node.querySelector('figcaption') : null
+    const caption = captionNode
+      ? decodeEntities(captionNode.text || captionNode.innerText || '')
+      : decodeEntities(imgNode.getAttribute('title') || '')
+
+    return { sources, alt, caption }
+  }
+
+  const nodeToBlock = async (node: any): Promise<any | any[] | null> => {
+    // Text node
+    if (node.nodeType === 3) {
+      const text = node.rawText?.trim()
+      if (!text) return null
+      return {
+        _key: genKey(),
+        _type: 'block',
+        style: 'normal',
+        markDefs: [],
+        children: [
+          {
+            _key: genKey(),
+            _type: 'span',
+            text,
+            marks: [],
+          },
+        ],
       }
-    ],
-    markDefs: []
-  }))
+    }
+
+    // Non-element node
+    if (node.nodeType !== 1) return null
+
+    // Check for images
+    const imageInfo = findImageInfo(node)
+    if (imageInfo) {
+      const uploaded = await uploadImageWithFallback(imageInfo.sources)
+      if (!uploaded) return null
+      return {
+        _key: genKey(),
+        ...uploaded,
+        alt: imageInfo.alt || imageInfo.caption || '',
+        caption: imageInfo.caption || '',
+      }
+    }
+
+    const tag = (node.tagName || '').toLowerCase()
+    const markDefs: any[] = []
+    const styleMap: Record<string, string> = {
+      h1: 'h1',
+      h2: 'h2',
+      h3: 'h3',
+      h4: 'h4',
+      blockquote: 'blockquote',
+    }
+
+    // Handle lists
+    if (tag === 'ul' || tag === 'ol') {
+      const listItemStyle = tag === 'ul' ? 'bullet' : 'number'
+      const items = node.childNodes.filter((child: any) => child.tagName?.toLowerCase() === 'li')
+
+      const listBlocks: any[] = []
+      for (const item of items) {
+        const children = buildSpans(item, [], markDefs)
+        if (!children.length) continue
+        listBlocks.push({
+          _key: genKey(),
+          _type: 'block',
+          style: 'normal',
+          listItem: listItemStyle,
+          markDefs,
+          children,
+        })
+      }
+      return listBlocks
+    }
+
+    // Regular block
+    const style = styleMap[tag] || 'normal'
+    const children = buildSpans(node, [], markDefs)
+    if (!children.length) return null
+
+    return {
+      _key: genKey(),
+      _type: 'block',
+      style,
+      markDefs,
+      children,
+    }
+  }
+
+  for (const node of root.childNodes) {
+    const blockOrBlocks = await nodeToBlock(node)
+    if (Array.isArray(blockOrBlocks)) {
+      blocks.push(...blockOrBlocks)
+    } else if (blockOrBlocks) {
+      blocks.push(blockOrBlocks)
+    }
+  }
+
+  return blocks
+}
+
+// Extract tags from embedded WordPress data
+const extractTags = (post: WordPressPost): string[] => {
+  const terms = post?._embedded?.['wp:term'] || []
+  const tags = terms
+    .flat()
+    .filter((term: any) => term?.taxonomy === 'post_tag')
+    .map((term: any) => term.name)
+    .filter(Boolean)
+  return Array.from(new Set(tags))
 }
 
 // Fetch all posts from WordPress
-async function fetchWordPressPosts(page = 1, perPage = 100): Promise<WordPressPost[]> {
-  const url = `${WORDPRESS_API_BASE}/posts?page=${page}&per_page=${perPage}&_embed=true`
-  console.log(`📡 Fetching WordPress posts (page ${page})...`)
+async function fetchAllPosts(): Promise<WordPressPost[]> {
+  let page = 1
+  const posts: WordPressPost[] = []
 
-  const response = await fetch(url)
-  if (!response.ok) {
-    if (response.status === 400) {
-      // No more pages
-      return []
+  while (true) {
+    console.log(`📡 Fetching WordPress posts (page ${page})...`)
+    const response = await fetch(`${WORDPRESS_API_BASE}/posts?page=${page}&per_page=${PAGE_SIZE}&_embed=true&order=asc`)
+
+    if (!response.ok) {
+      if (response.status === 400) break // No more pages
+      throw new Error(`Failed to fetch posts: ${response.statusText}`)
     }
-    throw new Error(`Failed to fetch posts: ${response.statusText}`)
-  }
 
-  const posts = await response.json()
-  const totalPages = parseInt(response.headers.get('x-wp-totalpages') || '1')
+    const data: WordPressPost[] = await response.json()
+    posts.push(...data)
 
-  console.log(`✅ Fetched ${posts.length} posts (page ${page}/${totalPages})`)
+    const totalPages = Number(response.headers.get('x-wp-totalpages') || 1)
+    console.log(`✅ Fetched ${data.length} posts (page ${page}/${totalPages})`)
 
-  // Recursively fetch remaining pages
-  if (page < totalPages) {
-    const nextPosts = await fetchWordPressPosts(page + 1, perPage)
-    return [...posts, ...nextPosts]
+    if (page >= totalPages) break
+    page += 1
   }
 
   return posts
 }
 
-// Fetch author by ID
-async function fetchAuthor(authorId: number): Promise<WordPressAuthor | null> {
-  try {
-    const response = await fetch(`${WORDPRESS_API_BASE}/users/${authorId}`)
-    if (!response.ok) return null
-    return await response.json()
-  } catch (error) {
-    console.error(`Failed to fetch author ${authorId}:`, error)
-    return null
-  }
-}
+// Get or create author in Sanity
+async function getOrCreateAuthor(author: WordPressAuthor | null): Promise<any | undefined> {
+  if (!author) return undefined
+  const name = author.name || 'Unknown'
+  const slug = slugify(author.slug || name)
+  const id = `author-${slug}`
 
-// Fetch media by ID
-async function fetchMedia(mediaId: number): Promise<WordPressMedia | null> {
-  if (!mediaId) return null
-  try {
-    const response = await fetch(`${WORDPRESS_API_BASE}/media/${mediaId}`)
-    if (!response.ok) return null
-    return await response.json()
-  } catch (error) {
-    console.error(`Failed to fetch media ${mediaId}:`, error)
-    return null
-  }
-}
+  const existingId = await writeClient.fetch('*[_type == "author" && _id == $id][0]._id', { id })
+  if (existingId) return { _type: 'reference', _ref: existingId }
 
-// Fetch categories
-async function fetchCategories(categoryIds: number[]): Promise<string[]> {
-  if (!categoryIds || categoryIds.length === 0) return []
+  const avatarUrl = author.avatar_urls?.['256'] || author.avatar_urls?.['96'] || author.avatar_urls?.['48']
+  const image = await uploadImageFromUrl(avatarUrl, `${slug}-avatar.jpg`)
 
-  try {
-    const promises = categoryIds.map(async (id) => {
-      const response = await fetch(`${WORDPRESS_API_BASE}/categories/${id}`)
-      if (!response.ok) return null
-      const category: WordPressCategory = await response.json()
-      return category.name
-    })
-    const categories = await Promise.all(promises)
-    return categories.filter((c): c is string => c !== null)
-  } catch (error) {
-    console.error('Failed to fetch categories:', error)
-    return []
-  }
-}
-
-// Create or get author in Sanity
-async function getOrCreateAuthor(wpAuthor: WordPressAuthor): Promise<string> {
-  const authorId = `author-${wpAuthor.slug}`
-
-  // Check if author exists
-  const existingAuthor = await writeClient.fetch(
-    `*[_type == "author" && slug.current == $slug][0]`,
-    { slug: wpAuthor.slug }
-  )
-
-  if (existingAuthor) {
-    return existingAuthor._id
-  }
-
-  // Create new author
-  const author = await writeClient.create({
+  await writeClient.createIfNotExists({
+    _id: id,
     _type: 'author',
-    _id: authorId,
-    name: wpAuthor.name,
-    slug: {
-      _type: 'slug',
-      current: wpAuthor.slug
-    },
-    bio: wpAuthor.description || '',
+    name,
+    slug: { current: slug },
+    bio: stripHtml(author.description),
+    image,
   })
 
-  console.log(`✅ Created author: ${author.name}`)
-  return author._id
+  return { _type: 'reference', _ref: id }
 }
 
-// Upload image to Sanity
-async function uploadImageToSanity(imageUrl: string, altText: string = ''): Promise<any> {
-  try {
-    const response = await fetch(imageUrl)
-    if (!response.ok) throw new Error(`Failed to fetch image: ${imageUrl}`)
+// Map WordPress post to Sanity document
+async function mapPostToSanity(post: WordPressPost, locale: string = DEFAULT_LOCALE): Promise<any> {
+  const slug = post.slug || slugify(post.title?.rendered)
+  const documentId = `post-${slug}-${locale}`
 
-    const buffer = await response.arrayBuffer()
-    const asset = await writeClient.assets.upload('image', Buffer.from(buffer), {
-      filename: imageUrl.split('/').pop() || 'image.jpg'
-    })
+  const existingId = await writeClient.fetch(
+    '*[_type == "post" && slug.current == $slug && locale == $locale][0]._id',
+    { slug, locale }
+  )
 
-    return {
-      _type: 'image',
-      asset: {
-        _type: 'reference',
-        _ref: asset._id
-      },
-      alt: altText
-    }
-  } catch (error) {
-    console.error(`Failed to upload image ${imageUrl}:`, error)
-    return null
-  }
-}
+  const featured = post._embedded?.['wp:featuredmedia']?.[0]?.source_url || post.jetpack_featured_media_url
+  const image = await uploadImageFromUrl(featured, `${slug}-featured.jpg`)
+  const authorRef = await getOrCreateAuthor(post._embedded?.author?.[0] || null)
 
-// Migrate a single post
-async function migratePost(wpPost: WordPressPost, locale: string = 'en'): Promise<void> {
-  try {
-    // Check if post already exists
-    const existingPost = await writeClient.fetch(
-      `*[_type == "post" && slug.current == $slug && locale == $locale][0]`,
-      { slug: wpPost.slug, locale }
-    )
-
-    if (existingPost) {
-      console.log(`⏭️  Skipping existing post: ${wpPost.title.rendered} (${locale})`)
-      return
-    }
-
-    // Fetch author
-    const wpAuthor = await fetchAuthor(wpPost.author)
-    let authorRef = null
-    if (wpAuthor) {
-      const authorId = await getOrCreateAuthor(wpAuthor)
-      authorRef = {
-        _type: 'reference',
-        _ref: authorId
-      }
-    }
-
-    // Fetch featured image
-    let featuredImage = null
-    if (wpPost.featured_media) {
-      const media = await fetchMedia(wpPost.featured_media)
-      if (media) {
-        featuredImage = await uploadImageToSanity(media.source_url, media.alt_text)
-      }
-    }
-
-    // Fetch categories as tags
-    const tags = await fetchCategories(wpPost.categories)
-
-    // Convert content to Portable Text
-    const content = htmlToPortableText(wpPost.content.rendered)
-
-    // Extract excerpt
-    const excerpt = wpPost.excerpt.rendered
-      .replace(/<[^>]+>/g, '')
-      .replace(/&nbsp;/g, ' ')
-      .trim()
-      .substring(0, 200)
-
-    // Create post in Sanity
-    const sanityPost = {
-      _type: 'post',
-      title: wpPost.title.rendered,
-      slug: {
-        _type: 'slug',
-        current: wpPost.slug
-      },
-      excerpt: excerpt || undefined,
-      content,
-      image: featuredImage,
-      publishedAt: wpPost.date,
-      tags: tags.length > 0 ? tags : undefined,
-      author: authorRef,
-      locale,
-      needsTranslation: locale === 'en', // Flag English posts for translation
-    }
-
-    await writeClient.create(sanityPost)
-    console.log(`✅ Migrated: ${wpPost.title.rendered} (${locale})`)
-  } catch (error) {
-    console.error(`❌ Failed to migrate post ${wpPost.title.rendered}:`, error)
+  return {
+    _id: existingId || documentId,
+    _type: 'post',
+    locale,
+    slug: { current: slug },
+    title: stripHtml(post.title?.rendered),
+    excerpt: stripHtml(post.excerpt?.rendered),
+    tags: extractTags(post),
+    content: await htmlToPortableText(post.content?.rendered),
+    image,
+    publishedAt: new Date(post.date_gmt || post.date || Date.now()).toISOString(),
+    author: authorRef,
   }
 }
 
 // Main migration function
-async function migrateAllPosts() {
+async function migrate() {
   console.log('🚀 Starting WordPress to Sanity migration...\n')
 
   try {
-    // Fetch all WordPress posts
-    const wpPosts = await fetchWordPressPosts()
-    console.log(`\n📊 Total posts to migrate: ${wpPosts.length}\n`)
+    const posts = await fetchAllPosts()
+    console.log(`\n📊 Total posts to migrate: ${posts.length}\n`)
 
-    if (wpPosts.length === 0) {
+    if (posts.length === 0) {
       console.log('⚠️  No posts found to migrate')
       return
     }
 
-    // Migrate posts in batches
-    for (let i = 0; i < wpPosts.length; i += BATCH_SIZE) {
-      const batch = wpPosts.slice(i, i + BATCH_SIZE)
-      console.log(`\n🔄 Processing batch ${Math.floor(i / BATCH_SIZE) + 1}/${Math.ceil(wpPosts.length / BATCH_SIZE)}`)
+    let success = 0
+    let failures = 0
 
-      await Promise.all(
-        batch.map(post => migratePost(post, post.lang || 'en'))
-      )
-
-      // Small delay to avoid rate limiting
-      await new Promise(resolve => setTimeout(resolve, 1000))
+    for (const post of posts) {
+      try {
+        const locale = post.lang || DEFAULT_LOCALE
+        const doc = await mapPostToSanity(post, locale)
+        await writeClient.createOrReplace(doc)
+        console.log(`✅ Migrated: ${post.title.rendered} (${locale})`)
+        success += 1
+      } catch (error: any) {
+        console.error(`❌ Failed "${post.slug || post.id}": ${error.message}`)
+        failures += 1
+      }
     }
 
-    console.log('\n✨ Migration completed successfully!')
-    console.log('\n📝 Next steps:')
-    console.log('1. Visit http://localhost:3000/studio to review migrated posts')
-    console.log('2. Use the Language Switcher plugin to trigger translations')
-    console.log('3. Use the AI Assistant to enhance content if needed')
+    console.log(`\n✨ Migration completed!`)
+    console.log(`✅ Success: ${success}`)
+    console.log(`❌ Failures: ${failures}`)
   } catch (error) {
-    console.error('❌ Migration failed:', error)
+    console.error('❌ Migration aborted:', error)
     process.exit(1)
   }
 }
 
 // Run migration
-migrateAllPosts()
+migrate()
