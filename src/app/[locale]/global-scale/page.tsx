@@ -6,6 +6,7 @@ import FeatureBanner from "@/components/share/banners/features/FeatureBanner";
 import TestimonialsSlider from "@/components/home/TestimonialsSlider";
 import FAQSection from "@/components/home/FAQSection";
 import FeatureSplitSection from "@/components/share/features/FeatureSplitSection";
+import { fetchFAQSetByPage } from "@/lib/services/faq";
 
 export async function generateMetadata({
   params,
@@ -28,7 +29,12 @@ export async function generateMetadata({
   };
 }
 
-export default async function Globalscale() {
+export default async function Globalscale({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}) {
+  const { locale} = await params;
   const GlobalCDN = [
     {
       heading: "Edge Network:",
@@ -79,45 +85,15 @@ export default async function Globalscale() {
     },
   ];
 
-  const faqData = [
-    {
-      value: "faq-1",
-      question: "How does RedirHub handle global traffic?",
-      answer:
-        "RedirHub uses an edge network with worldwide coverage, ensuring redirects are served from the location nearest to your visitors. This minimizes latency and delivers a seamless experience across all regions.",
-    },
-    {
-      value: "faq-2",
-      question: "Can RedirHub handle high-volume redirects?",
-      answer:
-        "Yes. RedirHub is designed for enterprise-level traffic, handling thousands of redirects per second without performance degradation. It’s suitable for agencies, IT teams, and large domain portfolios.",
-    },
-    {
-      value: "faq-3",
-      question:
-        "Does RedirHub improve user experience for international audiences?",
-      answer:
-        "Absolutely. By serving redirects from the closest edge location and providing instant HTTPS, RedirHub ensures fast, secure, and reliable navigation for users worldwide.",
-    },
-    {
-      value: "faq-4",
-      question: "How does RedirHub maintain uptime and reliability globally?",
-      answer:
-        "RedirHub uses redundant servers, failover mechanisms, and real-time monitoring across multiple regions. Even during maintenance or network disruptions, redirects continue to function without downtime.",
-    },
-    {
-      value: "faq-5",
-      question: "Can I manage redirects across multiple regions easily?",
-      answer:
-        "Yes. RedirHub’s dashboard allows you to manage redirects for all domains and regions in one place. You can deploy, edit, or monitor redirects globally in real time. For large-scale operations, you can export redirect data via CSV or integrate with RedirHub API to automate redirect management.",
-    },
-    {
-      value: "faq-6",
-      question: "Is RedirHub suitable for enterprise or high-scale projects?",
-      answer:
-        "Yes. RedirHub’s dashboard allows you to manage redirects for all domains and regions in one place. You can deploy, edit, or monitor redirects globally in real time. For large-scale operations, you can export redirect data via CSV or integrate with RedirHub API to automate redirect management.",
-    },
-  ];
+  // Fetch FAQs from CMS
+  const faqSet = await fetchFAQSetByPage('global-scale', locale);
+
+  // Transform to FAQAccordion format (add 'value' field)
+  const faqData = faqSet?.faqs.map((faq, index) => ({
+    value: `faq-${index + 1}`,
+    question: faq.question,
+    answer: faq.answer,
+  })) || [];
 
   return (
     <>
@@ -161,7 +137,7 @@ export default async function Globalscale() {
         />
         <TestimonialsSlider marginBottom={"20px"} />
       </Box>
-      <FAQSection faqData={faqData} />
+      {faqData.length > 0 && <FAQSection faqData={faqData} />}
     </>
   );
 }

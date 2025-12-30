@@ -41,6 +41,23 @@ export interface FAQ {
   answer: string
 }
 
+export interface FAQItem {
+  _key: string
+  question: string
+  answer: string
+}
+
+export interface FAQSet {
+  _id: string
+  _type: 'faqSet'
+  _createdAt?: string
+  _updatedAt?: string
+  pageSlug: string
+  title?: string
+  faqs: FAQItem[]
+  locale: string
+}
+
 export interface PortableTextSpan {
   _key: string
   _type: 'span'
