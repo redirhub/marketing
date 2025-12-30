@@ -8,7 +8,9 @@
     "start": "next start",
     "lint": "eslint",
     "generate-locales": "node scripts/generate-locales.js",
-    "migrate:wordpress": "tsx --env-file=.env.local scripts/migrate-wordpress.ts"
+    "migrate:wordpress": "tsx --env-file=.env.local scripts/migrate-wordpress.ts",
+    "migrate:support": "tsx --env-file=.env.local scripts/migrate-support.ts",
+    "migrate:legal": "tsx --env-file=.env.local scripts/migrate-legal.ts"
   },
   "dependencies": {
     "@chakra-ui/form-control": "^2.2.0",
