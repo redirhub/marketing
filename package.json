@@ -11,7 +11,8 @@
     "migrate:wordpress": "tsx --env-file=.env.local scripts/migrate-wordpress.ts",
     "migrate:support": "tsx --env-file=.env.local scripts/migrate-support.ts",
     "migrate:legal": "tsx --env-file=.env.local scripts/migrate-legal.ts",
-    "migrate:faqs": "tsx --env-file=.env.local scripts/migrate-faqs.ts"
+    "migrate:faqs": "tsx --env-file=.env.local scripts/migrate-faqs.ts",
+    "fix:faq-keys": "tsx --env-file=.env.local scripts/fix-faq-keys.ts"
   },
   "dependencies": {
     "@chakra-ui/form-control": "^2.2.0",

@@ -30,6 +30,13 @@ const FAQ_PAGES: FAQData[] = [
   { pageSlug: 'free-redirect-service', filePath: 'src/app/[locale]/free-redirect-service/page.tsx' },
 ]
 
+// Generate a unique key for Sanity array items
+function genKey(): string {
+  return typeof randomUUID === 'function'
+    ? randomUUID()
+    : `${Date.now()}-${Math.random().toString(16).slice(2)}`
+}
+
 // Extract FAQ data from file content
 function extractFAQsFromFile(content: string): any[] {
   // Match faqData array definition
@@ -44,6 +51,7 @@ function extractFAQsFromFile(content: string): any[] {
   const faqs: any[] = []
   for (const match of faqMatches) {
     faqs.push({
+      _key: genKey(),
       question: match[2].replace(/\\"/g, '"').replace(/\\'/g, "'"),
       answer: match[3].replace(/\\"/g, '"').replace(/\\'/g, "'"),
     })
