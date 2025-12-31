@@ -6,6 +6,7 @@ import { Provider } from "@/components/ui/provider";
 import TranslationsProvider from "@/components/TranslationsProvider";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
+import NProgressBar from "@/components/NProgressBar";
 import initTranslations from "@/lib/i18n";
 import { i18nConfig } from "@/lib/i18n";
 import "./globals.css";
@@ -64,6 +65,7 @@ export default async function RootLayout({
         style={{ minHeight: "100vh", display: "flex", flexDirection: "column" }}
       >
         <Provider>
+          <NProgressBar />
           <TranslationsProvider
             locale={locale}
             namespaces={i18nNamespaces}
