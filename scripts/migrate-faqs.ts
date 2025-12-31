@@ -9,6 +9,7 @@
 import { writeClient } from '../src/sanity/lib/client'
 import { readFileSync } from 'fs'
 import { join } from 'path'
+import { randomUUID } from 'crypto'
 
 const DEFAULT_LOCALE = 'en'
 

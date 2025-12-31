@@ -68,7 +68,7 @@ export default async function TagPage({ params, searchParams }: TagPageProps) {
   const totalCount = await client.fetch(totalCountQuery, {
     locale,
     tag,
-  })
+  } as Record<string, any>)
 
   const totalPages = Math.max(1, Math.ceil(totalCount / PER_PAGE))
   const safePage = Math.min(currentPage, totalPages)
@@ -97,7 +97,7 @@ export default async function TagPage({ params, searchParams }: TagPageProps) {
     }
   }`
 
-  const posts = await client.fetch(postsQuery, { locale, tag })
+  const posts = await client.fetch(postsQuery, { locale, tag } as Record<string, any>)
 
   return (
     <Box w="100%" py={8} bg="white">

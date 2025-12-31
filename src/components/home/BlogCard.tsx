@@ -28,26 +28,24 @@ export const BlogCard = ({
   isBlogPage = false,
 }: BlogCardProps) => {
   return (
-    <MotionBox
-      as={NextLink}
-      href={link}
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.6 }}
-      w="100%"
-      bg="white"
-      borderRadius="16px"
-      overflow="hidden"
-      cursor="pointer"
-      _hover={{
-        transform: "translateY(-8px)",
-        boxShadow: "0 12px 40px rgba(0, 0, 0, 0.12)",
-        textDecoration: "none",
-      }}
-      sx={{ transition: "all 0.3s ease" }}
-      boxShadow="0 4px 12px rgba(0, 0, 0, 0.08)"
-      display="block"
-    >
+    <NextLink href={link} style={{ textDecoration: 'none' }}>
+      <MotionBox
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6 }}
+        w="100%"
+        bg="white"
+        borderRadius="16px"
+        overflow="hidden"
+        cursor="pointer"
+        _hover={{
+          transform: "translateY(-8px)",
+          boxShadow: "0 12px 40px rgba(0, 0, 0, 0.12)",
+        }}
+        boxShadow="0 4px 12px rgba(0, 0, 0, 0.08)"
+        display="block"
+        css={{ transition: "all 0.3s ease" }}
+      >
       {/* Featured Image */}
       <Box
         position="relative"
@@ -92,7 +90,7 @@ export const BlogCard = ({
           lineHeight="1.3"
           mb={3}
           color="gray.900"
-          noOfLines={2}
+          lineClamp={2}
         >
           {title}
         </Heading>
@@ -103,7 +101,7 @@ export const BlogCard = ({
             fontSize="md"
             color="gray.600"
             lineHeight="1.6"
-            noOfLines={3}
+            lineClamp={3}
             mb={3}
           >
             {excerpt}
@@ -118,5 +116,6 @@ export const BlogCard = ({
         )}
       </Box>
     </MotionBox>
+    </NextLink>
   );
 };

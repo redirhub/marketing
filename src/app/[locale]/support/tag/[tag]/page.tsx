@@ -78,7 +78,7 @@ export default async function SupportTagPage({ params }: TagPageProps) {
               </Text>
             </Box>
           ) : (
-            <VStack align="stretch" spacing={4}>
+            <VStack align="stretch" gap={4}>
               {articles.map((article: any) => (
                 <ArticleItem
                   key={article._id}

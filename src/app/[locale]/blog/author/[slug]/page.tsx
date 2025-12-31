@@ -134,19 +134,21 @@ export default async function AuthorPage({
           textAlign="center"
         >
           <VStack gap={4}>
-            <Avatar
+            <Avatar.Root
               size="2xl"
-              name={author.name}
-              src={
-                author.image
-                  ? urlFor(author.image).width(200).height(200).url()
-                  : undefined
-              }
               css={{
                 border: '4px solid',
                 borderColor: '#D6BCFA',
               }}
-            />
+            >
+              <Avatar.Fallback name={author.name} />
+              {author.image && (
+                <Avatar.Image
+                  src={urlFor(author.image).width(200).height(200).url()}
+                  alt={author.name}
+                />
+              )}
+            </Avatar.Root>
             <Heading
               as="h1"
               fontSize={{ base: '3xl', md: '4xl', lg: '5xl' }}

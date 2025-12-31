@@ -54,7 +54,7 @@ export async function fetchSupportArticlesByTag(
     publishedAt,
     locale
   }`
-  return client.fetch(query, { tag, locale })
+  return client.fetch(query, { tag, locale } as Record<string, any>)
 }
 
 export async function fetchSupportArticleTranslations(slug: string) {

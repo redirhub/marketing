@@ -370,7 +370,7 @@ async function getOrCreateAuthor(author: WordPressAuthor | null): Promise<any | 
   if (existingId) return { _type: 'reference', _ref: existingId }
 
   const avatarUrl = author.avatar_urls?.['256'] || author.avatar_urls?.['96'] || author.avatar_urls?.['48']
-  const image = await uploadImageFromUrl(avatarUrl, `${slug}-avatar.jpg`)
+  const image = await uploadImageFromUrl(avatarUrl || '', `${slug}-avatar.jpg`)
 
   await writeClient.createIfNotExists({
     _id: id,
@@ -395,7 +395,7 @@ async function mapPostToSanity(post: WordPressPost, locale: string = DEFAULT_LOC
   )
 
   const featured = post._embedded?.['wp:featuredmedia']?.[0]?.source_url || post.jetpack_featured_media_url
-  const image = await uploadImageFromUrl(featured, `${slug}-featured.jpg`)
+  const image = await uploadImageFromUrl(featured || '', `${slug}-featured.jpg`)
   const authorRef = await getOrCreateAuthor(post._embedded?.author?.[0] || null)
 
   return {
