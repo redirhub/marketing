@@ -331,6 +331,25 @@ async function htmlToPortableText(html: string = ''): Promise<any[]> {
   return blocks.length ? blocks : []
 }
 
+// Specific legal pages to migrate
+const LEGAL_PAGES = [
+  'legal',
+  'cookie-policy',
+  'privacy-policy',
+  'terms-of-service',
+  'data-subprocessors',
+  'security-compliance-information',
+  'acceptable-use-policy',
+  'data-processing-addendum',
+]
+
+// Pages that should appear in the footer
+const FOOTER_PAGES = [
+  'privacy-policy',
+  'terms-of-service',
+  'cookie-policy',
+]
+
 // Fetch all legal pages from WordPress
 async function fetchAllLegalPages(): Promise<WordPressPage[]> {
   const pages: WordPressPage[] = []
@@ -355,8 +374,8 @@ async function fetchAllLegalPages(): Promise<WordPressPage[]> {
       if (!data || data.length === 0) {
         hasMore = false
       } else {
-        // Filter only pages with slug starting with "legal"
-        const legalPages = data.filter((p) => p.slug.startsWith('legal'))
+        // Filter only pages with slug in LEGAL_PAGES array
+        const legalPages = data.filter((p) => LEGAL_PAGES.includes(p.slug))
         if (legalPages.length > 0) {
           pages.push(...legalPages)
           console.log(`   Found ${legalPages.length} legal pages on page ${page}`)
@@ -382,6 +401,9 @@ async function mapPageToSanity(wpPage: WordPressPage, locale: string): Promise<a
     id: documentId,
   })
 
+  // Determine if this page should appear in footer
+  const showInFooter = FOOTER_PAGES.includes(wpPage.slug)
+
   return {
     _id: existingDoc || documentId,
     _type: 'legal',
@@ -390,6 +412,7 @@ async function mapPageToSanity(wpPage: WordPressPage, locale: string): Promise<a
     title: stripHtml(wpPage.title?.rendered),
     content: await htmlToPortableText(wpPage.content?.rendered),
     publishedAt: new Date(wpPage.date_gmt || wpPage.date || Date.now()).toISOString(),
+    footer: showInFooter,
   }
 }
 
@@ -414,7 +437,8 @@ async function migrate() {
         const locale = wpPage.lang || DEFAULT_LOCALE
         const doc = await mapPageToSanity(wpPage, locale)
         await writeClient.createOrReplace(doc)
-        console.log(`✅ Migrated: ${wpPage.title.rendered} (${locale}) - slug: ${wpPage.slug}`)
+        const footerStatus = doc.footer ? '[Footer: YES]' : '[Footer: NO]'
+        console.log(`✅ Migrated: ${wpPage.title.rendered} (${locale}) - slug: ${wpPage.slug} ${footerStatus}`)
         success += 1
       } catch (error: any) {
         console.error(`❌ Failed "${wpPage.slug || wpPage.id}": ${error.message}`)

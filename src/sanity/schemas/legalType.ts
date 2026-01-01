@@ -92,6 +92,13 @@ export const legalType = defineType({
       initialValue: defaultLocale,
       validation: (rule) => rule.required(),
     }),
+    defineField({
+      name: 'footer',
+      type: 'boolean',
+      title: 'Show in Footer',
+      description: 'Whether this legal document should be displayed in the footer',
+      initialValue: false,
+    }),
   ],
   preview: {
     select: {

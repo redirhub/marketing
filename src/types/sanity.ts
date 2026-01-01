@@ -150,6 +150,7 @@ export interface LegalDocument {
   content?: PortableTextContent
   publishedAt: string
   locale: string
+  footer?: boolean
 }
 
 export interface Translation {

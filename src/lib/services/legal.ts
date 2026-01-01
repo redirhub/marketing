@@ -1,6 +1,37 @@
 import { client } from '@/sanity/lib/client'
 import type { LegalDocument } from '@/types/sanity'
 
+export async function fetchFooterLegalPages(locale: string = 'en'): Promise<LegalDocument[]> {
+  const query = `*[
+    _type == "legal" &&
+    locale == $locale &&
+    footer == true
+  ] | order(title asc) {
+    _id,
+    title,
+    slug,
+    footer,
+    locale,
+    publishedAt
+  }`
+  return client.fetch(query, { locale })
+}
+
+export async function fetchAllLegalPages(locale: string = 'en'): Promise<LegalDocument[]> {
+  const query = `*[
+    _type == "legal" &&
+    locale == $locale
+  ] | order(title asc) {
+    _id,
+    title,
+    slug,
+    footer,
+    locale,
+    publishedAt
+  }`
+  return client.fetch(query, { locale })
+}
+
 export async function fetchLegalDocuments(locale: string = 'en') {
   const query = `*[
     _type == "legal" &&
@@ -10,9 +41,30 @@ export async function fetchLegalDocuments(locale: string = 'en') {
     title,
     slug,
     publishedAt,
-    locale
+    locale,
+    footer
   }`
   return client.fetch(query, { locale })
+}
+
+export async function fetchLegalPageBySlug(
+  slug: string,
+  locale: string = 'en'
+): Promise<LegalDocument | null> {
+  const query = `*[
+    _type == "legal" &&
+    slug.current == $slug &&
+    locale == $locale
+  ][0] {
+    _id,
+    title,
+    slug,
+    content,
+    footer,
+    locale,
+    publishedAt
+  }`
+  return client.fetch(query, { slug, locale })
 }
 
 export async function fetchLegalDocumentBySlug(
@@ -31,7 +83,8 @@ export async function fetchLegalDocumentBySlug(
     slug,
     content,
     publishedAt,
-    locale
+    locale,
+    footer
   }`
   return client.fetch(query, { slug, locale })
 }
@@ -41,7 +94,8 @@ export async function fetchLegalDocumentTranslations(slug: string) {
     _id,
     locale,
     title,
-    slug
+    slug,
+    footer
   }`
   return client.fetch(query, { slug })
 }
