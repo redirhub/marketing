@@ -1,4 +1,4 @@
-import { ReactNode } from "react";
+import { ReactNode, Suspense } from "react";
 import { Metadata } from "next";
 import { Inter } from "next/font/google";
 import { headers } from "next/headers";
@@ -65,7 +65,9 @@ export default async function RootLayout({
         style={{ minHeight: "100vh", display: "flex", flexDirection: "column" }}
       >
         <Provider>
-          <NProgressBar />
+          <Suspense fallback={null}>
+            <NProgressBar />
+          </Suspense>
           <TranslationsProvider
             locale={locale}
             namespaces={i18nNamespaces}

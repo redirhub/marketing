@@ -3,6 +3,7 @@
 import { useEffect } from 'react'
 import { usePathname, useSearchParams } from 'next/navigation'
 import NProgress from 'nprogress'
+import 'nprogress/nprogress.css'
 
 // Configure NProgress
 NProgress.configure({
@@ -20,6 +21,30 @@ export default function NProgressBar() {
   useEffect(() => {
     NProgress.done()
   }, [pathname, searchParams])
+
+  useEffect(() => {
+    const handleClick = (e: MouseEvent) => {
+      const target = e.target as HTMLElement
+      const anchor = target.closest('a')
+
+      if (anchor && anchor.href) {
+        const currentUrl = window.location.href
+        const targetUrl = anchor.href
+
+        // Check if it's an internal link and not the same page
+        if (
+          targetUrl.startsWith(window.location.origin) &&
+          targetUrl !== currentUrl &&
+          !anchor.target
+        ) {
+          NProgress.start()
+        }
+      }
+    }
+
+    document.addEventListener('click', handleClick)
+    return () => document.removeEventListener('click', handleClick)
+  }, [])
 
   return null
 }
