@@ -1,11 +1,27 @@
+/**
+ * Sanity Query API Endpoint
+ *
+ * Executes GROQ queries against Sanity CMS.
+ *
+ * Parameters:
+ * - query: GROQ query string (required)
+ * - slug: Optional slug parameter for the query
+ * - fresh: If "true", bypasses CDN cache (use after creating/updating documents)
+ *
+ * Examples:
+ * - Cached: /api/sanity/query?query=...&slug=...
+ * - Fresh:  /api/sanity/query?query=...&slug=...&fresh=true
+ */
+
 import { NextRequest, NextResponse } from 'next/server'
-import { client } from '@/sanity/lib/client'
+import { client, writeClient } from '@/sanity/lib/client'
 
 export async function GET(req: NextRequest) {
   try {
     const searchParams = req.nextUrl.searchParams
     const query = searchParams.get('query')
     const slug = searchParams.get('slug')
+    const fresh = searchParams.get('fresh') === 'true'
 
     if (!query) {
       return NextResponse.json(
@@ -14,7 +30,11 @@ export async function GET(req: NextRequest) {
       )
     }
 
-    const result = await client.fetch(query, { slug })
+    // Use writeClient (useCdn: false) for fresh queries to bypass CDN cache
+    // This is essential after creating/updating documents to get immediate results
+    const sanityClient = fresh ? writeClient : client
+
+    const result = await sanityClient.fetch(query, { slug })
 
     return NextResponse.json(result)
   } catch (error) {

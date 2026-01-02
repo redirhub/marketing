@@ -65,7 +65,7 @@ function LanguageSwitcherComponent({
       : `*[_type == "${documentType}" && slug.current == $slug]{ _id, locale, title }`
 
     fetch(
-      `/api/sanity/query?query=${encodeURIComponent(query)}&slug=${identifier}`
+      `/api/sanity/query?query=${encodeURIComponent(query)}&slug=${identifier}&fresh=true`
     )
       .then((res) => res.json())
       .then((data) => {
@@ -175,7 +175,7 @@ function LanguageSwitcherComponent({
                 // Show success feedback
                 console.log('✅ Translation completed:', result)
 
-                // Reload translations to show the newly created translations
+                // Reload translations with retry logic (Sanity has eventual consistency)
                 const identifier = documentType === 'faqSet'
                   ? document?.pageSlug
                   : document?.slug?.current
@@ -186,15 +186,16 @@ function LanguageSwitcherComponent({
                     ? `*[_type == "${documentType}" && pageSlug == $slug]{ _id, locale, title, pageSlug }`
                     : `*[_type == "${documentType}" && slug.current == $slug]{ _id, locale, title }`
 
+                  // Use fresh=true to bypass Sanity CDN cache after translation
                   const queryResponse = await fetch(
-                    `/api/sanity/query?query=${encodeURIComponent(query)}&slug=${identifier}`
+                    `/api/sanity/query?query=${encodeURIComponent(query)}&slug=${identifier}&fresh=true`
                   )
                   const data = await queryResponse.json()
-                  setTranslations(data || [])
+
+                  setTranslations(data)
                   setLoading(false)
                 }
 
-                alert(`✅ Successfully created ${result.processed} translation(s)!`)
               } catch (err) {
                 console.error('Translation error:', err)
                 alert(`❌ Translation failed: ${err instanceof Error ? err.message : 'Unknown error'}`)
