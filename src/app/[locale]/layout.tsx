@@ -64,7 +64,7 @@ export default async function RootLayout({
   const legalPages = await fetchFooterLegalPages(locale);
   const legalLinks = legalPages.map((page) => ({
     label: page.title,
-    href: locale === "en" ? `/${page.slug.current}` : `/${locale}/${page.slug.current}`,
+    href: locale === "en" ? `/legal/${page.slug.current}` : `/${locale}/legal/${page.slug.current}`,
   }));
 
   return (

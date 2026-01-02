@@ -137,20 +137,7 @@ export default function Footer({ legalLinks }: FooterProps) {
         href: "mailto:abuse@redirhub.com",
       },
     ],
-    legal: legalLinks || [
-      {
-        label: t(`footer.terms`, "Terms of Service"),
-        href: getLocalePath("/terms-of-service"),
-      },
-      {
-        label: t(`footer.privacy`, "Privacy Policy"),
-        href: getLocalePath("/privacy-policy"),
-      },
-      {
-        label: t(`footer.cookie`, "Cookie Policy"),
-        href: getLocalePath("/cookie-policy"),
-      },
-    ],
+    legal: legalLinks,
   };
 
   const socialLinks = [
