@@ -137,7 +137,7 @@ export default function Footer({ legalLinks }: FooterProps) {
         href: "mailto:abuse@redirhub.com",
       },
     ],
-    legal: legalLinks,
+    legal: legalLinks || [],
   };
 
   const socialLinks = [

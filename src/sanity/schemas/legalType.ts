@@ -99,6 +99,14 @@ export const legalType = defineType({
       description: 'Whether this legal document should be displayed in the footer',
       initialValue: false,
     }),
+    defineField({
+      name: 'needsTranslation',
+      type: 'boolean',
+      title: 'Needs Translation',
+      description: 'Mark for background translation job processing',
+      initialValue: false,
+      hidden: ({ document }) => document?.locale !== 'en',
+    }),
   ],
   preview: {
     select: {

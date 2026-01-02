@@ -1,3 +1,19 @@
+/**
+ * Language Switcher Plugin
+ *
+ * Provides a UI panel for managing document translations across all supported languages.
+ *
+ * Features:
+ * - Shows all available language versions for a document
+ * - Allows navigation between language versions
+ * - Triggers AI translation via the "AI Translate" button
+ *
+ * The AI translation button calls /api/sanity/process-translations which uses
+ * the generalized translation service from src/lib/translation/translate-document.ts
+ *
+ * Supported document types: post, support, legal, faqSet
+ */
+
 import { definePlugin } from 'sanity'
 import { Badge, Button, Card, Flex, Stack, Text } from '@sanity/ui'
 import { useState, useEffect } from 'react'
@@ -7,17 +23,23 @@ import { LANGUAGES } from '../config/i18n'
 interface Translation {
   _id: string
   locale: string
-  title: string
+  title?: string
+  pageSlug?: string
 }
 
 interface LanguageSwitcherProps {
   document: any
   documentId: string
+  documentType: string
 }
+
+// Document types that support translation
+const TRANSLATABLE_TYPES = ['post', 'support', 'legal', 'faqSet']
 
 function LanguageSwitcherComponent({
   document,
   documentId,
+  documentType,
 }: LanguageSwitcherProps) {
   const router = useRouter()
   const [translations, setTranslations] = useState<Translation[]>([])
@@ -25,23 +47,25 @@ function LanguageSwitcherComponent({
   const [jobLoading, setJobLoading] = useState(false)
 
   useEffect(() => {
-    const slug = document?.slug?.current
-    if (!slug) {
+    // For faqSet, use pageSlug; for others use slug.current
+    const identifier = documentType === 'faqSet'
+      ? document?.pageSlug
+      : document?.slug?.current
+
+    if (!identifier) {
       setTranslations([])
       return
     }
 
     setLoading(true)
 
-    // Query Sanity for all posts with the same slug
-    const query = `*[_type == "post" && slug.current == $slug]{
-      _id,
-      locale,
-      title
-    }`
+    // Build query based on document type
+    const query = documentType === 'faqSet'
+      ? `*[_type == "${documentType}" && pageSlug == $slug]{ _id, locale, title, pageSlug }`
+      : `*[_type == "${documentType}" && slug.current == $slug]{ _id, locale, title }`
 
     fetch(
-      `/api/sanity/query?query=${encodeURIComponent(query)}&slug=${slug}`
+      `/api/sanity/query?query=${encodeURIComponent(query)}&slug=${identifier}`
     )
       .then((res) => res.json())
       .then((data) => {
@@ -52,12 +76,12 @@ function LanguageSwitcherComponent({
         console.error('Error fetching translations:', error)
         setLoading(false)
       })
-  }, [document?.slug])
+  }, [document?.slug, document?.pageSlug, documentType])
 
   const handleNavigate = (translationId: string) => {
     router.navigateIntent('edit', {
       id: translationId,
-      type: 'post',
+      type: documentType,
     })
   }
 
@@ -127,39 +151,61 @@ function LanguageSwitcherComponent({
             fontSize={1}
             padding={2}
             disabled={jobLoading}
-            onClick={() => {
+            onClick={async () => {
+              if (!document?._id) {
+                alert('Document ID not found. Please save the document first.')
+                return
+              }
+
               setJobLoading(true)
 
-              fetch(
-                `/api/sanity/process-translations?docId=${document?._id}`,
-                { method: 'POST' }
-              )
-                .catch((err) => {
-                  console.error(err)
-                  alert('Failed to trigger translation job')
-                })
-                .finally(() => {
-                  setJobLoading(false)
-                  // Reload translations after job completes
-                  if (document?.slug?.current) {
-                    setLoading(true)
-                    const query = `*[_type == "post" && slug.current == $slug]{ _id, locale, title }`
-                    fetch(
-                      `/api/sanity/query?query=${encodeURIComponent(query)}&slug=${document.slug.current}`
-                    )
-                      .then((res) => res.json())
-                      .then((data) => setTranslations(data || []))
-                      .catch((err) =>
-                        console.error('Error fetching translations:', err)
-                      )
-                      .finally(() => setLoading(false))
-                  }
-                })
+              try {
+                // Call the API endpoint which uses the new translateDocument service
+                const response = await fetch(
+                  `/api/sanity/process-translations?docId=${document._id}`,
+                  { method: 'POST' }
+                )
+
+                const result = await response.json()
+
+                if (!result.ok) {
+                  throw new Error(result.error || 'Translation failed')
+                }
+
+                // Show success feedback
+                console.log('✅ Translation completed:', result)
+
+                // Reload translations to show the newly created translations
+                const identifier = documentType === 'faqSet'
+                  ? document?.pageSlug
+                  : document?.slug?.current
+
+                if (identifier) {
+                  setLoading(true)
+                  const query = documentType === 'faqSet'
+                    ? `*[_type == "${documentType}" && pageSlug == $slug]{ _id, locale, title, pageSlug }`
+                    : `*[_type == "${documentType}" && slug.current == $slug]{ _id, locale, title }`
+
+                  const queryResponse = await fetch(
+                    `/api/sanity/query?query=${encodeURIComponent(query)}&slug=${identifier}`
+                  )
+                  const data = await queryResponse.json()
+                  setTranslations(data || [])
+                  setLoading(false)
+                }
+
+                alert(`✅ Successfully created ${result.processed} translation(s)!`)
+              } catch (err) {
+                console.error('Translation error:', err)
+                alert(`❌ Translation failed: ${err instanceof Error ? err.message : 'Unknown error'}`)
+              } finally {
+                setJobLoading(false)
+              }
             }}
             text={
               <Flex align="center" gap={2}>
                 {jobLoading && <span>⏳</span>}
-                <span>AI Translate</span>
+                <span>{jobLoading ? 'Translating...' : 'AI Translate'}</span>
               </Flex>
             }
           />
@@ -174,13 +220,15 @@ export const languageSwitcherPlugin = definePlugin({
   form: {
     components: {
       input: (props) => {
-        if (props.schemaType.name === 'post') {
+        // Apply to all translatable document types
+        if (TRANSLATABLE_TYPES.includes(props.schemaType.name)) {
           return (
             <>
               {props.renderDefault(props)}
               <LanguageSwitcherComponent
                 document={props.value}
                 documentId={props.id}
+                documentType={props.schemaType.name}
               />
             </>
           )
