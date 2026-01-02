@@ -1,12 +1,11 @@
 import { Box, Heading, SimpleGrid } from "@chakra-ui/react";
 import { BlogCard } from "./BlogCard";
-import { BlogPost } from "@/app/api/blogs/route";
 import { fetchBlogPosts } from "@/lib/services/blog";
+import { urlFor } from "@/sanity/lib/image";
+import type { PostPreview } from "@/types/sanity";
 
 export default async function Blogs() {
-  const posts: BlogPost[] = await fetchBlogPosts();
-
-  const postsToShow = posts.slice(0, 3);
+  const posts = await fetchBlogPosts('en', 3);
 
   return (
     <Box
@@ -32,15 +31,19 @@ export default async function Blogs() {
           columns={{ base: 1, md: 2, lg: 3 }}
           gap={{ base: 6, md: 8 }}
         >
-          {postsToShow.slice(0, 3).map((post, index) => (
+          {posts.map((post: PostPreview) => (
             <BlogCard
-              key={index}
-              imageSrc={post.imageSrc}
-              imageAlt={post.imageAlt}
-              category={post.category}
-              date={post.date}
+              key={post._id}
+              imageSrc={post.image ? urlFor(post.image).width(600).height(400).url() : '/images/blog-placeholder.jpg'}
+              imageAlt={post.title}
+              category={post.tags?.[0] || 'Blog'}
+              date={new Date(post.publishedAt).toLocaleDateString('en', {
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric',
+              })}
               title={post.title}
-              link={post.link}
+              link={`/blog/${post.slug.current}`}
             />
           ))}
         </SimpleGrid>

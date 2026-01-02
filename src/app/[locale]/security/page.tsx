@@ -6,6 +6,7 @@ import FeatureBanner from "@/components/share/banners/features/FeatureBanner";
 import TestimonialsSlider from "@/components/home/TestimonialsSlider";
 import FAQSection from "@/components/home/FAQSection";
 import FeatureSplitSection from "@/components/share/features/FeatureSplitSection";
+import { fetchFAQSetByPage } from "@/lib/services/faq";
 
 export async function generateMetadata({
   params,
@@ -28,7 +29,12 @@ export async function generateMetadata({
   };
 }
 
-export default async function Globalscale() {
+export default async function Globalscale({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}) {
+  const { locale } = await params;
   const UserAccessProtection = [
     {
       heading: "Bot Protection:",
@@ -81,32 +87,15 @@ export default async function Globalscale() {
     },
   ];
 
-  const faqData = [
-    {
-      value: "faq-1",
-      question: "How does RedirHub secure my redirects?",
-      answer:
-        "All redirects are protected with automatic SSL (HTTPS), ensuring encryption and safe connections for all users. RedirHub safeguards your domains against interception and tampering.",
-    },
-    {
-      value: "faq-2",
-      question: "Does RedirHub protect against malicious traffic?",
-      answer:
-        "Yes. RedirHub includes bad bot filtering to block automated abuse and unwanted traffic. This helps maintain website performance and protects SEO integrity.",
-    },
-    {
-      value: "faq-3",
-      question: "How does RedirHub defend against DDoS attacks?",
-      answer:
-        "RedirHub uses enterprise-grade DDoS protection, including network-level mitigation and traffic filtering. Your redirects remain available and performant even under attack.",
-    },
-    {
-      value: "faq-4",
-      question: "Can I monitor security and access activity?",
-      answer:
-        "Absolutely. RedirHub logs all actions in the dashboard, including redirect updates and API access. You can track team activity, detect anomalies, and ensure secure collaboration.",
-    },
-  ];
+  // Fetch FAQs from CMS
+  const faqSet = await fetchFAQSetByPage('security', locale);
+
+  // Transform to FAQAccordion format (add 'value' field)
+  const faqData = faqSet?.faqs.map((faq, index) => ({
+    value: `faq-${index + 1}`,
+    question: faq.question,
+    answer: faq.answer,
+  })) || [];
 
   return (
     <>
@@ -149,7 +138,7 @@ export default async function Globalscale() {
         />
         <TestimonialsSlider marginBottom={"20px"} />
       </Box>
-      <FAQSection faqData={faqData} />
+      {faqData.length > 0 && <FAQSection faqData={faqData} />}
     </>
   );
 }

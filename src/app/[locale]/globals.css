@@ -41,3 +41,15 @@ a {
   color: inherit;
   text-decoration: none;
 }
+
+/* NProgress Custom Color Override */
+#nprogress .bar {
+  background: #3182ce !important;
+  height: 3px !important;
+}
+
+#nprogress .peg {
+  box-shadow:
+    0 0 10px #3182ce,
+    0 0 5px #3182ce !important;
+}

@@ -9,12 +9,16 @@ import { FaYoutube, FaXTwitter, FaFacebook, FaLinkedin } from "react-icons/fa6";
 import styles from "./Footer.module.css";
 import Image from "next/image";
 import LanguageSelector from "../share/LanguageSelector";
-import { FooterBottomBar } from "../footer/FooterBottomBar";
+import { FooterBottomBar, FooterLinkItem } from "../footer/FooterBottomBar";
 import { FooterLinkColumn } from "../footer/FooterLinkColumn";
 import { FooterCtaHeader } from "../footer/FooterCtaHeader";
 import FooterTabs from "../footer/Tabs";
 
-export default function Footer() {
+interface FooterProps {
+  legalLinks?: FooterLinkItem[];
+}
+
+export default function Footer({ legalLinks }: FooterProps) {
   const { t, i18n } = useTranslation();
   const params = useParams();
   const router = useRouter();
@@ -133,20 +137,7 @@ export default function Footer() {
         href: "mailto:abuse@redirhub.com",
       },
     ],
-    legal: [
-      {
-        label: t(`footer.terms`, "Terms of Service"),
-        href: getLocalePath("/terms-of-service"),
-      },
-      {
-        label: t(`footer.privacy`, "Privacy Policy"),
-        href: getLocalePath("/privacy-policy"),
-      },
-      {
-        label: t(`footer.cookie`, "Cookie Policy"),
-        href: getLocalePath("/cookie-policy"),
-      },
-    ],
+    legal: legalLinks || [],
   };
 
   const socialLinks = [

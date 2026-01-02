@@ -1,13 +1,18 @@
-import { Box, Image, Text, Flex, Button, Heading } from "@chakra-ui/react";
-import { FaArrowRightLong } from "react-icons/fa6";
+"use client";
+
+import { Box, Image, Text, Heading } from "@chakra-ui/react";
+import { motion } from "framer-motion";
 import NextLink from "next/link";
+
+const MotionBox = motion.create(Box);
 
 interface BlogCardProps {
   imageSrc: string;
   imageAlt?: string;
-  category: string;
-  date: string;
+  category?: string;
+  date?: string;
   title: string;
+  excerpt?: string;
   link?: string;
   isBlogPage?: boolean;
 }
@@ -18,99 +23,99 @@ export const BlogCard = ({
   category,
   date,
   title,
+  excerpt,
   link = "#",
   isBlogPage = false,
 }: BlogCardProps) => {
   return (
-    <Box
-      p={4}
-      bg="white"
-      borderRadius={isBlogPage ? "12px" : "24px"}
-      overflow="hidden"
-      boxShadow={isBlogPage ? "none" : "md"}
-      transition="all 0.3s"
-      border={isBlogPage ? "1px solid" : "4px solid"}
-      borderColor={isBlogPage ? "#222B271A" : "#EAECF0"}
-      h="100%"
-      display="flex"
-      flexDirection="column"
-    >
+    <NextLink href={link} style={{ textDecoration: 'none' }}>
+      <MotionBox
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6 }}
+        w="100%"
+        bg="white"
+        borderRadius="16px"
+        overflow="hidden"
+        cursor="pointer"
+        _hover={{
+          transform: "translateY(-8px)",
+          boxShadow: "0 12px 40px rgba(0, 0, 0, 0.12)",
+        }}
+        boxShadow="0 4px 12px rgba(0, 0, 0, 0.08)"
+        display="block"
+        css={{ transition: "all 0.3s ease" }}
+      >
+      {/* Featured Image */}
       <Box
         position="relative"
+        w="100%"
+        paddingBottom="60%"
         overflow="hidden"
-        h="240px"
-        mb={2}
-        borderRadius={"12px"}
+        bg="gray.100"
       >
         <Image
           src={imageSrc}
           alt={imageAlt}
+          position="absolute"
+          top="0"
+          left="0"
           w="100%"
           h="100%"
           objectFit="cover"
-          transition="transform 0.3s"
-          _hover={{ transform: "scale(1.05)" }}
         />
       </Box>
 
-      <Box flex={1} display="flex" flexDirection="column">
-        <Flex gap={2} mb={3} align="center" justifyContent={"space-between"}>
-          <Box
-            bg="#FFF6ED"
-            borderRadius="16px"
-            p={"4px 7px 4px 7px"}
-            fontSize={"12px"}
-            color="#c36"
+      {/* Content */}
+      <Box p={6}>
+        {/* Category/Tags */}
+        {category && (
+          <Text
+            fontSize="xs"
+            fontWeight="700"
+            textTransform="uppercase"
+            letterSpacing="0.05em"
+            color="gray.600"
+            mb={3}
           >
-            Blog
-          </Box>
+            {category}
+          </Text>
+        )}
+
+        {/* Title */}
+        <Heading
+          as="h3"
+          fontSize={{ base: "xl", md: "2xl" }}
+          fontWeight="700"
+          lineHeight="1.3"
+          mb={3}
+          color="gray.900"
+          lineClamp={2}
+        >
+          {title}
+        </Heading>
+
+        {/* Excerpt */}
+        {excerpt && (
+          <Text
+            fontSize="md"
+            color="gray.600"
+            lineHeight="1.6"
+            lineClamp={3}
+            mb={3}
+          >
+            {excerpt}
+          </Text>
+        )}
+
+        {/* Date - only show if provided */}
+        {date && (
           <Text fontSize="sm" color="gray.500">
             {date}
           </Text>
-        </Flex>
-
-        <NextLink href={link} passHref>
-          <Heading
-            as="h3"
-            fontSize={{ base: "1rem", md: "1.2rem", lg: "1.2rem" }}
-            fontWeight="600"
-            color="gray.800"
-            mb={0}
-            lineHeight={{ base: "1.5rem", md: "1.8rem" }}
-            flex={1}
-            textAlign={"left"}
-          >
-            {title}
-          </Heading>
-        </NextLink>
-
-        {!isBlogPage && (
-          <Box textAlign={"left"}>
-            <NextLink href={link} passHref>
-              <Button
-                as="button"
-                variant="ghost"
-                colorScheme="teal"
-                justifyContent="flex-start"
-                px={0}
-                gap={1}
-                fontWeight="semibold"
-                color="#1C6DB6"
-                _hover={{
-                  textDecoration: "none",
-                  color: "#667085",
-                  bg: "transparent",
-                }}
-                textAlign={"left"}
-                fontSize={{ base: "12px", md: "1rem" }}
-              >
-                Read More
-                <FaArrowRightLong />
-              </Button>
-            </NextLink>
-          </Box>
         )}
       </Box>
-    </Box>
+    </MotionBox>
+    </NextLink>
   );
 };

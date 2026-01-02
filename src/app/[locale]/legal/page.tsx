@@ -3,6 +3,7 @@ import { Box, Container, Heading, Text, Stack } from '@chakra-ui/react';
 import Link from 'next/link';
 import initTranslations from '@/lib/i18n';
 import { getAppName } from '@/lib/utils/constants';
+import { fetchLegalDocuments } from '@/lib/services/legal';
 
 export async function generateMetadata({
   params,
@@ -28,19 +29,7 @@ export default async function LegalPage({
   params: Promise<{ locale: string }>;
 }) {
   const { locale } = await params;
-
-  // Helper to generate URLs - hide /en for default locale
-  const getLocalePath = (path: string) => {
-    if (locale === 'en') {
-      return path;
-    }
-    return `/${locale}${path}`;
-  };
-
-  const legalDocs = [
-    { title: 'Privacy Policy', href: getLocalePath('/legal/privacy-policy') },
-    { title: 'Terms of Service', href: getLocalePath('/legal/terms-of-service') },
-  ];
+  const legalDocs = await fetchLegalDocuments(locale);
 
   return (
     <Box py={20}>
@@ -48,23 +37,27 @@ export default async function LegalPage({
         <Heading as="h1" size="2xl" mb={8}>
           Legal
         </Heading>
-        <Stack gap={4}>
-          {legalDocs.map((doc) => (
-            <Link key={doc.href} href={doc.href}>
-              <Box
-                p={6}
-                borderWidth="1px"
-                borderRadius="lg"
-                _hover={{ borderColor: 'primary.600', bg: 'gray.50' }}
-                transition="all 0.2s"
-              >
-                <Text fontSize="xl" fontWeight="semibold">
-                  {doc.title}
-                </Text>
-              </Box>
-            </Link>
-          ))}
-        </Stack>
+        {legalDocs.length === 0 ? (
+          <Text color="gray.600">No legal documents available.</Text>
+        ) : (
+          <Stack gap={4}>
+            {legalDocs.map((doc: any) => (
+              <Link key={doc._id} href={`/${locale}/legal/${doc.slug.current}`}>
+                <Box
+                  p={6}
+                  borderWidth="1px"
+                  borderRadius="lg"
+                  _hover={{ borderColor: 'primary.600', bg: 'gray.50' }}
+                  transition="all 0.2s"
+                >
+                  <Text fontSize="xl" fontWeight="semibold">
+                    {doc.title}
+                  </Text>
+                </Box>
+              </Link>
+            ))}
+          </Stack>
+        )}
       </Container>
     </Box>
   );

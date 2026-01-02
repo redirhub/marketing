@@ -6,6 +6,7 @@ import FeatureBanner from "@/components/share/banners/features/FeatureBanner";
 import TestimonialsSlider from "@/components/home/TestimonialsSlider";
 import FAQSection from "@/components/home/FAQSection";
 import FeatureSplitSection from "@/components/share/features/FeatureSplitSection";
+import { fetchFAQSetByPage } from "@/lib/services/faq";
 
 export async function generateMetadata({
   params,
@@ -28,7 +29,12 @@ export async function generateMetadata({
   };
 }
 
-export default async function AnalyzeRedirects() {
+export default async function AnalyzeRedirects({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}) {
+  const { locale } = await params;
   const AccessControl = [
     {
       heading: "Role Assignment:",
@@ -61,32 +67,15 @@ export default async function AnalyzeRedirects() {
     },
   ];
 
-  const faqData = [
-    {
-      value: "faq-1",
-      question: "How can I add team members to my RedirHub account?",
-      answer:
-        "You can invite team members via email and assign roles with specific permissions. RedirHub ensures that each member only accesses the tools and domains relevant to their role.",
-    },
-    {
-      value: "faq-2",
-      question: "Can I control access for different team members?",
-      answer:
-        "Yes. RedirHub provides role-based access management. You can set permissions for creating, editing, or deleting redirects, as well as viewing analytics, keeping your redirect infrastructure secure.",
-    },
-    {
-      value: "faq-3",
-      question: "Does RedirHub track team activity?",
-      answer:
-        "Absolutely. RedirHub logs actions by team members, including changes to redirects, settings, or analytics. This audit trail helps maintain accountability and operational transparency.",
-    },
-    {
-      value: "faq-4",
-      question: "Can multiple users collaborate on large domain portfolios?",
-      answer:
-        "Yes. RedirHub’s dashboard supports multiple users working simultaneously. Teams can manage redirects, update destinations, and monitor analytics in real time, improving efficiency and coordination.",
-    },
-  ];
+  // Fetch FAQs from CMS
+  const faqSet = await fetchFAQSetByPage('team-management', locale);
+
+  // Transform to FAQAccordion format (add 'value' field)
+  const faqData = faqSet?.faqs.map((faq, index) => ({
+    value: `faq-${index + 1}`,
+    question: faq.question,
+    answer: faq.answer,
+  })) || [];
 
   return (
     <>
@@ -113,7 +102,7 @@ export default async function AnalyzeRedirects() {
         />
         <FeatureSplitSection
           mainTitle="Workspace Organization"
-          subTitle="Keep your team’s work structured and efficient."
+          subTitle="Keep your team's work structured and efficient."
           features={WorkspaceOrganization}
           imageSrc="/assets/images/feature/Workspace-Organization.jpeg"
           imageAlt="Workspace-Organization"
@@ -123,7 +112,7 @@ export default async function AnalyzeRedirects() {
         />
         <TestimonialsSlider marginBottom={"20px"} />
       </Box>
-      <FAQSection faqData={faqData} />
+      {faqData.length > 0 && <FAQSection faqData={faqData} />}
     </>
   );
 }

@@ -1,19 +1,17 @@
-import { Box, Container, SimpleGrid, Spinner } from "@chakra-ui/react";
+import { Box, Container, SimpleGrid } from "@chakra-ui/react";
 import { BlogCard } from "../home/BlogCard";
 import PaginationControls from "../ui/PaginationControls";
-import { BlogPost } from "@/app/api/blogs/route";
-import { fetchBlogPosts } from "@/lib/services/blog";
+import { fetchPaginatedPosts } from "@/lib/services/blog";
+import { urlFor } from "@/sanity/lib/image";
+import type { PostPreview } from "@/types/sanity";
 
-const BlogList = async ({ currentPage }: { currentPage: number }) => {
-  const posts: BlogPost[] = await fetchBlogPosts();
+interface BlogListProps {
+  currentPage: number;
+  locale?: string;
+}
 
-  // Logic to slice your posts array for pagination
-  const postsPerPage = 6;
-  const startIndex = (currentPage - 1) * postsPerPage;
-  const endIndex = startIndex + postsPerPage;
-  const displayedPosts = posts.slice(startIndex, endIndex);
-
-  const totalPages = Math.ceil(posts.length / postsPerPage) || 1;
+const BlogList = async ({ currentPage, locale = 'en' }: BlogListProps) => {
+  const { posts, totalPages } = await fetchPaginatedPosts(locale, currentPage, 6);
 
   return (
     <>
@@ -23,15 +21,20 @@ const BlogList = async ({ currentPage }: { currentPage: number }) => {
             columns={{ base: 1, md: 2, lg: 3 }}
             gap={{ base: 6, md: 6 }}
           >
-            {displayedPosts?.map((post, index) => (
+            {posts?.map((post: PostPreview) => (
               <BlogCard
-                key={index}
-                imageSrc={post.imageSrc}
-                imageAlt={post.imageAlt}
-                category={post.category}
-                date={post.date}
+                key={post._id}
+                imageSrc={post.image ? urlFor(post.image).width(800).height(450).url() : '/images/blog-placeholder.jpg'}
+                imageAlt={post.title}
+                category={post.tags?.[0]}
+                date={new Date(post.publishedAt).toLocaleDateString(locale, {
+                  year: 'numeric',
+                  month: 'long',
+                  day: 'numeric',
+                })}
                 title={post.title}
-                link={post.link}
+                excerpt={post.excerpt}
+                link={`/${locale}/blog/${post.slug.current}`}
                 isBlogPage={true}
               />
             ))}

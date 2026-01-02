@@ -6,6 +6,7 @@ import FAQSection from "@/components/home/FAQSection";
 import TestimonialsSlider from "@/components/home/TestimonialsSlider";
 import FeatureSplitSection from "@/components/share/features/FeatureSplitSection";
 import { Box } from "@chakra-ui/react";
+import { fetchFAQSetByPage } from "@/lib/services/faq";
 
 export async function generateMetadata({
   params,
@@ -28,7 +29,12 @@ export async function generateMetadata({
   };
 }
 
-export default async function PricingPage() {
+export default async function PricingPage({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}) {
+  const { locale } = await params;
   const CreateIndividualRedirects = [
     {
       heading: "Quick Setup:",
@@ -128,38 +134,15 @@ export default async function PricingPage() {
     },
   ];
 
-  const faqData = [
-    {
-      value: "faq-1",
-      question: "How do I create a redirect in RedirHub?",
-      answer:
-        "Creating a redirect takes seconds. Add your domain, choose a destination URL, select 301 or 302, and click Create. Your redirect is deployed instantly across our global edge network with automatic HTTPS.",
-    },
-    {
-      value: "faq-2",
-      question: "How fast do redirects deploy after I create or update them?",
-      answer:
-        "Redirects deploy globally within seconds. RedirHub’s edge network updates in near real-time, so any change—new redirect or updated destination—propagates instantly without DNS delays.",
-    },
-    {
-      value: "faq-3",
-      question: "Does RedirHub support both 301 and 302 redirect types?",
-      answer:
-        "Absolutely. You can choose 301 (permanent) for SEO and site migrations, or 302 (temporary) for short-term routing, testing, or campaign links. Switching types is instant and can be done anytime.",
-    },
-    {
-      value: "faq-4",
-      question: "Do I need any server setup or hosting to deploy redirects?",
-      answer:
-        "No server or hosting setup is required. RedirHub handles everything on the backend. You simply point your domain’s DNS to RedirHub, and we take care of certificates, security, and routing automatically.",
-    },
-    {
-      value: "faq-5",
-      question: "Can I bulk create or update redirects for larger projects?",
-      answer:
-        "Yes. RedirHub supports managing multiple redirects efficiently, ideal for agencies, IT teams, and domain migrations. Bulk operations, grouped management, and hostname-based pricing make large-scale redirect management easy and cost-effective.",
-    },
-  ];
+  // Fetch FAQs from CMS
+  const faqSet = await fetchFAQSetByPage('create-redirects', locale);
+
+  // Transform to FAQAccordion format (add 'value' field)
+  const faqData = faqSet?.faqs.map((faq, index) => ({
+    value: `faq-${index + 1}`,
+    question: faq.question,
+    answer: faq.answer,
+  })) || [];
 
   return (
     <>
@@ -219,7 +202,7 @@ URLs, destination paths, and redirect types in seconds"
         />
         <TestimonialsSlider marginBottom={"20px"} />
       </Box>
-      <FAQSection faqData={faqData} />
+      {faqData.length > 0 && <FAQSection faqData={faqData} />}
     </>
   );
 }

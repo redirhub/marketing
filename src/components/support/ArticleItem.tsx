@@ -5,11 +5,11 @@ import Link from "next/link";
 
 interface ArticleItemProps {
   title: string;
-  category: string;
   slug: string;
+  locale: string;
 }
 
-export function ArticleItem({ title, category, slug }: ArticleItemProps) {
+export function ArticleItem({ title, slug, locale }: ArticleItemProps) {
   return (
     <Box
       w="full"
@@ -20,7 +20,7 @@ export function ArticleItem({ title, category, slug }: ArticleItemProps) {
       _last={{ borderBottom: "none" }}
     >
       <Link
-        href={`/support/${slug}`}
+        href={`/${locale}/support/${slug}`}
         passHref
         style={{ textDecoration: "none" }}
       >
@@ -42,18 +42,6 @@ export function ArticleItem({ title, category, slug }: ArticleItemProps) {
           >
             {title}
           </Text>
-
-          <Box
-            p="5px 15px 5px 15px"
-            borderRadius="25px"
-            bg="#FFF6ED"
-            color="#B93815"
-            textTransform="capitalize"
-          >
-            <Box as="span" color={"#D65334"}>
-              {category}
-            </Box>
-          </Box>
         </Flex>
       </Link>
     </Box>

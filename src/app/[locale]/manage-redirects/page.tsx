@@ -6,6 +6,7 @@ import FeatureBanner from "@/components/share/banners/features/FeatureBanner";
 import TestimonialsSlider from "@/components/home/TestimonialsSlider";
 import FAQSection from "@/components/home/FAQSection";
 import FeatureSplitSection from "@/components/share/features/FeatureSplitSection";
+import { fetchFAQSetByPage } from "@/lib/services/faq";
 
 export async function generateMetadata({
   params,
@@ -28,7 +29,12 @@ export async function generateMetadata({
   };
 }
 
-export default async function PricingPage() {
+export default async function PricingPage({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}) {
+  const { locale } = await params;
   const SearchFilter = [
     {
       heading: "Global Search:",
@@ -94,44 +100,15 @@ export default async function PricingPage() {
     },
   ];
 
-  const faqData = [
-    {
-      value: "faq-1",
-      question: "How can I manage my existing redirects with RedirHub?",
-      answer:
-        "RedirHub’s dashboard gives you full control over all your redirects. You can view, edit, or delete any redirect instantly. Changes are applied globally in seconds via our edge network, no DNS changes needed.",
-    },
-    {
-      value: "faq-2",
-      question: "Can I track and monitor redirect performance?",
-      answer:
-        "Yes. RedirHub provides analytics on redirect traffic and usage. You can monitor hits, detect broken links, and analyze which redirects drive the most engagement, helping optimize SEO and IT routing.",
-    },
-    {
-      value: "faq-3",
-      question: "How do real-time updates work in RedirHub?",
-      answer:
-        "When you update a redirect—whether changing the destination, type, or settings—RedirHub instantly propagates the change across all edge locations. Your users always get the latest version without delay.",
-    },
-    {
-      value: "faq-4",
-      question: "Is it possible to organize redirects for multiple domains?",
-      answer:
-        "Yes. You can group redirects by domain, hostname, or campaign, making it easy to manage large portfolios. Filters, search, and bulk actions simplify management for agencies and IT teams.",
-    },
-    {
-      value: "faq-5",
-      question: "How secure is my redirect infrastructure?",
-      answer:
-        "All redirects are served over automatic HTTPS, ensuring encryption and security by default. RedirHub also protects against misconfigurations or invalid redirects, keeping your domains safe and reliable.",
-    },
-    {
-      value: "faq-6",
-      question: "Can I change redirect types or destinations without downtime?",
-      answer:
-        "Absolutely. RedirHub allows you to switch between 301 and 302 redirects or update the destination URL instantly. Updates are seamless, with no downtime, ensuring uninterrupted user experience and SEO integrity.",
-    },
-  ];
+  // Fetch FAQs from CMS
+  const faqSet = await fetchFAQSetByPage('manage-redirects', locale);
+
+  // Transform to FAQAccordion format (add 'value' field)
+  const faqData = faqSet?.faqs.map((faq, index) => ({
+    value: `faq-${index + 1}`,
+    question: faq.question,
+    answer: faq.answer,
+  })) || [];
   return (
     <>
       <FeatureBanner
@@ -186,7 +163,7 @@ export default async function PricingPage() {
         <TestimonialsSlider marginBottom={"20px"} />
       </Box>
 
-      <FAQSection faqData={faqData} />
+      {faqData.length > 0 && <FAQSection faqData={faqData} />}
     </>
   );
 }

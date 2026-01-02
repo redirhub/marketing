@@ -28,8 +28,14 @@ export async function generateMetadata({
   };
 }
 
-export default async function SupportPage() {
-  const articles = await fetchSupportArticles();
+export default async function SupportPage({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}) {
+  const { locale } = await params;
+  const articles = await fetchSupportArticles(locale);
+
   return (
     <>
       <SupportBanner />
@@ -56,10 +62,10 @@ export default async function SupportPage() {
                 {articles.length > 0 ? (
                   articles.map((article: any) => (
                     <ArticleItem
-                      key={article.id}
+                      key={article._id}
                       title={article.title}
-                      category={article.category}
-                      slug={article.slug}
+                      slug={article.slug.current}
+                      locale={locale}
                     />
                   ))
                 ) : (
