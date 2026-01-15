@@ -9,7 +9,7 @@ import {
   parseApiSuccessMessage,
 } from "@/components/home/HeroTabs.utils";
 import { TabContentWrapper } from "@/components/home/TabContentWrapper";
-import { CustomInput, PrimaryActionButton } from "@/components/home/HeroTabs";
+import { CustomInput, PrimaryActionButton } from "@/components/home/HeroTabPanel";
 
 const FORM_GRID_PROPS = {
   columns: { base: 1, md: 5 } as const,

@@ -14,7 +14,6 @@ import { FormControl, FormLabel } from "@chakra-ui/form-control";
 import { FaExpandArrowsAlt } from "react-icons/fa";
 import { FaLink } from "react-icons/fa6";
 import { IoIosSearch } from "react-icons/io";
-import { IconType } from "react-icons";
 import { useState } from "react";
 import {
   ApiResponse,
@@ -25,9 +24,9 @@ import {
 } from "@/app/api/redirhub";
 import {
   CustomInput,
-  CustomTabTrigger,
   PrimaryActionButton,
-} from "../home/HeroTabs";
+} from "../home/HeroTabPanel";
+import { TabTriggerButton } from "../ui/TabsLayout";
 import { TabContentWrapper } from "../home/TabContentWrapper";
 
 export default function FooterTabs() {
@@ -54,7 +53,7 @@ export default function FooterTabs() {
 
     if (response.success) {
       const msg = response.data?.message || response.data?.data?.message || "";
-      let redirectUrl = response.data?.data?.data?.redirect_url;
+      const redirectUrl = response.data?.data?.data?.redirect_url;
 
       if (redirectUrl) {
         let finalUrl = "https://findredirect.com/";
@@ -166,13 +165,13 @@ export default function FooterTabs() {
           borderRadius="full"
           mb={1}
         >
-          <CustomTabTrigger
+          <TabTriggerButton
             value="tab1"
             icon={FaExpandArrowsAlt}
             label="Redirect"
           />
-          <CustomTabTrigger value="tab2" icon={FaLink} label="Shorten URL" />
-          <CustomTabTrigger value="tab3" icon={IoIosSearch} label="Checker" />
+          <TabTriggerButton value="tab2" icon={FaLink} label="Shorten URL" />
+          <TabTriggerButton value="tab3" icon={IoIosSearch} label="Checker" />
         </Tabs.List>
 
         <Tabs.Content value="tab1">
