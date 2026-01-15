@@ -5,7 +5,7 @@
   overflow: hidden;
   z-index: 1;
   padding-bottom: 0;
-  height: 39vh;
+  min-height: 39vh;
   display: flex;
   justify-content: center;
   align-items: center;

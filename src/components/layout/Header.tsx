@@ -22,7 +22,7 @@ export default function Header() {
     const handleScroll = () => {
       const y = window.scrollY;
       setIsScrolled(y > 0);
-      setHasScrolled(y > 425);
+      setHasScrolled(y > 400);
     };
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);

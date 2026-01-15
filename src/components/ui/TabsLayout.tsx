@@ -1,4 +1,4 @@
-import { Tabs, Box, HStack, Icon } from "@chakra-ui/react";
+import { Tabs, Box, HStack, Icon, type BoxProps } from "@chakra-ui/react";
 import React from "react";
 import { IconType } from "react-icons";
 
@@ -12,6 +12,7 @@ interface TabsLayoutProps {
     bg?: string;
     border?: string;
     boxShadow?: string;
+    p?: BoxProps["p"];
 }
 
 interface TabTriggerButtonProps {
@@ -85,6 +86,7 @@ export const TabsLayout: React.FC<TabsLayoutProps> = ({
     bg = "#FFFFFF",
     border = "1px solid #E4E7EC",
     boxShadow = "0px 20px 24px -4px rgba(16, 24, 40, 0.08)",
+    p = { base: 3, md: 6 },
 }) => {
     return (
         <Box
@@ -96,7 +98,7 @@ export const TabsLayout: React.FC<TabsLayoutProps> = ({
             borderRadius="32px"
             border={border}
             boxShadow={boxShadow}
-            p={{ base: 3, md: 6 }}
+            p={p}
         >
             <Tabs.Root
                 defaultValue={defaultValue}
@@ -106,7 +108,6 @@ export const TabsLayout: React.FC<TabsLayoutProps> = ({
             >
                 <Tabs.List
                     w={{ base: "full", md: "fit-content" }}
-                    minW={{ base: "auto", md: "396px" }}
                     minH={{ base: "auto", md: "44px" }}
                     mx="auto"
                     bg="#FAFAFA"
@@ -124,7 +125,7 @@ export const TabsLayout: React.FC<TabsLayoutProps> = ({
                         "msOverflowStyle": "none",
                         "scrollbarWidth": "none",
                     }}
-                    mb={7}
+                    mb={6}
                 >
                     {tabHeader}
                 </Tabs.List>

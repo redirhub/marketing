@@ -13,11 +13,8 @@ import Image from "next/image";
 import TestimonialsSlider from "./TestimonialsSlider";
 import { GoCheckCircle } from "react-icons/go";
 import Link from "next/link";
+import { TabsLayout, TabTriggerButton } from "../ui/TabsLayout";
 
-interface CustomTabTriggerProps {
-  value: string;
-  label: string;
-}
 interface FeatureDetail {
   heading: string;
   description: string;
@@ -35,40 +32,7 @@ interface FeatureItem {
 interface FeatureContentProps {
   data: FeatureItem;
 }
-interface FeatureListItemProps extends FeatureDetail {}
-
-const CustomTabTrigger: React.FC<CustomTabTriggerProps> = ({
-  value,
-  label,
-}) => {
-  return (
-    <Tabs.Trigger
-      value={value}
-      px={{ base: 1, md: 6 }}
-      py={3}
-      w={{ base: "100%", md: "inherit" }}
-      borderRadius={{ base: "md", md: "full" }}
-      color="#344054"
-      transition="all 0.3s ease"
-      _hover={{
-        bg: "#222B271A",
-        color: "#101828",
-      }}
-      _selected={{
-        bg: "#1C6DB6",
-        color: "#fff",
-        fontWeight: "semibold",
-        boxShadow: "md",
-      }}
-    >
-      <Text fontSize={{ base: "14px", md: "14px" }} fontWeight={400}>
-        {label}
-      </Text>
-    </Tabs.Trigger>
-  );
-};
-
-const FeatureListItem: React.FC<FeatureListItemProps> = ({
+const FeatureListItem: React.FC<FeatureDetail> = ({
   heading,
   description,
 }) => (
@@ -77,7 +41,7 @@ const FeatureListItem: React.FC<FeatureListItemProps> = ({
       flexShrink={0}
       fontSize={{ base: "16px", md: "16px" }}
       mt={{ base: "5px", md: "4px" }}
-      color="#E49426"
+      color="#FF4405"
     >
       <GoCheckCircle />
     </Box>
@@ -108,9 +72,12 @@ const ActionButton: React.FC<
   }
 > = ({ label, isPrimary = false, href = "#", ...rest }) => {
   const primaryStyles = {
-    bg: "#E49426",
+    bg: "#FF4405",
     color: "white",
-    _hover: { bg: "#C78121", transform: "translateY(-2px)", boxShadow: "lg" },
+    _hover: { bg: "#E03E0D", transform: "translateY(-2px)", boxShadow: "lg" },
+    _active: {
+      bg: "#C0350B",
+    },
   };
   const secondaryStyles = {
     bg: "#fff",
@@ -362,32 +329,26 @@ export default function PowerfulFeatures() {
       </Box>
 
       <Box w="100%" maxW="7xl" mx="auto">
-        <Tabs.Root defaultValue="tab1" variant="enclosed">
-          <Tabs.List
-            w={{ base: "full", md: "fit-content" }}
-            fontSize={{ base: "md", md: "lg" }}
-            gap={2}
-            bg="#FFFFFF61"
-            p={2}
-            borderRadius={{ base: "md", md: "full" }}
-            borderWidth="1px"
-            borderColor="#CED1D6"
-            mb={{ base: 4, md: 8 }}
-            flexWrap="wrap"
-            justifyContent="space-between"
-          >
-            <CustomTabTrigger value="tab1" label="Quick DNS Setup" />
-            <CustomTabTrigger value="tab2" label="Quick DNS Setup" />
-            <CustomTabTrigger value="tab3" label="Team Collaboration" />
-            <CustomTabTrigger value="tab4" label="301 Redirect" />
-          </Tabs.List>
-
-          {featuresData.map((feature) => (
+        <TabsLayout
+          defaultValue="tab1"
+          maxW="auto"
+          bg="transparent"
+          border="none"
+          boxShadow="none"
+          p={0}
+          tabHeader={featuresData.map((feature) => (
+            <TabTriggerButton
+              key={feature.key}
+              value={feature.key}
+              label={feature.tabLabel}
+            />
+          ))}
+          tabBody={featuresData.map((feature) => (
             <Tabs.Content key={feature.key} value={feature.key}>
               <FeatureContent data={feature} />
             </Tabs.Content>
           ))}
-        </Tabs.Root>
+        />
       </Box>
 
       <TestimonialsSlider />

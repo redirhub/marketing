@@ -1,6 +1,6 @@
 "use client";
 
-import { Accordion, Box, Text, Heading, Span } from "@chakra-ui/react";
+import { Accordion, Box, Span } from "@chakra-ui/react";
 import { AddIcon, MinusIcon } from "@chakra-ui/icons";
 
 interface FAQItem {
@@ -20,18 +20,43 @@ export const FAQAccordion = ({ items }: FAQAccordionProps) => {
         {items.map((item, index) => (
           <Box
             key={index}
-            bg="white"
-            mb={4}
-            overflow="hidden"
-            _hover={{
-              boxShadow: "md",
-            }}
+            mb={5}
+            position="relative"
             transition="all 0.3s"
+            _before={{
+              content: '""',
+              position: "absolute",
+              top: "16px",
+              left: "16px",
+              right: "16px",
+              bottom: "16px",
+              zIndex: 0,
+              background:
+                "linear-gradient(89.44deg, #20A795 14.11%, #1D81AB 65.7%, #1C6DB6 91.83%)",
+              filter: "blur(35px)",
+              opacity: 0,
+              transition: "opacity 0.4s ease-in-out",
+            }}
+            css={{
+              "&:has([data-state=open])::before": {
+                opacity: 0.8,
+              },
+            }}
+          >
+          <Accordion.Item
+            value={item.value}
             border="1px solid #EAECF0"
             borderRadius="12px"
+            bg="white"
+            overflow="hidden"
+            position="relative"
+            zIndex={1}
             cursor="pointer"
+            _hover={{
+              boxShadow: "sm",
+            }}
+            transition="all 0.3s"
           >
-            <Accordion.Item value={item.value} border="none">
               <Accordion.ItemTrigger
                 p={6}
                 transition="all 0.2s"
@@ -41,8 +66,8 @@ export const FAQAccordion = ({ items }: FAQAccordionProps) => {
                   flex="1"
                   textAlign="left"
                   fontSize={{ base: "14px", md: "1.1rem" }}
-                  fontWeight="semibold"
-                  color="#1f2124"
+                  fontWeight="medium"
+                  color="#344054"
                   pr={4}
                   letterSpacing={"0.2px"}
                 >
@@ -119,11 +144,11 @@ export const FAQAccordion = ({ items }: FAQAccordionProps) => {
                       ul: { marginLeft: "20px", marginTop: "10px" },
                       li: { marginBottom: "8px" },
                     }}
-                    fontSize={{ base: "14px", md: "15px" }}
-                    color="gray.600"
-                    lineHeight="24px"
+                    fontSize={{ base: "14px", md: "18px" }}
+                    color="#667085"
+                    lineHeight={{ base: "24px", md: "30px" }}
                     textAlign={"left"}
-                    p="0px 23px 23px 23px"
+                    p="0px 20px 10px 0px"
                   />
                 </Accordion.ItemBody>
               </Accordion.ItemContent>
