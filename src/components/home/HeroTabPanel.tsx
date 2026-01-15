@@ -295,7 +295,8 @@ export default function HeroTabPanel() {
               onChange={(e) => setShortenUrlValue(e.target.value)}
             />
             <PrimaryActionButton
-              label={isLoading ? "Processing..." : "Shorten URL"}
+              label={isLoading ? "Processing..." : "Shorten URL - it's FREE"}
+              subtext="No Credit Card Needed • Change anytime"
               onClick={handleShortenSubmit}
               disabled={isLoading}
             />
@@ -314,7 +315,8 @@ export default function HeroTabPanel() {
               onChange={(e) => setCheckerUrl(e.target.value)}
             />
             <PrimaryActionButton
-              label={isLoading ? "Checking..." : "Check Redirect"}
+              label={isLoading ? "Checking..." : "Check Redirect - it's FREE"}
+              subtext="No Credit Card Needed • Change anytime"
               onClick={handleCheckerSubmit}
               disabled={isLoading}
             />
