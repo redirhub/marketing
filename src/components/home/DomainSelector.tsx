@@ -39,7 +39,7 @@ export const DomainSelector: React.FC<DomainSelectorProps> = ({
         fontStyle="normal"
         fontSize="14px"
         fontWeight="500"
-        color="#344054"
+        color="gray.700"
         mb={2}
       >
         {label}
@@ -59,20 +59,20 @@ export const DomainSelector: React.FC<DomainSelectorProps> = ({
 
         <Select.Control
           css={{
-            bg: "#ffffff",
+            bg: "white",
             border: "1px solid",
-            borderColor: "#D0D5DD",
+            borderColor: "gray.300",
             borderRadius: "12px",
             height: "56px",
             w: "full",
             fontSize: "md",
-            color: "#101828",
+            color: "gray.900",
             display: "flex",
             alignItems: "center",
             _focus: {
-              borderColor: "#FF4F17",
+              borderColor: "brand.focus",
               outline: "none",
-              boxShadow: "0 0 0 1px #FF4F17",
+              boxShadow: "0 0 0 1px {colors.brand.focus}",
             },
           }}
         >

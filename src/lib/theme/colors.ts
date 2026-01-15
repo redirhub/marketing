@@ -1,4 +1,16 @@
 export default {
+  brand: {
+    50: { value: '#FFF5F2' },
+    100: { value: '#FFE8E0' },
+    200: { value: '#FFD1C2' },
+    300: { value: '#FFAA8F' },
+    400: { value: '#FF7A52' },
+    500: { value: '#FF4405' },
+    600: { value: '#FF4F17' },
+    700: { value: '#E03E0D' },
+    800: { value: '#C0350B' },
+    900: { value: '#9A2A09' },
+  },
   primary: {
     25: { value: '#E8F0F8' },
     50: { value: '#D2E2F0' },

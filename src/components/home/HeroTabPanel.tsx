@@ -42,21 +42,21 @@ export const CustomInput: React.FC<CustomInputProps> = ({
   ...rest
 }) => {
   const inputStyles = {
-    bg: "#ffffff",
+    bg: "white",
     border: "1px solid",
-    borderColor: "#D0D5DD",
+    borderColor: "gray.300",
     borderRadius: "12px",
     h: "56px",
     px: 4,
     fontSize: "md",
-    color: "#101828",
+    color: "gray.900",
     _placeholder: {
-      color: "#667085",
+      color: "gray.500",
     },
     _focus: {
-      borderColor: "#FF4F17",
+      borderColor: "brand.focus",
       outline: "none",
-      boxShadow: "0 0 0 1px #FF4F17",
+      boxShadow: "0 0 0 1px {colors.brand.focus}",
     },
   };
   const labelStyles = {
@@ -64,7 +64,7 @@ export const CustomInput: React.FC<CustomInputProps> = ({
     fontStyle: "normal",
     fontSize: "14px",
     fontWeight: "500",
-    color: "#344054",
+    color: "gray.700",
     mb: 2,
   };
   return (
@@ -81,7 +81,7 @@ export const PrimaryActionButton: React.FC<PrimaryActionButtonProps> = ({
   ...rest
 }) => {
   const buttonStyles = {
-    bg: "rgba(255, 68, 5, 1)",
+    bg: "brand.solid",
     borderRadius: "12px",
     h: "56px",
     px: { base: 4, md: 8 },
@@ -89,13 +89,13 @@ export const PrimaryActionButton: React.FC<PrimaryActionButtonProps> = ({
     fontWeight: "600",
     fontFamily: "'Inter', sans-serif",
     fontStyle: "normal",
-    color: "#FFFFFF",
+    color: "white",
     w: "full",
     _hover: {
-      bg: "#E03E0D",
+      bg: "brand.hover",
     },
     _active: {
-      bg: "#C0350B",
+      bg: "brand.active",
     },
   };
   return (
@@ -121,7 +121,7 @@ export const PrimaryActionButton: React.FC<PrimaryActionButtonProps> = ({
 const ApiStatusMessage: React.FC<{ message: string }> = ({ message }) => {
   if (!message) return null;
   return (
-    <Text fontSize="sm" color="#333" textAlign="left">
+    <Text fontSize="sm" color="gray.700" textAlign="left">
       {message}
     </Text>
   );

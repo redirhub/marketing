@@ -21,56 +21,68 @@ export default function FeaturesDropdown({
 }: FeaturesDropdownProps) {
     const [isOpen, setIsOpen] = useState(false);
     const activeStyles = {
-        backgroundColor: isScrolled ? "#D5D7DA" : "rgba(255, 255, 255, 0.16)",
-        borderColor: isScrolled ? "transparent" : "rgba(255, 255, 255, 0.3)",
+        backgroundColor: isScrolled ? "header.bg.hover.dark" : "header.bg.hover.light",
+        borderColor: isScrolled ? "header.bg.border.dark" : "header.bg.border.light",
+    };
+
+    const handleMouseEnter = () => {
+        setIsOpen(true);
+    };
+
+    const handleMouseLeave = () => {
+        setIsOpen(false);
     };
 
     return (
-        <Menu.Root
-            open={isOpen}
-            onOpenChange={(e) => setIsOpen(e.open)}
-            positioning={{ placement: "bottom-start", offset: { mainAxis: 8, crossAxis: 0 } }}
+        <Box
+            onMouseEnter={handleMouseEnter}
+            onMouseLeave={handleMouseLeave}
         >
-            <Menu.Trigger asChild>
-                <Box
-                    as="button"
-                    fontSize="18px"
-                    fontWeight="medium"
-                    lineHeight="24px"
-                    letterSpacing="0.2px"
-                    fontFamily="Inter"
-                    color={isScrolled ? "#181D27" : "#FFFFFF"}
-                    display="flex"
-                    alignItems="center"
-                    cursor="pointer"
-                    gap={2.5}
-                    _focus={{ outline: 'none' }}
-                    padding={'10px 14px 10px 14px'}
-                    borderRadius={'12px'}
-                    border="1px solid transparent"
-                    _hover={activeStyles}
-                    _active={activeStyles}
-                    {...(isOpen && activeStyles)}
-                >
-                    {label}
+            <Menu.Root
+                open={isOpen}
+                onOpenChange={(e) => setIsOpen(e.open)}
+                positioning={{ placement: "bottom-start", offset: { mainAxis: 8, crossAxis: 0 } }}
+            >
+                <Menu.Trigger asChild>
                     <Box
-                        as="span"
-                        display="inline-flex"
-                        transform={isOpen ? "rotate(180deg)" : "rotate(0deg)"}
-                        transition="transform 0.2s ease-in-out"
+                        as="button"
+                        fontSize="18px"
+                        fontWeight="medium"
+                        lineHeight="24px"
+                        letterSpacing="0.2px"
+                        fontFamily="Inter"
+                        color={isScrolled ? "header.text.dark" : "header.text.light"}
+                        display="flex"
+                        alignItems="center"
+                        cursor="pointer"
+                        gap={2.5}
+                        _focus={{ outline: 'none' }}
+                        padding={'10px 14px 10px 14px'}
+                        borderRadius={'12px'}
+                        border="1px solid transparent"
+                        _hover={activeStyles}
+                        _active={activeStyles}
+                        {...(isOpen && activeStyles)}
                     >
-                        <FaChevronDown size={14} />
+                        {label}
+                        <Box
+                            as="span"
+                            display="inline-flex"
+                            transform={isOpen ? "rotate(180deg)" : "rotate(0deg)"}
+                            transition="transform 0.2s ease-in-out"
+                        >
+                            <FaChevronDown size={14} />
+                        </Box>
                     </Box>
-                </Box>
-            </Menu.Trigger>
+                </Menu.Trigger>
             <Menu.Positioner>
                 <Menu.Content
                     maxW={'632px'}
                     bg="white"
                     boxShadow="xl"
-                    borderRadius="24px"
+                    borderRadius="3xl"
                     border="1px solid"
-                    borderColor="gray.100"
+                    borderColor="gray.200"
                 >
                     {megaMenu ? (
                         <Box>
@@ -81,7 +93,7 @@ export default function FeaturesDropdown({
                                             <Text
                                                 fontSize="xs"
                                                 fontWeight="bold"
-                                                color="#717680"
+                                                color="gray.500"
                                                 mb={5}
                                                 letterSpacing="wider"
                                                 textTransform="uppercase"
@@ -92,7 +104,19 @@ export default function FeaturesDropdown({
                                         <VStack align="stretch" gap={4}>
                                             {col.items.map((item: any, i: number) => (
                                                 <Link key={i} href={item.href} onClick={() => setIsOpen(false)} style={{ textDecoration: 'none', outline: 'none' }}>
-                                                    <HStack align="start" gap={3} data-group _hover={{ cursor: "pointer" }} _focus={{ outline: "none" }}>
+                                                    <HStack
+                                                        align="start"
+                                                        gap={3}
+                                                        data-group
+                                                        p={3}
+                                                        borderRadius="lg"
+                                                        transition="all 0.2s"
+                                                        _hover={{
+                                                            cursor: "pointer",
+                                                            bg: "gray.50"
+                                                        }}
+                                                        _focus={{ outline: "none" }}
+                                                    >
                                                         <Box
                                                             p={2}
                                                             minWidth={'40px'}
@@ -101,9 +125,9 @@ export default function FeaturesDropdown({
                                                             alignItems="center"
                                                             justifyContent="center"
                                                             borderRadius="md"
-                                                            bg="#F5F5F5"
-                                                            color="#414651"
-                                                            _groupHover={{ bg: "#F5F5F5", color: "black" }}
+                                                            bg="gray.100"
+                                                            color="gray.700"
+                                                            _groupHover={{ bg: "gray.200", color: "gray.900" }}
                                                             transition="all 0.2s"
                                                             _focus={{ outline: "none" }}
                                                         >
@@ -118,11 +142,11 @@ export default function FeaturesDropdown({
                                                                 fontSize="md"
                                                                 fontWeight="semibold"
                                                                 color="gray.900"
-                                                                _groupHover={{ color: "black" }}
+                                                                _groupHover={{ color: "gray.900" }}
                                                             >
                                                                 {item.label}
                                                             </Text>
-                                                            <Text fontSize="sm" color="gray.500" lineHeight="short" mt={0.5}>
+                                                            <Text fontSize="sm" color="gray.600" lineHeight="short" mt={0.5}>
                                                                 {item.description}
                                                             </Text>
                                                         </Box>
@@ -135,20 +159,26 @@ export default function FeaturesDropdown({
                             </Grid>
 
                             {megaMenu.footer && (
-                                <Box px={6} py={4} borderTop="1px solid" borderColor="#E9EAEB" bg={'#FAFAFA'}>
-                                    <HStack gap={8}>
+                                <Box px={6} py={4} borderTop="1px solid" borderColor="gray.200" bg="gray.50">
+                                    <HStack gap={4}>
                                         {megaMenu.footer.map((item: any, idx: number) => (
                                             <Link key={idx} href={item.href} onClick={() => setIsOpen(false)}>
                                                 <HStack
                                                     gap={2}
-                                                    color="gray.600"
-                                                    _hover={{ color: "black" }}
-                                                    transition="color 0.2s"
+                                                    px={3}
+                                                    py={2}
+                                                    borderRadius="md"
+                                                    color="gray.700"
+                                                    _hover={{
+                                                        color: "gray.900",
+                                                        bg: "gray.100"
+                                                    }}
+                                                    transition="all 0.2s"
                                                 >
                                                     {typeof item.icon === 'string' ? (
                                                         <Image src={item.icon} alt={item.label} width={20} height={20} />
                                                     ) : (
-                                                        <Icon as={item.icon} boxSize={5} color="gray.400" />
+                                                        <Icon as={item.icon} boxSize={5} color="gray.500" />
                                                     )}
                                                     <Text fontSize="md" fontWeight="semibold">
                                                         {item.label}
@@ -167,12 +197,14 @@ export default function FeaturesDropdown({
                                 <Link href={subItem.href} onClick={() => setIsOpen(false)}>
                                     <Box
                                         fontSize="sm"
-                                        color="#000"
-                                        _hover={{ color: "primary.700", bg: "gray.50" }}
+                                        fontWeight="medium"
+                                        color="gray.900"
+                                        _hover={{ color: "gray.900", bg: "gray.50" }}
                                         py={2}
                                         px={3}
-                                        borderRadius="sm"
-                                        cursor={"pointer"}
+                                        borderRadius="md"
+                                        cursor="pointer"
+                                        transition="all 0.2s"
                                     >
                                         {subItem.label}
                                     </Box>
@@ -183,5 +215,6 @@ export default function FeaturesDropdown({
                 </Menu.Content>
             </Menu.Positioner>
         </Menu.Root>
+        </Box>
     );
 }

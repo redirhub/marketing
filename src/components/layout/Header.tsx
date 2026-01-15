@@ -187,8 +187,8 @@ export default function Header() {
     return pathname === getLocalePath(href);
   };
   const navActiveStyles = {
-    backgroundColor: hasScrolled ? "#D5D7DA" : "rgba(255, 255, 255, 0.16)",
-    borderColor: hasScrolled ? "transparent" : "rgba(255, 255, 255, 0.3)",
+    backgroundColor: hasScrolled ? "header.bg.hover.dark" : "header.bg.hover.light",
+    borderColor: hasScrolled ? "header.bg.border.dark" : "header.bg.border.light",
   };
 
   return (
@@ -199,7 +199,7 @@ export default function Header() {
       zIndex={1000}
       p={4}
       transition="all 0.3s ease"
-      bg={isScrolled ? "rgba(255, 255, 255, 0.1)" : "transparent"}
+      bg={isScrolled ? "header.bg.scrolled" : "transparent"}
       backdropFilter={isScrolled ? "blur(16px)" : "none"}
       mx="auto"
       w="100%"
@@ -247,7 +247,7 @@ export default function Header() {
                   lineHeight="24px"
                   letterSpacing="0.2px"
                   fontFamily="Inter"
-                  color={hasScrolled ? "#181D27" : "#FFFFFF"}
+                  color={hasScrolled ? "header.text.dark" : "header.text.light"}
                   padding={'10px 14px 10px 14px'}
                   borderRadius={'12px'}
                   border="1px solid transparent"
@@ -276,13 +276,13 @@ export default function Header() {
                 borderRadius="12px"
                 borderWidth="1px"
                 borderStyle="solid"
-                borderColor={hasScrolled ? "#181D27" : "#F5F5F5"}
+                borderColor={hasScrolled ? "header.text.dark" : "gray.100"}
                 fontSize="15px"
                 fontWeight="700"
                 lineHeight="20px"
                 letterSpacing="0.2px"
                 fontFamily="Inter"
-                color={hasScrolled ? "#181D27" : "#FFFFFF"}
+                color={hasScrolled ? "header.text.dark" : "header.text.light"}
                 cursor="pointer"
                 _hover={{ bg: "rgba(255, 255, 255, 0.1)" }}
               >
@@ -299,7 +299,7 @@ export default function Header() {
                 py="12px"
                 minW="106px"
                 borderRadius="12px"
-                bg="#FF4405"
+                bg="brand.solid"
                 color="white"
                 fontSize="15px"
                 fontWeight="700"
@@ -307,7 +307,7 @@ export default function Header() {
                 letterSpacing="0.2px"
                 fontFamily="Inter"
                 cursor="pointer"
-                _hover={{ bg: "#E63D04" }}
+                _hover={{ bg: "brand.hover" }}
               >
                 {t(`nav.getStarted`, "Sign Up")}
               </Box>
