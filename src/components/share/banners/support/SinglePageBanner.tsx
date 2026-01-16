@@ -1,6 +1,6 @@
 "use client";
 
-import { Box, Container, Heading, Text, Flex, Badge } from "@chakra-ui/react";
+import { Box, Container, Heading, Text, Flex } from "@chakra-ui/react";
 import styles from "../blog/BlogBanner.module.css";
 import { FaArrowLeftLong } from "react-icons/fa6";
 import NextLink from "next/link";
@@ -16,7 +16,7 @@ export default function SinglePageBanner({
 }: SinglePageBannerProps) {
   return (
     <>
-      <Box pb={{ base: 14, md: 10 }} className={styles.container}>
+      <Box pb={{ base: 14, md: 10 }} pt={24} className={styles.container}>
         <Container maxW="7xl" mx="auto" px={{ base: 2, md: 2, lg: 0 }}>
           <Flex
             direction="row"

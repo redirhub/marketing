@@ -11,10 +11,6 @@ import {
   Heading,
 } from "@chakra-ui/react";
 import { FormControl, FormLabel } from "@chakra-ui/form-control";
-import { FaExpandArrowsAlt } from "react-icons/fa";
-import { FaLink } from "react-icons/fa6";
-import { IoIosSearch } from "react-icons/io";
-import { IconType } from "react-icons";
 import { useState } from "react";
 import {
   ApiResponse,
@@ -25,9 +21,9 @@ import {
 } from "@/app/api/redirhub";
 import {
   CustomInput,
-  CustomTabTrigger,
   PrimaryActionButton,
-} from "../home/HeroTabs";
+} from "../home/HeroTabPanel";
+import { TabsLayout, TabTriggerButton } from "../ui/TabsLayout";
 import { TabContentWrapper } from "../home/TabContentWrapper";
 
 export default function FooterTabs() {
@@ -54,7 +50,7 @@ export default function FooterTabs() {
 
     if (response.success) {
       const msg = response.data?.message || response.data?.data?.message || "";
-      let redirectUrl = response.data?.data?.data?.redirect_url;
+      const redirectUrl = response.data?.data?.data?.redirect_url;
 
       if (redirectUrl) {
         let finalUrl = "https://findredirect.com/";
@@ -146,35 +142,27 @@ export default function FooterTabs() {
       >
         Fast, Secure, Effortless Link Management
       </Heading>
-      <Tabs.Root
+      <TabsLayout
         defaultValue="tab1"
-        variant="enclosed"
-        value={value}
-        onValueChange={(e) => {
-          setValue(e.value);
+        value={value ?? undefined}
+        onValueChange={(nextValue) => {
+          setValue(nextValue);
           setApiStatus("");
           clearInputs();
         }}
-        textAlign={"center"}
-      >
-        <Tabs.List
-          w={{ base: "full", md: "fit-content" }}
-          fontSize={{ base: "md", md: "lg" }}
-          gap={{ base: "5px", md: "10px" }}
-          bg="#FFFFFF61"
-          p={{ base: "3px", md: "5px" }}
-          borderRadius="full"
-          mb={1}
-        >
-          <CustomTabTrigger
+        bg="#FFFFFF"
+        tabHeader={
+          <>
+          <TabTriggerButton
             value="tab1"
-            icon={FaExpandArrowsAlt}
             label="Redirect"
           />
-          <CustomTabTrigger value="tab2" icon={FaLink} label="Shorten URL" />
-          <CustomTabTrigger value="tab3" icon={IoIosSearch} label="Checker" />
-        </Tabs.List>
-
+          <TabTriggerButton value="tab2" label="Shorten URL" />
+          <TabTriggerButton value="tab3" label="Checker" />
+          </>
+        }
+        tabBody={
+          <>
         <Tabs.Content value="tab1">
           <TabContentWrapper
             title="Create redirects for free"
@@ -353,7 +341,9 @@ export default function FooterTabs() {
             )}
           </TabContentWrapper>
         </Tabs.Content>
-      </Tabs.Root>
+      </>
+    }
+  />
     </Box>
   );
 }

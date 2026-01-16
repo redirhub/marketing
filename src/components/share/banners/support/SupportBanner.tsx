@@ -6,7 +6,7 @@ import styles from "../blog/BlogBanner.module.css";
 const SupportBanner = () => {
   return (
     <>
-      <Box pt={10} pb={{ base: 14, md: 10 }} className={styles.container}>
+      <Box pt={24} pb={{ base: 14, md: 10 }} className={styles.container}>
         <Container maxW="7xl" mx="auto" px={{ base: 2, md: 2, lg: 0 }}>
           <Flex direction="column" align="center" textAlign="center" gap={2}>
             <Box>

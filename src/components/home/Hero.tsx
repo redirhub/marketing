@@ -3,7 +3,7 @@
 import { Box, Container, Flex, Heading, Text } from "@chakra-ui/react";
 import { useTranslation } from "react-i18next";
 import Image from "next/image";
-import HeroTabs from "./HeroTabs";
+import HeroTabPanel from "./HeroTabPanel";
 import styles from "./Hero.module.css";
 import LogoBar from "./LogoBar";
 
@@ -11,7 +11,7 @@ export default function Hero() {
   const { t } = useTranslation("common");
 
   return (
-    <Box pt={20} className={styles.heroContainer}>
+    <Box pt={28} className={styles.heroContainer}>
       <Container maxW="7xl" mx="auto" px={{ base: 2, md: 2, lg: 0 }}>
         <Flex direction="column" align="center" textAlign="center" gap={8}>
           <Box>
@@ -60,7 +60,7 @@ export default function Hero() {
               "Forward your domains instantly and manage all redirects from a real-time dashboard. Enhance your SEO with 301/302 redirects and secure every link with HTTPS."
             )}
           </Text>
-          <HeroTabs />
+          <HeroTabPanel />
         </Flex>
         <LogoBar />
         <Box w="100%">

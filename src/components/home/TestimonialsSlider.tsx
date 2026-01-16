@@ -9,10 +9,11 @@ import {
   Avatar,
   IconButton,
 } from "@chakra-ui/react";
+import { useState } from "react";
 import Slider from "react-slick";
 import { ChevronLeftIcon, ChevronRightIcon } from "@chakra-ui/icons";
 import styles from "./Testimonials.module.css";
-import { ImQuotesRight } from "react-icons/im";
+import Image from "next/image";
 
 const testimonials = [
   {
@@ -45,50 +46,75 @@ const testimonials = [
   },
 ];
 
-function CustomPrevArrow(props: any) {
-  const { onClick } = props;
+interface ArrowProps {
+  onClick?: () => void;
+  currentSlide?: number;
+  className?: string;
+}
+
+function CustomPrevArrow(props: ArrowProps) {
+  const { onClick, currentSlide, className } = props;
+  const isSlickDisabled = className?.includes("slick-disabled");
+  const isDisabled = isSlickDisabled || currentSlide === 0;
 
   return (
     <IconButton
       aria-label="Previous testimonial"
-      display={{ base: "none", md: "none", lg: "inline-flex" }}
+      display="inline-flex"
       onClick={onClick}
+      disabled={isDisabled}
       position="absolute"
-      top="-80px"
-      right="80px"
+      top={{ base: "-60px", md: "-80px" }}
+      right={{ base: "85px", md: "105px" }}
       zIndex={2}
-      bg="white"
-      color="blue.600"
-      size="lg"
-      borderRadius="md"
-      boxShadow="md"
-      _hover={{ bg: "gray.50", transform: "scale(1.05)" }}
-      _active={{ bg: "gray.100" }}
+      bg={isDisabled ? "whiteAlpha.40" : "whiteAlpha.84"}
+      color="gray.700"
+      size={{ base: "md", md: "lg" }}
+      border={isDisabled ? "1px solid" : "1px solid"}
+      borderColor={isDisabled ? "whiteAlpha.24" : "whiteAlpha.72"}
+      borderRadius="12px"
+      _hover={{
+        bg: isDisabled ? "whiteAlpha.40" : "white",
+      }}
+      _disabled={{
+        opacity: 0.5,
+        cursor: "not-allowed",
+      }}
       transition="all 0.2s"
     >
       <ChevronLeftIcon boxSize={6} />
     </IconButton>
   );
 }
-function CustomNextArrow(props: any) {
-  const { onClick } = props;
+
+function CustomNextArrow(props: ArrowProps) {
+  const { onClick, className } = props;
+  const isSlickDisabled = className?.includes("slick-disabled");
+  const isDisabled = isSlickDisabled;
 
   return (
     <IconButton
-      display={{ base: "none", md: "none", lg: "inline-flex" }}
+      display="inline-flex"
       aria-label="Next testimonial"
       onClick={onClick}
+      disabled={isDisabled}
       position="absolute"
-      top="-80px"
-      right="20px"
+      top={{ base: "-60px", md: "-80px" }}
+      right={{ base: "25px", md: "45px" }}
       zIndex={2}
-      bg="white"
-      color="blue.600"
-      size="lg"
-      borderRadius="md"
-      boxShadow="md"
-      _hover={{ bg: "gray.50", transform: "scale(1.05)" }}
-      _active={{ bg: "gray.100" }}
+      bg={isDisabled ? "whiteAlpha.40" : "whiteAlpha.84"}
+      color="gray.700"
+      border={isDisabled ? "1px solid" : "1px solid"}
+      borderColor={isDisabled ? "whiteAlpha.24" : "whiteAlpha.72"}
+      size={{ base: "md", md: "lg" }}
+      borderRadius="12px"
+      _hover={{
+        bg: isDisabled ? "whiteAlpha.40" : "white",
+      }}
+      _disabled={{
+        opacity: 0.5,
+        cursor: "not-allowed",
+      }}
       transition="all 0.2s"
     >
       <ChevronRightIcon boxSize={6} />
@@ -101,115 +127,136 @@ interface Props {
 }
 
 export default function TestimonialsSlider({ marginBottom }: Props) {
+  const [, setCurrentSlide] = useState(0);
   const settings = {
     dots: false,
-    infinite: true,
+    infinite: false,
     speed: 500,
-    slidesToShow: 1,
+    slidesToShow: 1.5,
     slidesToScroll: 1,
-    autoplay: true,
+    autoplay: false,
     autoplaySpeed: 5000,
     pauseOnHover: true,
+    afterChange: (current: number) => setCurrentSlide(current),
     prevArrow: <CustomPrevArrow />,
     nextArrow: <CustomNextArrow />,
+    responsive: [
+      {
+        breakpoint: 1024,
+        settings: {
+          slidesToShow: 1.2,
+          slidesToScroll: 1,
+        },
+      },
+      {
+        breakpoint: 768,
+        settings: {
+          slidesToShow: 1.1,
+          slidesToScroll: 1,
+        },
+      },
+    ],
   };
 
-  const baseVerticalPadding = { base: 10, md: 14, lg: 24 };
+  const baseVerticalPadding = { base: '34px', md: '44px', lg: '60px' };
   const baseVerticalMargin = { base: 0, md: 8, lg: 14 };
   return (
     <Box
       py={baseVerticalPadding}
       position="relative"
       overflow="hidden"
-      borderRadius={{ base: "3xl", lg: "3xl" }}
+      borderRadius={"32px"}
       mt={baseVerticalMargin}
       mb={marginBottom ? marginBottom : baseVerticalMargin}
       maxW="7xl"
       mx="auto"
-      borderRight={"32px"}
-      pl={{ base: 0, md: "10px", lg: "100px" }}
       className={styles.container}
     >
       <Container
-        maxW="6xl"
         position="relative"
-        className="testimonials-controiner"
+        className="testimonials-container"
       >
         <Heading
           as="h2"
-          fontSize={{ base: "1rem", md: "2.2rem", lg: "2.5rem" }}
-          fontWeight={500}
-          color="white"
-          mb={{ base: 4, md: 12 }}
-          textAlign={{ base: "center", md: "center", lg: "left" }}
+          fontSize={{ base: "24px", md: "34px", lg: "40px" }}
+          fontWeight={600}
+          color="whiteAlpha.88"
+          mb={{ base: 6, md: 12 }}
+          pl={{ base: "25px", md: "45px" }}
+          pr={{ base: "110px", md: "110px", lg: "0px" }}
+          textAlign="left"
         >
-          Why Our Customers Love RedirHub
+          Why Our Customers Love{" "}
+          <Text as="span" color={"white"} fontSize={{ base: "24px", md: "34px", lg: "40px" }} fontWeight={800}>
+            RedirHub
+          </Text>
         </Heading>
 
         <Box position="relative">
           <Slider {...settings}>
-            {testimonials.map((testimonial) => (
-              <Box key={testimonial.id} px={4}>
+            {testimonials.map((testimonial, index) => (
+              <Box
+                key={testimonial.id}
+                px={3}
+                pl={index === 0 ? { base: "25px", md: "45px" } : 3}
+                pr={index === testimonials.length - 1 ? { base: "25px", md: "45px" } : 3}
+              >
                 <Box
-                  bg="white"
-                  borderRadius="2xl"
-                  p={{ base: 8, md: 10 }}
-                  boxShadow="xl"
+                  className="testimonial-card"
+                  borderRadius="30px"
+                  p={{ base: 6, md: 8 }}
                   w="100%"
-                  h="100%"
+                  overflowX={'auto'}
+                  height="100%"
+                  minH="386px"
+                  maxH={'386px'}
+                  display="flex"
+                  flexDirection="column"
+                  justifyContent="space-between"
                 >
-                  <Box
-                    as="span"
-                    fontSize="6xl"
-                    color="blue.200"
-                    lineHeight="1"
-                    fontFamily="Georgia, serif"
-                    display="block"
-                    mb={4}
-                  >
-                    <ImQuotesRight />
+                  <Box flex="1" display="flex" flexDirection="column">
+                    <Box>
+                      <Image
+                        src="/assets/images/format-quote.png"
+                        alt="Quote"
+                        width={60}
+                        height={60}
+                      />
+                    </Box>
+
+                    <Box flex="1" display="flex" alignItems="center" pt={-2}>
+                      <Text
+                        fontSize={{ base: "18px", md: "22px", lg: "26px" }}
+                        fontWeight={500}
+                        textAlign={"left"}
+                        fontFamily={"Inter"}
+                        color="gray.700"
+                        lineHeight={{ base: "140%", md: "160%" }}
+                        fontStyle={"italic"}
+                      >
+                        {testimonial.quote}
+                      </Text>
+                    </Box>
                   </Box>
 
-                  <Text
-                    fontSize={{ base: "1rem", md: "1.4rem" }}
-                    fontWeight={500}
-                    textAlign={"left"}
-                    mb={8}
-                    color="#344054"
-                    fontStyle={"italic"}
-                  >
-                    {testimonial.quote}
-                  </Text>
-
-                  <Flex
-                    gap={4}
-                    direction={{ base: "column", md: "row" }}
-                    align={{ base: "center", md: "center" }}
-                    justify={{ base: "center", md: "flex-start" }}
-                  >
-                    <Avatar.Root
-                      w={"90px"}
-                      h="90px"
-                      borderRadius={"0"}
-                      bg="#fff"
-                    >
+                  <Flex gap={4} align="center">
+                    <Avatar.Root w={"90px"} h="90px" borderRadius={"12px"}>
                       <Avatar.Fallback name={testimonial.name} />
-                      <Avatar.Image src={testimonial.avatar} />
+                      <Avatar.Image
+                        src={testimonial.avatar}
+                        style={{ borderRadius: "12px" }}
+                      />
                     </Avatar.Root>
                     <Box>
                       <Text
-                        fontSize={{ base: "1rem", md: "1.6rem" }}
-                        fontWeight="bold"
-                        color="#333"
-                        textAlign={{ base: "center", md: "left" }}
+                        fontSize={{ base: "1.1rem", md: "1.2rem" }}
+                        fontWeight="700"
+                        color="gray.900"
+                        textAlign={'left'}
                       >
                         {testimonial.name}
                       </Text>
-                      <Text
-                        fontSize="1rem"
-                        color="#667085"
-                        textAlign={{ base: "center", md: "left" }}
-                      >
+                      <Text fontSize="0.95rem" color="gray.500">
                         {testimonial.role}
                       </Text>
                     </Box>
@@ -228,7 +275,7 @@ export default function TestimonialsSlider({ marginBottom }: Props) {
         }
 
         .slick-list {
-          overflow: visible !important;
+          overflow: hidden !important;
         }
 
         .slick-track {
@@ -236,12 +283,18 @@ export default function TestimonialsSlider({ marginBottom }: Props) {
         }
 
         .slick-slide {
-          opacity: 0.4;
-          transition: opacity 0.3s ease;
+          transition: all 0.3s ease;
         }
 
-        .slick-slide.slick-active {
-          opacity: 1;
+        .slick-slide .testimonial-card {
+           background: var(--chakra-colors-white-alpha-70) !important;
+           backdrop-filter: blur(4px);
+           transition: all 0.3s ease;
+        }
+
+        .slick-slide.slick-current .testimonial-card {
+           background: var(--chakra-colors-white) !important;
+           backdrop-filter: none;
         }
         @media (max-width: 768px) {
           .slick-list {

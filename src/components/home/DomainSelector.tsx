@@ -35,11 +35,12 @@ export const DomainSelector: React.FC<DomainSelectorProps> = ({
   return (
     <FormControl>
       <FormLabel
-        fontSize="1rem"
+        fontFamily="'Inter', sans-serif"
+        fontStyle="normal"
+        fontSize="14px"
         fontWeight="500"
-        pb="5px"
-        letterSpacing="0.2px"
-        color="#333"
+        color="gray.700"
+        mb={2}
       >
         {label}
       </FormLabel>
@@ -58,26 +59,28 @@ export const DomainSelector: React.FC<DomainSelectorProps> = ({
 
         <Select.Control
           css={{
-            bg: "#ffffff",
+            bg: "white",
             border: "1px solid",
-            borderColor: "#D0D5DD",
+            borderColor: "gray.300",
             borderRadius: "12px",
-            height: "47px",
-            px: 2,
-            fontSize: "sm",
+            height: "56px",
+            w: "full",
+            fontSize: "md",
+            color: "gray.900",
             display: "flex",
             alignItems: "center",
             _focus: {
-              borderColor: "blue.500",
-              boxShadow: "0 0 0 1px #3182ce",
+              borderColor: "brand.focus",
+              outline: "none",
+              boxShadow: "0 0 0 1px {colors.brand.focus}",
             },
           }}
         >
-          <Select.Trigger border="none">
+          <Select.Trigger border="none" px={4} w="full">
             <Select.ValueText placeholder="Select domain" />
           </Select.Trigger>
 
-          <Select.IndicatorGroup>
+          <Select.IndicatorGroup pr={3}>
             <Select.Indicator />
           </Select.IndicatorGroup>
         </Select.Control>
