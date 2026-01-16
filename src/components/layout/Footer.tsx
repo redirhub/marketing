@@ -156,7 +156,7 @@ export default function Footer({ legalLinks }: FooterProps) {
       pt={{ base: "3rem", md: "80px" }}
       px={{ base: 4, md: 4, lg: 0 }}
     >
-      <Container maxW="7xl" mx="auto">
+      <Container maxW="7xl" px={4} >
         {!showTabs && <FooterCtaHeader />}
         {showTabs && <FooterTabs />}
 

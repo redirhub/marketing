@@ -25,7 +25,6 @@ export const BlogCard = ({
   title,
   excerpt,
   link = "#",
-  isBlogPage = false,
 }: BlogCardProps) => {
   return (
     <NextLink href={link} style={{ textDecoration: 'none' }}>
@@ -38,6 +37,7 @@ export const BlogCard = ({
         borderRadius="16px"
         overflow="hidden"
         cursor="pointer"
+        maxH={'450px'}
         _hover={{
           transform: "translateY(-8px)",
           boxShadow: "0 12px 40px rgba(0, 0, 0, 0.12)",
@@ -69,7 +69,6 @@ export const BlogCard = ({
       {/* Content */}
       <Box p={6}>
         {/* Category/Tags */}
-        {category && (
           <Text
             fontSize="xs"
             fontWeight="700"
@@ -80,7 +79,6 @@ export const BlogCard = ({
           >
             {category}
           </Text>
-        )}
 
         {/* Title */}
         <Heading
@@ -88,7 +86,7 @@ export const BlogCard = ({
           fontSize={{ base: "xl", md: "2xl" }}
           fontWeight="700"
           lineHeight="1.3"
-          mb={3}
+          mb={2}
           color="gray.900"
           lineClamp={2}
         >
@@ -101,8 +99,8 @@ export const BlogCard = ({
             fontSize="md"
             color="gray.600"
             lineHeight="1.6"
-            lineClamp={3}
-            mb={3}
+            lineClamp={2}
+            mb={2}
           >
             {excerpt}
           </Text>
