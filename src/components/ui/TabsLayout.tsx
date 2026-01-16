@@ -8,6 +8,7 @@ interface TabsLayoutProps {
     onValueChange?: (value: string) => void;
     tabHeader: React.ReactNode;
     tabBody: React.ReactNode;
+    headerRight?: React.ReactNode;
     maxW?: string | object;
     bg?: string;
     border?: string;
@@ -82,6 +83,7 @@ export const TabsLayout: React.FC<TabsLayoutProps> = ({
     onValueChange,
     tabHeader,
     tabBody,
+    headerRight,
     maxW = "1016px",
     bg = "#FFFFFF",
     border = "1px solid #E4E7EC",
@@ -105,11 +107,19 @@ export const TabsLayout: React.FC<TabsLayoutProps> = ({
                 value={value}
                 onValueChange={(e) => onValueChange?.(e.value)}
                 variant="enclosed"
+>
+            <HStack
+                w="full"
+                justify={headerRight ? "space-between" : "center"}
+                align="center"
+                mb={6}
+                gap={4}
+                flexWrap="wrap"
             >
                 <Tabs.List
                     w={{ base: "full", md: "fit-content" }}
                     minH={{ base: "auto", md: "44px" }}
-                    mx="auto"
+                    mx={headerRight ? "0" : "auto"}
                     bg="gray.50"
                     borderRadius="12px"
                     border="1px solid"
@@ -126,10 +136,11 @@ export const TabsLayout: React.FC<TabsLayoutProps> = ({
                         "msOverflowStyle": "none",
                         "scrollbarWidth": "none",
                     }}
-                    mb={6}
                 >
                     {tabHeader}
                 </Tabs.List>
+                {headerRight && <Box>{headerRight}</Box>}
+            </HStack>
 
                 <Box w="100%">
                     {tabBody}

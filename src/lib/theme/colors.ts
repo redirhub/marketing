@@ -10,6 +10,7 @@ export default {
     700: { value: '#E03E0D' },
     800: { value: '#C0350B' },
     900: { value: '#9A2A09' },
+    cardActiveBg: { value: '#FFF4ED' },
   },
   primary: {
     25: { value: '#E8F0F8' },
@@ -22,6 +23,7 @@ export default {
     700: { value: '#1962A4' },
     800: { value: '#165792' },
     900: { value: '#135280' },
+    lightBlue: { value: '#D1E9FF' },
   },
   gray: {
     50: { value: '#F9FAFB' },
@@ -34,14 +36,24 @@ export default {
     700: { value: '#344054' },
     800: { value: '#1D2939' },
     900: { value: '#101828' },
+    blueGray: { value: '#414651' },
+    darkGray: { value: '#181D27' },
+    textMedium: { value: '#535862' },
+    track: { value: '#E9EAEB' },
+    tickLabel: { value: '#717680' },
+    borderLight: { value: '#D5D7DA' },
   },
   success: {
     50: { value: '#ECFDF3' },
+    200: { value: '#ABEFC6' },
     500: { value: '#12B76A' },
     700: { value: '#027A48' },
+    800: { value: '#D1FADF' },
+    900: { value: '#067647' },
   },
   error: {
     50: { value: '#FEF3F2' },
+    100: { value: '#F6FEF9' },
     500: { value: '#F04438' },
     700: { value: '#B42318' },
   },
@@ -49,5 +61,7 @@ export default {
     50: { value: '#FFFAEB' },
     500: { value: '#F79009' },
     700: { value: '#C86407' },
+    800: { value: '#DC6803' },
+    900: { value: '#B54708' },
   },
 };

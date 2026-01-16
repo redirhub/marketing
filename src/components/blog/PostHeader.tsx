@@ -19,7 +19,6 @@ interface PostHeaderProps {
 
 export default function PostHeader({
   title,
-  author,
   publishedAt,
   readTimeMinutes,
   tags,
