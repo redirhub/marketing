@@ -12,7 +12,7 @@ const BlogBanner = () => {
           <Flex direction="column" align="center" textAlign="center" gap={2}>
             <Box>
               <Heading
-                as="h6"
+                as="p"
                 fontSize={{
                   base: "1rem",
                   md: "1.5rem",
