@@ -40,7 +40,7 @@ export const TabTriggerButton: React.FC<TabTriggerButtonProps> = ({
             minH={{ base: "auto", md: "44px" }}
             flex={{ base: 1, md: "initial" }}
             borderRadius="12px"
-            color="#717680"
+            color="gray.500"
             fontWeight="600"
             fontSize={{ base: "14px", md: "16px" }}
             lineHeight="24px"
@@ -49,15 +49,15 @@ export const TabTriggerButton: React.FC<TabTriggerButtonProps> = ({
             transition="all 0.2s"
             border="1px solid transparent"
             _hover={{
-                color: "#414651",
+                color: "gray.700",
             }}
             _selected={{
-                bg: "#FFFFFF",
-                color: "#414651",
+                bg: "white",
+                color: "gray.700",
                 fontWeight: "600",
-                borderColor: "#D5D7DA",
+                borderColor: "gray.300",
                 boxShadow: "0px 1px 2px rgba(10, 13, 18, 0.05)",
-                "& svg": { color: "#FF4F17" },
+                "& svg": { color: "brand.focus" },
             }}
         >
             <HStack gap={{ base: 1, md: 2 }} justify="center">
@@ -66,7 +66,7 @@ export const TabTriggerButton: React.FC<TabTriggerButtonProps> = ({
                         as={icon}
                         boxSize={{ base: 3, md: 4 }}
                         color="currentColor"
-                        _selected={{ color: "#FF4F17" }}
+                        _selected={{ color: "brand.focus" }}
                     />
                 )}
                 {label}
@@ -110,9 +110,10 @@ export const TabsLayout: React.FC<TabsLayoutProps> = ({
                     w={{ base: "full", md: "fit-content" }}
                     minH={{ base: "auto", md: "44px" }}
                     mx="auto"
-                    bg="#FAFAFA"
+                    bg="gray.50"
                     borderRadius="12px"
-                    border="1px solid #E9EAEB"
+                    border="1px solid"
+                    borderColor="gray.200"
                     gap="2px"
                     display="flex"
                     alignItems="center"

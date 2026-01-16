@@ -41,12 +41,12 @@ const FeatureListItem: React.FC<FeatureDetail> = ({
       flexShrink={0}
       fontSize={{ base: "16px", md: "16px" }}
       mt={{ base: "5px", md: "4px" }}
-      color="#FF4405"
+      color="brand.solid"
     >
       <GoCheckCircle />
     </Box>
     <Box>
-      <Text as="span" fontSize="1rem" fontWeight="700" color="#222b27">
+      <Text as="span" fontSize="1rem" fontWeight="700" color="gray.800">
         {heading}
       </Text>
 
@@ -54,7 +54,7 @@ const FeatureListItem: React.FC<FeatureDetail> = ({
         as="span"
         fontSize="1rem"
         letterSpacing={"0.2px"}
-        color="#222b27"
+        color="gray.800"
         display="inline"
       >
         {" "}
@@ -72,20 +72,21 @@ const ActionButton: React.FC<
   }
 > = ({ label, isPrimary = false, href = "#", ...rest }) => {
   const primaryStyles = {
-    bg: "#FF4405",
+    bg: "brand.solid",
     color: "white",
-    _hover: { bg: "#E03E0D", transform: "translateY(-2px)", boxShadow: "lg" },
+    _hover: { bg: "brand.hover", transform: "translateY(-2px)", boxShadow: "lg" },
     _active: {
-      bg: "#C0350B",
+      bg: "brand.active",
     },
   };
   const secondaryStyles = {
-    bg: "#fff",
-    color: "#16538A",
-    border: "1px solid #222B271A",
+    bg: "white",
+    color: "primary.700",
+    border: "1px solid",
+    borderColor: "gray.100",
     _hover: {
-      bg: "#16538A",
-      color: "#fff",
+      bg: "primary.700",
+      color: "white",
       transform: "translateY(-2px)",
       boxShadow: "lg",
     },

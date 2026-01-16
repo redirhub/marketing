@@ -186,7 +186,7 @@ export default function MobileMenu({ navItems }: MobileMenuProps) {
                                 </Button>
                             </Link>
                             <Link href={`${getDashboardBase()}/register`} style={{ width: '100%' }}>
-                                <Button bg="#FF4405" color="white" width="100%" size="lg" borderRadius="xl" _hover={{ bg: "#E63D04" }} onClick={() => setOpen(false)}>
+                                <Button bg="brand.solid" color="white" width="100%" size="lg" borderRadius="xl" _hover={{ bg: "brand.hover" }} onClick={() => setOpen(false)}>
                                     {t(`nav.getStarted`, "Sign Up")}
                                 </Button>
                             </Link>
