@@ -138,14 +138,14 @@ const FeatureContent: React.FC<FeatureContentProps> = ({ data }) => {
         <Box textAlign="left" order={{ base: 1, md: 1, lg: 1 }}>
           <Heading
             fontSize={{ base: "1.2rem", md: "1.5rem", lg: "1.8rem" }}
-            color="#101828"
+            color="gray.900"
             mb={6}
             fontWeight={600}
           >
             {title}
           </Heading>
           <Text
-            color="#344054"
+            color="gray.700"
             mb={4}
             fontSize={"14px"}
             letterSpacing={"0.2px"}
@@ -314,13 +314,13 @@ export default function PowerfulFeatures() {
       py={{ base: 14, md: 20 }}
       px={{ base: 2, md: 6 }}
       textAlign="center"
-      bg={"#fff"}
+      bg="white"
     >
       <Box w="100%" maxW="7xl" mx="auto" textAlign="center">
         <Heading
           fontSize={{ base: "2rem", md: "3rem" }}
           fontWeight={500}
-          color="#344054"
+          color="gray.700"
           lineHeight={{ base: "2.4rem", md: "3rem" }}
           letterSpacing="0.4px"
           mb={{ base: 8, md: 16 }}

@@ -33,9 +33,9 @@ export default function MobileMenu({ navItems }: MobileMenuProps) {
                     as="button"
                     display={{ base: "flex", xl: "none" }}
                     p={2}
-                    color="#FFFFFF"
+                    color="white"
                     cursor='pointer'
-                    backgroundColor="#1D7BAD"
+                    backgroundColor="interactive.blue"
                     borderRadius={'md'}
                 >
                     <FaBars size={24} />
@@ -43,7 +43,7 @@ export default function MobileMenu({ navItems }: MobileMenuProps) {
             </Drawer.Trigger>
             <Drawer.Backdrop />
             <Drawer.Positioner>
-                <Drawer.Content bgImage="linear-gradient(163deg, #1c6db6 0%, #20a795 86%)" maxW="320px" h="100vh">
+                <Drawer.Content bg="gradients.mobileMenu" maxW="320px" h="100vh">
                     <Drawer.Header p={4} borderBottom="1px solid" borderColor="whiteAlpha.200">
                         <Flex justify="space-between" align="center">
                             <Box>
@@ -56,7 +56,7 @@ export default function MobileMenu({ navItems }: MobileMenuProps) {
                                 />
                             </Box>
                             <Drawer.CloseTrigger asChild>
-                                <Box as="button" p={1.5} color="white" cursor={'pointer'} borderRadius={'md'} _hover={{ backgroundColor: "#1b8dcbe3" }}>
+                                <Box as="button" p={1.5} color="white" cursor={'pointer'} borderRadius={'md'} _hover={{ backgroundColor: "interactive.blueHover" }}>
                                     <FaTimes size={20} />
                                 </Box>
                             </Drawer.CloseTrigger>

@@ -46,7 +46,13 @@ const testimonials = [
   },
 ];
 
-function CustomPrevArrow(props: any) {
+interface ArrowProps {
+  onClick?: () => void;
+  currentSlide?: number;
+  className?: string;
+}
+
+function CustomPrevArrow(props: ArrowProps) {
   const { onClick, currentSlide, className } = props;
   const isSlickDisabled = className?.includes("slick-disabled");
   const isDisabled = isSlickDisabled || currentSlide === 0;
@@ -61,13 +67,14 @@ function CustomPrevArrow(props: any) {
       top={{ base: "-60px", md: "-80px" }}
       right={{ base: "85px", md: "105px" }}
       zIndex={2}
-      bg={isDisabled ? "rgba(255, 255, 255, 0.4)" : "rgba(255, 255, 255, 0.84)"}
-      color="#344054"
+      bg={isDisabled ? "whiteAlpha.40" : "whiteAlpha.84"}
+      color="gray.700"
       size={{ base: "md", md: "lg" }}
-      border={isDisabled ? "1px solid rgba(255, 255, 255, 0.24)" : "1px solid rgba(255, 255, 255, 0.72)"}
+      border={isDisabled ? "1px solid" : "1px solid"}
+      borderColor={isDisabled ? "whiteAlpha.24" : "whiteAlpha.72"}
       borderRadius="12px"
       _hover={{
-        bg: isDisabled ? "rgba(255, 255, 255, 0.4)" : "white",
+        bg: isDisabled ? "whiteAlpha.40" : "white",
       }}
       _disabled={{
         opacity: 0.5,
@@ -80,7 +87,7 @@ function CustomPrevArrow(props: any) {
   );
 }
 
-function CustomNextArrow(props: any) {
+function CustomNextArrow(props: ArrowProps) {
   const { onClick, className } = props;
   const isSlickDisabled = className?.includes("slick-disabled");
   const isDisabled = isSlickDisabled;
@@ -95,13 +102,14 @@ function CustomNextArrow(props: any) {
       top={{ base: "-60px", md: "-80px" }}
       right={{ base: "25px", md: "45px" }}
       zIndex={2}
-      bg={isDisabled ? "rgba(255, 255, 255, 0.4)" : "rgba(255, 255, 255, 0.84)"}
-      color="#344054"
-      border={isDisabled ? "1px solid rgba(255, 255, 255, 0.24)" : "1px solid rgba(255, 255, 255, 0.72)"}
+      bg={isDisabled ? "whiteAlpha.40" : "whiteAlpha.84"}
+      color="gray.700"
+      border={isDisabled ? "1px solid" : "1px solid"}
+      borderColor={isDisabled ? "whiteAlpha.24" : "whiteAlpha.72"}
       size={{ base: "md", md: "lg" }}
       borderRadius="12px"
       _hover={{
-        bg: isDisabled ? "rgba(255, 255, 255, 0.4)" : "white",
+        bg: isDisabled ? "whiteAlpha.40" : "white",
       }}
       _disabled={{
         opacity: 0.5,
@@ -126,7 +134,7 @@ export default function TestimonialsSlider({ marginBottom }: Props) {
     speed: 500,
     slidesToShow: 1.5,
     slidesToScroll: 1,
-    autoplay: true,
+    autoplay: false,
     autoplaySpeed: 5000,
     pauseOnHover: true,
     afterChange: (current: number) => setCurrentSlide(current),
@@ -172,14 +180,14 @@ export default function TestimonialsSlider({ marginBottom }: Props) {
           as="h2"
           fontSize={{ base: "24px", md: "34px", lg: "40px" }}
           fontWeight={600}
-          color="rgba(255, 255, 255, 0.88)"
+          color="whiteAlpha.88"
           mb={{ base: 6, md: 12 }}
           pl={{ base: "25px", md: "45px" }}
           pr={{ base: "110px", md: "110px", lg: "0px" }}
           textAlign="left"
         >
           Why Our Customers Love{" "}
-          <Text as="span" color={'#FFFFFF'} fontSize={{ base: "24px", md: "34px", lg: "40px" }} fontWeight={800}>
+          <Text as="span" color={"white"} fontSize={{ base: "24px", md: "34px", lg: "40px" }} fontWeight={800}>
             RedirHub
           </Text>
         </Heading>
@@ -222,7 +230,7 @@ export default function TestimonialsSlider({ marginBottom }: Props) {
                         fontWeight={500}
                         textAlign={"left"}
                         fontFamily={"Inter"}
-                        color="#344054"
+                        color="gray.700"
                         lineHeight={{ base: "140%", md: "160%" }}
                         fontStyle={"italic"}
                       >
@@ -243,12 +251,12 @@ export default function TestimonialsSlider({ marginBottom }: Props) {
                       <Text
                         fontSize={{ base: "1.1rem", md: "1.2rem" }}
                         fontWeight="700"
-                        color="#101828"
+                        color="gray.900"
                         textAlign={'left'}
                       >
                         {testimonial.name}
                       </Text>
-                      <Text fontSize="0.95rem" color="#667085">
+                      <Text fontSize="0.95rem" color="gray.500">
                         {testimonial.role}
                       </Text>
                     </Box>
@@ -279,13 +287,13 @@ export default function TestimonialsSlider({ marginBottom }: Props) {
         }
 
         .slick-slide .testimonial-card {
-           background: rgba(255, 255, 255, 0.7) !important;
+           background: var(--chakra-colors-white-alpha-70) !important;
            backdrop-filter: blur(4px);
            transition: all 0.3s ease;
         }
 
         .slick-slide.slick-current .testimonial-card {
-           background: #ffffff !important;
+           background: var(--chakra-colors-white) !important;
            backdrop-filter: none;
         }
         @media (max-width: 768px) {

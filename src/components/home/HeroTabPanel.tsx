@@ -109,7 +109,7 @@ export const PrimaryActionButton: React.FC<PrimaryActionButtonProps> = ({
           </HStack>
         </Button>
         {subtext && (
-          <Text fontSize="12px" color="#667085" textAlign={{ base: "center", md: "center" }} whiteSpace="nowrap">
+          <Text fontSize="12px" color="gray.500" textAlign={{ base: "center", md: "center" }} whiteSpace="nowrap">
             {subtext}
           </Text>
         )}

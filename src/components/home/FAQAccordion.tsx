@@ -34,7 +34,7 @@ export const FAQAccordion = ({ items }: FAQAccordionProps) => {
               bottom: "16px",
               zIndex: 0,
               background:
-                "linear-gradient(89.44deg, #20A795 14.11%, #1D81AB 65.7%, #1C6DB6 91.83%)",
+                "gradients.faqGlow",
               filter: "blur(35px)",
               opacity: openItem === item.value ? 0.8 : 0,
               transition: "opacity 0.4s ease-in-out",
@@ -50,7 +50,8 @@ export const FAQAccordion = ({ items }: FAQAccordionProps) => {
           >
           <Accordion.Item
             value={item.value}
-            border="1px solid #EAECF0"
+            border="1px solid"
+            borderColor="gray.200"
             borderRadius="12px"
             bg="white"
             overflow="hidden"
@@ -72,7 +73,7 @@ export const FAQAccordion = ({ items }: FAQAccordionProps) => {
                   textAlign="left"
                   fontSize={{ base: "14px", md: "1.1rem" }}
                   fontWeight="medium"
-                  color="#344054"
+                  color="gray.700"
                   pr={4}
                   letterSpacing={"0.2px"}
                 >
@@ -91,14 +92,14 @@ export const FAQAccordion = ({ items }: FAQAccordionProps) => {
                     transition="all 0.3s"
                     css={{
                       "[data-state=open] &": {
-                        bg: "#fff",
+                        bg: "white",
                         borderColor: "gray.300",
-                        color: "#1f2124",
+                        color: "gray.900",
                       },
                       "[data-state=closed] &": {
                         bg: "transparent",
                         borderColor: "gray.300",
-                        color: "#1f2124",
+                        color: "gray.900",
                       },
                     }}
                   >
@@ -150,7 +151,7 @@ export const FAQAccordion = ({ items }: FAQAccordionProps) => {
                       li: { marginBottom: "8px" },
                     }}
                     fontSize={{ base: "14px", md: "18px" }}
-                    color="#667085"
+                    color="gray.500"
                     lineHeight={{ base: "24px", md: "30px" }}
                     textAlign={"left"}
                     p="0px 20px 10px 0px"
