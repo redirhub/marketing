@@ -6,6 +6,8 @@ import Link from 'next/link'
 import { FiArrowLeft } from 'react-icons/fi'
 import { urlFor } from '@/sanity/lib/image'
 import { SanityImageAsset } from '@/types/sanity'
+import { ClockIcon } from '@sanity/icons'
+import { CalendarIcon } from '@chakra-ui/icons'
 
 interface PostHeaderProps {
   title: string
@@ -21,7 +23,6 @@ export default function PostHeader({
   title,
   publishedAt,
   readTimeMinutes,
-  tags,
   image,
   locale = 'en',
 }: PostHeaderProps) {
@@ -30,127 +31,115 @@ export default function PostHeader({
   return (
     <Box
       as="header"
-      mb={8}
-      bg="#f8f9fa"
-      w="100vw"
+      pb={2}
+      pt={20}
+      bg="linear-gradient(163deg, #1c6db6 0%, #20a795 86%)"
+      w="100%"
       position="relative"
       left="50%"
       right="50%"
       ml="-50vw"
       mr="-50vw"
     >
-      <Container maxW="900px" px={{ base: 4, md: 6 }} py={{ base: 8, md: 12 }}>
-        <Box textAlign="center">
-          {/* Back to Blog Link and Tags */}
-          <Flex gap={3} mb={6} flexWrap="wrap" alignItems="center" justifyContent="center">
-            {/* Back to Blog Link */}
-            <Link
-              href={`/${locale}/blog`}
-              style={{
-                display: 'inline-flex',
-                alignItems: 'center',
-                gap: '0.5rem',
-                fontSize: '0.875rem',
-                fontWeight: 600,
-                color: '#718096',
-                textDecoration: 'none',
-                transition: 'color 0.2s',
-              }}
+      <Container maxW="1220px" mx={'auto'} px={{ base: 4, md: 6 }} py={{ base: 8, md: 12 }}>
+        {/* Main Layout: Text Left, Image Right */}
+        <Flex
+          gap={{ base: 6, md: 8, lg: 12 }}
+          direction={{ base: 'column', lg: 'row' }}
+          align={{ base: 'stretch', lg: 'center' }}
+        >
+          {/* Left Content: Text Section */}
+          <Box flex={{ base: 1, lg: '0 1 55%' }} textAlign="left">
+            <Flex gap={3} mb={6} flexWrap="wrap" alignItems="center" justifyContent="flex-start">
+              {/* Back to Blog Link */}
+              <Link
+                href={`/${locale}/blog`}
+                style={{
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  gap: '0.5rem',
+                  fontSize: '18px',
+                  fontWeight: 600,
+                  color: 'white',
+                  textDecoration: 'none',
+                  transition: 'opacity 0.2s',
+                }}
+              >
+                <FiArrowLeft size={20} />
+                Back to Blog
+              </Link>
+            </Flex>
+
+            {/* Title */}
+            <Heading
+              as="h1"
+              fontSize={{ base: '24px', md: '28px', lg: '36px' }}
+              fontWeight="800"
+              lineHeight={{ base: '32px', md: '36px', lg: '44px' }}
+              mb={6}
+              color="white"
+              letterSpacing="-0.02em"
             >
-              <FiArrowLeft size={16} />
-              Blog
-            </Link>
+              {title}
+            </Heading>
 
-            {/* Separator */}
-            {tags && tags.length > 0 && (
-              <Text fontSize="sm" color="gray.400">
-                |
-              </Text>
-            )}
+            {/* Metadata: Date and Read Time */}
+            <Flex
+              align="center"
+              gap={4}
+              fontSize="sm"
+              color="#ffffffcc"
+              fontWeight="400"
+              justifyContent="flex-start"
+              flexWrap="wrap"
+            >
+              {publishedAt && (
+                <>
+                  <Flex align="center" gap={1.5}>
+                    <CalendarIcon width={5} height={5} />
+                    <Text>
+                      {new Date(publishedAt).toLocaleDateString(locale, {
+                        year: 'numeric',
+                        month: 'long',
+                        day: 'numeric',
+                      })}
+                    </Text>
+                  </Flex>
+                  {readTimeMinutes && (
+                    <Flex align="center" gap={1}>
+                      <ClockIcon width={24} height={24} />
+                      <Text>{readTimeMinutes} mins read</Text>
+                    </Flex>
+                  )}
+                </>
+              )}
+            </Flex>
+          </Box>
 
-            {/* Tags */}
-            {tags && tags.length > 0 && (
-              <Flex gap={1} flexWrap="wrap">
-                {tags.slice(0, 3).map((tag, index) => (
-                  <Box key={tag}>
-                    <Link
-                      href={`/${locale}/blog/tag/${tag.toLowerCase().replace(/\s+/g, '-')}`}
-                      style={{
-                        fontSize: '0.875rem',
-                        fontWeight: 600,
-                        color: '#718096',
-                        textTransform: 'uppercase',
-                        letterSpacing: '0.05em',
-                        textDecoration: 'none',
-                        transition: 'color 0.2s',
-                      }}
-                    >
-                      {tag}
-                    </Link>
-                    {index < Math.min(tags.length, 3) - 1 && (
-                      <Text as="span" fontSize="sm" color="gray.600" mx={1}>
-                        ,
-                      </Text>
-                    )}
-                  </Box>
-                ))}
-              </Flex>
-            )}
-          </Flex>
-
-          {/* Title */}
-          <Heading
-            as="h1"
-            fontSize={{ base: '32px', md: '40px', lg: '48px' }}
-            fontWeight="800"
-            lineHeight="1.15"
-            mb={6}
-            color="#1a202c"
-            letterSpacing="-0.02em"
-          >
-            {title}
-          </Heading>
-
-          {/* Metadata: Date and Read Time */}
-          <Flex align="center" gap={2} fontSize="md" color="gray.600" fontWeight="400" justifyContent="center" mb={8}>
-            {publishedAt && (
-              <>
-                <Text>
-                  {new Date(publishedAt).toLocaleDateString(locale, {
-                    year: 'numeric',
-                    month: 'long',
-                    day: 'numeric',
-                  })}
-                </Text>
-                {readTimeMinutes && <Text>•</Text>}
-              </>
-            )}
-            {readTimeMinutes && <Text>{readTimeMinutes} min read</Text>}
-          </Flex>
-
-          {/* Featured Image */}
+          {/* Right Content: Image Section */}
           {imageUrl && (
-            <Box
-              borderRadius="12px"
-              overflow="hidden"
-              boxShadow="lg"
-              position="relative"
-              w="100%"
-              maxW="900px"
-              mx="auto"
-              paddingBottom="56.25%"
-              bg="gray.100"
-            >
-              <Image
-                src={imageUrl}
-                alt={title}
-                fill
-                style={{ objectFit: 'cover', position: 'absolute' }}
-                priority
-              />
+            <Box flex={{ base: 1, lg: '0 1 60%' }} position="relative">
+              <Box
+                borderRadius="24px"
+                overflow="hidden"
+                boxShadow="lg"
+                position="relative"
+                w="100%"
+                h={'330px'}
+                // paddingBottom="62.5%"
+                bg="gray.100"
+              >
+                <Image
+                  src={imageUrl}
+                  alt={title}
+                  fill
+                  style={{ objectFit: 'cover', position: 'absolute' }}
+                  priority
+                />
+              </Box>
             </Box>
           )}
-        </Box>
+        </Flex>
       </Container>
     </Box>
   )

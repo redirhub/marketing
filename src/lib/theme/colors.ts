@@ -59,6 +59,7 @@ export default {
   },
   warning: {
     50: { value: '#FFFAEB' },
+    100: { value: '#F2F4EF' },
     500: { value: '#F79009' },
     700: { value: '#C86407' },
     800: { value: '#DC6803' },
