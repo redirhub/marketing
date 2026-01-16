@@ -2,6 +2,7 @@
 
 import { Accordion, Box, Span } from "@chakra-ui/react";
 import { AddIcon, MinusIcon } from "@chakra-ui/icons";
+import { useState } from "react";
 
 interface FAQItem {
   value: string;
@@ -14,12 +15,13 @@ interface FAQAccordionProps {
 }
 
 export const FAQAccordion = ({ items }: FAQAccordionProps) => {
+  const [openItem, setOpenItem] = useState<string | null>(items[0]?.value || null);
   return (
     <Box w="100%" maxW="6xl" mx="auto">
-      <Accordion.Root defaultValue={[items[0].value]} collapsible>
+      <Accordion.Root value={openItem ? [openItem] : []} onValueChange={(details) => setOpenItem(details.value[0] || null)} collapsible>
         {items.map((item, index) => (
           <Box
-            key={index}
+            key={`${item.value}-${index}`}
             mb={5}
             position="relative"
             transition="all 0.3s"
@@ -34,12 +36,15 @@ export const FAQAccordion = ({ items }: FAQAccordionProps) => {
               background:
                 "linear-gradient(89.44deg, #20A795 14.11%, #1D81AB 65.7%, #1C6DB6 91.83%)",
               filter: "blur(35px)",
-              opacity: 0,
+              opacity: openItem === item.value ? 0.8 : 0,
               transition: "opacity 0.4s ease-in-out",
+              pointerEvents: "none",
+              willChange: "opacity",
             }}
             css={{
-              "&:has([data-state=open])::before": {
-                opacity: 0.8,
+              "&::before": {
+                WebkitFilter: "blur(35px)",
+                transform: "translateZ(0)",
               },
             }}
           >

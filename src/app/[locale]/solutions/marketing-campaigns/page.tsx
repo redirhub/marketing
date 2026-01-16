@@ -121,7 +121,7 @@ export default async function WebsiteMigrations() {
         "Yes. RedirHub allows you to export redirect and campaign data in CSV format. You can use this data with your marketing dashboards or BI tools for deeper insights.",
     },
     {
-      value: "faq-5",
+      value: "faq-6",
       question: "Can I automate campaign redirects?",
       answer:
         "Yes. Using the RedirHub API, you can automate redirect creation, updates, and A/B testing, making campaign management faster and reducing manual work.",
