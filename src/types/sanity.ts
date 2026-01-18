@@ -206,6 +206,7 @@ export interface HeroSection {
   subheadline?: string
   ctaPrimary?: CTAButton
   heroImage?: SanityImageAsset
+  heroSections?: Array<'redirect' | 'customerLogos'>
 }
 
 export interface FeatureItem {

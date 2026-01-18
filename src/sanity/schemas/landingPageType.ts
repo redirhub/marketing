@@ -135,6 +135,19 @@ export const landingPageType = defineType({
             hotspot: true,
           },
         },
+        {
+          name: 'heroSections',
+          title: 'Hero Sections',
+          type: 'array',
+          description: 'Select which sections to display in hero area',
+          of: [{ type: 'string' }],
+          options: {
+            list: [
+              { title: 'Redirect Widget', value: 'redirect' },
+              { title: 'Customer Logos', value: 'customerLogos' },
+            ],
+          },
+        },
       ],
       validation: (rule) => rule.required(),
     }),
