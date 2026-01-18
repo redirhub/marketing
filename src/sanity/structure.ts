@@ -68,9 +68,25 @@ export const structure: StructureResolver = (S) => {
             .params({ locale: selectedLanguage })
             .defaultOrdering([{ field: 'pageSlug', direction: 'asc' }])
         ),
+      S.listItem()
+        .id('landingPages')
+        .title('Landing Pages')
+        .icon(() => '🚀')
+        .child(
+          S.documentTypeList('landingPage')
+            .title(
+              `Landing Pages - ${selectedLang.flag} ${selectedLang.nativeName || selectedLang.title}`
+            )
+            .filter('_type == "landingPage" && locale == $locale')
+            .params({ locale: selectedLanguage })
+            .defaultOrdering([{ field: 'publishedAt', direction: 'desc' }])
+        ),
       S.divider(),
       ...S.documentTypeListItems().filter(
-        (listItem) => !['post', 'support', 'legal', 'faqSet'].includes(listItem.getId() || '')
+        (listItem) =>
+          !['post', 'support', 'legal', 'faqSet', 'landingPage'].includes(
+            listItem.getId() || ''
+          )
       ),
     ])
 }
