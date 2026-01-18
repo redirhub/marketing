@@ -1,7 +1,7 @@
 import { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 import { PortableText } from '@portabletext/react'
-import { Box, Container, Heading, Text } from '@chakra-ui/react'
+import { Box, Container } from '@chakra-ui/react'
 import { fetchPostBySlug, fetchRelatedPosts, calculateReadTime, fetchPostTranslations } from '@/lib/services/blog'
 import { urlFor } from '@/sanity/lib/image'
 import { portableTextComponents } from '@/components/blog/PortableTextComponents'
