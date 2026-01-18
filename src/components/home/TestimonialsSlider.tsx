@@ -123,7 +123,7 @@ function CustomNextArrow(props: ArrowProps) {
 }
 
 interface Props {
-  marginBottom?: string;
+  marginBottom?: string|number|object;
 }
 
 export default function TestimonialsSlider({ marginBottom }: Props) {

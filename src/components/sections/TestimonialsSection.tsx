@@ -10,7 +10,7 @@ interface TestimonialsSectionProps {
 
 export default function TestimonialsSection({
   marginTop = 12,
-  marginBottom = "0"
+  marginBottom = 0
 }: TestimonialsSectionProps) {
   return (
     <Box
