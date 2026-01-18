@@ -2,6 +2,7 @@ import { ReactNode, Suspense } from "react";
 import { Metadata } from "next";
 import { Inter } from "next/font/google";
 import { headers } from "next/headers";
+import { GoogleAnalytics } from "@next/third-parties/google";
 import { Provider } from "@/components/ui/provider";
 import TranslationsProvider from "@/components/TranslationsProvider";
 import Header from "@/components/layout/Header";
@@ -67,6 +68,8 @@ export default async function RootLayout({
     href: locale === "en" ? `/legal/${page.slug.current}` : `/${locale}/legal/${page.slug.current}`,
   }));
 
+  const gaId = process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID;
+
   return (
     <html lang={locale} suppressHydrationWarning className={inter.variable}>
       <body
@@ -88,6 +91,7 @@ export default async function RootLayout({
             {!hideHeaderAndFooter && <Footer legalLinks={legalLinks} />}
           </TranslationsProvider>
         </Provider>
+        {gaId && <GoogleAnalytics gaId={gaId} />}
       </body>
     </html>
   );
