@@ -1,7 +1,7 @@
 "use client";
 
 import { Box, Container, Flex, Heading, Text } from "@chakra-ui/react";
-import styles from "../../../home/Hero.module.css";
+import styles from "../../../sections/Hero.module.css";
 
 interface PricingBannerProps {
     title: string;

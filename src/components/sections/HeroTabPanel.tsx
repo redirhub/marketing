@@ -12,8 +12,8 @@ import {
   ShortenUrlParams,
 } from "@/app/api/redirhub";
 import { parseApiErrorMessage, parseApiSuccessMessage } from "./HeroTabs.utils";
-import { TabContentWrapper } from "./TabContentWrapper";
-import { DomainSelector } from "./DomainSelector";
+import { TabContentWrapper } from "../home/TabContentWrapper";
+import { DomainSelector } from "../home/DomainSelector";
 import { TabsLayout, TabTriggerButton } from "../ui/TabsLayout";
 import {
   CustomInput,

@@ -1,5 +1,5 @@
 import { Metadata } from "next";
-import Hero from "@/components/home/Hero";
+import Hero from "@/components/sections/Hero";
 import initTranslations from "@/lib/i18n";
 import { getAppName } from "@/lib/utils/constants";
 import ChooseUs from "@/components/home/ChooseUs";

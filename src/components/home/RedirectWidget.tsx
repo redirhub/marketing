@@ -3,12 +3,12 @@
 import { Box, SimpleGrid } from "@chakra-ui/react";
 import { useState } from "react";
 import { ApiResponse, createRedirect } from "@/app/api/redirhub";
-import { parseApiErrorMessage, parseApiSuccessMessage } from "./HeroTabs.utils";
+import { parseApiErrorMessage, parseApiSuccessMessage } from "../sections/HeroTabs.utils";
 import {
   CustomInput,
   PrimaryActionButton,
   ApiStatusMessage,
-} from "./HeroFormComponents";
+} from "../sections/HeroFormComponents";
 
 const FORM_GRID_PROPS = {
   columns: { base: 1, md: 5 } as const,
