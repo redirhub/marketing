@@ -2,8 +2,8 @@
 
 import { Box, Container, Flex, Heading, Text } from "@chakra-ui/react";
 import { useTranslation } from "react-i18next";
-import styles from "../../../home/Hero.module.css";
-import LogoBar from "@/components/home/LogoBar";
+import styles from "../../../sections/Hero.module.css";
+import { CustomerLogosSection } from "@/components/sections";
 
 export default function EnterpriseBanner() {
   const { t } = useTranslation("common");
@@ -40,7 +40,7 @@ export default function EnterpriseBanner() {
             </Text>
           </Box>
         </Flex>
-        <LogoBar />
+        <CustomerLogosSection />
       </Container>
     </Box>
   );

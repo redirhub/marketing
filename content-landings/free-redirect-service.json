@@ -1,0 +1,223 @@
+{
+  "title": "Free Redirect Service",
+  "slug": {
+    "current": "free-redirect-service"
+  },
+  "meta": {
+    "metaTitle": "Free Redirect Service with Automatic HTTPS - No Credit Card Required",
+    "metaDescription": "Eliminate 'Not Secure' browser warnings with automatic HTTPS/SSL provisioning. Free redirect service with unlimited domains, bulk CSV import, and real-time analytics. Start in 60 seconds."
+  },
+  "hero": {
+    "headline": "Stop Losing Traffic to Browser Security Warnings",
+    "subheadline": "Free redirect service with automatic HTTPS/SSL that eliminates 'Connection Not Private' errors. Perfect for domain portfolios, parked domains, and startup projects.",
+    "ctaPrimary": {
+      "label": "Start Free - No Credit Card",
+      "url": "/signup"
+    },
+    "heroSections": ["redirect", "customerLogos"]
+  },
+  "richContent": [
+    {
+      "_type": "block",
+      "style": "h2",
+      "children": [
+        {
+          "_type": "span",
+          "text": "The Hidden Cost of Registrar Forwarding"
+        }
+      ]
+    },
+    {
+      "_type": "block",
+      "style": "normal",
+      "children": [
+        {
+          "_type": "span",
+          "text": "Standard registrar forwarding fails when visitors type 'https://', showing browser security warnings that kill 40% of your traffic. RedirHub automatically provisions SSL certificates for every domain—eliminating warnings and preserving the value of your links."
+        }
+      ]
+    },
+    {
+      "_type": "block",
+      "style": "h3",
+      "children": [
+        {
+          "_type": "span",
+          "text": "What's Included in the Free Plan"
+        }
+      ]
+    },
+    {
+      "_type": "block",
+      "style": "normal",
+      "listItem": "bullet",
+      "children": [
+        {
+          "_type": "span",
+          "text": "Automatic zero-touch HTTPS/SSL provisioning for all domains"
+        }
+      ]
+    },
+    {
+      "_type": "block",
+      "style": "normal",
+      "listItem": "bullet",
+      "children": [
+        {
+          "_type": "span",
+          "text": "Unlimited 301, 302, and 307 redirects with no click limits"
+        }
+      ]
+    },
+    {
+      "_type": "block",
+      "style": "normal",
+      "listItem": "bullet",
+      "children": [
+        {
+          "_type": "span",
+          "text": "Bulk CSV import/export for managing domain portfolios"
+        }
+      ]
+    },
+    {
+      "_type": "block",
+      "style": "normal",
+      "listItem": "bullet",
+      "children": [
+        {
+          "_type": "span",
+          "text": "Real-time analytics: clicks, geography, referrers, and device types"
+        }
+      ]
+    },
+    {
+      "_type": "block",
+      "style": "normal",
+      "listItem": "bullet",
+      "children": [
+        {
+          "_type": "span",
+          "text": "Global edge network delivering sub-100ms redirect response times"
+        }
+      ]
+    },
+    {
+      "_type": "block",
+      "style": "normal",
+      "listItem": "bullet",
+      "children": [
+        {
+          "_type": "span",
+          "text": "99.9% uptime SLA with zero maintenance required"
+        }
+      ]
+    },
+    {
+      "_type": "block",
+      "style": "h3",
+      "children": [
+        {
+          "_type": "span",
+          "text": "Perfect For"
+        }
+      ]
+    },
+    {
+      "_type": "block",
+      "style": "normal",
+      "listItem": "bullet",
+      "children": [
+        {
+          "_type": "span",
+          "text": "Domain investors managing parked domain portfolios"
+        }
+      ]
+    },
+    {
+      "_type": "block",
+      "style": "normal",
+      "listItem": "bullet",
+      "children": [
+        {
+          "_type": "span",
+          "text": "Startups consolidating marketing URLs and campaign links"
+        }
+      ]
+    },
+    {
+      "_type": "block",
+      "style": "normal",
+      "listItem": "bullet",
+      "children": [
+        {
+          "_type": "span",
+          "text": "Small agencies managing client redirects and vanity URLs"
+        }
+      ]
+    },
+    {
+      "_type": "block",
+      "style": "normal",
+      "listItem": "bullet",
+      "children": [
+        {
+          "_type": "span",
+          "text": "Anyone tired of manually configuring SSL certificates"
+        }
+      ]
+    },
+    {
+      "_type": "block",
+      "style": "h3",
+      "children": [
+        {
+          "_type": "span",
+          "text": "Why Developers Choose RedirHub Over DIY Solutions"
+        }
+      ]
+    },
+    {
+      "_type": "block",
+      "style": "normal",
+      "children": [
+        {
+          "_type": "span",
+          "text": "Setting up redirects with Nginx or Apache requires server maintenance, SSL certificate renewals, and manual configuration. RedirHub handles all infrastructure automatically, letting you focus on what matters. Setup takes 60 seconds—just point your domain and we handle the rest."
+        }
+      ]
+    }
+  ],
+  "faqs": [
+    {
+      "question": "How does automatic HTTPS/SSL work?",
+      "answer": "When you add a domain, RedirHub automatically provisions and renews SSL certificates using Let's Encrypt. No manual configuration required. Your redirects work perfectly over both HTTP and HTTPS, eliminating browser security warnings."
+    },
+    {
+      "question": "Are there really no limits on the free plan?",
+      "answer": "Correct. The free plan includes unlimited redirects and unlimited clicks. The only limitation is that you cannot use custom branded domains—you'll use our provided redirect URLs. Upgrade to premium for custom domain support."
+    },
+    {
+      "question": "Can I import my existing redirects from my registrar?",
+      "answer": "Yes! Use our bulk CSV import tool to upload hundreds of domains at once. Export your current forwarding rules from your registrar, format them as CSV, and import directly into RedirHub."
+    },
+    {
+      "question": "What analytics are included?",
+      "answer": "Track click counts, visitor geography (country/city), referrer sources, device types (desktop/mobile/tablet), browser statistics, and timestamps. Export reports as CSV for external analysis."
+    },
+    {
+      "question": "How long does DNS propagation take?",
+      "answer": "After pointing your domain to RedirHub, redirects typically work within 5-15 minutes globally. SSL certificate provisioning completes automatically within the first hour. No waiting periods or manual approval steps."
+    },
+    {
+      "question": "Can I upgrade later without losing my redirects?",
+      "answer": "Absolutely. All your existing redirects transfer seamlessly when upgrading. Premium plans add custom domains, API access, team collaboration, wildcard support, and priority support—while keeping all your free plan redirects intact."
+    }
+  ],
+  "sections": ["testimonials", "blogInsight"],
+  "footerType": "default",
+  "publishedAt": "2026-01-18T00:00:00.000Z",
+  "isActive": true,
+  "onFooter": true,
+  "locale": "en"
+}

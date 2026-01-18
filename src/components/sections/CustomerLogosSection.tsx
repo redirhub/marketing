@@ -4,6 +4,7 @@ import { Image, Box } from "@chakra-ui/react";
 import dynamic from "next/dynamic";
 
 const Slider = dynamic(() => import("react-slick"), { ssr: false });
+
 const LOGOS = [
   { id: 1, src: "/assets/images/hero-logs/company-1.png", alt: "A" },
   { id: 2, src: "/assets/images/hero-logs/company-2.png", alt: "B" },
@@ -15,7 +16,13 @@ const LOGOS = [
   { id: 8, src: "/assets/images/hero-logs/company-2.png", alt: "H" },
 ];
 
-const LogoBar = () => {
+interface CustomerLogosSectionProps {
+  paddingY?: string | number | object;
+}
+
+export default function CustomerLogosSection({
+  paddingY = { base: 6, md: 10, lg: 16 }
+}: CustomerLogosSectionProps) {
   const settings = {
     // Basic Slider Settings
     dots: false,
@@ -26,7 +33,7 @@ const LogoBar = () => {
 
     // Add these autoplay settings:
     autoplay: true,
-    autoplaySpeed: 3000, // Change slides every 2 seconds
+    autoplaySpeed: 3000, // Change slides every 3 seconds
     speed: 900, // Transition speed in milliseconds
     infinite: true, // Loop continuously
 
@@ -45,14 +52,14 @@ const LogoBar = () => {
       },
     ],
   };
+
   return (
-    <Box py={{ base: 6, md: 10, lg: 16 }}>
+    <Box py={paddingY}>
       <Slider {...settings}>
         {LOGOS.map((logo, index) => (
           <Box key={logo.id + "-" + index}>
             <Box
               p={{ base: 2, md: 4 }}
-              // opacity={0.6}
               display="flex !important"
               alignItems="center"
               justifyContent="center"
@@ -71,6 +78,4 @@ const LogoBar = () => {
       </Slider>
     </Box>
   );
-};
-
-export default LogoBar;
+}

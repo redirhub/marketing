@@ -1,11 +1,27 @@
 import { Box, Heading, SimpleGrid } from "@chakra-ui/react";
-import { BlogCard } from "./BlogCard";
+import { BlogCard } from "@/components/home/BlogCard";
 import { fetchBlogPosts } from "@/lib/services/blog";
 import { urlFor } from "@/sanity/lib/image";
 import type { PostPreview } from "@/types/sanity";
 
-export default async function Blogs() {
-  const posts = await fetchBlogPosts('en', 3);
+interface BlogSectionProps {
+  locale: string;
+  title?: string;
+  limit?: number;
+  backgroundColor?: string;
+}
+
+export default async function BlogSection({
+  locale,
+  title = "Latest Insights from Our Blog",
+  limit = 3,
+  backgroundColor = "#F2F4EF"
+}: BlogSectionProps) {
+  const posts = await fetchBlogPosts(locale, limit);
+
+  if (!posts || posts.length === 0) {
+    return null;
+  }
 
   return (
     <Box
@@ -13,7 +29,7 @@ export default async function Blogs() {
       py={{ base: 10, md: 16 }}
       px={{ base: 4, md: 6 }}
       textAlign="center"
-      bg={"#F2F4EF"}
+      bg={backgroundColor}
     >
       <Box w="100%" maxW="7xl" mx="auto" textAlign="center">
         <Heading
@@ -24,7 +40,7 @@ export default async function Blogs() {
           letterSpacing="0.4px"
           mb={16}
         >
-          Go Through Our Blogs Today
+          {title}
         </Heading>
 
         <SimpleGrid
@@ -37,13 +53,13 @@ export default async function Blogs() {
               imageSrc={post.image ? urlFor(post.image).width(600).height(400).url() : '/images/blog-placeholder.jpg'}
               imageAlt={post.title}
               category={post.tags?.[0] || 'Blog'}
-              date={new Date(post.publishedAt).toLocaleDateString('en', {
+              date={new Date(post.publishedAt).toLocaleDateString(locale, {
                 year: 'numeric',
                 month: 'long',
                 day: 'numeric',
               })}
               title={post.title}
-              link={`/blog/${post.slug.current}`}
+              link={`/${locale}/blog/${post.slug.current}`}
             />
           ))}
         </SimpleGrid>

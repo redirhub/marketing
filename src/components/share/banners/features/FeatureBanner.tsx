@@ -11,7 +11,7 @@ import {
 } from "@chakra-ui/react";
 import { useTranslation } from "react-i18next";
 import Image from "next/image";
-import styles from "../../../home/Hero.module.css";
+import styles from "../../../sections/Hero.module.css";
 import Link from "next/link";
 
 interface FeatureBannerProps {

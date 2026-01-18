@@ -2,7 +2,7 @@
 
 import { Box, Container, Flex, Heading, Text } from "@chakra-ui/react";
 import { useTranslation } from "react-i18next";
-import styles from "../../../home/Hero.module.css";
+import styles from "../../../sections/Hero.module.css";
 import RedirectForm from "./RedirectForm";
 
 interface Props {

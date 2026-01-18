@@ -22,7 +22,7 @@ import {
 import {
   CustomInput,
   PrimaryActionButton,
-} from "../home/HeroTabPanel";
+} from "../sections/HeroFormComponents";
 import { TabsLayout, TabTriggerButton } from "../ui/TabsLayout";
 import { TabContentWrapper } from "../home/TabContentWrapper";
 

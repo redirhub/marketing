@@ -7,9 +7,9 @@ import { Text } from "@chakra-ui/react";
 import {
   parseApiErrorMessage,
   parseApiSuccessMessage,
-} from "@/components/home/HeroTabs.utils";
+} from "@/components/sections/HeroTabs.utils";
 import { TabContentWrapper } from "@/components/home/TabContentWrapper";
-import { CustomInput, PrimaryActionButton } from "@/components/home/HeroTabPanel";
+import { CustomInput, PrimaryActionButton } from "@/components/sections/HeroTabPanel";
 
 const FORM_GRID_PROPS = {
   columns: { base: 1, md: 5 } as const,

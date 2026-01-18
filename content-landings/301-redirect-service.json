@@ -1,0 +1,348 @@
+{
+  "title": "301 Redirect Service",
+  "slug": {
+    "current": "301-redirect-service"
+  },
+  "meta": {
+    "metaTitle": "301 Redirect Service - Preserve SEO Rankings During Migrations",
+    "metaDescription": "Enterprise 301 redirect service that protects link equity and search rankings. Bulk import 10,000+ redirects, prevent redirect chains, monitor 404 errors, and preserve UTM parameters. Trusted by SEO agencies."
+  },
+  "hero": {
+    "headline": "Don't Lose 60% of Traffic to Migration Mistakes",
+    "subheadline": "Professional 301 redirect service that preserves 90-99% of link equity during site migrations and rebranding. Prevent redirect chains, monitor broken links, and protect your hard-earned rankings.",
+    "ctaPrimary": {
+      "label": "Protect Your SEO Rankings",
+      "url": "/signup"
+    },
+    "heroSections": ["redirect", "customerLogos"]
+  },
+  "richContent": [
+    {
+      "_type": "block",
+      "style": "h2",
+      "children": [
+        {
+          "_type": "span",
+          "text": "The #1 Cause of Traffic Loss During Migrations"
+        }
+      ]
+    },
+    {
+      "_type": "block",
+      "style": "normal",
+      "children": [
+        {
+          "_type": "span",
+          "text": "Improperly configured 301 redirects destroy search rankings overnight. When dev teams miss deep links, chain redirects incorrectly, or strip UTM parameters, organic traffic can drop 60% in a single week. RedirHub ensures your permanent redirects preserve link equity, maintain campaign attribution, and keep visitors flowing to the right destinations."
+        }
+      ]
+    },
+    {
+      "_type": "block",
+      "style": "h3",
+      "children": [
+        {
+          "_type": "span",
+          "text": "Why 301 Redirects Matter for SEO"
+        }
+      ]
+    },
+    {
+      "_type": "block",
+      "style": "normal",
+      "children": [
+        {
+          "_type": "span",
+          "text": "A 301 redirect is a permanent server-side redirect that tells search engines a page has permanently moved. Unlike 302 temporary redirects, 301s transfer 90-99% of link equity (ranking power) to the new URL—preserving years of SEO investment during migrations, rebranding, and URL structure changes."
+        }
+      ]
+    },
+    {
+      "_type": "block",
+      "style": "h3",
+      "children": [
+        {
+          "_type": "span",
+          "text": "Enterprise 301 Redirect Management"
+        }
+      ]
+    },
+    {
+      "_type": "block",
+      "style": "normal",
+      "listItem": "bullet",
+      "children": [
+        {
+          "_type": "span",
+          "text": "Bulk CSV import: Upload 10,000+ redirect mappings in seconds with zero errors"
+        }
+      ]
+    },
+    {
+      "_type": "block",
+      "style": "normal",
+      "listItem": "bullet",
+      "children": [
+        {
+          "_type": "span",
+          "text": "Redirect chain detection: Automatically identify and warn about chained redirects that harm SEO"
+        }
+      ]
+    },
+    {
+      "_type": "block",
+      "style": "normal",
+      "listItem": "bullet",
+      "children": [
+        {
+          "_type": "span",
+          "text": "UTM parameter preservation: Maintain campaign attribution across redirects—never lose tracking data"
+        }
+      ]
+    },
+    {
+      "_type": "block",
+      "style": "normal",
+      "listItem": "bullet",
+      "children": [
+        {
+          "_type": "span",
+          "text": "404 monitoring dashboard: Real-time alerts when high-value backlinks break or redirect improperly"
+        }
+      ]
+    },
+    {
+      "_type": "block",
+      "style": "normal",
+      "listItem": "bullet",
+      "children": [
+        {
+          "_type": "span",
+          "text": "Path and query string forwarding: Preserve deep links and dynamic parameters during migrations"
+        }
+      ]
+    },
+    {
+      "_type": "block",
+      "style": "normal",
+      "listItem": "bullet",
+      "children": [
+        {
+          "_type": "span",
+          "text": "Instant global propagation: Redirects work worldwide within 5-15 minutes—no 24-48 hour DNS delays"
+        }
+      ]
+    },
+    {
+      "_type": "block",
+      "style": "h3",
+      "children": [
+        {
+          "_type": "span",
+          "text": "Critical Use Cases for 301 Redirects"
+        }
+      ]
+    },
+    {
+      "_type": "block",
+      "style": "normal",
+      "listItem": "bullet",
+      "children": [
+        {
+          "_type": "span",
+          "text": "Website migrations: Move from old CMS to new platform without losing rankings"
+        }
+      ]
+    },
+    {
+      "_type": "block",
+      "style": "normal",
+      "listItem": "bullet",
+      "children": [
+        {
+          "_type": "span",
+          "text": "Domain rebranding: Redirect old brand domain to new brand while preserving link authority"
+        }
+      ]
+    },
+    {
+      "_type": "block",
+      "style": "normal",
+      "listItem": "bullet",
+      "children": [
+        {
+          "_type": "span",
+          "text": "URL structure changes: Update permalink patterns without breaking indexed pages"
+        }
+      ]
+    },
+    {
+      "_type": "block",
+      "style": "normal",
+      "listItem": "bullet",
+      "children": [
+        {
+          "_type": "span",
+          "text": "HTTPS migrations: Redirect all HTTP traffic to HTTPS to meet Google's security requirements"
+        }
+      ]
+    },
+    {
+      "_type": "block",
+      "style": "normal",
+      "listItem": "bullet",
+      "children": [
+        {
+          "_type": "span",
+          "text": "Content consolidation: Merge duplicate or thin content pages to strengthen domain authority"
+        }
+      ]
+    },
+    {
+      "_type": "block",
+      "style": "normal",
+      "listItem": "bullet",
+      "children": [
+        {
+          "_type": "span",
+          "text": "Fixing broken backlinks: Recover lost link equity from high-authority external links"
+        }
+      ]
+    },
+    {
+      "_type": "block",
+      "style": "h3",
+      "children": [
+        {
+          "_type": "span",
+          "text": "SEO Agency Success Story"
+        }
+      ]
+    },
+    {
+      "_type": "block",
+      "style": "normal",
+      "children": [
+        {
+          "_type": "span",
+          "text": "\"We migrated a client's e-commerce site from Magento to Shopify. The dev team thought they mapped everything, but we discovered 3,000 product URLs were 404ing—including pages with valuable backlinks from industry publications. Using RedirHub's 404 monitoring, we caught the broken links within hours, uploaded a corrected CSV mapping, and recovered the traffic. Organic revenue only dipped 8% during migration instead of the predicted 40%.\""
+        }
+      ]
+    },
+    {
+      "_type": "block",
+      "style": "h3",
+      "children": [
+        {
+          "_type": "span",
+          "text": "Common 301 Redirect Mistakes to Avoid"
+        }
+      ]
+    },
+    {
+      "_type": "block",
+      "style": "normal",
+      "listItem": "bullet",
+      "children": [
+        {
+          "_type": "span",
+          "text": "Redirect chains (A → B → C): Search engines may stop following after 3-5 hops, losing link equity"
+        }
+      ]
+    },
+    {
+      "_type": "block",
+      "style": "normal",
+      "listItem": "bullet",
+      "children": [
+        {
+          "_type": "span",
+          "text": "Redirecting to homepage: Sending all old URLs to / instead of matching relevant new pages"
+        }
+      ]
+    },
+    {
+      "_type": "block",
+      "style": "normal",
+      "listItem": "bullet",
+      "children": [
+        {
+          "_type": "span",
+          "text": "Using 302 instead of 301: Temporary redirects don't pass link equity—rankings never recover"
+        }
+      ]
+    },
+    {
+      "_type": "block",
+      "style": "normal",
+      "listItem": "bullet",
+      "children": [
+        {
+          "_type": "span",
+          "text": "Stripping query strings: Losing UTM parameters means broken campaign attribution and analytics"
+        }
+      ]
+    },
+    {
+      "_type": "block",
+      "style": "normal",
+      "listItem": "bullet",
+      "children": [
+        {
+          "_type": "span",
+          "text": "No 404 monitoring: Missing broken high-value backlinks for weeks until traffic drops are noticed"
+        }
+      ]
+    },
+    {
+      "_type": "block",
+      "style": "normal",
+      "children": [
+        {
+          "_type": "span",
+          "text": "RedirHub automatically detects and prevents these errors, ensuring your 301 redirects preserve maximum SEO value."
+        }
+      ]
+    }
+  ],
+  "faqs": [
+    {
+      "question": "How much link equity do 301 redirects actually pass?",
+      "answer": "Google's John Mueller confirmed that 301 redirects pass the same link equity as direct links—essentially 100%. The commonly cited \"90-99%\" figure accounts for potential indexing delays, not actual loss. Properly implemented 301s preserve your rankings."
+    },
+    {
+      "question": "How long should I keep 301 redirects active?",
+      "answer": "Permanently. Google recommends keeping 301 redirects active for at least one year, but best practice is indefinitely. Backlinks can remain active for years, and removing redirects causes those links to break, losing accumulated authority."
+    },
+    {
+      "question": "Will 301 redirects hurt my page speed or Core Web Vitals?",
+      "answer": "RedirHub's global edge network delivers redirects in under 100ms—faster than most server response times. This minimizes latency impact. However, redirect chains (multiple hops) do slow pages down, which is why our system automatically detects and warns about chains."
+    },
+    {
+      "question": "Can I redirect an entire domain with wildcard rules?",
+      "answer": "Yes. RedirHub supports wildcard patterns that redirect all paths from olddomain.com/* to newdomain.com/* while preserving the exact path structure. This is the safest way to handle full domain migrations without manually mapping every URL."
+    },
+    {
+      "question": "How quickly do search engines recognize new 301 redirects?",
+      "answer": "Search engines process 301 redirects during their next crawl of the old URL. For frequently crawled pages, this happens within days. Less popular pages may take weeks. RedirHub's monitoring shows you exactly when redirects are being followed and by which bots."
+    },
+    {
+      "question": "What's the difference between 301 and 308 redirects?",
+      "answer": "Both are permanent redirects, but 308 is stricter—it forces the same HTTP method (POST stays POST). For most SEO use cases, 301 is the standard choice. RedirHub supports both, and we'll recommend which to use based on your specific migration scenario."
+    },
+    {
+      "question": "Can I track which old URLs are still receiving traffic?",
+      "answer": "Yes. RedirHub's analytics show click counts per redirect, including referrer sources and geographic data. This helps you identify which old URLs still have active backlinks or bookmarks, so you can prioritize maintaining those redirects indefinitely."
+    },
+    {
+      "question": "How do I import a large redirect map from Google Search Console?",
+      "answer": "Export your crawl errors from Search Console, clean the data in Google Sheets or Excel, format as CSV with 'old_url,new_url' columns, and upload to RedirHub. Our bulk import validates the mappings and warns about potential issues before going live."
+    }
+  ],
+  "sections": ["contentTable", "testimonials", "blogInsight"],
+  "footerType": "default",
+  "publishedAt": "2026-01-18T00:00:00.000Z",
+  "isActive": true,
+  "onFooter": true,
+  "locale": "en"
+}
