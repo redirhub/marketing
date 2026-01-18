@@ -4,14 +4,14 @@
     "current": "url-redirect-service"
   },
   "meta": {
-    "metaTitle": "URL Redirect Service - Professional Link Management Platform",
-    "metaDescription": "Enterprise-grade URL redirect service with advanced analytics, custom domains, and API access. Manage all your redirects from one powerful platform."
+    "metaTitle": "Enterprise URL Redirect Service - Global Edge Network & API",
+    "metaDescription": "Cloud-native URL redirection infrastructure for enterprises. 99.99% uptime SLA, sub-100ms latency, API-first architecture, and team collaboration with RBAC. Trusted by Fortune 2000 companies."
   },
   "hero": {
-    "headline": "Professional URL Redirect Service",
-    "subheadline": "Enterprise-grade redirect management with powerful analytics, custom domains, and API access. Trusted by thousands of businesses worldwide.",
+    "headline": "Retire Your Legacy Redirect Servers",
+    "subheadline": "Enterprise URL redirect infrastructure with automatic SSL, global edge delivery, and API automation. Eliminate DevOps tickets and reduce your security surface area.",
     "ctaPrimary": {
-      "label": "Start Free Trial",
+      "label": "Start Enterprise Trial",
       "url": "/signup"
     },
     "heroSections": ["redirect", "customerLogos"]
@@ -23,7 +23,7 @@
       "children": [
         {
           "_type": "span",
-          "text": "Complete URL Redirect Management"
+          "text": "The True Cost of Self-Hosted Redirect Infrastructure"
         }
       ]
     },
@@ -33,7 +33,7 @@
       "children": [
         {
           "_type": "span",
-          "text": "Our URL redirect service provides everything you need to manage, track, and optimize your redirects at scale. From simple URL forwarding to complex redirect rules, we've got you covered."
+          "text": "Maintaining Apache or Nginx redirect servers creates ongoing security risk, requires manual SSL certificate management, and generates constant DevOps tickets. RedirHub provides enterprise-grade redirect infrastructure as a service—reducing attack surfaces, eliminating maintenance burden, and cutting certificate management costs by 70%."
         }
       ]
     },
@@ -43,7 +43,7 @@
       "children": [
         {
           "_type": "span",
-          "text": "Enterprise Features"
+          "text": "Enterprise Infrastructure Features"
         }
       ]
     },
@@ -54,7 +54,7 @@
       "children": [
         {
           "_type": "span",
-          "text": "Custom domain support with SSL certificates"
+          "text": "99.99% uptime SLA with global edge network architecture"
         }
       ]
     },
@@ -65,7 +65,7 @@
       "children": [
         {
           "_type": "span",
-          "text": "Advanced analytics and conversion tracking"
+          "text": "Sub-100ms redirect response times from anywhere in the world"
         }
       ]
     },
@@ -76,7 +76,7 @@
       "children": [
         {
           "_type": "span",
-          "text": "RESTful API for automation"
+          "text": "Automatic zero-touch SSL/TLS certificate provisioning and renewal"
         }
       ]
     },
@@ -87,7 +87,7 @@
       "children": [
         {
           "_type": "span",
-          "text": "Bulk import/export capabilities"
+          "text": "Advanced wildcard subdomain support (*.yourdomain.com)"
         }
       ]
     },
@@ -98,7 +98,7 @@
       "children": [
         {
           "_type": "span",
-          "text": "Team collaboration and permissions"
+          "text": "Path and query string preservation for seamless migrations"
         }
       ]
     },
@@ -109,7 +109,7 @@
       "children": [
         {
           "_type": "span",
-          "text": "24/7 priority support"
+          "text": "Redirect chain detection and prevention for SEO optimization"
         }
       ]
     },
@@ -119,7 +119,115 @@
       "children": [
         {
           "_type": "span",
-          "text": "Use Cases"
+          "text": "Developer-First Automation"
+        }
+      ]
+    },
+    {
+      "_type": "block",
+      "style": "normal",
+      "listItem": "bullet",
+      "children": [
+        {
+          "_type": "span",
+          "text": "RESTful API for programmatic redirect management and CI/CD integration"
+        }
+      ]
+    },
+    {
+      "_type": "block",
+      "style": "normal",
+      "listItem": "bullet",
+      "children": [
+        {
+          "_type": "span",
+          "text": "Official Terraform provider for infrastructure-as-code workflows"
+        }
+      ]
+    },
+    {
+      "_type": "block",
+      "style": "normal",
+      "listItem": "bullet",
+      "children": [
+        {
+          "_type": "span",
+          "text": "Bulk CSV import/export for migrating 10,000+ URLs with zero errors"
+        }
+      ]
+    },
+    {
+      "_type": "block",
+      "style": "normal",
+      "listItem": "bullet",
+      "children": [
+        {
+          "_type": "span",
+          "text": "Webhook notifications for redirect failures and SSL expiry alerts"
+        }
+      ]
+    },
+    {
+      "_type": "block",
+      "style": "h3",
+      "children": [
+        {
+          "_type": "span",
+          "text": "Enterprise Security & Compliance"
+        }
+      ]
+    },
+    {
+      "_type": "block",
+      "style": "normal",
+      "listItem": "bullet",
+      "children": [
+        {
+          "_type": "span",
+          "text": "Role-Based Access Control (RBAC) with SSO integration (Okta, Auth0)"
+        }
+      ]
+    },
+    {
+      "_type": "block",
+      "style": "normal",
+      "listItem": "bullet",
+      "children": [
+        {
+          "_type": "span",
+          "text": "Comprehensive audit logs with 90+ day retention for compliance"
+        }
+      ]
+    },
+    {
+      "_type": "block",
+      "style": "normal",
+      "listItem": "bullet",
+      "children": [
+        {
+          "_type": "span",
+          "text": "Team collaboration with granular permissions per domain or project"
+        }
+      ]
+    },
+    {
+      "_type": "block",
+      "style": "normal",
+      "listItem": "bullet",
+      "children": [
+        {
+          "_type": "span",
+          "text": "SOC 2 Type II compliant infrastructure with enterprise SLA"
+        }
+      ]
+    },
+    {
+      "_type": "block",
+      "style": "h3",
+      "children": [
+        {
+          "_type": "span",
+          "text": "Granular Analytics & Monitoring"
         }
       ]
     },
@@ -129,35 +237,104 @@
       "children": [
         {
           "_type": "span",
-          "text": "Perfect for marketing campaigns, domain migrations, affiliate link management, QR code campaigns, and more. Our service scales with your needs."
+          "text": "Transform redirect traffic into actionable intelligence. Track visitor geography, referrer sources, device types, browser statistics, and HTTP status codes. Real-time dashboards provide instant visibility into redirect performance, while detailed logs integrate with Splunk, Datadog, and other monitoring platforms."
+        }
+      ]
+    },
+    {
+      "_type": "block",
+      "style": "h3",
+      "children": [
+        {
+          "_type": "span",
+          "text": "Proven Use Cases"
+        }
+      ]
+    },
+    {
+      "_type": "block",
+      "style": "normal",
+      "listItem": "bullet",
+      "children": [
+        {
+          "_type": "span",
+          "text": "M&A domain integration: Migrate 150+ acquired domains without outages"
+        }
+      ]
+    },
+    {
+      "_type": "block",
+      "style": "normal",
+      "listItem": "bullet",
+      "children": [
+        {
+          "_type": "span",
+          "text": "Site rebranding: Seamlessly redirect traffic from old .io to new .com domain"
+        }
+      ]
+    },
+    {
+      "_type": "block",
+      "style": "normal",
+      "listItem": "bullet",
+      "children": [
+        {
+          "_type": "span",
+          "text": "Marketing campaign URLs: Decouple marketing from engineering dependencies"
+        }
+      ]
+    },
+    {
+      "_type": "block",
+      "style": "normal",
+      "listItem": "bullet",
+      "children": [
+        {
+          "_type": "span",
+          "text": "Defensive typosquatting: Protect brand equity by redirecting common misspellings"
+        }
+      ]
+    },
+    {
+      "_type": "block",
+      "style": "normal",
+      "listItem": "bullet",
+      "children": [
+        {
+          "_type": "span",
+          "text": "Legacy URL support: Maintain backwards compatibility during platform migrations"
         }
       ]
     }
   ],
   "faqs": [
     {
-      "question": "How is this different from the free redirect service?",
-      "answer": "Our professional URL redirect service includes advanced features like custom domains, API access, bulk operations, team collaboration, and priority support. It's designed for businesses and power users who need more control."
+      "question": "How does RedirHub compare to managing redirects with Cloudflare Page Rules?",
+      "answer": "Cloudflare Page Rules have strict limits (3 on free, 125 on enterprise) and don't include bulk management or audit logs. RedirHub provides unlimited redirects, bulk CSV operations, team permissions, comprehensive analytics, and a dedicated Terraform provider—all optimized specifically for redirect infrastructure."
     },
     {
-      "question": "Can I use my own domain for redirects?",
-      "answer": "Yes! Premium plans include full custom domain support with automatic SSL certificate provisioning. You can use your own branded domains for all redirects."
+      "question": "Can RedirHub handle wildcard subdomain redirects?",
+      "answer": "Yes. RedirHub supports advanced wildcard patterns like *.yourdomain.com → newdomain.com with full path and query string preservation. This is critical for migrating complex application routing without breaking deep links."
     },
     {
-      "question": "Is there an API available?",
-      "answer": "Yes, our RESTful API allows you to create, update, delete, and manage redirects programmatically. Perfect for integrating with your existing tools and workflows."
+      "question": "What is your API rate limit for enterprise plans?",
+      "answer": "Enterprise plans include 10,000 API calls per hour with burst capacity. Custom rate limits available for high-volume use cases. The API supports bulk operations, allowing you to create, update, or delete thousands of redirects in a single call."
     },
     {
-      "question": "What kind of analytics do you provide?",
-      "answer": "We provide comprehensive analytics including click counts, geographic data, referrer information, device types, browser statistics, and custom conversion tracking."
+      "question": "How does SSO integration work?",
+      "answer": "RedirHub integrates with SAML 2.0 and OAuth 2.0 identity providers including Okta, Auth0, Azure AD, and Google Workspace. SSO setup completes in under one day, enabling centralized access control across your organization."
     },
     {
-      "question": "Can multiple team members manage redirects?",
-      "answer": "Absolutely! Our team plans support multiple users with role-based permissions, allowing you to control who can create, edit, or delete redirects."
+      "question": "Can we use RedirHub for customer-facing custom domains?",
+      "answer": "Absolutely. Many SaaS platforms use RedirHub to allow their customers to bring custom domains. Our API handles SSL certificate provisioning automatically—even at scale—eliminating Let's Encrypt rate limit issues."
     },
     {
-      "question": "What is your uptime guarantee?",
-      "answer": "We guarantee 99.9% uptime with enterprise-grade infrastructure. Our global CDN ensures fast redirect resolution from anywhere in the world."
+      "question": "What happens during a redirect failure or outage?",
+      "answer": "Our global edge network automatically routes around failures with instant failover. You receive real-time webhook notifications for any 4xx/5xx errors. Detailed logs help diagnose issues within minutes, and our 99.99% SLA ensures maximum availability."
+    },
+    {
+      "question": "Do you offer dedicated support for enterprise migrations?",
+      "answer": "Yes. Enterprise plans include dedicated onboarding, migration assistance, and priority 24/7 support via Slack or Microsoft Teams. Our team helps plan bulk migrations, reviews redirect mappings, and monitors traffic throughout the transition."
     }
   ],
   "sections": ["contentTable", "testimonials", "blogInsight"],

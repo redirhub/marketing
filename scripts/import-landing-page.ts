@@ -85,20 +85,26 @@ async function importLandingPage(filePath: string) {
       { slug: data.slug.current, locale: data.locale }
     )
 
+    // Transform document
+    const document = transformToSanityDocument(data)
+
     if (existing) {
-      console.log(`⚠️  Landing page "${data.title}" already exists (ID: ${existing._id})`)
-      console.log(`   Skipping import to avoid duplicates.\n`)
-      return
+      // Update existing document
+      document._id = existing._id
+      const result = await writeClient.createOrReplace(document)
+      console.log(`🔄 Updated existing landing page: ${data.title}`)
+      console.log(`   ID: ${result._id}`)
+      console.log(`   Slug: ${data.slug.current}`)
+      console.log(`   Locale: ${data.locale}\n`)
+    } else {
+      // Create new document
+      const result = await writeClient.create(document)
+      console.log(`✅ Created new landing page: ${data.title}`)
+      console.log(`   ID: ${result._id}`)
+      console.log(`   Slug: ${data.slug.current}`)
+      console.log(`   Locale: ${data.locale}\n`)
     }
 
-    // Transform and create document
-    const document = transformToSanityDocument(data)
-    const result = await writeClient.create(document)
-
-    console.log(`✅ Successfully imported: ${data.title}`)
-    console.log(`   ID: ${result._id}`)
-    console.log(`   Slug: ${data.slug.current}`)
-    console.log(`   Locale: ${data.locale}\n`)
     console.log('✨ Import completed!\n')
   } catch (error: any) {
     console.error(`❌ Error importing landing page:`, error.message)
