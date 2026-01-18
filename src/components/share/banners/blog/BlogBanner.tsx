@@ -1,20 +1,21 @@
 "use client";
 
-import { Box, Container, Flex, Heading, Text } from "@chakra-ui/react";
+import { Box, Container, Flex, Heading, Input, Icon } from "@chakra-ui/react";
+import { FiSearch } from "react-icons/fi";
 import styles from "./BlogBanner.module.css";
 
 const BlogBanner = () => {
   return (
     <>
-      <Box pt={20} pb={8} className={styles.container}>
+      <Box pt={32} pb={20} className={styles.container}>
         <Container maxW="7xl" mx="auto" px={{ base: 2, md: 2, lg: 0 }}>
           <Flex direction="column" align="center" textAlign="center" gap={2}>
             <Box>
               <Heading
-                as="h6"
+                as="p"
                 fontSize={{
                   base: "1rem",
-                  md: "1rem",
+                  md: "1.5rem",
                 }}
                 fontWeight="600"
                 lineHeight="tight"
@@ -38,6 +39,39 @@ const BlogBanner = () => {
             >
               Read our blog today
             </Heading>
+            <Box w="full" maxW="600px" mt={4} mx="auto">
+              <Box position="relative" maxW="400px" mx="auto">
+                <Icon
+                  as={FiSearch}
+                  position="absolute"
+                  left={4}
+                  top="50%"
+                  transform="translateY(-50%)"
+                  color="gray.500"
+                  boxSize={5}
+                  zIndex={1}
+                  pointerEvents="none"
+                />
+                <Input
+                  placeholder="Search"
+                  bg="white"
+                  borderRadius="12px"
+                  border="none"
+                  h="56px"
+                  w="full"
+                  pl={12}
+                  fontSize="16px"
+                  color="gray.900"
+                  _placeholder={{
+                    color: "gray.400",
+                  }}
+                  _focus={{
+                    outline: "none",
+                    boxShadow: "none",
+                  }}
+                />
+              </Box>
+            </Box>
           </Flex>
         </Container>
       </Box>

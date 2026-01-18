@@ -1,7 +1,7 @@
 'use client'
 
 import { Box, Heading, Link } from '@chakra-ui/react'
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useRef } from 'react'
 
 interface Heading {
   text: string
@@ -16,6 +16,7 @@ interface TableOfContentsProps {
 export default function TableOfContents({ content }: TableOfContentsProps) {
   const [headings, setHeadings] = useState<Heading[]>([])
   const [activeId, setActiveId] = useState('')
+  const observerRef = useRef<IntersectionObserver | null>(null)
 
   useEffect(() => {
     // Extract headings from content
@@ -34,8 +35,15 @@ export default function TableOfContents({ content }: TableOfContentsProps) {
   }, [content])
 
   useEffect(() => {
-    // Observe heading elements for active state
-    const observer = new IntersectionObserver(
+    if (headings.length === 0) return
+
+    // Disconnect existing observer
+    if (observerRef.current) {
+      observerRef.current.disconnect()
+    }
+
+    // Create intersection observer
+    observerRef.current = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
@@ -49,13 +57,22 @@ export default function TableOfContents({ content }: TableOfContentsProps) {
       }
     )
 
-    // Observe all heading elements
+  // Schedule observation after render
+  const timeout = setTimeout(() => {
     headings.forEach(({ id }) => {
       const element = document.getElementById(id)
-      if (element) observer.observe(element)
+      if (element && observerRef.current) {
+        observerRef.current.observe(element)
+      }
     })
+  }, 0)
 
-    return () => observer.disconnect()
+  return () => {
+    clearTimeout(timeout)
+    if (observerRef.current) {
+      observerRef.current.disconnect()
+    }
+  }
   }, [headings])
 
   if (headings.length === 0) return null
@@ -64,16 +81,15 @@ export default function TableOfContents({ content }: TableOfContentsProps) {
     <Box
       as="aside"
       position="sticky"
-      top="100px"
+      top="80px"
       height="fit-content"
-      maxH="calc(100vh - 40px)"
+      maxH="calc(100vh - 80px)"
       overflowY="auto"
       p={6}
-      bg="white"
-      borderRadius="lg"
-      border="1px solid"
-      borderColor="gray.200"
-      boxShadow="sm"
+      bg="warning.100"
+      borderRadius="12px"
+      border="none"
+      boxShadow="none"
       css={{
         '&::-webkit-scrollbar': {
           width: '4px',
@@ -82,24 +98,24 @@ export default function TableOfContents({ content }: TableOfContentsProps) {
           background: 'transparent',
         },
         '&::-webkit-scrollbar-thumb': {
-          background: '#CBD5E0',
+          background: 'warning.100',
           borderRadius: '4px',
         },
         '&::-webkit-scrollbar-thumb:hover': {
-          background: '#A0AEC0',
+          background: 'warning.100',
         },
       }}
     >
       <Heading
         as="h3"
-        fontSize="sm"
-        fontWeight="700"
-        textTransform="uppercase"
-        letterSpacing="0.05em"
-        color="gray.900"
+        fontSize="18px"
+        fontWeight="600"
+        textTransform="capitalize"
+        letterSpacing="0px"
+        color="gray.darkGray"
         mb={4}
       >
-        TABLE OF CONTENTS:
+        Table of Contents
       </Heading>
 
       <Box display="flex" flexDirection="column" gap={2}>
@@ -118,6 +134,8 @@ export default function TableOfContents({ content }: TableOfContentsProps) {
             }}
             css={{ transition: 'all 0.2s' }}
             lineHeight="1.5"
+            display="flex"
+            alignItems="flex-start"
           >
             {text}
           </Link>

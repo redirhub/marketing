@@ -15,7 +15,7 @@ const BlogList = async ({ currentPage, locale = 'en' }: BlogListProps) => {
 
   return (
     <>
-      <Box w="100%" pt={{ base: 4, md: 8 }} pb={{ base: 4, md: 4 }} bg={"#fff"}>
+      <Box w="100%" pt={{ base: 4, md: 8 }} pb={{ base: 4, md: 4 }} px={4} bg={"#fff"}>
         <Container maxW="7xl" mx="auto" px={{ base: 4, md: 0 }}>
           <SimpleGrid
             columns={{ base: 1, md: 2, lg: 3 }}
