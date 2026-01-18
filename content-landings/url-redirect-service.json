@@ -1,0 +1,169 @@
+{
+  "title": "URL Redirect Service",
+  "slug": {
+    "current": "url-redirect-service"
+  },
+  "meta": {
+    "metaTitle": "URL Redirect Service - Professional Link Management Platform",
+    "metaDescription": "Enterprise-grade URL redirect service with advanced analytics, custom domains, and API access. Manage all your redirects from one powerful platform."
+  },
+  "hero": {
+    "headline": "Professional URL Redirect Service",
+    "subheadline": "Enterprise-grade redirect management with powerful analytics, custom domains, and API access. Trusted by thousands of businesses worldwide.",
+    "ctaPrimary": {
+      "label": "Start Free Trial",
+      "url": "/signup"
+    },
+    "heroSections": ["redirect", "customerLogos"]
+  },
+  "richContent": [
+    {
+      "_type": "block",
+      "style": "h2",
+      "children": [
+        {
+          "_type": "span",
+          "text": "Complete URL Redirect Management"
+        }
+      ]
+    },
+    {
+      "_type": "block",
+      "style": "normal",
+      "children": [
+        {
+          "_type": "span",
+          "text": "Our URL redirect service provides everything you need to manage, track, and optimize your redirects at scale. From simple URL forwarding to complex redirect rules, we've got you covered."
+        }
+      ]
+    },
+    {
+      "_type": "block",
+      "style": "h3",
+      "children": [
+        {
+          "_type": "span",
+          "text": "Enterprise Features"
+        }
+      ]
+    },
+    {
+      "_type": "block",
+      "style": "normal",
+      "listItem": "bullet",
+      "children": [
+        {
+          "_type": "span",
+          "text": "Custom domain support with SSL certificates"
+        }
+      ]
+    },
+    {
+      "_type": "block",
+      "style": "normal",
+      "listItem": "bullet",
+      "children": [
+        {
+          "_type": "span",
+          "text": "Advanced analytics and conversion tracking"
+        }
+      ]
+    },
+    {
+      "_type": "block",
+      "style": "normal",
+      "listItem": "bullet",
+      "children": [
+        {
+          "_type": "span",
+          "text": "RESTful API for automation"
+        }
+      ]
+    },
+    {
+      "_type": "block",
+      "style": "normal",
+      "listItem": "bullet",
+      "children": [
+        {
+          "_type": "span",
+          "text": "Bulk import/export capabilities"
+        }
+      ]
+    },
+    {
+      "_type": "block",
+      "style": "normal",
+      "listItem": "bullet",
+      "children": [
+        {
+          "_type": "span",
+          "text": "Team collaboration and permissions"
+        }
+      ]
+    },
+    {
+      "_type": "block",
+      "style": "normal",
+      "listItem": "bullet",
+      "children": [
+        {
+          "_type": "span",
+          "text": "24/7 priority support"
+        }
+      ]
+    },
+    {
+      "_type": "block",
+      "style": "h3",
+      "children": [
+        {
+          "_type": "span",
+          "text": "Use Cases"
+        }
+      ]
+    },
+    {
+      "_type": "block",
+      "style": "normal",
+      "children": [
+        {
+          "_type": "span",
+          "text": "Perfect for marketing campaigns, domain migrations, affiliate link management, QR code campaigns, and more. Our service scales with your needs."
+        }
+      ]
+    }
+  ],
+  "faqs": [
+    {
+      "question": "How is this different from the free redirect service?",
+      "answer": "Our professional URL redirect service includes advanced features like custom domains, API access, bulk operations, team collaboration, and priority support. It's designed for businesses and power users who need more control."
+    },
+    {
+      "question": "Can I use my own domain for redirects?",
+      "answer": "Yes! Premium plans include full custom domain support with automatic SSL certificate provisioning. You can use your own branded domains for all redirects."
+    },
+    {
+      "question": "Is there an API available?",
+      "answer": "Yes, our RESTful API allows you to create, update, delete, and manage redirects programmatically. Perfect for integrating with your existing tools and workflows."
+    },
+    {
+      "question": "What kind of analytics do you provide?",
+      "answer": "We provide comprehensive analytics including click counts, geographic data, referrer information, device types, browser statistics, and custom conversion tracking."
+    },
+    {
+      "question": "Can multiple team members manage redirects?",
+      "answer": "Absolutely! Our team plans support multiple users with role-based permissions, allowing you to control who can create, edit, or delete redirects."
+    },
+    {
+      "question": "What is your uptime guarantee?",
+      "answer": "We guarantee 99.9% uptime with enterprise-grade infrastructure. Our global CDN ensures fast redirect resolution from anywhere in the world."
+    }
+  ],
+  "sections": ["contentTable", "testimonials", "blogInsight"],
+  "footerType": "with-widgets",
+  "publishedAt": "2026-01-18T00:00:00.000Z",
+  "isActive": true,
+  "onFooter": true,
+  "locale": "en"
+}

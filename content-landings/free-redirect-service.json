@@ -1,0 +1,134 @@
+{
+  "title": "Free Redirect Service",
+  "slug": {
+    "current": "free-redirect-service"
+  },
+  "meta": {
+    "metaTitle": "Free Redirect Service - Fast & Reliable URL Redirects",
+    "metaDescription": "Get started with our free redirect service. Create unlimited URL redirects, track clicks, and manage your links effortlessly. No credit card required."
+  },
+  "hero": {
+    "headline": "Free Redirect Service for Everyone",
+    "subheadline": "Start redirecting URLs instantly with our free plan. Perfect for individuals and small projects. No setup fees, no hidden costs.",
+    "ctaPrimary": {
+      "label": "Get Started Free",
+      "url": "/signup"
+    },
+    "heroSections": ["redirect", "customerLogos"]
+  },
+  "richContent": [
+    {
+      "_type": "block",
+      "style": "h2",
+      "children": [
+        {
+          "_type": "span",
+          "text": "Why Choose Our Free Redirect Service?"
+        }
+      ]
+    },
+    {
+      "_type": "block",
+      "style": "normal",
+      "children": [
+        {
+          "_type": "span",
+          "text": "Our free redirect service offers everything you need to manage URL redirects effectively. Whether you're redirecting a single URL or managing multiple domains, our platform makes it simple and fast."
+        }
+      ]
+    },
+    {
+      "_type": "block",
+      "style": "h3",
+      "children": [
+        {
+          "_type": "span",
+          "text": "Key Features"
+        }
+      ]
+    },
+    {
+      "_type": "block",
+      "style": "normal",
+      "listItem": "bullet",
+      "children": [
+        {
+          "_type": "span",
+          "text": "Unlimited redirects on the free plan"
+        }
+      ]
+    },
+    {
+      "_type": "block",
+      "style": "normal",
+      "listItem": "bullet",
+      "children": [
+        {
+          "_type": "span",
+          "text": "Real-time analytics and click tracking"
+        }
+      ]
+    },
+    {
+      "_type": "block",
+      "style": "normal",
+      "listItem": "bullet",
+      "children": [
+        {
+          "_type": "span",
+          "text": "Easy-to-use dashboard"
+        }
+      ]
+    },
+    {
+      "_type": "block",
+      "style": "normal",
+      "listItem": "bullet",
+      "children": [
+        {
+          "_type": "span",
+          "text": "99.9% uptime guarantee"
+        }
+      ]
+    },
+    {
+      "_type": "block",
+      "style": "normal",
+      "listItem": "bullet",
+      "children": [
+        {
+          "_type": "span",
+          "text": "No credit card required"
+        }
+      ]
+    }
+  ],
+  "faqs": [
+    {
+      "question": "Is the free redirect service really free?",
+      "answer": "Yes! Our free plan includes unlimited redirects with basic analytics. No credit card required to get started."
+    },
+    {
+      "question": "What types of redirects are supported?",
+      "answer": "We support 301 (permanent), 302 (temporary), and 307 (temporary) redirects. All redirect types are available on the free plan."
+    },
+    {
+      "question": "Can I upgrade later if I need more features?",
+      "answer": "Absolutely! You can upgrade to our premium plans anytime to unlock advanced features like custom domains, branded links, and priority support."
+    },
+    {
+      "question": "How long do the free redirects last?",
+      "answer": "Forever! Once you create a redirect on our free plan, it will continue working indefinitely as long as your account remains active."
+    },
+    {
+      "question": "Is there a limit on redirect clicks?",
+      "answer": "No click limits on the free plan. Your redirects will work regardless of how many times they're accessed."
+    }
+  ],
+  "sections": ["testimonials", "blogInsight"],
+  "footerType": "default",
+  "publishedAt": "2026-01-18T00:00:00.000Z",
+  "isActive": true,
+  "onFooter": true,
+  "locale": "en"
+}

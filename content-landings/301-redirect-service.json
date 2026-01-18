@@ -1,0 +1,202 @@
+{
+  "title": "301 Redirect Service",
+  "slug": {
+    "current": "301-redirect-service"
+  },
+  "meta": {
+    "metaTitle": "301 Redirect Service - Permanent URL Redirects for SEO",
+    "metaDescription": "Professional 301 redirect service that preserves SEO value. Perfect for domain migrations, site restructuring, and maintaining search rankings."
+  },
+  "hero": {
+    "headline": "301 Redirect Service for SEO",
+    "subheadline": "Preserve your search rankings with proper 301 redirects. Our service ensures seamless permanent redirects that pass link equity and maintain SEO value.",
+    "ctaPrimary": {
+      "label": "Protect Your SEO",
+      "url": "/signup"
+    },
+    "heroSections": ["redirect", "customerLogos"]
+  },
+  "richContent": [
+    {
+      "_type": "block",
+      "style": "h2",
+      "children": [
+        {
+          "_type": "span",
+          "text": "What is a 301 Redirect?"
+        }
+      ]
+    },
+    {
+      "_type": "block",
+      "style": "normal",
+      "children": [
+        {
+          "_type": "span",
+          "text": "A 301 redirect is a permanent redirect from one URL to another. It tells search engines that a page has permanently moved to a new location, transferring approximately 90-99% of the link equity (ranking power) to the new page."
+        }
+      ]
+    },
+    {
+      "_type": "block",
+      "style": "h3",
+      "children": [
+        {
+          "_type": "span",
+          "text": "Why Use 301 Redirects?"
+        }
+      ]
+    },
+    {
+      "_type": "block",
+      "style": "normal",
+      "listItem": "bullet",
+      "children": [
+        {
+          "_type": "span",
+          "text": "Preserve SEO rankings during site migrations"
+        }
+      ]
+    },
+    {
+      "_type": "block",
+      "style": "normal",
+      "listItem": "bullet",
+      "children": [
+        {
+          "_type": "span",
+          "text": "Consolidate duplicate content"
+        }
+      ]
+    },
+    {
+      "_type": "block",
+      "style": "normal",
+      "listItem": "bullet",
+      "children": [
+        {
+          "_type": "span",
+          "text": "Maintain link equity when changing URLs"
+        }
+      ]
+    },
+    {
+      "_type": "block",
+      "style": "normal",
+      "listItem": "bullet",
+      "children": [
+        {
+          "_type": "span",
+          "text": "Update outdated or broken links"
+        }
+      ]
+    },
+    {
+      "_type": "block",
+      "style": "normal",
+      "listItem": "bullet",
+      "children": [
+        {
+          "_type": "span",
+          "text": "Redirect after domain changes"
+        }
+      ]
+    },
+    {
+      "_type": "block",
+      "style": "h3",
+      "children": [
+        {
+          "_type": "span",
+          "text": "Our 301 Redirect Service Features"
+        }
+      ]
+    },
+    {
+      "_type": "block",
+      "style": "normal",
+      "children": [
+        {
+          "_type": "span",
+          "text": "We make it easy to implement and manage 301 redirects at scale. Our service provides instant redirect setup, real-time monitoring, and detailed analytics to ensure your redirects are working correctly."
+        }
+      ]
+    },
+    {
+      "_type": "block",
+      "style": "normal",
+      "listItem": "bullet",
+      "children": [
+        {
+          "_type": "span",
+          "text": "Bulk 301 redirect setup from CSV files"
+        }
+      ]
+    },
+    {
+      "_type": "block",
+      "style": "normal",
+      "listItem": "bullet",
+      "children": [
+        {
+          "_type": "span",
+          "text": "SEO-optimized redirect chains prevention"
+        }
+      ]
+    },
+    {
+      "_type": "block",
+      "style": "normal",
+      "listItem": "bullet",
+      "children": [
+        {
+          "_type": "span",
+          "text": "Automatic redirect testing and monitoring"
+        }
+      ]
+    },
+    {
+      "_type": "block",
+      "style": "normal",
+      "listItem": "bullet",
+      "children": [
+        {
+          "_type": "span",
+          "text": "Detailed redirect performance reports"
+        }
+      ]
+    }
+  ],
+  "faqs": [
+    {
+      "question": "When should I use a 301 redirect instead of 302?",
+      "answer": "Use a 301 redirect when the change is permanent. This includes domain migrations, URL restructuring, or consolidating duplicate content. Use 302 for temporary redirects like A/B testing or maintenance pages."
+    },
+    {
+      "question": "Will 301 redirects hurt my SEO?",
+      "answer": "No, when implemented correctly, 301 redirects preserve 90-99% of link equity and help maintain your search rankings. They're the recommended method by Google for permanent URL changes."
+    },
+    {
+      "question": "How quickly do search engines recognize 301 redirects?",
+      "answer": "Search engines typically process 301 redirects within a few days to a few weeks, depending on how frequently they crawl your site. Our service includes proper headers and monitoring to ensure quick recognition."
+    },
+    {
+      "question": "Can I change a 301 redirect to a different URL later?",
+      "answer": "Yes, you can update the destination URL of any 301 redirect in our system. However, for SEO purposes, it's best to get it right the first time to avoid redirect chains."
+    },
+    {
+      "question": "Do you handle redirect chains?",
+      "answer": "Our service automatically detects and warns you about redirect chains (multiple redirects in sequence). We recommend resolving chains to maintain optimal SEO performance."
+    },
+    {
+      "question": "Can I bulk import 301 redirects?",
+      "answer": "Yes! Our platform supports bulk CSV imports, making it easy to set up hundreds or thousands of 301 redirects at once during site migrations."
+    }
+  ],
+  "sections": ["contentTable", "testimonials", "blogInsight"],
+  "footerType": "default",
+  "publishedAt": "2026-01-18T00:00:00.000Z",
+  "isActive": true,
+  "onFooter": true,
+  "locale": "en"
+}
