@@ -1,6 +1,44 @@
 import type { StructureResolver } from 'sanity/structure'
 import { LANGUAGES, defaultLocale } from './config/i18n'
 
+const contentTypes = [
+  {
+    id: 'posts',
+    type: 'post',
+    title: 'Posts',
+    icon: '📝',
+    orderBy: { field: 'publishedAt', direction: 'desc' as const },
+  },
+  {
+    id: 'landingPages',
+    type: 'landingPage',
+    title: 'Landing Pages',
+    icon: '🚀',
+    orderBy: { field: 'publishedAt', direction: 'desc' as const },
+  },
+  {
+    id: 'support',
+    type: 'support',
+    title: 'Support Articles',
+    icon: '❓',
+    orderBy: { field: 'publishedAt', direction: 'desc' as const },
+  },
+  {
+    id: 'legal',
+    type: 'legal',
+    title: 'Legal Documents',
+    icon: '⚖️',
+    orderBy: { field: 'title', direction: 'asc' as const },
+  },
+  {
+    id: 'faqSets',
+    type: 'faqSet',
+    title: 'FAQ Sets',
+    icon: '💬',
+    orderBy: { field: 'pageSlug', direction: 'asc' as const },
+  },
+]
+
 export const structure: StructureResolver = (S) => {
   // Get language from sessionStorage (client-side), default to 'en'
   let selectedLanguage = defaultLocale
@@ -13,80 +51,28 @@ export const structure: StructureResolver = (S) => {
   const selectedLang =
     LANGUAGES.find((l) => l.id === selectedLanguage) || LANGUAGES[0]
 
+  const langLabel = `${selectedLang.flag} ${selectedLang.nativeName || selectedLang.title}`
+
   return S.list()
     .title('Content')
     .items([
-      S.listItem()
-        .id('posts')
-        .title('Posts')
-        .icon(() => '📝')
-        .child(
-          S.documentTypeList('post')
-            .title(
-              `Posts - ${selectedLang.flag} ${selectedLang.nativeName || selectedLang.title}`
-            )
-            .filter('_type == "post" && locale == $locale')
-            .params({ locale: selectedLanguage })
-            .defaultOrdering([{ field: 'publishedAt', direction: 'desc' }])
-        ),
-      S.listItem()
-        .id('support')
-        .title('Support Articles')
-        .icon(() => '❓')
-        .child(
-          S.documentTypeList('support')
-            .title(
-              `Support Articles - ${selectedLang.flag} ${selectedLang.nativeName || selectedLang.title}`
-            )
-            .filter('_type == "support" && locale == $locale')
-            .params({ locale: selectedLanguage })
-            .defaultOrdering([{ field: 'publishedAt', direction: 'desc' }])
-        ),
-      S.listItem()
-        .id('legal')
-        .title('Legal Documents')
-        .icon(() => '⚖️')
-        .child(
-          S.documentTypeList('legal')
-            .title(
-              `Legal Documents - ${selectedLang.flag} ${selectedLang.nativeName || selectedLang.title}`
-            )
-            .filter('_type == "legal" && locale == $locale')
-            .params({ locale: selectedLanguage })
-            .defaultOrdering([{ field: 'title', direction: 'asc' }])
-        ),
-      S.listItem()
-        .id('faqSets')
-        .title('FAQ Sets')
-        .icon(() => '💬')
-        .child(
-          S.documentTypeList('faqSet')
-            .title(
-              `FAQ Sets - ${selectedLang.flag} ${selectedLang.nativeName || selectedLang.title}`
-            )
-            .filter('_type == "faqSet" && locale == $locale')
-            .params({ locale: selectedLanguage })
-            .defaultOrdering([{ field: 'pageSlug', direction: 'asc' }])
-        ),
-      S.listItem()
-        .id('landingPages')
-        .title('Landing Pages')
-        .icon(() => '🚀')
-        .child(
-          S.documentTypeList('landingPage')
-            .title(
-              `Landing Pages - ${selectedLang.flag} ${selectedLang.nativeName || selectedLang.title}`
-            )
-            .filter('_type == "landingPage" && locale == $locale')
-            .params({ locale: selectedLanguage })
-            .defaultOrdering([{ field: 'publishedAt', direction: 'desc' }])
-        ),
+      ...contentTypes.map((content) =>
+        S.listItem()
+          .id(content.id)
+          .title(content.title)
+          .icon(() => content.icon)
+          .child(
+            S.documentTypeList(content.type)
+              .title(`${content.title} - ${langLabel}`)
+              .filter(`_type == "${content.type}" && locale == $locale`)
+              .params({ locale: selectedLanguage })
+              .defaultOrdering([content.orderBy])
+          )
+      ),
       S.divider(),
       ...S.documentTypeListItems().filter(
         (listItem) =>
-          !['post', 'support', 'legal', 'faqSet', 'landingPage'].includes(
-            listItem.getId() || ''
-          )
+          !contentTypes.map((c) => c.type).includes(listItem.getId() || '')
       ),
     ])
 }
