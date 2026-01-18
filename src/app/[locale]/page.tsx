@@ -5,9 +5,8 @@ import { getAppName } from "@/lib/utils/constants";
 import ChooseUs from "@/components/home/ChooseUs";
 import WhyStandsOut from "@/components/home/WhyStandsOut";
 import PowerfulFeatures from "@/components/home/PowerfulFeatures";
-import Blogs from "@/components/home/Blogs";
 import APIDocumentation from "@/components/home/APIDocumentation";
-import FAQSection from "@/components/home/FAQSection";
+import { BlogSection, FAQSection } from "@/components/sections";
 import { fetchFAQSetByPage } from "@/lib/services/faq";
 
 export async function generateMetadata({
@@ -55,7 +54,7 @@ export default async function HomePage({
       <ChooseUs />
       <PowerfulFeatures />
       <APIDocumentation />
-      <Blogs />
+      <BlogSection locale={locale} title="Go Through Our Blogs Today" />
       {faqData.length > 0 && <FAQSection faqData={faqData} />}
     </>
   );

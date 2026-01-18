@@ -5,7 +5,7 @@ import { useTranslation } from "react-i18next";
 import Image from "next/image";
 import HeroTabPanel from "./HeroTabPanel";
 import styles from "./Hero.module.css";
-import LogoBar from "./LogoBar";
+import { CustomerLogosSection } from "@/components/sections";
 
 export default function Hero() {
   const { t } = useTranslation("common");
@@ -62,7 +62,7 @@ export default function Hero() {
           </Text>
           <HeroTabPanel />
         </Flex>
-        <LogoBar />
+        <CustomerLogosSection />
         <Box w="100%">
           <Image
             src="/assets/images/banner.png"
