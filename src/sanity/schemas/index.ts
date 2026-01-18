@@ -3,7 +3,8 @@ import { authorType } from './authorType'
 import { supportType } from './supportType'
 import { legalType } from './legalType'
 import { faqSetType } from './faqSetType'
+import { landingPageType } from './landingPageType'
 
 export const schema = {
-  types: [postType, authorType, supportType, legalType, faqSetType],
+  types: [postType, authorType, supportType, legalType, faqSetType, landingPageType],
 }

@@ -188,3 +188,144 @@ export interface PaginatedPosts {
   pageSize: number
   totalPages: number
 }
+
+// Landing Page types
+export interface LandingPageMeta {
+  metaTitle?: string
+  metaDescription?: string
+  ogImage?: SanityImageAsset
+}
+
+export interface CTAButton {
+  label?: string
+  url?: string
+}
+
+export interface HeroSection {
+  headline: string
+  subheadline?: string
+  ctaPrimary?: CTAButton
+  heroImage?: SanityImageAsset
+}
+
+export interface FeatureItem {
+  _key: string
+  title: string
+  description?: string
+  icon?: SanityImageAsset
+  image?: SanityImageAsset
+}
+
+export interface Testimonial {
+  _key: string
+  quote: string
+  author: string
+  role?: string
+  company?: string
+  avatar?: SanityImageAsset
+}
+
+export interface StatItem {
+  _key: string
+  value: string
+  label: string
+  description?: string
+}
+
+export interface RichContentSection {
+  _type: 'richContentSection'
+  _key: string
+  content?: PortableTextContent
+}
+
+export interface FeaturesSection {
+  _type: 'featuresSection'
+  _key: string
+  sectionTitle?: string
+  items?: FeatureItem[]
+}
+
+export interface TestimonialsSection {
+  _type: 'testimonialsSection'
+  _key: string
+  sectionTitle?: string
+  items?: Testimonial[]
+}
+
+export interface FAQSection {
+  _type: 'faqSection'
+  _key: string
+  sectionTitle?: string
+  faqs?: FAQItem[]
+}
+
+export interface CTASection {
+  _type: 'ctaSection'
+  _key: string
+  headline?: string
+  description?: string
+  buttonLabel?: string
+  buttonUrl?: string
+  backgroundImage?: SanityImageAsset
+}
+
+export interface StatsSection {
+  _type: 'statsSection'
+  _key: string
+  sectionTitle?: string
+  stats?: StatItem[]
+}
+
+export interface LogoBarSection {
+  _type: 'logoBarSection'
+  _key: string
+  sectionTitle?: string
+  logos?: SanityImageAsset[]
+}
+
+export type PageSection =
+  | RichContentSection
+  | FeaturesSection
+  | TestimonialsSection
+  | FAQSection
+  | CTASection
+  | StatsSection
+  | LogoBarSection
+
+export interface LandingPage {
+  _id: string
+  _type: 'landingPage'
+  _createdAt?: string
+  _updatedAt?: string
+  title: string
+  slug: {
+    _type: 'slug'
+    current: string
+  }
+  meta?: LandingPageMeta
+  hero: HeroSection
+  richContent: PortableTextContent
+  faqs: FAQItem[]
+  sections?: Array<'contentTable' | 'testimonials' | 'blogInsight'>
+  footerType: 'default' | 'with-widgets'
+  publishedAt: string
+  isActive: boolean
+  onFooter: boolean
+  locale: string
+  needsTranslation?: boolean
+}
+
+export interface LandingPagePreview {
+  _id: string
+  title: string
+  slug: {
+    current: string
+  }
+  hero?: {
+    headline?: string
+    heroImage?: SanityImageAsset
+  }
+  locale: string
+  isActive: boolean
+  publishedAt: string
+}
