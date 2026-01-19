@@ -1,7 +1,11 @@
-import { client } from '@/sanity/lib/client'
+import { client as defaultClient } from '@/sanity/lib/client'
 import type { LegalDocument } from '@/types/sanity'
+import type { SanityClient } from 'next-sanity'
 
-export async function fetchFooterLegalPages(locale: string = 'en'): Promise<LegalDocument[]> {
+export async function fetchFooterLegalPages(
+  locale: string = 'en',
+  client: SanityClient = defaultClient
+): Promise<LegalDocument[]> {
   const query = `*[
     _type == "legal" &&
     locale == $locale &&
@@ -17,7 +21,10 @@ export async function fetchFooterLegalPages(locale: string = 'en'): Promise<Lega
   return client.fetch(query, { locale })
 }
 
-export async function fetchAllLegalPages(locale: string = 'en'): Promise<LegalDocument[]> {
+export async function fetchAllLegalPages(
+  locale: string = 'en',
+  client: SanityClient = defaultClient
+): Promise<LegalDocument[]> {
   const query = `*[
     _type == "legal" &&
     locale == $locale
@@ -32,7 +39,10 @@ export async function fetchAllLegalPages(locale: string = 'en'): Promise<LegalDo
   return client.fetch(query, { locale })
 }
 
-export async function fetchLegalDocuments(locale: string = 'en') {
+export async function fetchLegalDocuments(
+  locale: string = 'en',
+  client: SanityClient = defaultClient
+) {
   const query = `*[
     _type == "legal" &&
     locale == $locale
@@ -49,7 +59,8 @@ export async function fetchLegalDocuments(locale: string = 'en') {
 
 export async function fetchLegalPageBySlug(
   slug: string,
-  locale: string = 'en'
+  locale: string = 'en',
+  client: SanityClient = defaultClient
 ): Promise<LegalDocument | null> {
   const query = `*[
     _type == "legal" &&
@@ -69,7 +80,8 @@ export async function fetchLegalPageBySlug(
 
 export async function fetchLegalDocumentBySlug(
   slug: string,
-  locale: string = 'en'
+  locale: string = 'en',
+  client: SanityClient = defaultClient
 ): Promise<LegalDocument | null> {
   const query = `*[
     _type == "legal" &&
@@ -89,7 +101,10 @@ export async function fetchLegalDocumentBySlug(
   return client.fetch(query, { slug, locale })
 }
 
-export async function fetchLegalDocumentTranslations(slug: string) {
+export async function fetchLegalDocumentTranslations(
+  slug: string,
+  client: SanityClient = defaultClient
+) {
   const query = `*[_type == "legal" && slug.current == $slug]{
     _id,
     locale,

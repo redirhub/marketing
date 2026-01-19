@@ -4,6 +4,7 @@ import { PortableText } from '@portabletext/react'
 import { Box, Container } from "@chakra-ui/react";
 import { fetchLandingPageBySlug, fetchLandingPageTranslations } from "@/lib/services/landingPages";
 import { portableTextComponents } from '@/components/blog/PortableTextComponents'
+import { getClient } from '@/lib/preview'
 import LandingPageBanner from "@/components/share/banners/landingPage/LandingPageBanner";
 import TableOfContents from "@/components/blog/TableOfContents";
 import { TestimonialsSection, BlogSection, FAQSection } from "@/components/sections";
@@ -13,20 +14,27 @@ interface PageProps {
     locale: string
     slug: string
   }>;
+  searchParams: Promise<{
+    version?: string
+  }>;
 }
 
 export async function generateMetadata({
   params,
+  searchParams,
 }: PageProps): Promise<Metadata> {
   const { locale, slug } = await params;
+  const searchParamsObj = await searchParams;
+  const client = getClient(searchParamsObj);
+  const isPreview = searchParamsObj?.version === 'drafts';
 
-  const page = await fetchLandingPageBySlug(slug, locale);
+  const page = await fetchLandingPageBySlug(slug, locale, client, isPreview);
   if (!page) {
     return { title: "Page Not Found" };
   }
 
   // Fetch translations for hreflang alternates
-  const translations = await fetchLandingPageTranslations(slug)
+  const translations = await fetchLandingPageTranslations(slug, client, isPreview)
   const alternates: { languages?: Record<string, string> } = {}
 
   if (translations.length > 0) {
@@ -45,10 +53,13 @@ export async function generateMetadata({
   };
 }
 
-export default async function LandingPage({ params }: PageProps) {
+export default async function LandingPage({ params, searchParams }: PageProps) {
   const { locale, slug } = await params;
+  const searchParamsObj = await searchParams;
+  const client = getClient(searchParamsObj);
+  const isPreview = searchParamsObj?.version === 'drafts';
 
-  const page = await fetchLandingPageBySlug(slug, locale);
+  const page = await fetchLandingPageBySlug(slug, locale, client, isPreview);
   if (!page) {
     notFound();
   }

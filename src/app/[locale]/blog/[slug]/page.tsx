@@ -5,6 +5,7 @@ import { Box, Container } from '@chakra-ui/react'
 import { fetchPostBySlug, fetchRelatedPosts, calculateReadTime, fetchPostTranslations } from '@/lib/services/blog'
 import { urlFor } from '@/sanity/lib/image'
 import { portableTextComponents } from '@/components/blog/PortableTextComponents'
+import { getClient } from '@/lib/preview'
 import PostHeader from '@/components/blog/PostHeader'
 import TableOfContents from '@/components/blog/TableOfContents'
 import AuthorBox from '@/components/blog/AuthorBox'
@@ -16,13 +17,18 @@ interface BlogPostPageProps {
     locale: string
     slug: string
   }>
+  searchParams: Promise<{
+    version?: string
+  }>
 }
 
 export async function generateMetadata({
   params,
+  searchParams,
 }: BlogPostPageProps): Promise<Metadata> {
   const { locale, slug } = await params
-  const post = await fetchPostBySlug(slug, locale)
+  const client = getClient(await searchParams)
+  const post = await fetchPostBySlug(slug, locale, client)
 
   if (!post) {
     return {
@@ -33,7 +39,7 @@ export async function generateMetadata({
   const imageUrl = post.image ? urlFor(post.image).width(1200).height(630).url() : undefined
 
   // Fetch translations for hreflang alternates
-  const translations = await fetchPostTranslations(slug)
+  const translations = await fetchPostTranslations(slug, client)
   const alternates: { languages?: Record<string, string> } = {}
 
   if (translations.length > 0) {
@@ -66,9 +72,10 @@ export async function generateMetadata({
   }
 }
 
-export default async function BlogPostPage({ params }: BlogPostPageProps) {
+export default async function BlogPostPage({ params, searchParams }: BlogPostPageProps) {
   const { locale, slug } = await params
-  const post = await fetchPostBySlug(slug, locale)
+  const client = getClient(await searchParams)
+  const post = await fetchPostBySlug(slug, locale, client)
 
   if (!post) {
     notFound()
@@ -76,7 +83,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
 
   const readTime = post.content ? calculateReadTime(post.content) : 1
   const relatedPosts = post.tags
-    ? await fetchRelatedPosts(post._id, post.tags, locale, 3)
+    ? await fetchRelatedPosts(post._id, post.tags, locale, 3, client)
     : []
 
   // Generate Schema.org JSON-LD
