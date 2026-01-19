@@ -46,11 +46,11 @@ export default function PostHeader({
         <Flex
           gap={{ base: 6, md: 8, lg: 12 }}
           direction={{ base: 'column', lg: 'row' }}
-          align={{ base: 'stretch', lg: 'center' }}
+          align={{ base: 'stretch', lg: 'flex-start' }}
         >
           {/* Left Content: Text Section */}
           <Box flex={{ base: 1, lg: '0 1 55%' }} textAlign="left">
-            <Flex gap={3} mb={6} flexWrap="wrap" alignItems="center" justifyContent="flex-start">
+            <Flex gap={3} my={6} flexWrap="wrap" alignItems="center" justifyContent="flex-start">
               {/* Back to Blog Link */}
               <Link
                 href={`/${locale}/blog`}
