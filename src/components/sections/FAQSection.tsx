@@ -35,7 +35,7 @@ export default function FAQSection({
         fontWeight={500}
         color="#344054"
         letterSpacing="0.4px"
-        mt={20}
+        pt={20}
         mb={16}
       >
         {title}

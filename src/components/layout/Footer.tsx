@@ -151,12 +151,10 @@ export default function Footer({ legalLinks }: FooterProps) {
     <Box
       as="footer"
       color="gray.700"
-      mt="auto"
       className={styles.footerContainer}
       pt={{ base: "3rem", md: "80px" }}
-      px={{ base: 4, md: 4, lg: 0 }}
     >
-      <Container maxW="7xl" px={4} >
+      <Container maxW="7xl" px={4} m="auto">
         {!showTabs && <FooterCtaHeader />}
         {showTabs && <FooterTabs />}
 

@@ -10,6 +10,7 @@ import { structure } from './src/sanity/structure'
 import { languageSwitcherPlugin } from './src/sanity/plugins/languageSwitcher'
 import { languageFilterPlugin } from './src/sanity/plugins/languageFilter'
 import { aiAssistantPlugin } from './src/sanity/plugins/aiAssistant'
+import { previewActionPlugin } from './src/sanity/plugins/previewAction'
 
 export default defineConfig({
   basePath: '/studio',
@@ -22,5 +23,6 @@ export default defineConfig({
     languageSwitcherPlugin(),
     languageFilterPlugin(),
     aiAssistantPlugin(),
+    previewActionPlugin(),
   ],
 })

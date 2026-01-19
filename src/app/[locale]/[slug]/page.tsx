@@ -4,6 +4,7 @@ import { PortableText } from '@portabletext/react'
 import { Box, Container } from "@chakra-ui/react";
 import { fetchLandingPageBySlug, fetchLandingPageTranslations } from "@/lib/services/landingPages";
 import { portableTextComponents } from '@/components/blog/PortableTextComponents'
+import { getClient } from '@/lib/preview'
 import LandingPageBanner from "@/components/share/banners/landingPage/LandingPageBanner";
 import TableOfContents from "@/components/blog/TableOfContents";
 import { TestimonialsSection, BlogSection, FAQSection } from "@/components/sections";
@@ -13,20 +14,27 @@ interface PageProps {
     locale: string
     slug: string
   }>;
+  searchParams: Promise<{
+    version?: string
+  }>;
 }
 
 export async function generateMetadata({
   params,
+  searchParams,
 }: PageProps): Promise<Metadata> {
   const { locale, slug } = await params;
+  const searchParamsObj = await searchParams;
+  const client = getClient(searchParamsObj);
+  const isPreview = searchParamsObj?.version === 'drafts';
 
-  const page = await fetchLandingPageBySlug(slug, locale);
+  const page = await fetchLandingPageBySlug(slug, locale, client, isPreview);
   if (!page) {
     return { title: "Page Not Found" };
   }
 
   // Fetch translations for hreflang alternates
-  const translations = await fetchLandingPageTranslations(slug)
+  const translations = await fetchLandingPageTranslations(slug, client, isPreview)
   const alternates: { languages?: Record<string, string> } = {}
 
   if (translations.length > 0) {
@@ -45,10 +53,18 @@ export async function generateMetadata({
   };
 }
 
-export default async function LandingPage({ params }: PageProps) {
+export default async function LandingPage({ params, searchParams }: PageProps) {
   const { locale, slug } = await params;
+  const searchParamsObj = await searchParams;
+  const client = getClient(searchParamsObj);
+  const isPreview = searchParamsObj?.version === 'drafts';
 
-  const page = await fetchLandingPageBySlug(slug, locale);
+  console.log('=== LANDING PAGE DEBUG ===');
+  console.log('Slug:', slug);
+  console.log('SearchParams:', searchParamsObj);
+  console.log('Version:', searchParamsObj?.version);
+
+  const page = await fetchLandingPageBySlug(slug, locale, client, isPreview);
   if (!page) {
     notFound();
   }
@@ -66,7 +82,7 @@ export default async function LandingPage({ params }: PageProps) {
   const showBlogInsight = page.sections?.includes('blogInsight');
 
   return (
-    <Box bg="white" pb={20}>
+    <Box bg="white">
       {/* Hero Section */}
       <LandingPageBanner hero={page.hero} />
 
@@ -111,7 +127,7 @@ export default async function LandingPage({ params }: PageProps) {
 
       {/* Testimonials Section */}
       {showTestimonials && (
-        <TestimonialsSection marginTop={12} marginBottom="0" />
+        <TestimonialsSection marginTop={12} marginBottom={24} />
       )}
 
       {/* Blog Insight Section */}

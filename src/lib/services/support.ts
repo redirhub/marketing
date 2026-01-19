@@ -1,7 +1,11 @@
-import { client } from '@/sanity/lib/client'
+import { client as defaultClient } from '@/sanity/lib/client'
 import type { SupportArticle } from '@/types/sanity'
+import type { SanityClient } from 'next-sanity'
 
-export async function fetchSupportArticles(locale: string = 'en') {
+export async function fetchSupportArticles(
+  locale: string = 'en',
+  client: SanityClient = defaultClient
+) {
   const query = `*[
     _type == "support" &&
     locale == $locale
@@ -18,7 +22,8 @@ export async function fetchSupportArticles(locale: string = 'en') {
 
 export async function fetchSupportArticleBySlug(
   slug: string,
-  locale: string = 'en'
+  locale: string = 'en',
+  client: SanityClient = defaultClient
 ): Promise<SupportArticle | null> {
   const query = `*[
     _type == "support" &&
@@ -40,7 +45,8 @@ export async function fetchSupportArticleBySlug(
 
 export async function fetchSupportArticlesByTag(
   tag: string,
-  locale: string = 'en'
+  locale: string = 'en',
+  client: SanityClient = defaultClient
 ) {
   const query = `*[
     _type == "support" &&
@@ -57,7 +63,10 @@ export async function fetchSupportArticlesByTag(
   return client.fetch(query, { tag, locale } as Record<string, any>)
 }
 
-export async function fetchSupportArticleTranslations(slug: string) {
+export async function fetchSupportArticleTranslations(
+  slug: string,
+  client: SanityClient = defaultClient
+) {
   const query = `*[_type == "support" && slug.current == $slug]{
     _id,
     locale,

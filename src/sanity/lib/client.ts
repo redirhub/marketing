@@ -17,3 +17,12 @@ export const writeClient = createClient({
   useCdn: false,
   token: process.env.SANITY_API_TOKEN,
 })
+
+export const draftClient = createClient({
+  projectId,
+  dataset,
+  apiVersion,
+  useCdn: false,
+  perspective: 'drafts',
+  token: process.env.SANITY_API_TOKEN,
+})
