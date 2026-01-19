@@ -7,13 +7,56 @@ import HostnameSlider from "./HostnameSlider";
 import PricingPlanCard from "./PricingPlanCard";
 import AddOns from "./AddOns";
 import { pricingPlans, getRecommendedPlan } from "./pricingData";
+import { redirectData, getRecommendedRedirectPlan } from "./redirectPlanData";
 
 export default function InteractivePricing() {
     const [activeTab, setActiveTab] = useState("redirects");
     const [isAnnually, setIsAnnually] = useState(false);
     const [hostnameValue, setHostnameValue] = useState(0);
 
-    const recommendedPlanId = getRecommendedPlan(hostnameValue);
+    const recommendedPlanId = activeTab === 'redirects'
+        ? getRecommendedRedirectPlan(hostnameValue)
+        : getRecommendedPlan(hostnameValue);
+
+    const getDisplayPlans = () => {
+        if (activeTab === 'redirects') {
+            return redirectData.plans.map((plan, index, allPlans) => {
+                let previousPlanName = null;
+                if (plan.level > 0) {
+                    const prevPlan = allPlans.find(p => p.level === plan.level - 1 || (index > 0 && p === allPlans[index - 1]));
+                    if (prevPlan) previousPlanName = prevPlan.label;
+                }
+
+                const mappedFeatures = [
+                    ...plan.limits.map(l => ({
+                        text: l.text_list,
+                        included: true,
+                        isHighlighted: true
+                    })),
+                    ...plan.features.map(f => ({
+                        text: f.label,
+                        included: true,
+                        isHighlighted: false
+                    }))
+                ];
+
+                return {
+                    id: plan.id,
+                    name: plan.label,
+                    priceMonthly: plan.price,
+                    priceAnnually: plan.annual_price,
+                    range: (redirectData.comparison.find(c => c.id === 'basic.records')?.plans[plan.id]?.value as string) || '',
+                    ctaText: plan.price === 0 ? 'Start for Free' : ((typeof plan.price === 'number' && plan.price > 100) ? 'Chat with us' : `Get Started with ${plan.label}`),
+                    features: mappedFeatures,
+                    everythingInPlanName: previousPlanName,
+                    recommended: plan.badge === 'Popular'
+                };
+            });
+        }
+        return pricingPlans;
+    };
+
+    const displayPlans = getDisplayPlans();
 
     const tabHeader = (
         <>
@@ -28,13 +71,18 @@ export default function InteractivePricing() {
             <Flex direction={{ base: "column", lg: "row" }} gap={8} align={{ base: "stretch", lg: "flex-start" }}>
                 <Box flex="1">
                     <HostnameSlider value={hostnameValue} onChange={setHostnameValue} />
-                    <SimpleGrid columns={{ base: 1, md: 2, lg: 3 }} gap={6} mt={8}>
-                        {pricingPlans.map((plan) => (
+                    <SimpleGrid
+                        columns={activeTab === 'redirects' ? { base: 1, md: 2, lg: 3, xl: 4 } : { base: 1, md: 2, lg: 3 }}
+                        gap={4}
+                        mt={8}
+                    >
+                        {displayPlans.map((plan) => (
                             <PricingPlanCard
                                 key={plan.id}
-                                plan={plan}
+                                plan={plan as any}
                                 isAnnually={isAnnually}
                                 recommended={plan.id === recommendedPlanId}
+                                everythingInPlanName={plan.everythingInPlanName}
                             />
                         ))}
                     </SimpleGrid>
@@ -106,7 +154,7 @@ export default function InteractivePricing() {
                 tabHeader={tabHeader}
                 tabBody={tabBody}
                 headerRight={headerRight}
-                maxW="1200px"
+                maxW="1340px"
             />
         </Box>
     );
