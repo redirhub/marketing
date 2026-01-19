@@ -44,12 +44,12 @@ a {
 
 /* NProgress Custom Color Override */
 #nprogress .bar {
-  background: #3182ce !important;
+  background: linear-gradient(90deg, #4facfe, #00f2fe) !important;
   height: 3px !important;
 }
 
 #nprogress .peg {
   box-shadow:
-    0 0 10px #3182ce,
-    0 0 5px #3182ce !important;
+    0 0 10px #4facfe,
+    0 0 5px #00f2fe !important;
 }
