@@ -59,6 +59,11 @@ export default async function LandingPage({ params, searchParams }: PageProps) {
   const client = getClient(searchParamsObj);
   const isPreview = searchParamsObj?.version === 'drafts';
 
+  console.log('=== LANDING PAGE DEBUG ===');
+  console.log('Slug:', slug);
+  console.log('SearchParams:', searchParamsObj);
+  console.log('Version:', searchParamsObj?.version);
+
   const page = await fetchLandingPageBySlug(slug, locale, client, isPreview);
   if (!page) {
     notFound();
