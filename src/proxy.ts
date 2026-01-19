@@ -15,10 +15,14 @@ export function proxy(request: NextRequest) {
     // If it's the default locale, redirect to URL without locale
     if (pathname.startsWith(`/${defaultLocale}/`)) {
       const newPathname = pathname.replace(`/${defaultLocale}`, '');
-      return NextResponse.redirect(new URL(newPathname, request.url));
+      const url = new URL(newPathname, request.url);
+      url.search = request.nextUrl.search;
+      return NextResponse.redirect(url);
     }
     if (pathname === `/${defaultLocale}`) {
-      return NextResponse.redirect(new URL('/', request.url));
+      const url = new URL('/', request.url);
+      url.search = request.nextUrl.search;
+      return NextResponse.redirect(url);
     }
     const response = NextResponse.next();
     response.headers.set('x-pathname', pathname);
@@ -26,7 +30,9 @@ export function proxy(request: NextRequest) {
   }
 
   // Rewrite to default locale for URLs without locale
-  const response = NextResponse.rewrite(new URL(`/${defaultLocale}${pathname}`, request.url));
+  const url = new URL(`/${defaultLocale}${pathname}`, request.url);
+  url.search = request.nextUrl.search;
+  const response = NextResponse.rewrite(url);
   response.headers.set('x-pathname', pathname);
   return response;
 }
