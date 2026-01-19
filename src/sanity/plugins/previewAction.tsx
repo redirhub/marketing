@@ -10,7 +10,7 @@ const getPreviewUrl = (doc: any): string | null => {
   if (!slug) return null
 
   const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || ''
-  const prefix = locale === defaultLocale ? '' : `/${locale}`
+  const prefix = locale === defaultLocale ? `/${baseUrl}` : `/${baseUrl}/${locale}`
 
   switch (doc._type) {
     case 'post':
