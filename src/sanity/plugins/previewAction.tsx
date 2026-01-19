@@ -1,6 +1,7 @@
 import { EyeOpenIcon } from '@sanity/icons'
 import { definePlugin } from 'sanity'
 import type { DocumentActionComponent } from 'sanity'
+import { defaultLocale } from '../config/i18n'
 
 const getPreviewUrl = (doc: any): string | null => {
   const locale = doc.locale || 'en'
@@ -9,7 +10,7 @@ const getPreviewUrl = (doc: any): string | null => {
   if (!slug) return null
 
   const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || ''
-  const prefix = locale === 'en' ? '' : `/${locale}`
+  const prefix = locale === defaultLocale ? '' : `/${locale}`
 
   switch (doc._type) {
     case 'post':
