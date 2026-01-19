@@ -82,7 +82,7 @@ export default async function LandingPage({ params, searchParams }: PageProps) {
   const showBlogInsight = page.sections?.includes('blogInsight');
 
   return (
-    <Box bg="white" pb={20}>
+    <Box bg="white">
       {/* Hero Section */}
       <LandingPageBanner hero={page.hero} />
 
@@ -127,7 +127,7 @@ export default async function LandingPage({ params, searchParams }: PageProps) {
 
       {/* Testimonials Section */}
       {showTestimonials && (
-        <TestimonialsSection marginTop={12} marginBottom="0" />
+        <TestimonialsSection marginTop={12} marginBottom={24} />
       )}
 
       {/* Blog Insight Section */}
