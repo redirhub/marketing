@@ -4,7 +4,7 @@ import type { DocumentActionComponent } from 'sanity'
 import { defaultLocale } from '../config/i18n'
 
 const getPreviewUrl = (doc: any): string | null => {
-  if (!doc || doc.slug?.current) return null
+  if (!doc || !doc.slug?.current) return null
 
   const locale = doc.locale || 'en'
   const slug = doc.slug?.current
