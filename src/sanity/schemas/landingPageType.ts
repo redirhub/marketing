@@ -61,8 +61,8 @@ export const landingPageType = defineType({
           type: 'string',
           title: 'Meta Title',
           description:
-            'SEO title (max 60 characters recommended). Falls back to page title if empty.',
-          validation: (rule) => rule.max(60),
+            'SEO title (max 120 characters recommended). Falls back to page title if empty.',
+          validation: (rule) => rule.max(120),
         },
         {
           name: 'metaDescription',
@@ -70,8 +70,8 @@ export const landingPageType = defineType({
           title: 'Meta Description',
           rows: 3,
           description:
-            'SEO description (max 160 characters recommended). Used in search results.',
-          validation: (rule) => rule.max(160),
+            'SEO description (max 250 characters recommended). Used in search results.',
+          validation: (rule) => rule.max(250),
         },
         {
           name: 'ogImage',
