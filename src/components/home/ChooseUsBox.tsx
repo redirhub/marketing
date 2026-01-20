@@ -44,6 +44,7 @@ export default function ChooseUsBox({
       >
         <Box flex="1" order={{ base: 1, md: 1 }}>
           <Heading
+            as={"h2"}
             fontSize={{ base: "1rem", md: "1.2rem", lg: "1.5rem" }}
             fontWeight="600"
             color="#333"
