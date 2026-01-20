@@ -68,9 +68,9 @@ export default async function RootLayout({
   }));
 
   return (
-    <html lang={locale} suppressHydrationWarning className={inter.variable}>
-      <body
-        style={{ minHeight: "100vh", display: "flex", flexDirection: "column" }}
+      <div lang={locale} suppressHydrationWarning 
+      className={inter.variable}
+      style={{ minHeight: "100vh", display: "flex", flexDirection: "column" }}
       >
         <Provider>
           <Suspense fallback={null}>
@@ -88,7 +88,6 @@ export default async function RootLayout({
             {!hideHeaderAndFooter && <Footer legalLinks={legalLinks} />}
           </TranslationsProvider>
         </Provider>
-      </body>
-    </html>
+      </div>
   );
 }

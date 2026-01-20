@@ -212,7 +212,7 @@ export default function Header() {
           <Link href={getLocalePath("/")}>
             <Box>
               <Image
-                src={hasScrolled ? "/assets/images/RedirHub.png" : "/assets/images/Logo.png"}
+                src={hasScrolled ? "/assets/images/RedirHubLogo.png" : "/assets/images/Logo.png"}
                 alt={getAppName()}
                 width={120}
                 height={40}

@@ -95,7 +95,7 @@ const BlogBanner = () => {
                   }}
                   _focus={{
                     outline: "2px solid",
-                    outlineColor: "primary.600",
+                    outlineColor: "error.500",
                     boxShadow: "none",
                   }}
                 />
