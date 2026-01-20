@@ -3,7 +3,7 @@
 import { Box, Container, Flex, Grid, Stack, Icon } from "@chakra-ui/react";
 import { useTranslation } from "react-i18next";
 import Link from "next/link";
-import { useParams, useRouter, usePathname } from "next/navigation";
+import { useParams, usePathname } from "next/navigation";
 import { getAppName } from "@/lib/utils/constants";
 import { FaYoutube, FaXTwitter, FaFacebook, FaLinkedin } from "react-icons/fa6";
 import styles from "./Footer.module.css";
@@ -19,12 +19,10 @@ interface FooterProps {
 }
 
 export default function Footer({ legalLinks }: FooterProps) {
-  const { t, i18n } = useTranslation();
+  const { t } = useTranslation();
   const params = useParams();
-  const router = useRouter();
   const pathname = usePathname();
   const locale = (params?.locale as string) || "en";
-  const currentLanguage = i18n.language;
 
   const tabRoutes = [
     "/create-redirects",
@@ -43,12 +41,6 @@ export default function Footer({ legalLinks }: FooterProps) {
   const showTabs =
     tabRoutes.includes(pathWithoutLocale) ||
     pathWithoutLocale.startsWith("/support/");
-
-  const handleLanguageChange = (newLocale: string) => {
-    // Get the current path without the locale
-    const pathWithoutLocale = pathname.replace(/^\/[a-z]{2}/, "");
-    router.push(`/${newLocale}${pathWithoutLocale}`);
-  };
 
   const getLocalePath = (path: string) => {
     if (locale === "en") {
@@ -208,11 +200,7 @@ export default function Footer({ legalLinks }: FooterProps) {
               </Flex>
 
               <Box>
-                <LanguageSelector
-                  currentLanguage={currentLanguage}
-                  onLanguageChange={handleLanguageChange}
-                  openDirection="top"
-                />
+                <LanguageSelector openDirection="top" />
               </Box>
             </Stack>
 
