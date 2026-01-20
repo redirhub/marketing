@@ -22,6 +22,7 @@ export const TabContentWrapper: React.FC<TabContentWrapperProps> = ({
         <Box textAlign="left">
           {title && (
             <Heading
+            as={"p"}
               fontSize="1.5rem"
               textAlign="left"
               fontWeight="600"

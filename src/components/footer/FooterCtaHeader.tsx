@@ -6,7 +6,7 @@ export const FooterCtaHeader: React.FC = ({}) => {
   return (
     <VStack gap={6} textAlign="center" mb="60px">
       <Heading
-        as="h1"
+        as="p"
         fontSize={{ base: "2rem", md: "3rem", lg: "3rem" }}
         fontWeight="600"
         color="white"

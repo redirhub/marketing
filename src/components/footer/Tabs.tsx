@@ -131,7 +131,7 @@ export default function FooterTabs() {
   return (
     <Box w="100%" maxW="6xl" mx="auto" mb={14}>
       <Heading
-        as="h1"
+        as="p"
         fontSize={{ base: "2rem", md: "3rem", lg: "3rem" }}
         fontWeight="600"
         color="white"
