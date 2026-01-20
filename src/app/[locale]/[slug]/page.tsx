@@ -8,7 +8,7 @@ import { getClient } from '@/lib/preview'
 import LandingPageBanner from "@/components/share/banners/landingPage/LandingPageBanner";
 import TableOfContents from "@/components/blog/TableOfContents";
 import { TestimonialsSection, BlogSection, FAQSection } from "@/components/sections";
-import { buildCanonicalUrl, buildHreflangAlternates } from '@/lib/utils/seo'
+import { buildCanonicalUrl, buildHreflangAlternates, generateFAQSchema } from '@/lib/utils/seo'
 
 interface PageProps {
   params: Promise<{
@@ -76,6 +76,9 @@ export default async function LandingPage({ params, searchParams }: PageProps) {
     answer: faq.answer,
   })) || [];
 
+  // Generate FAQ Schema.org JSON-LD
+  const faqSchema = generateFAQSchema(page.faqs);
+
   // Check which optional sections should be shown
   const showTableOfContents = page.sections?.includes('contentTable');
   const showTestimonials = page.sections?.includes('testimonials');
@@ -83,6 +86,14 @@ export default async function LandingPage({ params, searchParams }: PageProps) {
 
   return (
     <Box bg="white">
+      {/* FAQ Schema.org JSON-LD */}
+      {faqSchema && (
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
+        />
+      )}
+
       {/* Hero Section */}
       <LandingPageBanner hero={page.hero} />
 

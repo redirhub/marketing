@@ -1,6 +1,14 @@
 /**
- * SEO utility functions for generating canonical URLs and hreflang alternates
+ * SEO utility functions for generating canonical URLs, hreflang alternates, and structured data schemas
  */
+
+/**
+ * FAQ item interface for schema generation
+ */
+export interface FAQItem {
+  question: string
+  answer: string
+}
 
 /**
  * Builds a canonical URL for a given locale and path
@@ -86,4 +94,35 @@ export function buildStaticHreflangAlternates(
   })
 
   return { languages }
+}
+
+/**
+ * Generates Schema.org FAQPage structured data JSON-LD
+ *
+ * @param faqs - Array of FAQ items with question and answer
+ * @returns Schema.org FAQPage object or null if no FAQs
+ *
+ * @example
+ * const schema = generateFAQSchema([
+ *   { question: "What is this?", answer: "This is a FAQ" }
+ * ])
+ * // Returns Schema.org FAQPage JSON-LD object
+ */
+export function generateFAQSchema(faqs: FAQItem[] | undefined | null) {
+  if (!faqs || faqs.length === 0) {
+    return null
+  }
+
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: faqs.map((faq) => ({
+      '@type': 'Question',
+      name: faq.question,
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: faq.answer,
+      },
+    })),
+  }
 }

@@ -11,7 +11,7 @@ import TableOfContents from '@/components/blog/TableOfContents'
 import AuthorBox from '@/components/blog/AuthorBox'
 import RelatedArticles from '@/components/blog/RelatedArticles'
 import BlogFAQ from '@/components/blog/BlogFAQ'
-import { buildCanonicalUrl, buildHreflangAlternates } from '@/lib/utils/seo'
+import { buildCanonicalUrl, buildHreflangAlternates, generateFAQSchema } from '@/lib/utils/seo'
 
 interface BlogPostPageProps {
   params: Promise<{
@@ -123,21 +123,7 @@ export default async function BlogPostPage({ params, searchParams }: BlogPostPag
     keywords: post.tags?.join(', '),
   }
 
-  const faqSchema =
-    post.faqs && post.faqs.length > 0
-      ? {
-          '@context': 'https://schema.org',
-          '@type': 'FAQPage',
-          mainEntity: post.faqs.map((faq) => ({
-            '@type': 'Question',
-            name: faq.question,
-            acceptedAnswer: {
-              '@type': 'Answer',
-              text: faq.answer,
-            },
-          })),
-        }
-      : null
+  const faqSchema = generateFAQSchema(post.faqs)
 
   return (
     <>

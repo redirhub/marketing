@@ -8,7 +8,7 @@ import PowerfulFeatures from "@/components/home/PowerfulFeatures";
 import APIDocumentation from "@/components/home/APIDocumentation";
 import { BlogSection, FAQSection } from "@/components/sections";
 import { fetchFAQSetByPage } from "@/lib/services/faq";
-import { buildCanonicalUrl, buildStaticHreflangAlternates } from '@/lib/utils/seo'
+import { buildCanonicalUrl, buildStaticHreflangAlternates, generateFAQSchema } from '@/lib/utils/seo'
 import { allLanguages } from '@/sanity/config/i18n'
 
 export async function generateMetadata({
@@ -57,8 +57,19 @@ export default async function HomePage({
     answer: faq.answer,
   })) || [];
 
+  // Generate FAQ Schema.org JSON-LD
+  const faqSchema = generateFAQSchema(faqSet?.faqs);
+
   return (
     <>
+      {/* FAQ Schema.org JSON-LD */}
+      {faqSchema && (
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
+        />
+      )}
+
       <Hero />
       <WhyStandsOut />
       <ChooseUs />
