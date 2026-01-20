@@ -31,6 +31,7 @@ export default function FAQSection({
       bg={backgroundColor}
     >
       <Heading
+        as={"p"}
         fontSize={{ base: "2rem", md: "3rem" }}
         fontWeight={500}
         color="#344054"
