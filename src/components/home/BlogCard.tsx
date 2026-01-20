@@ -82,7 +82,7 @@ export const BlogCard = ({
 
         {/* Title */}
         <Heading
-          as="h2"
+          as="p"
           fontSize={{ base: "xl", md: "2xl" }}
           fontWeight="700"
           lineHeight="1.3"

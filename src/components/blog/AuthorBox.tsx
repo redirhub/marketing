@@ -40,7 +40,7 @@ export default function AuthorBox({ author }: AuthorBoxProps) {
         <Box flex="1">
           <Box mb={2}>
             <Heading
-              as="h3"
+              as="p"
               fontSize={{ base: 'xl', md: '2xl' }}
               fontWeight="700"
               color="gray.900"

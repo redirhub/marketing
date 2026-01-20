@@ -107,7 +107,7 @@ export default function TableOfContents({ content }: TableOfContentsProps) {
       }}
     >
       <Heading
-        as="h3"
+        as="p"
         fontSize="18px"
         fontWeight="600"
         textTransform="capitalize"
