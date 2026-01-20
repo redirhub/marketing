@@ -15,6 +15,9 @@ export default function Hero() {
       <Container maxW="7xl" mx="auto" px={{ base: 2, md: 2, lg: 0 }}>
         <Flex direction="column" align="center" textAlign="center" gap={8}>
           <Box>
+            <Text as="span" bg={'header.bg.scrolled'} px={'14px'} py={'7px'} borderRadius="full" fontSize="sm" mb={4} display="inline-block" color="white" fontWeight={500}>
+             ✨ 1M+ domains redirected daily
+            </Text>
             <Heading
               as="h2"
               fontSize={{
@@ -25,6 +28,7 @@ export default function Hero() {
               fontWeight={600}
               maxW="4xl"
               color="#fff"
+              mt={3}
               mb={{ base: 4, md: "12px" }}
             >
               {t(`home.hero.title`, "Your domains.")}

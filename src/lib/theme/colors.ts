@@ -45,7 +45,9 @@ export default {
   },
   success: {
     50: { value: '#ECFDF3' },
+    100: { value: '#DCFAE6'},
     200: { value: '#ABEFC6' },
+    300: { value: '#F8FAFC' },
     500: { value: '#12B76A' },
     700: { value: '#027A48' },
     800: { value: '#D1FADF' },
@@ -56,6 +58,7 @@ export default {
     100: { value: '#F6FEF9' },
     500: { value: '#F04438' },
     700: { value: '#B42318' },
+    800: { value: '#E62E05'},
   },
   warning: {
     50: { value: '#FFFAEB' },
