@@ -22,10 +22,10 @@ export async function generateMetadata({
   };
 
   return {
-    title: `${getAppName()} - ${t("meta.home.title", "Modern URL Management")}`,
+    title: `${getAppName()} - ${t("meta.home.title", "Rapid & Secure URL Redirect Service")}`,
     description: t(
       "meta.home.description",
-      "Manage redirects, short URLs, and monitor your links with ease"
+      "Effortlessly forward your URLs with unmatched speed with RedirHub Redirect Service. Our real-time dashboard makes it easy to manage domain and link redirects."
     ),
   };
 }

@@ -117,6 +117,7 @@ export default function WhyStandsOut() {
             </Box>
             <Stack gap={{ base: 2, md: 4 }} textAlign="left" justify="center">
               <Heading
+                as={"p"}
                 fontWeight={{ base: 600, md: 600, lg: 700 }}
                 fontSize={{ base: "2rem", md: "2.2rem", lg: "3rem" }}
                 color="#000"
