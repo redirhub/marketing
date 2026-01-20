@@ -6,6 +6,8 @@ import { Box, Flex, Heading, VStack } from "@chakra-ui/react";
 import Sidebar from "@/components/support/Sidebar";
 import { ArticleItem } from "@/components/support/ArticleItem";
 import { fetchSupportArticles } from "@/lib/services/support";
+import { buildCanonicalUrl, buildStaticHreflangAlternates } from '@/lib/utils/seo'
+import { allLanguages } from '@/sanity/config/i18n'
 
 export async function generateMetadata({
   params,
@@ -19,12 +21,20 @@ export async function generateMetadata({
     return translation || fallback;
   };
 
+  // Generate canonical URL and hreflang alternates for support page
+  const canonicalUrl = buildCanonicalUrl(locale, '/support')
+  const hreflangAlternates = buildStaticHreflangAlternates(allLanguages, '/support')
+
   return {
     title: `${t("meta.support.title", "Support")} - ${getAppName()}`,
     description: t(
       "meta.support.description",
       "Simple, transparent enterprise for RedirHub"
     ),
+    alternates: {
+      canonical: canonicalUrl,
+      ...hreflangAlternates,
+    },
   };
 }
 

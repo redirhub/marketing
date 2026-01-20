@@ -11,6 +11,7 @@ import TableOfContents from '@/components/blog/TableOfContents'
 import AuthorBox from '@/components/blog/AuthorBox'
 import RelatedArticles from '@/components/blog/RelatedArticles'
 import BlogFAQ from '@/components/blog/BlogFAQ'
+import { buildCanonicalUrl, buildHreflangAlternates } from '@/lib/utils/seo'
 
 interface BlogPostPageProps {
   params: Promise<{
@@ -38,23 +39,22 @@ export async function generateMetadata({
 
   const imageUrl = post.image ? urlFor(post.image).width(1200).height(630).url() : undefined
 
+  // Generate canonical URL
+  const canonicalUrl = buildCanonicalUrl(locale, `/blog/${slug}`)
+
   // Fetch translations for hreflang alternates
   const translations = await fetchPostTranslations(slug, client)
-  const alternates: { languages?: Record<string, string> } = {}
-
-  if (translations.length > 0) {
-    alternates.languages = {}
-    translations.forEach((translation: { _id: string; locale: string; title: string; slug: { current: string } }) => {
-      if (alternates.languages) {
-        alternates.languages[translation.locale] = `/${translation.locale}/blog/${translation.slug.current}`
-      }
-    })
-  }
+  const hreflangAlternates = translations.length > 0
+    ? buildHreflangAlternates(translations, '/blog')
+    : {}
 
   return {
     title: post.title,
     description: post.excerpt || undefined,
-    alternates,
+    alternates: {
+      canonical: canonicalUrl,
+      ...hreflangAlternates,
+    },
     openGraph: {
       title: post.title,
       description: post.excerpt || undefined,
@@ -88,7 +88,7 @@ export default async function BlogPostPage({ params, searchParams }: BlogPostPag
 
   // Generate Schema.org JSON-LD
   const imageUrl = post.image ? urlFor(post.image).width(1200).height(630).url() : undefined
-  const canonicalUrl = `${process.env.NEXT_PUBLIC_SITE_URL || ''}/${locale}/blog/${slug}`
+  const canonicalUrl = buildCanonicalUrl(locale, `/blog/${slug}`)
 
   const articleSchema = {
     '@context': 'https://schema.org',

@@ -8,6 +8,7 @@ import { getClient } from '@/lib/preview'
 import LandingPageBanner from "@/components/share/banners/landingPage/LandingPageBanner";
 import TableOfContents from "@/components/blog/TableOfContents";
 import { TestimonialsSection, BlogSection, FAQSection } from "@/components/sections";
+import { buildCanonicalUrl, buildHreflangAlternates } from '@/lib/utils/seo'
 
 interface PageProps {
   params: Promise<{
@@ -33,23 +34,22 @@ export async function generateMetadata({
     return { title: "Page Not Found" };
   }
 
+  // Generate canonical URL
+  const canonicalUrl = buildCanonicalUrl(locale, `/${slug}`)
+
   // Fetch translations for hreflang alternates
   const translations = await fetchLandingPageTranslations(slug, client, isPreview)
-  const alternates: { languages?: Record<string, string> } = {}
-
-  if (translations.length > 0) {
-    alternates.languages = {}
-    translations.forEach((translation: { locale: string; slug: { current: string } }) => {
-      if (alternates.languages) {
-        alternates.languages[translation.locale] = `/${translation.locale}/${translation.slug.current}`
-      }
-    })
-  }
+  const hreflangAlternates = translations.length > 0
+    ? buildHreflangAlternates(translations, '')
+    : {}
 
   return {
     title: page.meta?.metaTitle || `${page.title} | RedirHub`,
     description: page.meta?.metaDescription || page.hero.subheadline || `${page.title} with RedirHub.`,
-    alternates,
+    alternates: {
+      canonical: canonicalUrl,
+      ...hreflangAlternates,
+    },
   };
 }
 

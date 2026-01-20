@@ -8,6 +8,8 @@ import PowerfulFeatures from "@/components/home/PowerfulFeatures";
 import APIDocumentation from "@/components/home/APIDocumentation";
 import { BlogSection, FAQSection } from "@/components/sections";
 import { fetchFAQSetByPage } from "@/lib/services/faq";
+import { buildCanonicalUrl, buildStaticHreflangAlternates } from '@/lib/utils/seo'
+import { allLanguages } from '@/sanity/config/i18n'
 
 export async function generateMetadata({
   params,
@@ -21,12 +23,20 @@ export async function generateMetadata({
     return translation || fallback;
   };
 
+  // Generate canonical URL and hreflang alternates for home page
+  const canonicalUrl = buildCanonicalUrl(locale, '/')
+  const hreflangAlternates = buildStaticHreflangAlternates(allLanguages, '/')
+
   return {
     title: `${getAppName()} - ${t("meta.home.title", "Rapid & Secure URL Redirect Service")}`,
     description: t(
       "meta.home.description",
       "Effortlessly forward your URLs with unmatched speed with RedirHub Redirect Service. Our real-time dashboard makes it easy to manage domain and link redirects."
     ),
+    alternates: {
+      canonical: canonicalUrl,
+      ...hreflangAlternates,
+    },
   };
 }
 
