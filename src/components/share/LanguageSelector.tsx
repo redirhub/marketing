@@ -3,34 +3,39 @@
 import React, { useState, useEffect, useRef } from "react";
 import { Box, Button, Flex, Text, Image } from "@chakra-ui/react";
 import { ChevronDownIcon, CheckIcon } from "@chakra-ui/icons";
+import { useRouter, usePathname, useParams } from "next/navigation";
+import { LANGUAGES, allLanguages } from "@/sanity/config/i18n";
 
-const languages = [
-  { code: "de", label: "Deutsch", flagUrl: "https://flagcdn.com/w40/de.png" },
-  { code: "es", label: "Español", flagUrl: "https://flagcdn.com/w40/es.png" },
-  { code: "fr", label: "Français", flagUrl: "https://flagcdn.com/w40/fr.png" },
-  { code: "it", label: "Italiano", flagUrl: "https://flagcdn.com/w40/it.png" },
-  { code: "pt", label: "Português", flagUrl: "https://flagcdn.com/w40/pt.png" },
-  { code: "ja", label: "日本語", flagUrl: "https://flagcdn.com/w40/jp.png" },
-  {
-    code: "zh",
-    label: "中文 (简体)",
-    flagUrl: "https://flagcdn.com/w40/cn.png",
-  },
-  { code: "ko", label: "한국어", flagUrl: "https://flagcdn.com/w40/kr.png" },
-  { code: "en", label: "English", flagUrl: "https://flagcdn.com/w40/gb.png" },
-];
+const flagUrls: Record<string, string> = {
+  de: "https://flagcdn.com/w40/de.png",
+  es: "https://flagcdn.com/w40/es.png",
+  fr: "https://flagcdn.com/w40/fr.png",
+  it: "https://flagcdn.com/w40/it.png",
+  pt: "https://flagcdn.com/w40/pt.png",
+  ja: "https://flagcdn.com/w40/jp.png",
+  zh: "https://flagcdn.com/w40/cn.png",
+  ko: "https://flagcdn.com/w40/kr.png",
+  en: "https://flagcdn.com/w40/gb.png",
+};
+
+const languages = LANGUAGES.map((lang) => ({
+  code: lang.id,
+  label: lang.nativeName,
+  flagUrl: flagUrls[lang.id] || "https://flagcdn.com/w40/gb.png",
+}));
 
 interface LanguageSelectorProps {
-  currentLanguage: string;
-  onLanguageChange: (code: string) => void;
   openDirection?: "top" | "bottom";
 }
 
 const LanguageSelector: React.FC<LanguageSelectorProps> = ({
-  currentLanguage,
-  onLanguageChange,
   openDirection = "bottom",
 }) => {
+  const router = useRouter();
+  const pathname = usePathname();
+  const params = useParams();
+  const currentLanguage = (params?.locale as string) || "en";
+
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
 
@@ -62,8 +67,29 @@ const LanguageSelector: React.FC<LanguageSelectorProps> = ({
   const displayLanguage =
     selectedLanguage || languages.find((lang) => lang.code === "en");
 
-  const handleLanguageChange = (code: string) => {
-    onLanguageChange(code);
+  const handleLanguageChange = (newLocale: string) => {
+    // Create a regex that matches only valid language codes from i18n config
+    const localePattern = new RegExp(`^/(${allLanguages.join('|')})(\/|$)`);
+
+    // Get the current path without the locale
+    let pathWithoutLocale = pathname;
+    if (localePattern.test(pathname)) {
+      // Remove the locale prefix and keep everything after it
+      pathWithoutLocale = pathname.replace(localePattern, '/');
+    }
+
+    // Ensure path starts with /
+    if (!pathWithoutLocale.startsWith("/")) {
+      pathWithoutLocale = "/" + pathWithoutLocale;
+    }
+
+    // For English, don't add locale prefix; for others, add it
+    if (newLocale === "en") {
+      router.push(pathWithoutLocale);
+    } else {
+      router.push(`/${newLocale}${pathWithoutLocale}`);
+    }
+
     setIsOpen(false);
   };
 

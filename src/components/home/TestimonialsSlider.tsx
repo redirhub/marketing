@@ -177,7 +177,7 @@ export default function TestimonialsSlider({ marginBottom }: Props) {
         className="testimonials-container"
       >
         <Heading
-          as="h2"
+          as="p"
           fontSize={{ base: "24px", md: "34px", lg: "40px" }}
           fontWeight={600}
           color="whiteAlpha.88"

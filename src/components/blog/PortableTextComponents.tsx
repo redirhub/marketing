@@ -1,6 +1,7 @@
 import { PortableTextComponents } from '@portabletext/react'
 import { Box, Heading, Text, Code, Image as ChakraImage } from '@chakra-ui/react'
 import { urlFor } from '@/sanity/lib/image'
+import { GoCheckCircle } from 'react-icons/go'
 
 // Track heading index for unique IDs
 let currentHeadingIndex = -1
@@ -100,8 +101,9 @@ export const portableTextComponents: PortableTextComponents = {
   },
   listItem: {
     bullet: ({ children }) => (
-      <Box as="li" fontSize={{ base: 'md', md: 'lg' }} color="gray.700" mb={2}>
-        {children}
+      <Box as="li" display="flex" gap={2} alignItems="center" fontSize={{ base: 'md', md: 'lg' }} color="gray.700" mb={2}>
+        <GoCheckCircle style={{ flexShrink: 0 }} color="#E49426" />
+        <Box>{children}</Box>
       </Box>
     ),
     number: ({ children }) => (

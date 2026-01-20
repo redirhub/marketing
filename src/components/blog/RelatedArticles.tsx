@@ -16,7 +16,7 @@ export default function RelatedArticles({ posts, locale = 'en' }: RelatedArticle
   return (
     <Box as="section" mt={16} mb={8}>
       <Flex justify="space-between" align="center" mb={4}>
-        <Heading as="h2" fontSize={{ base: '2xl', md: '3xl' }} fontWeight="800" color="gray.900">
+        <Heading as="p" fontSize={{ base: '2xl', md: '3xl' }} fontWeight="800" color="gray.900">
           Related Articles
         </Heading>
 

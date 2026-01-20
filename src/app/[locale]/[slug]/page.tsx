@@ -4,51 +4,67 @@ import { PortableText } from '@portabletext/react'
 import { Box, Container } from "@chakra-ui/react";
 import { fetchLandingPageBySlug, fetchLandingPageTranslations } from "@/lib/services/landingPages";
 import { portableTextComponents } from '@/components/blog/PortableTextComponents'
+import { getClient } from '@/lib/preview'
 import LandingPageBanner from "@/components/share/banners/landingPage/LandingPageBanner";
 import TableOfContents from "@/components/blog/TableOfContents";
 import { TestimonialsSection, BlogSection, FAQSection } from "@/components/sections";
+import { buildCanonicalUrl, buildHreflangAlternates, generateFAQSchema } from '@/lib/utils/seo'
 
 interface PageProps {
   params: Promise<{
     locale: string
     slug: string
   }>;
+  searchParams: Promise<{
+    version?: string
+  }>;
 }
 
 export async function generateMetadata({
   params,
+  searchParams,
 }: PageProps): Promise<Metadata> {
   const { locale, slug } = await params;
+  const searchParamsObj = await searchParams;
+  const client = getClient(searchParamsObj);
+  const isPreview = searchParamsObj?.version === 'drafts';
 
-  const page = await fetchLandingPageBySlug(slug, locale);
+  const page = await fetchLandingPageBySlug(slug, locale, client, isPreview);
   if (!page) {
     return { title: "Page Not Found" };
   }
 
-  // Fetch translations for hreflang alternates
-  const translations = await fetchLandingPageTranslations(slug)
-  const alternates: { languages?: Record<string, string> } = {}
+  // Generate canonical URL
+  const canonicalUrl = buildCanonicalUrl(locale, `/${slug}`)
 
-  if (translations.length > 0) {
-    alternates.languages = {}
-    translations.forEach((translation: { locale: string; slug: { current: string } }) => {
-      if (alternates.languages) {
-        alternates.languages[translation.locale] = `/${translation.locale}/${translation.slug.current}`
-      }
-    })
-  }
+  // Fetch translations for hreflang alternates
+  const translations = await fetchLandingPageTranslations(slug, client, isPreview)
+  const hreflangAlternates = translations.length > 0
+    ? buildHreflangAlternates(translations, '')
+    : {}
 
   return {
     title: page.meta?.metaTitle || `${page.title} | RedirHub`,
     description: page.meta?.metaDescription || page.hero.subheadline || `${page.title} with RedirHub.`,
-    alternates,
+    alternates: {
+      canonical: canonicalUrl,
+      ...hreflangAlternates,
+    },
   };
 }
 
-export default async function LandingPage({ params }: PageProps) {
+export default async function LandingPage({ params, searchParams }: PageProps) {
   const { locale, slug } = await params;
+  const searchParamsObj = await searchParams;
+  const client = getClient(searchParamsObj);
+  const isPreview = searchParamsObj?.version === 'drafts';
 
-  const page = await fetchLandingPageBySlug(slug, locale);
+  console.log('=== LANDING PAGE DEBUG ===');
+  console.log('Slug:', slug);
+  console.log('SearchParams:', searchParamsObj);
+  console.log('Version:', searchParamsObj?.version);
+
+  const page = await fetchLandingPageBySlug(slug, locale, client, isPreview);
   if (!page) {
     notFound();
   }
@@ -60,13 +76,24 @@ export default async function LandingPage({ params }: PageProps) {
     answer: faq.answer,
   })) || [];
 
+  // Generate FAQ Schema.org JSON-LD
+  const faqSchema = generateFAQSchema(page.faqs);
+
   // Check which optional sections should be shown
   const showTableOfContents = page.sections?.includes('contentTable');
   const showTestimonials = page.sections?.includes('testimonials');
   const showBlogInsight = page.sections?.includes('blogInsight');
 
   return (
-    <Box bg="white" pb={20}>
+    <Box bg="white">
+      {/* FAQ Schema.org JSON-LD */}
+      {faqSchema && (
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
+        />
+      )}
+
       {/* Hero Section */}
       <LandingPageBanner hero={page.hero} />
 
@@ -111,7 +138,7 @@ export default async function LandingPage({ params }: PageProps) {
 
       {/* Testimonials Section */}
       {showTestimonials && (
-        <TestimonialsSection marginTop={12} marginBottom="0" />
+        <TestimonialsSection marginTop={12} marginBottom={24} />
       )}
 
       {/* Blog Insight Section */}

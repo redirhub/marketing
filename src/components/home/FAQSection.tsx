@@ -21,6 +21,7 @@ export default function FAQSection({ faqData }: FAQSectionProps) {
         bg={"#F2F4EF"}
       >
         <Heading
+        as={"p"}
           fontSize={{ base: "2rem", md: "3rem" }}
           fontWeight={500}
           color="#344054"

@@ -1,11 +1,17 @@
-import { client } from '@/sanity/lib/client'
+import { client as defaultClient } from '@/sanity/lib/client'
 import type { LandingPage } from '@/types/sanity'
+import type { SanityClient } from 'next-sanity'
 
-export async function fetchLandingPages(locale: string = 'en') {
+export async function fetchLandingPages(
+  locale: string = 'en',
+  client: SanityClient = defaultClient,
+  isPreview: boolean = false
+) {
+  const activeFilter = isPreview ? '' : '&& isActive == true'
   const query = `*[
     _type == "landingPage" &&
-    locale == $locale &&
-    isActive == true
+    locale == $locale
+    ${activeFilter}
   ] | order(publishedAt desc) {
     _id,
     title,
@@ -18,13 +24,16 @@ export async function fetchLandingPages(locale: string = 'en') {
 
 export async function fetchLandingPageBySlug(
   slug: string,
-  locale: string = 'en'
+  locale: string = 'en',
+  client: SanityClient = defaultClient,
+  isPreview: boolean = false
 ): Promise<LandingPage | null> {
+  const activeFilter = isPreview ? '' : '&& isActive == true'
   const query = `*[
     _type == "landingPage" &&
     slug.current == $slug &&
-    locale == $locale &&
-    isActive == true
+    locale == $locale
+    ${activeFilter}
   ][0] {
     _id,
     _createdAt,
@@ -43,8 +52,13 @@ export async function fetchLandingPageBySlug(
   return client.fetch(query, { slug, locale })
 }
 
-export async function fetchLandingPageTranslations(slug: string) {
-  const query = `*[_type == "landingPage" && slug.current == $slug && isActive == true]{
+export async function fetchLandingPageTranslations(
+  slug: string,
+  client: SanityClient = defaultClient,
+  isPreview: boolean = false
+) {
+  const activeFilter = isPreview ? '' : '&& isActive == true'
+  const query = `*[_type == "landingPage" && slug.current == $slug ${activeFilter}]{
     _id,
     locale,
     title,

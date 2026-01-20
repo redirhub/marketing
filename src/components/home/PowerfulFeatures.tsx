@@ -137,6 +137,7 @@ const FeatureContent: React.FC<FeatureContentProps> = ({ data }) => {
       <SimpleGrid columns={{ base: 1, md: 1, lg: 2 }} gap={8}>
         <Box textAlign="left" order={{ base: 1, md: 1, lg: 1 }}>
           <Heading
+            as={"h2"}
             fontSize={{ base: "1.2rem", md: "1.5rem", lg: "1.8rem" }}
             color="gray.900"
             mb={6}
@@ -318,6 +319,7 @@ export default function PowerfulFeatures() {
     >
       <Box w="100%" maxW="7xl" mx="auto" textAlign="center">
         <Heading
+          as={"p"}
           fontSize={{ base: "2rem", md: "3rem" }}
           fontWeight={500}
           color="gray.700"

@@ -15,6 +15,7 @@ export default function ChooseUs() {
       <Box w="100%" maxW="7xl" mx="auto" textAlign="center">
         {/* Main Title */}
         <Heading
+          as={"p"}
           fontSize={{ base: "2rem", md: "3rem" }}
           fontWeight={500}
           lineHeight={{ base: "2rem", md: "3rem" }}

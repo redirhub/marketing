@@ -5,48 +5,55 @@ import { Box, Container } from "@chakra-ui/react";
 import SinglePageBanner from "@/components/share/banners/support/SinglePageBanner";
 import { fetchSupportArticleBySlug, fetchSupportArticleTranslations } from "@/lib/services/support";
 import { portableTextComponents } from '@/components/blog/PortableTextComponents'
+import { getClient } from '@/lib/preview'
+import { buildCanonicalUrl, buildHreflangAlternates } from '@/lib/utils/seo'
 
 interface PageProps {
   params: Promise<{
     locale: string
     slug: string
   }>;
+  searchParams: Promise<{
+    version?: string
+  }>;
 }
 
 export async function generateMetadata({
   params,
+  searchParams,
 }: PageProps): Promise<Metadata> {
   const { locale, slug } = await params;
+  const client = getClient(await searchParams);
 
-  const article = await fetchSupportArticleBySlug(slug, locale);
+  const article = await fetchSupportArticleBySlug(slug, locale, client);
   if (!article) {
     return { title: "Article Not Found" };
   }
 
-  // Fetch translations for hreflang alternates
-  const translations = await fetchSupportArticleTranslations(slug)
-  const alternates: { languages?: Record<string, string> } = {}
+  // Generate canonical URL
+  const canonicalUrl = buildCanonicalUrl(locale, `/support/${slug}`)
 
-  if (translations.length > 0) {
-    alternates.languages = {}
-    translations.forEach((translation: { locale: string; slug: { current: string } }) => {
-      if (alternates.languages) {
-        alternates.languages[translation.locale] = `/${translation.locale}/support/${translation.slug.current}`
-      }
-    })
-  }
+  // Fetch translations for hreflang alternates
+  const translations = await fetchSupportArticleTranslations(slug, client)
+  const hreflangAlternates = translations.length > 0
+    ? buildHreflangAlternates(translations, '/support')
+    : {}
 
   return {
     title: `${article.title} | RedirHub Support`,
     description: `Learn how to ${article.title} with RedirHub.`,
-    alternates,
+    alternates: {
+      canonical: canonicalUrl,
+      ...hreflangAlternates,
+    },
   };
 }
 
-export default async function SupportSinglePage({ params }: PageProps) {
+export default async function SupportSinglePage({ params, searchParams }: PageProps) {
   const { locale, slug } = await params;
+  const client = getClient(await searchParams);
 
-  const article = await fetchSupportArticleBySlug(slug, locale);
+  const article = await fetchSupportArticleBySlug(slug, locale, client);
   if (!article) {
     notFound();
   }

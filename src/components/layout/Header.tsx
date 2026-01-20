@@ -309,7 +309,7 @@ export default function Header() {
                 cursor="pointer"
                 _hover={{ bg: "brand.hover" }}
               >
-                {t(`nav.getStarted`, "Sign Up")}
+                {t(`nav.start-for-free`, "Start for Free")}
               </Box>
             </Link>
           </Flex>
