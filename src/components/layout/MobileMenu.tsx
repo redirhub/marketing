@@ -48,7 +48,7 @@ export default function MobileMenu({ navItems }: MobileMenuProps) {
                         <Flex justify="space-between" align="center">
                             <Box>
                                 <Image
-                                    src="/assets/images/Logo.png"
+                                    src="/assets/images/logo-dark.png"
                                     alt={getAppName()}
                                     width={100}
                                     height={32}

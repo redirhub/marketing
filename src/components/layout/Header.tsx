@@ -252,13 +252,13 @@ export default function Header() {
             <Box>
               <Image
                 src={
-                  hasScrolled
-                    ? "/assets/images/RedirHubLogo.png"
-                    : "/assets/images/Logo.png"
+                  !hasScrolled
+                    ? "/assets/images/logo-dark.png"
+                    : "/assets/images/logo.png"
                 }
                 alt={getAppName()}
-                width={120}
-                height={40}
+                width={150}
+                height={53}
                 style={{ height: "auto" }}
               />
             </Box>
