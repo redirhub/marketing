@@ -14,7 +14,7 @@ import Link from "next/link";
 import styles from "../../../sections/Hero.module.css";
 import type { HeroSection } from "@/types/sanity";
 import { urlFor } from "@/sanity/lib/image";
-import RedirectWidget from "@/components/home/RedirectWidget";
+import RedirectWidget from "@/components/sections/RedirectWidget";
 import { CustomerLogosSection } from "@/components/sections";
 
 interface LandingPageBannerProps {
@@ -90,7 +90,7 @@ export default function LandingPageBanner({ hero }: LandingPageBannerProps) {
 
           {/* Redirect Widget */}
           {showRedirectWidget && (
-            <RedirectWidget />
+            <RedirectWidget fixed={`redirect`} />
           )}
         </Flex>
 
