@@ -8,9 +8,10 @@ interface PricingPlanCardProps {
     plan: PricingPlan;
     isAnnually: boolean;
     recommended?: boolean;
+    everythingInPlanName?: string | null;
 }
 
-export default function PricingPlanCard({ plan, isAnnually, recommended }: PricingPlanCardProps) {
+export default function PricingPlanCard({ plan, isAnnually, recommended, everythingInPlanName }: PricingPlanCardProps) {
     const price = isAnnually ? plan.priceAnnually : plan.priceMonthly;
     const isCustom = typeof price === 'string';
 
@@ -48,11 +49,11 @@ export default function PricingPlanCard({ plan, isAnnually, recommended }: Prici
                 </Badge>
             )}
 
-            <Stack 
-                gap={1} 
-                p={7} 
-                spaceY={4} 
-                minH={'270px'}
+            <Stack
+                gap={1}
+                p={6}
+                spaceY={4}
+                minH={'255px'}
                 display="flex"
                 flexDirection="column"
             >
@@ -60,14 +61,14 @@ export default function PricingPlanCard({ plan, isAnnually, recommended }: Prici
                     {plan.name}
                 </Heading>
 
-                <Flex align="baseline" direction={isCustom ? "column" : "row"} gap={1} mt={2}>
+                <Flex align="baseline" direction={isCustom ? "column" : "row"} gap={1}>
                     {!isCustom && (
                         <Text fontSize="16px" lineHeight="24px" fontWeight="500" color="gray.textMedium">
                             from
                         </Text>
                     )}
-                    <Flex align="baseline" gap={2}>
-                        <Text fontSize={isCustom ? "32px" : "44px"} fontWeight="600" color="gray.darkGray" lineHeight="1.2">
+                    <Flex align="baseline" gap={1}>
+                        <Text fontSize={isCustom ? "26px" : "34px"} fontWeight="600" color="gray.darkGray" lineHeight="1.2">
                             {!isCustom && (
                                 <Text as="span" color="gray.textMedium">
                                     $
@@ -78,8 +79,8 @@ export default function PricingPlanCard({ plan, isAnnually, recommended }: Prici
                     </Flex>
 
                     {!isCustom && (
-                        <Text fontSize="16px" lineHeight="24px" fontWeight="500" color="gray.textMedium" ml={1}>
-                            per month
+                        <Text fontSize="16px" lineHeight="24px" fontWeight="500" whiteSpace={'nowrap'} color="gray.textMedium">
+                            {isAnnually ? "annually" : "per month"}
                         </Text>
                     )}
                 </Flex>
@@ -103,7 +104,7 @@ export default function PricingPlanCard({ plan, isAnnually, recommended }: Prici
                             transform: "translateY(-1px)",
                         }}
                     >
-                        {plan.ctaText}  <Icon as={FiArrowRight} ml={2} />
+                        {plan.ctaText}  <Icon as={FiArrowRight} ml={1} />
                     </Button>
                 </Flex>
             </Stack>
@@ -111,13 +112,13 @@ export default function PricingPlanCard({ plan, isAnnually, recommended }: Prici
                 borderBottom="1px solid"
                 borderColor="gray.borderLight"
             />
-            <VStack align="start" gap={4} flex="1" p={7}>
+            <VStack align="start" gap={4} flex="1" p={6}>
                 <Text fontSize="16px" fontWeight="600" color="gray.700" textTransform="uppercase" letterSpacing="wider">
                     Features
                 </Text>
-                {plan.id !== 'basic' && (
+                {everythingInPlanName && (
                     <Text fontSize="15px" fontWeight="500" color="gray.700" mt={-2}>
-                        Everything in <Text as="span" fontWeight="600">{plan.id === 'pro' ? 'Basic' : 'Pro'}</Text> plus....
+                        Everything in <Text as="span" fontWeight="600">{everythingInPlanName}</Text> plus....
                     </Text>
                 )}
                 <List.Root gap={3} variant="plain">

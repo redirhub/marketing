@@ -58,7 +58,7 @@ export default async function LegalDocumentPage({ params, searchParams }: PagePr
   }
 
   return (
-    <Box bg="white" py={20}>
+    <Box bg="white" py={20} mt={100}>
       <Container maxW="4xl" mx="auto" px={{ base: 4, md: 6 }}>
         <Heading
           as="h1"

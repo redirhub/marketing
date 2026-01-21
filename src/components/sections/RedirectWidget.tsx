@@ -11,7 +11,7 @@ import {
   shortenUrl,
   ShortenUrlParams,
 } from "@/app/api/redirhub";
-import { parseApiErrorMessage, parseApiSuccessMessage } from "./HeroTabs.utils";
+import { parseApiErrorMessage, parseApiSuccessMessage } from "./RedirectWidget.utils";
 import { TabContentWrapper } from "../home/TabContentWrapper";
 import { DomainSelector } from "../home/DomainSelector";
 import { TabsLayout, TabTriggerButton } from "../ui/TabsLayout";
@@ -23,9 +23,9 @@ import {
 
 
 const TAB_IDS = {
-  REDIRECT: "tab1",
-  SHORTEN: "tab2",
-  CHECKER: "tab3",
+  REDIRECT: "redirect",
+  SHORTEN: "shorten",
+  CHECKER: "check",
 } as const;
 
 const DOMAIN_OPTIONS = {
@@ -62,7 +62,7 @@ const CHECKER_GRID_PROPS = {
   alignItems: "flex-start",
 };
 
-export default function HeroTabPanel() {
+export default function RedirectWidget({ fixed }: { fixed?: string }) {
   // STATE: Form inputs
   const [redirectFrom, setRedirectFrom] = useState("");
   const [redirectTo, setRedirectTo] = useState("");
@@ -75,7 +75,7 @@ export default function HeroTabPanel() {
   // STATE: UI state
   const [apiStatus, setApiStatus] = useState<string>("");
   const [isLoading, setIsLoading] = useState<boolean>(false);
-  const [value, setValue] = useState<string>(TAB_IDS.REDIRECT);
+  const [value, setValue] = useState<string>(fixed ?? TAB_IDS.REDIRECT);
 
   // EVENT HANDLERS
   const handleApiResponse = (response: ApiResponse) => {
@@ -223,13 +223,13 @@ export default function HeroTabPanel() {
 
   return (
     <TabsLayout
-      defaultValue={TAB_IDS.REDIRECT}
+      defaultValue={fixed ?? TAB_IDS.REDIRECT}
       value={value}
       onValueChange={(v) => {
         setValue(v);
         setApiStatus("");
       }}
-      tabHeader={tabHeader}
+      tabHeader={fixed ? null : tabHeader}
       tabBody={tabBody}
     />
   );

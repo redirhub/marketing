@@ -6,7 +6,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
 
   return (
     <html lang="en" suppressHydrationWarning>
-      <body>
+      <body  cz-shortcut-listen="true">
         {children}
         {gaId && <GoogleAnalytics gaId={gaId} />}
       </body>

@@ -15,21 +15,22 @@ export default function PricingBanner({
     subtitle,
 }: PricingBannerProps) {
     return (
-        <Box pt={{ base: 28, md: 32 }} pb={{ base: 40, md: '400px' }} className={styles.heroContainer}>
+        <Box pt={28} pb={{ base: 40, md: '400px' }} className={styles.heroContainer}>
             <Container maxW="7xl" mx="auto" px={{ base: 2, md: 2, lg: 0 }}>
                 <Flex direction="column" align="center" textAlign="center" gap={"8px"}>
                     <Heading
                         as="h1"
                         fontSize={{
                             base: "2rem",
-                            md: "4rem",
-                            lg: "64px",
+                            md: "2.5rem",
+                            lg: "3.2rem",
                         }}
-                        fontWeight="800"
-                        lineHeight="1.2"
-                        color="white"
-                        mb={0}
-                        fontFamily="'Inter', sans-serif"
+                        fontWeight="600"
+                        lineHeight="tight"
+                        maxW="4xl"
+                        color="#fff"
+                        mb={{ base: 4, md: 2 }}
+                        letterSpacing={"-1.8px"}
                     >
                         {title}
                     </Heading>
@@ -39,7 +40,7 @@ export default function PricingBanner({
                         fontSize={{
                             base: "1.5rem",
                             md: "3rem",
-                            lg: "48px",
+                            lg: "46px",
                         }}
                         fontWeight="600"
                         lineHeight="1.2"

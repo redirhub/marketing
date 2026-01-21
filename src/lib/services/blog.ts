@@ -38,14 +38,24 @@ export async function fetchPaginatedPosts(
   locale: string = 'en',
   page: number = 1,
   pageSize: number = 12,
+  term?: string,
   client: SanityClient = defaultClient
 ) {
   const start = (page - 1) * pageSize
   const end = start + pageSize
+  const filter = term
+    ? `&& (title match $term || excerpt match $term || $term in tags[])`
+    : ""
+  const params = {
+    locale,
+    start,
+    end,
+    ...(term ? { term: `*${term}*` } : {}),
+  }
 
   const [posts, total] = await Promise.all([
     client.fetch(
-      `*[_type == "post" && locale == $locale] | order(publishedAt desc) [$start...$end] {
+      `*[_type == "post" && locale == $locale ${filter}] | order(publishedAt desc) [$start...$end] {
         _id,
         title,
         slug,
@@ -59,11 +69,11 @@ export async function fetchPaginatedPosts(
           slug
         }
       }`,
-      { locale, start, end }
+      params
     ),
     client.fetch(
-      `count(*[_type == "post" && locale == $locale])`,
-      { locale }
+      `count(*[_type == "post" && locale == $locale ${filter}])`,
+      params
     ),
   ])
 

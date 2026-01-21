@@ -12,6 +12,7 @@ import AuthorBox from '@/components/blog/AuthorBox'
 import RelatedArticles from '@/components/blog/RelatedArticles'
 import BlogFAQ from '@/components/blog/BlogFAQ'
 import { buildCanonicalUrl, buildHreflangAlternates, generateFAQSchema } from '@/lib/utils/seo'
+import InactivityPopup from '@/components/popups/InactivityPopup'
 
 interface BlogPostPageProps {
   params: Promise<{
@@ -192,6 +193,7 @@ export default async function BlogPostPage({ params, searchParams }: BlogPostPag
               <RelatedArticles posts={relatedPosts} locale={locale} />
             </Box>
           )}
+          <InactivityPopup />
         </Box>
       </Box>
     </>

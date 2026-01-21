@@ -2,9 +2,34 @@
 
 import { Box, Container, Flex, Heading, Input, Icon } from "@chakra-ui/react";
 import { FiSearch } from "react-icons/fi";
+import { useState, useEffect } from "react";
+import { useRouter, useParams } from "next/navigation";
 import styles from "./BlogBanner.module.css";
 
 const BlogBanner = () => {
+  const params = useParams();
+  const term = params?.term ? decodeURIComponent(params.term as string) : "";
+  const [searchQuery, setSearchQuery] = useState(term);
+
+  const router = useRouter();
+  const locale = params?.locale || "en";
+
+  useEffect(() => {
+    setSearchQuery(term);
+  }, [term]);
+
+  const handleSearch = () => {
+    if (searchQuery.trim()) {
+      router.push(`/${locale}/blog/search/${encodeURIComponent(searchQuery)}/?post_type=post`);
+    }
+  };
+
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === "Enter") {
+      handleSearch();
+    }
+  };
+
   return (
     <>
       <Box pt={32} pb={20} className={styles.container}>
@@ -62,11 +87,15 @@ const BlogBanner = () => {
                   pl={12}
                   fontSize="16px"
                   color="gray.900"
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                  onKeyDown={handleKeyDown}
                   _placeholder={{
                     color: "gray.400",
                   }}
                   _focus={{
-                    outline: "none",
+                    outline: "2px solid",
+                    outlineColor: "error.500",
                     boxShadow: "none",
                   }}
                 />

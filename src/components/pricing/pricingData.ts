@@ -13,6 +13,7 @@ export interface PricingPlan {
   features: PlanFeature[];
   ctaText: string;
   recommended?: boolean;
+  everythingInPlanName?: string | null;
 }
 
 export const sliderTicks = [

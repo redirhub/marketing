@@ -49,16 +49,18 @@ export const FooterCtaHeader: React.FC = ({}) => {
           fontSize="1rem"
           fontWeight="semibold"
           borderRadius="8px"
+          boxShadow="md"
           _hover={{
             bg: "#C78121",
             transform: "translateY(-2px)",
-            boxShadow: "lg",
+            boxShadow: "xl",
           }}
           _active={{
             bg: "orange.700",
             transform: "translateY(0)",
+            boxShadow: "md",
           }}
-          transition="all 0.2s"
+          transition="all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1)"
         >
           Get Started For Free
         </Button>

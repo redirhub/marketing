@@ -80,8 +80,7 @@ export const portableTextComponents: PortableTextComponents = {
         py={2}
         my={4}
         fontStyle="italic"
-        bg="gray.50"
-        _dark={{ bg: 'gray.800' }}
+        bg="transparent"
       >
         {children}
       </Box>

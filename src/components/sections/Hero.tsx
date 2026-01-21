@@ -3,9 +3,10 @@
 import { Box, Container, Flex, Heading, Text } from "@chakra-ui/react";
 import { useTranslation } from "react-i18next";
 import Image from "next/image";
-import HeroTabPanel from "./HeroTabPanel";
+import HeroTabPanel from "./RedirectWidget";
 import styles from "./Hero.module.css";
 import { CustomerLogosSection } from "@/components/sections";
+import RedirectWidget from "./RedirectWidget";
 
 export default function Hero() {
   const { t } = useTranslation("common");
@@ -15,6 +16,9 @@ export default function Hero() {
       <Container maxW="7xl" mx="auto" px={{ base: 2, md: 2, lg: 0 }}>
         <Flex direction="column" align="center" textAlign="center" gap={8}>
           <Box>
+            <Text as="span" bg={'header.bg.scrolled'} px={'14px'} py={'7px'} borderRadius="full" fontSize="sm" mb={4} display="inline-block" color="white" fontWeight={500}>
+             ✨ 1M+ domains redirected daily
+            </Text>
             <Heading
               as="h2"
               fontSize={{
@@ -25,6 +29,7 @@ export default function Hero() {
               fontWeight={600}
               maxW="4xl"
               color="#fff"
+              mt={3}
               mb={{ base: 4, md: "12px" }}
             >
               {t(`home.hero.title`, "Your domains.")}
@@ -60,7 +65,7 @@ export default function Hero() {
               "Forward your domains instantly and manage all redirects from a real-time dashboard. Enhance your SEO with 301/302 redirects and secure every link with HTTPS."
             )}
           </Text>
-          <HeroTabPanel />
+          <RedirectWidget />
         </Flex>
         <CustomerLogosSection />
         <Box w="100%">
