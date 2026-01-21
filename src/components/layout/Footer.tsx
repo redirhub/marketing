@@ -197,7 +197,7 @@ export default function Footer({ legalLinks }: FooterProps) {
               <Flex align="center" gap={2} mb={2}>
                 <Link href={getLocalePath("/")}>
                   <Image
-                    src="/assets/images/RedirHub.png"
+                    src="/assets/images/logo.png"
                     alt={getAppName()}
                     width={160}
                     height={50}
