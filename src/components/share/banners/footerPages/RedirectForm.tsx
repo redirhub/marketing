@@ -7,7 +7,7 @@ import { Text } from "@chakra-ui/react";
 import {
   parseApiErrorMessage,
   parseApiSuccessMessage,
-} from "@/components/sections/HeroTabs.utils";
+} from "@/components/sections/RedirectWidget.utils";
 import { TabContentWrapper } from "@/components/home/TabContentWrapper";
 import { CustomInput, PrimaryActionButton } from "@/components/sections/HeroFormComponents";
 

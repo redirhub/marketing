@@ -1,6 +1,14 @@
 "use client";
 
-import { Box, Container, Flex, Grid, Stack, Icon } from "@chakra-ui/react";
+import {
+  Box,
+  Container,
+  Flex,
+  Grid,
+  Stack,
+  Icon,
+  Heading,
+} from "@chakra-ui/react";
 import { useTranslation } from "react-i18next";
 import Link from "next/link";
 import { useParams, usePathname } from "next/navigation";
@@ -12,7 +20,7 @@ import LanguageSelector from "../share/LanguageSelector";
 import { FooterBottomBar, FooterLinkItem } from "../footer/FooterBottomBar";
 import { FooterLinkColumn } from "../footer/FooterLinkColumn";
 import { FooterCtaHeader } from "../footer/FooterCtaHeader";
-import FooterTabs from "../footer/Tabs";
+import RedirectWidget from "../sections/RedirectWidget";
 
 interface FooterProps {
   legalLinks?: FooterLinkItem[];
@@ -148,7 +156,23 @@ export default function Footer({ legalLinks }: FooterProps) {
     >
       <Container maxW="7xl" px={4} m="auto">
         {!showTabs && <FooterCtaHeader />}
-        {showTabs && <FooterTabs />}
+        {showTabs && (
+          <Box w="100%" maxW="6xl" mx="auto" mb={14}>
+            <Heading
+              as="p"
+              fontSize={{ base: "2rem", md: "3rem", lg: "3rem" }}
+              fontWeight="600"
+              color="white"
+              lineHeight={{ base: "3rem", md: "3rem", lg: "3rem" }}
+              letterSpacing={"-1.8px"}
+              textAlign={"center"}
+              mb={{ base: "2rem", md: "3rem", lg: "3rem" }}
+            >
+              Fast, Secure, Effortless Link Management
+            </Heading>
+            <RedirectWidget />
+          </Box>
+        )}
 
         <Container
           maxW="7xl"

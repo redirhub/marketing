@@ -3,9 +3,10 @@
 import { Box, Container, Flex, Heading, Text } from "@chakra-ui/react";
 import { useTranslation } from "react-i18next";
 import Image from "next/image";
-import HeroTabPanel from "./HeroTabPanel";
+import HeroTabPanel from "./RedirectWidget";
 import styles from "./Hero.module.css";
 import { CustomerLogosSection } from "@/components/sections";
+import RedirectWidget from "./RedirectWidget";
 
 export default function Hero() {
   const { t } = useTranslation("common");
@@ -64,7 +65,7 @@ export default function Hero() {
               "Forward your domains instantly and manage all redirects from a real-time dashboard. Enhance your SEO with 301/302 redirects and secure every link with HTTPS."
             )}
           </Text>
-          <HeroTabPanel />
+          <RedirectWidget />
         </Flex>
         <CustomerLogosSection />
         <Box w="100%">

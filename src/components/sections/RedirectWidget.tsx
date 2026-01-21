@@ -11,7 +11,7 @@ import {
   shortenUrl,
   ShortenUrlParams,
 } from "@/app/api/redirhub";
-import { parseApiErrorMessage, parseApiSuccessMessage } from "./HeroTabs.utils";
+import { parseApiErrorMessage, parseApiSuccessMessage } from "./RedirectWidget.utils";
 import { TabContentWrapper } from "../home/TabContentWrapper";
 import { DomainSelector } from "../home/DomainSelector";
 import { TabsLayout, TabTriggerButton } from "../ui/TabsLayout";
@@ -62,7 +62,7 @@ const CHECKER_GRID_PROPS = {
   alignItems: "flex-start",
 };
 
-export default function HeroTabPanel() {
+export default function RedirectWidget() {
   // STATE: Form inputs
   const [redirectFrom, setRedirectFrom] = useState("");
   const [redirectTo, setRedirectTo] = useState("");

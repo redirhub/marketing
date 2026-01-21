@@ -3,7 +3,7 @@
 import { Box, SimpleGrid } from "@chakra-ui/react";
 import { useState } from "react";
 import { ApiResponse, createRedirect } from "@/app/api/redirhub";
-import { parseApiErrorMessage, parseApiSuccessMessage } from "../sections/HeroTabs.utils";
+import { parseApiErrorMessage, parseApiSuccessMessage } from "../sections/RedirectWidget.utils";
 import {
   CustomInput,
   PrimaryActionButton,
