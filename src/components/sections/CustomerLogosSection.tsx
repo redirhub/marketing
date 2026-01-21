@@ -6,14 +6,16 @@ import dynamic from "next/dynamic";
 const Slider = dynamic(() => import("react-slick"), { ssr: false });
 
 const LOGOS = [
-  { id: 1, src: "/assets/images/hero-logs/company-2.png", alt: "A" },
-  { id: 2, src: "/assets/images/hero-logs/company-1.png", alt: "B" },
-  { id: 3, src: "/assets/images/hero-logs/company-3.png", alt: "C" },
-  { id: 4, src: "/assets/images/hero-logs/company-4.png", alt: "D" },
-  { id: 5, src: "/assets/images/hero-logs/company-5.png", alt: "E" },
-  { id: 6, src: "/assets/images/hero-logs/company-2.png", alt: "F" },
-  { id: 7, src: "/assets/images/hero-logs/company-1.png", alt: "G" },
-  { id: 8, src: "/assets/images/hero-logs/company-3.png", alt: "H" },
+  { id: 1, src: "/assets/images/hero-logs/company-1.png", alt: "Schi" },
+  { id: 2, src: "/assets/images/hero-logs/company-2.png", alt: "Duende" },
+  { id: 3, src: "/assets/images/hero-logs/company-3.png", alt: "Ally" },
+  { id: 4, src: "/assets/images/hero-logs/company-4.png", alt: "Serb" },
+  { id: 5, src: "/assets/images/hero-logs/company-5.png", alt: "Expiredomain" },
+  { id: 1, src: "/assets/images/hero-logs/company-1.png", alt: "Schi" },
+  { id: 2, src: "/assets/images/hero-logs/company-2.png", alt: "Duende" },
+  { id: 3, src: "/assets/images/hero-logs/company-3.png", alt: "Ally" },
+  { id: 4, src: "/assets/images/hero-logs/company-4.png", alt: "Serb" },
+  { id: 5, src: "/assets/images/hero-logs/company-5.png", alt: "Expiredomain" },
 ];
 
 interface CustomerLogosSectionProps {
@@ -63,7 +65,7 @@ export default function CustomerLogosSection({
     <Box py={paddingY} maxW={'1200px'} mx="auto">
       <Slider {...settings}>
         {LOGOS.map((logo, index) => (
-          <Box key={logo.id + "-" + index} px={4}>
+          <Box key={logo.alt + "-" + index} px={4}>
             <Box
               display="flex !important"
               alignItems="center"
