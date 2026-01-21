@@ -3,7 +3,7 @@
 import { Box, Menu, Grid, Text, Icon, VStack, HStack } from "@chakra-ui/react";
 import Link from "next/link";
 import { FaChevronDown } from "react-icons/fa";
-import { useRef, useState, useEffect } from "react";
+import { useState } from "react";
 import Image from "next/image";
 
 export interface FeaturesDropdownProps {
@@ -20,30 +20,18 @@ export default function FeaturesDropdown({
     isScrolled,
 }: FeaturesDropdownProps) {
     const [isOpen, setIsOpen] = useState(false);
-    const timeoutRef = useRef<NodeJS.Timeout | null>(null);
     const activeStyles = {
         backgroundColor: isScrolled ? "header.bg.hover.dark" : "header.bg.hover.light",
         borderColor: isScrolled ? "header.bg.border.dark" : "header.bg.border.light",
     };
 
     const handleMouseEnter = () => {
-        if (timeoutRef.current) clearTimeout(timeoutRef.current);
-        timeoutRef.current = setTimeout(() => {
-            setIsOpen(true);
-        }, 500);
+        setIsOpen(true);
     };
 
     const handleMouseLeave = () => {
-        if (timeoutRef.current) clearTimeout(timeoutRef.current);
-        timeoutRef.current = setTimeout(() => {
-            setIsOpen(false);
-        }, 500);
+        setIsOpen(false);
     };
-    useEffect(() => {
-        return () => {
-            if (timeoutRef.current) clearTimeout(timeoutRef.current);
-        };
-    }, []);
 
     return (
         <Box
