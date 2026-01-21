@@ -10,21 +10,21 @@ export interface FeaturesDropdownProps {
   label: string;
   items?: Array<{ href: string; label: string }>;
   megaMenu?: any;
-  isScrolled: boolean;
+  isDark: boolean;
 }
 
 export default function MenuDropdown({
   label,
   items,
   megaMenu,
-  isScrolled,
+  isDark,
 }: FeaturesDropdownProps) {
   const [isOpen, setIsOpen] = useState(false);
   const activeStyles = {
-    backgroundColor: isScrolled
+    backgroundColor: !isDark
       ? "header.bg.hover.dark"
       : "header.bg.hover.light",
-    borderColor: isScrolled
+    borderColor: !isDark
       ? "header.bg.border.dark"
       : "header.bg.border.light",
   };
@@ -59,7 +59,7 @@ export default function MenuDropdown({
               lineHeight="24px"
               letterSpacing="0.2px"
               fontFamily="Inter"
-              color={isScrolled ? "header.text.dark" : "header.text.light"}
+              color={!isDark ? "header.text.dark" : "header.text.light"}
               display="flex"
               alignItems="center"
               cursor="pointer"

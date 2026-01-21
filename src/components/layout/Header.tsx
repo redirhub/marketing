@@ -11,18 +11,24 @@ import { FiRefreshCw, FiUsers } from "react-icons/fi";
 import { useState, useEffect } from "react";
 import MenuDropdown from "./MenuDropdown";
 
-export default function Header() {
+interface HeaderProps {
+  mode?: "light" | "dark";
+}
+
+export default function Header({ mode = "dark" }: HeaderProps) {
   const { t } = useTranslation("common");
   const params = useParams();
   const pathname = usePathname();
   const locale = (params?.locale as string) || "en";
   const [isScrolled, setIsScrolled] = useState(false);
+  const [isDark, setIsDark] = useState(mode === "dark");
   const [hasScrolled, setHasScrolled] = useState(false);
   useEffect(() => {
     const handleScroll = () => {
       const y = window.scrollY;
       setIsScrolled(y > 0);
       setHasScrolled(y > 400);
+      setIsDark(mode === "dark" ? y < 400 : false);
     };
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
@@ -222,10 +228,10 @@ export default function Header() {
     return pathname === getLocalePath(href);
   };
   const navActiveStyles = {
-    backgroundColor: hasScrolled
+    backgroundColor: !isDark
       ? "header.bg.hover.dark"
       : "header.bg.hover.light",
-    borderColor: hasScrolled
+    borderColor: !isDark
       ? "header.bg.border.dark"
       : "header.bg.border.light",
   };
@@ -252,7 +258,7 @@ export default function Header() {
             <Box>
               <Image
                 src={
-                  !hasScrolled
+                  isDark
                     ? "/assets/images/logo-dark.png"
                     : "/assets/images/logo.png"
                 }
@@ -280,7 +286,7 @@ export default function Header() {
                     label={item.label}
                     items={item.items}
                     megaMenu={item.megaMenu}
-                    isScrolled={hasScrolled}
+                    isDark={isDark}
                   />
                 );
               }
@@ -293,7 +299,7 @@ export default function Header() {
                     letterSpacing="0.2px"
                     fontFamily="Inter"
                     color={
-                      hasScrolled ? "header.text.dark" : "header.text.light"
+                      !isDark ? "header.text.dark" : "header.text.light"
                     }
                     padding={"10px 14px 10px 14px"}
                     borderRadius={"12px"}
@@ -327,13 +333,13 @@ export default function Header() {
                 borderRadius="12px"
                 borderWidth="1px"
                 borderStyle="solid"
-                borderColor={hasScrolled ? "header.text.dark" : "gray.100"}
+                borderColor={!isDark ? "header.text.dark" : "gray.100"}
                 fontSize="15px"
                 fontWeight="700"
                 lineHeight="20px"
                 letterSpacing="0.2px"
                 fontFamily="Inter"
-                color={hasScrolled ? "header.text.dark" : "header.text.light"}
+                color={!isDark ? "header.text.dark" : "header.text.light"}
                 cursor="pointer"
                 _hover={{ bg: "rgba(255, 255, 255, 0.1)" }}
               >

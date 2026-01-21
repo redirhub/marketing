@@ -55,10 +55,9 @@ export default async function RootLayout({
   const headersList = await headers();
   const pathname = headersList.get("x-pathname") || "";
   const hideHeaderAndFooter = pathname.includes("/rate");
+  const isLightModePages = pathname.includes("/legal");
 
-  const hideHeaderOnly = pathname.includes("/support-category");
-
-  const shouldHideHeader = hideHeaderAndFooter || hideHeaderOnly;
+  const shouldHideHeader = hideHeaderAndFooter;
 
   // Fetch legal pages for footer
   const legalPages = await fetchFooterLegalPages(locale);
@@ -81,7 +80,7 @@ export default async function RootLayout({
             namespaces={i18nNamespaces}
             resources={resources}
           >
-            {!shouldHideHeader && <Header />}
+            {!shouldHideHeader && <Header mode={isLightModePages ? "light" : "dark"} />}
             <main style={{ flex: 1, display: "flex", flexDirection: "column" }}>
               {children}
             </main>
