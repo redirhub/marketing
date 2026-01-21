@@ -154,7 +154,7 @@ export default function InteractivePricing() {
                 tabHeader={tabHeader}
                 tabBody={tabBody}
                 headerRight={headerRight}
-                maxW="1340px"
+                maxW="1180px"
             />
         </Box>
     );
