@@ -112,7 +112,7 @@ export const TabsLayout: React.FC<TabsLayoutProps> = ({
                 w="full"
                 justify={headerRight ? "space-between" : "center"}
                 align="center"
-                mb={6}
+                mb={2}
                 gap={4}
                 flexWrap="wrap"
             >
