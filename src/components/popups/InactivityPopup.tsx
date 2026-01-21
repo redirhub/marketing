@@ -16,19 +16,43 @@ import { FiArrowRight } from "react-icons/fi";
 import { getDashboardBase } from "@/lib/utils/constants";
 
 
-export default function TryForFreePopup() {
+export default function InactivityPopup() {
     const [isOpen, setIsOpen] = useState(false);
     const [hasOpened, setHasOpened] = useState(false);
 
     useEffect(() => {
-        const timer = setTimeout(() => {
-            if (!hasOpened) {
-                setIsOpen(true);
-                setHasOpened(true);
-            }
-        }, 5000);
+        if (hasOpened) return;
 
-        return () => clearTimeout(timer);
+        let inactivityTimer: ReturnType<typeof setTimeout>;
+
+        const startTimer = () => {
+            clearTimeout(inactivityTimer);
+            inactivityTimer = setTimeout(() => {
+                if (!hasOpened) {
+                    setIsOpen(true);
+                    setHasOpened(true);
+                }
+            }, 10000); // 10s inactivity
+        };
+
+        const resetTimer = () => {
+            startTimer();
+        };
+
+        startTimer();
+
+        window.addEventListener("mousemove", resetTimer);
+        window.addEventListener("scroll", resetTimer);
+        window.addEventListener("keydown", resetTimer);
+        window.addEventListener("touchstart", resetTimer);
+
+        return () => {
+            clearTimeout(inactivityTimer);
+            window.removeEventListener("mousemove", resetTimer);
+            window.removeEventListener("scroll", resetTimer);
+            window.removeEventListener("keydown", resetTimer);
+            window.removeEventListener("touchstart", resetTimer);
+        };
     }, [hasOpened]);
 
     const handleClose = () => setIsOpen(false);
@@ -142,7 +166,7 @@ export default function TryForFreePopup() {
                             p={'16px 18px'}
                             fontSize="md"
                             borderRadius={'12px'}
-                            _hover={{ bg: "brand.600" }}
+                            _hover={{ bg: "brand.700" }}
                         >
                             Try RedirHub For Free <Icon as={FiArrowRight} />
                         </Button>
