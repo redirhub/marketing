@@ -13,9 +13,10 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import { CloseIcon } from "@chakra-ui/icons";
 import { FiArrowRight } from "react-icons/fi";
+import { getDashboardBase } from "@/lib/utils/constants";
 
 
-export default function RedirectFreeOfferPopup() {
+export default function TryForFreePopup() {
     const [isOpen, setIsOpen] = useState(false);
     const [hasOpened, setHasOpened] = useState(false);
 
@@ -130,10 +131,10 @@ export default function RedirectFreeOfferPopup() {
                         ))}
                     </List.Root>
                     <Text fontSize="md" color="gray.blueGray" mb={4}>
-                        See why thousands of developers trust RedirHub with their
-                        redirects, migrations and analytics.
+                        See why thousands of people trust RedirHub with their
+                        redirects, links management and analytics.
                     </Text>
-                    <Link href="https://dash.redirhub.com/register" target="_blank">
+                    <Link href={`${getDashboardBase()}/register`} target="_blank">
                         <Button
                             bg="brand.500"
                             color="white"

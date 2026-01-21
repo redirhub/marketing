@@ -10,7 +10,7 @@ import { BlogSection, FAQSection } from "@/components/sections";
 import { fetchFAQSetByPage } from "@/lib/services/faq";
 import { buildCanonicalUrl, buildStaticHreflangAlternates, generateFAQSchema } from '@/lib/utils/seo'
 import { allLanguages } from '@/sanity/config/i18n'
-import RedirectFreeOfferPopup from "@/components/popups/RedirectFreeOfferPopup";
+import TryForFreePopup from "@/components/popups/TryForFreePopup";
 
 export async function generateMetadata({
   params,
@@ -78,7 +78,7 @@ export default async function HomePage({
       <APIDocumentation />
       <BlogSection locale={locale} title="Go Through Our Blogs Today" />
       {faqData.length > 0 && <FAQSection faqData={faqData} />}
-      <RedirectFreeOfferPopup />
+      <TryForFreePopup />
     </>
   );
 }
