@@ -13,7 +13,7 @@ export interface FeaturesDropdownProps {
   isScrolled: boolean;
 }
 
-export default function FeaturesDropdown({
+export default function MenuDropdown({
   label,
   items,
   megaMenu,
