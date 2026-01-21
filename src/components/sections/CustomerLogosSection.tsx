@@ -23,7 +23,7 @@ interface CustomerLogosSectionProps {
 }
 
 export default function CustomerLogosSection({
-  paddingY = { base: 6, md: 10, lg: 16 }
+  paddingY = { base: 2, md: 4, lg: 8 }
 }: CustomerLogosSectionProps) {
   const settings = {
     // Basic Slider Settings
