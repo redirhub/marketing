@@ -1,7 +1,7 @@
 "use client";
 
-import { Box, Container, Flex, Heading, Input, Icon } from "@chakra-ui/react";
-import { FiSearch } from "react-icons/fi";
+import { Box, Container, Flex, Heading, Input, Icon, IconButton } from "@chakra-ui/react";
+import { FiSearch, FiX } from "react-icons/fi";
 import { useState, useEffect } from "react";
 import { useRouter, useParams } from "next/navigation";
 import styles from "./BlogBanner.module.css";
@@ -28,6 +28,11 @@ const BlogBanner = () => {
     if (e.key === "Enter") {
       handleSearch();
     }
+  };
+
+  const handleClear = () => {
+    setSearchQuery("");
+    router.push(`/${locale}/blog`);
   };
 
   return (
@@ -62,7 +67,7 @@ const BlogBanner = () => {
               maxW="4xl"
               color="#fff"
             >
-              Read our blog today
+              {term ? `Search "${term}"` : "Read our blog today"}
             </Heading>
             <Box w="full" maxW="600px" mt={4} mx="auto">
               <Box position="relative" maxW="400px" mx="auto">
@@ -85,6 +90,7 @@ const BlogBanner = () => {
                   h="56px"
                   w="full"
                   pl={12}
+                  pr={searchQuery ? 12 : 4}
                   fontSize="16px"
                   color="gray.900"
                   value={searchQuery}
@@ -99,6 +105,22 @@ const BlogBanner = () => {
                     boxShadow: "none",
                   }}
                 />
+                {searchQuery && (
+                  <IconButton
+                    aria-label="Clear search"
+                    position="absolute"
+                    right={2}
+                    top="50%"
+                    transform="translateY(-50%)"
+                    size="sm"
+                    variant="ghost"
+                    colorScheme="gray"
+                    onClick={handleClear}
+                    zIndex={1}
+                  >
+                      <FiX />
+                  </IconButton>
+                )}
               </Box>
             </Box>
           </Flex>
