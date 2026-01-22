@@ -4,7 +4,7 @@ import { Inter } from "next/font/google";
 import { headers } from "next/headers";
 import { Provider } from "@/components/ui/provider";
 import TranslationsProvider from "@/components/TranslationsProvider";
-import Header from "@/components/layout/Header";
+import ThemeHeader from "@/components/ThemeHeader";
 import Footer from "@/components/layout/Footer";
 import NProgressBar from "@/components/NProgressBar";
 import initTranslations from "@/lib/i18n";
@@ -55,9 +55,6 @@ export default async function RootLayout({
   const headersList = await headers();
   const pathname = headersList.get("x-pathname") || "";
   const hideHeaderAndFooter = pathname.includes("/rate");
-  const isLightModePages = pathname.includes("/legal");
-
-  const shouldHideHeader = hideHeaderAndFooter;
 
   // Fetch legal pages for footer
   const legalPages = await fetchFooterLegalPages(locale);
@@ -80,7 +77,7 @@ export default async function RootLayout({
             namespaces={i18nNamespaces}
             resources={resources}
           >
-            {!shouldHideHeader && <Header mode={isLightModePages ? "light" : "dark"} />}
+            <ThemeHeader />
             <main style={{ flex: 1, display: "flex", flexDirection: "column" }}>
               {children}
             </main>

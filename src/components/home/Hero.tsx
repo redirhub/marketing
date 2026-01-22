@@ -16,7 +16,7 @@ export default function Hero() {
         <Flex direction="column" align="center" textAlign="center" gap={8}>
           <Box>
             <Text as="span" bg={'header.bg.scrolled'} px={'14px'} py={'7px'} borderRadius="full" fontSize="sm" mb={4} display="inline-block" color="white" fontWeight={500}>
-             ✨ 1M+ domains redirected daily
+              ✨ 1M+ domains redirected daily
             </Text>
             <Heading
               as="h2"
