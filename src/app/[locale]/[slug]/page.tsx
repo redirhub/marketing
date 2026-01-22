@@ -9,6 +9,7 @@ import LandingPageBanner from "@/components/share/banners/landingPage/LandingPag
 import TableOfContents from "@/components/blog/TableOfContents";
 import { TestimonialsSection, BlogSection, FAQSection } from "@/components/sections";
 import { buildCanonicalUrl, buildHreflangAlternates, generateFAQSchema } from '@/lib/utils/seo'
+import { getAppName } from "@/lib/utils/constants";
 
 interface PageProps {
   params: Promise<{
@@ -44,8 +45,8 @@ export async function generateMetadata({
     : {}
 
   return {
-    title: page.meta?.metaTitle || `${page.title} | RedirHub`,
-    description: page.meta?.metaDescription || page.hero.subheadline || `${page.title} with RedirHub.`,
+    title: page.meta?.metaTitle || `${page.title} - ${getAppName()}`,
+    description: page.meta?.metaDescription || page.hero.subheadline || `${page.title}`,
     alternates: {
       canonical: canonicalUrl,
       ...hreflangAlternates,
@@ -58,11 +59,6 @@ export default async function LandingPage({ params, searchParams }: PageProps) {
   const searchParamsObj = await searchParams;
   const client = getClient(searchParamsObj);
   const isPreview = searchParamsObj?.version === 'drafts';
-
-  console.log('=== LANDING PAGE DEBUG ===');
-  console.log('Slug:', slug);
-  console.log('SearchParams:', searchParamsObj);
-  console.log('Version:', searchParamsObj?.version);
 
   const page = await fetchLandingPageBySlug(slug, locale, client, isPreview);
   if (!page) {

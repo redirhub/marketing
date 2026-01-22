@@ -5,6 +5,7 @@ import { BlogCard } from '@/components/home/BlogCard'
 import PaginationControls from '@/components/ui/PaginationControls'
 import { urlFor } from '@/sanity/lib/image'
 import { client } from '@/sanity/lib/client'
+import { getAppName } from '@/lib/utils/constants'
 
 interface AuthorPageProps {
   params: Promise<{
@@ -44,7 +45,7 @@ export async function generateMetadata({
   }
 
   return {
-    title: `${author.name}'s Posts`,
+    title: `${author.name}'s Posts - ${getAppName()}`,
     description: author.bio || `Browse all blog posts by ${author.name}`,
   }
 }

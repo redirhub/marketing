@@ -3,9 +3,9 @@
 import { Box, Container, Flex, Heading, Text } from "@chakra-ui/react";
 import { useTranslation } from "react-i18next";
 import Image from "next/image";
-import styles from "./Hero.module.css";
+import styles from "../sections/Hero.module.css";
 import { CustomerLogosSection } from "@/components/sections";
-import RedirectWidget from "./RedirectWidget";
+import RedirectWidget from "../sections/RedirectWidget";
 
 export default function Hero() {
   const { t } = useTranslation("common");

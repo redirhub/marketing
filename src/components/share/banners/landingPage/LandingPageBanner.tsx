@@ -27,7 +27,7 @@ export default function LandingPageBanner({ hero }: LandingPageBannerProps) {
   const showCustomerLogos = hero.heroSections?.includes('customerLogos');
 
   return (
-    <Box pt={24} pb={showRedirectWidget || showCustomerLogos || heroImageUrl ? 0 : 12} className={styles.heroContainer}>
+    <Box pt={28} pb={showRedirectWidget || showCustomerLogos || heroImageUrl ? 0 : 12} className={styles.heroContainer}>
       <Container maxW="7xl" mx="auto" px={{ base: 2, md: 2, lg: 0 }}>
         <Flex direction="column" align="center" textAlign="center" gap={2}>
           <Heading

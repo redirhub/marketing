@@ -9,7 +9,7 @@ export default function EnterpriseBanner() {
   const { t } = useTranslation("common");
 
   return (
-    <Box pt={24} className={styles.heroContainer}>
+    <Box pt={28} className={styles.heroContainer}>
       <Container maxW="7xl" mx="auto" px={{ base: 2, md: 2, lg: 0 }}>
         <Flex direction="column" align="center" textAlign="center" gap={8}>
           <Box>

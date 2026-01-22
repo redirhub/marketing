@@ -5,6 +5,7 @@ import { Box, Container, Heading } from "@chakra-ui/react";
 import { fetchLegalDocumentBySlug, fetchLegalDocumentTranslations } from "@/lib/services/legal";
 import { portableTextComponents } from '@/components/blog/PortableTextComponents'
 import { getClient } from '@/lib/preview'
+import { getAppName } from "@/lib/utils/constants";
 
 interface PageProps {
   params: Promise<{
@@ -42,7 +43,7 @@ export async function generateMetadata({
   }
 
   return {
-    title: `${document.title} | RedirHub Legal`,
+    title: `${document.title} | ${getAppName()}`,
     description: document.title,
     alternates,
   };
