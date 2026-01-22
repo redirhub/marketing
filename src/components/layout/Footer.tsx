@@ -199,9 +199,10 @@ export default function Footer({ legalLinks }: FooterProps) {
                   <Image
                     src="/assets/images/logo.png"
                     alt={getAppName()}
-                    width={160}
-                    height={50}
+                    width={150}
+                    height={53}
                     style={{ height: "auto" }}
+                    preload
                   />
                 </Link>
               </Flex>
