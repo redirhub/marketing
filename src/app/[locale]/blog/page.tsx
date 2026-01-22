@@ -3,8 +3,8 @@ import initTranslations from "@/lib/i18n";
 import { getAppName } from "@/lib/utils/constants";
 import BlogList from "@/components/blogs/BlogList";
 import BlogBanner from "@/components/share/banners/blog/BlogBanner";
-import { buildCanonicalUrl } from '@/lib/utils/seo'
-import { allLanguages } from '@/sanity/config/i18n'
+import { buildCanonicalUrl } from "@/lib/utils/seo";
+import { allLanguages } from "@/sanity/config/i18n";
 
 export async function generateMetadata({
   params,
@@ -24,28 +24,25 @@ export async function generateMetadata({
   };
 
   // Generate canonical URL with pagination support
-  const basePath = '/blog';
-  const queryParam = currentPage > 1 ? `?page=${currentPage}` : '';
+  const basePath = "/blog";
+  const queryParam = currentPage > 1 ? `?page=${currentPage}` : "";
   const canonicalUrl = buildCanonicalUrl(locale, `${basePath}${queryParam}`);
 
   // Build hreflang alternates with pagination for all locales
   const languages: Record<string, string> = {};
   allLanguages.forEach((lang) => {
     const path = `${basePath}${queryParam}`;
-    if (lang === 'en') {
-      languages['en'] = path;
-      languages['x-default'] = path;
+    if (lang === "en") {
+      languages["en"] = path;
+      languages["x-default"] = path;
     } else {
       languages[lang] = `/${lang}${path}`;
     }
   });
 
   return {
-    title: `${t("meta.blog.title", "Support")} - ${getAppName()}`,
-    description: t(
-      "meta.support.description",
-      "Simple, transparent enterprise for RedirHub"
-    ),
+    title: `${t("meta.blog.title", "Blog")} - ${getAppName()}`,
+    description: t("meta.blog.description", "Latest articles and insights from our blog"),
     alternates: {
       canonical: canonicalUrl,
       languages,
@@ -53,11 +50,7 @@ export async function generateMetadata({
   };
 }
 
-export default async function BlogPage({
-  searchParams,
-}: {
-  searchParams: Promise<{ page?: string }>;
-}) {
+export default async function BlogPage({ searchParams }: { searchParams: Promise<{ page?: string }> }) {
   // Await the params from the URL
   const { page } = await searchParams;
   const currentPage = Number(page) || 1;

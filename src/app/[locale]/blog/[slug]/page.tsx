@@ -13,6 +13,7 @@ import RelatedArticles from '@/components/blog/RelatedArticles'
 import BlogFAQ from '@/components/blog/BlogFAQ'
 import { buildCanonicalUrl, buildHreflangAlternates, generateFAQSchema } from '@/lib/utils/seo'
 import InactivityPopup from '@/components/popups/InactivityPopup'
+import { getAppName } from '@/lib/utils/constants'
 
 interface BlogPostPageProps {
   params: Promise<{
@@ -50,7 +51,7 @@ export async function generateMetadata({
     : {}
 
   return {
-    title: post.title,
+    title: `${post.title} - ${getAppName()}`,
     description: post.excerpt || undefined,
     alternates: {
       canonical: canonicalUrl,
