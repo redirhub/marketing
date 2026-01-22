@@ -9,9 +9,10 @@ interface PricingPlanCardProps {
     isAnnually: boolean;
     recommended?: boolean;
     everythingInPlanName?: string | null;
+    onClick?: () => void;
 }
 
-export default function PricingPlanCard({ plan, isAnnually, recommended, everythingInPlanName }: PricingPlanCardProps) {
+export default function PricingPlanCard({ plan, isAnnually, recommended, everythingInPlanName, onClick }: PricingPlanCardProps) {
     const price = isAnnually ? plan.priceAnnually : plan.priceMonthly;
     const isCustom = typeof price === 'string';
 
@@ -28,6 +29,8 @@ export default function PricingPlanCard({ plan, isAnnually, recommended, everyth
             display="flex"
             flexDirection="column"
             maxW={{ base: "full", md: "370px" }}
+            onClick={onClick}
+            cursor={"pointer"}
         >
             {recommended && (
                 <Badge

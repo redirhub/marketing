@@ -1,9 +1,9 @@
+/* eslint-disable @next/next/no-img-element */
 "use client";
 
 import { Box, Container, Flex } from "@chakra-ui/react";
 import { useTranslation } from "react-i18next";
 import Link from "next/link";
-import Image from "next/image";
 import { useParams, usePathname } from "next/navigation";
 import { getAppName, getDashboardBase } from "@/lib/utils/constants";
 import MobileMenu from "./MobileMenu";
@@ -30,9 +30,10 @@ export default function Header({ mode = "dark" }: HeaderProps) {
       setHasScrolled(y > 400);
       setIsDark(mode === "dark" ? y < 400 : false);
     };
+    handleScroll();
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
+  }, [mode, pathname, locale]);
 
   const getLocalePath = (path: string) => {
     if (locale === "en") {
@@ -242,7 +243,7 @@ export default function Header({ mode = "dark" }: HeaderProps) {
       position="fixed"
       top={0}
       zIndex={1000}
-      p={isScrolled ? 0 : 4}
+      p={isScrolled ? 1 : 4}
       transition="all 0.3s ease"
       bg={isScrolled ? "header.bg.scrolled" : "transparent"}
       backdropFilter={isScrolled ? "blur(16px)" : "none"}
@@ -256,7 +257,7 @@ export default function Header({ mode = "dark" }: HeaderProps) {
         <Flex alignItems="center" justify="space-between">
           <Link href={getLocalePath("/")}>
             <Box>
-              <Image
+              <img
                 src={
                   isDark
                     ? "/assets/images/logo-dark.png"

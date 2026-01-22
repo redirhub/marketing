@@ -6,17 +6,28 @@ import { TabsLayout, TabTriggerButton } from "@/components/ui/TabsLayout";
 import HostnameSlider from "./HostnameSlider";
 import PricingPlanCard from "./PricingPlanCard";
 import AddOns from "./AddOns";
-import { pricingPlans, getRecommendedPlan } from "./pricingData";
+import { pricingPlans } from "./pricingData";
 import { redirectData, getRecommendedRedirectPlan } from "./redirectPlanData";
+import { shortenUrlData } from "./shortenUrlPlanData";
+import { monitorData } from "./monitorPlanData";
 
 export default function InteractivePricing() {
     const [activeTab, setActiveTab] = useState("redirects");
     const [isAnnually, setIsAnnually] = useState(false);
     const [hostnameValue, setHostnameValue] = useState(0);
-
-    const recommendedPlanId = activeTab === 'redirects'
-        ? getRecommendedRedirectPlan(hostnameValue)
-        : getRecommendedPlan(hostnameValue);
+    const [manualRecommendedId, setManualRecommendedId] = useState<string | null>(null);
+    const handleTabChange = (val: string) => {
+        setActiveTab(val);
+        setManualRecommendedId(null);
+    };
+    let recommendedPlanId = '';
+    if (activeTab === 'redirects') {
+        recommendedPlanId = getRecommendedRedirectPlan(hostnameValue);
+    } else if (activeTab === 'shorten') {
+        recommendedPlanId = manualRecommendedId || shortenUrlData.plans.find(p => p.badge === 'Popular')?.id || '';
+    } else if (activeTab === 'monitor') {
+        recommendedPlanId = manualRecommendedId || monitorData.plans.find(p => p.badge === 'Popular')?.id || '';
+    }
 
     const getDisplayPlans = () => {
         if (activeTab === 'redirects') {
@@ -49,7 +60,72 @@ export default function InteractivePricing() {
                     ctaText: plan.price === 0 ? 'Start for Free' : ((typeof plan.price === 'number' && plan.price > 100) ? 'Chat with us' : `Get Started with ${plan.label}`),
                     features: mappedFeatures,
                     everythingInPlanName: previousPlanName,
-                    recommended: plan.badge === 'Popular'
+                };
+            });
+        } else if (activeTab === 'shorten') {
+            return shortenUrlData.plans.map((plan, index, allPlans) => {
+                let previousPlanName = null;
+                if (plan.level > 0) {
+                    const prevPlan = allPlans.find(p => p.level === plan.level - 1 || (index > 0 && p === allPlans[index - 1]));
+                    if (prevPlan) previousPlanName = prevPlan.label;
+                }
+
+                const mappedFeatures = [
+                    ...plan.limits.map(l => ({
+                        text: l.text_list,
+                        included: true,
+                        isHighlighted: true
+                    })),
+                    ...plan.features.map(f => ({
+                        text: f.label,
+                        included: true,
+                        isHighlighted: false
+                    }))
+                ];
+
+                return {
+                    id: plan.id,
+                    name: plan.label,
+                    priceMonthly: plan.price,
+                    priceAnnually: plan.annual_price,
+                    range: (shortenUrlData.comparison.find(c => c.id === 'basic.records')?.plans[plan.id]?.value as string) || '',
+                    ctaText: plan.price === 0 ? 'Start for Free' : ((typeof plan.price === 'number' && plan.price > 100) ? 'Chat with us' : `Get Started with ${plan.label}`),
+                    features: mappedFeatures,
+                    everythingInPlanName: previousPlanName,
+                    recommended: plan.id === (manualRecommendedId || shortenUrlData.plans.find(p => p.badge === 'Popular')?.id)
+                };
+            });
+        } else if (activeTab === 'monitor') {
+            return monitorData.plans.map((plan, index, allPlans) => {
+                let previousPlanName = null;
+                if (plan.level > 0) {
+                    const prevPlan = allPlans.find(p => p.level === plan.level - 1 || (index > 0 && p === allPlans[index - 1]));
+                    if (prevPlan) previousPlanName = prevPlan.label;
+                }
+
+                const mappedFeatures = [
+                    ...plan.limits.map(l => ({
+                        text: l.text_list,
+                        included: true,
+                        isHighlighted: true
+                    })),
+                    ...plan.features.map(f => ({
+                        text: f.label,
+                        included: true,
+                        isHighlighted: false
+                    }))
+                ];
+
+                return {
+                    id: plan.id,
+                    name: plan.label,
+                    priceMonthly: plan.price,
+                    priceAnnually: plan.annual_price,
+                    range: plan.limits.find(l => l.id === 'tasks')?.text_list || '',
+                    ctaText: plan.price === 0 ? 'Start for Free' : ((typeof plan.price === 'number' && plan.price > 100) ? 'Chat with us' : `Get Started with ${plan.label}`),
+                    features: mappedFeatures,
+                    everythingInPlanName: previousPlanName,
+                    recommended: plan.id === (manualRecommendedId || monitorData.plans.find(p => p.badge === 'Popular')?.id)
                 };
             });
         }
@@ -70,9 +146,11 @@ export default function InteractivePricing() {
         <Box>
             <Flex direction={{ base: "column", lg: "row" }} gap={8} align={{ base: "stretch", lg: "flex-start" }}>
                 <Box flex="1">
-                    <HostnameSlider value={hostnameValue} onChange={setHostnameValue} />
+                    {activeTab === 'redirects' && (
+                        <HostnameSlider value={hostnameValue} onChange={setHostnameValue} />
+                    )}
                     <SimpleGrid
-                        columns={activeTab === 'redirects' ? { base: 1, md: 2, lg: 3, xl: 4 } : { base: 1, md: 2, lg: 3 }}
+                        columns={{ base: 1, md: 2, lg: 3, xl: 4 }}
                         gap={4}
                         mt={8}
                     >
@@ -83,10 +161,13 @@ export default function InteractivePricing() {
                                 isAnnually={isAnnually}
                                 recommended={plan.id === recommendedPlanId}
                                 everythingInPlanName={plan.everythingInPlanName}
+                                onClick={activeTab !== 'redirects' ? () => setManualRecommendedId(plan.id) : undefined}
                             />
                         ))}
                     </SimpleGrid>
-                    <AddOns isAnnually={isAnnually} />
+                    {activeTab === 'redirects' && (
+                        <AddOns isAnnually={isAnnually} />
+                    )}
                 </Box>
             </Flex>
         </Box>
@@ -150,7 +231,7 @@ export default function InteractivePricing() {
             <TabsLayout
                 defaultValue="redirects"
                 value={activeTab}
-                onValueChange={setActiveTab}
+                onValueChange={handleTabChange}
                 tabHeader={tabHeader}
                 tabBody={tabBody}
                 headerRight={headerRight}
