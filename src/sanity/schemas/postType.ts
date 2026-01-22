@@ -89,6 +89,7 @@ export const postType = defineType({
             },
           ],
         },
+        { type: 'cta' },
       ],
     }),
     defineField({

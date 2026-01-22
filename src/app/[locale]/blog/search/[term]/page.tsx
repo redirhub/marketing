@@ -28,15 +28,6 @@ export default async function SearchResultsPage({
                 <Container maxW="7xl" mx="auto" px={{ base: 4, md: 0 }}>
                     {posts.length > 0 ? (
                         <Flex direction="column" align="center" textAlign="center" mb={12}>
-                            <Heading
-                                as="h2"
-                                fontSize={{ base: "1.5rem", md: "2.25rem" }}
-                                fontWeight="600"
-                                maxW={'900px'}
-                                mb={2}
-                            >
-                                Search results for &quot;{decodedTerm}&quot;
-                            </Heading>
                             <Text fontSize="lg" color="gray.600" fontWeight="500">
                                 {total} {total === 1 ? 'Result' : 'Results'}
                             </Text>
