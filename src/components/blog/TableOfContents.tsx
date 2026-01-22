@@ -2,6 +2,7 @@
 
 import { Box, Heading, Link } from '@chakra-ui/react'
 import { useEffect, useState, useRef } from 'react'
+import InlineCTA from '../sections/InlineCTA'
 
 interface Heading {
   text: string
@@ -23,7 +24,7 @@ export default function TableOfContents({ content }: TableOfContentsProps) {
     if (!Array.isArray(content)) return
 
     const extractedHeadings = content
-      .filter((block) => block._type === 'block' && block.style?.match(/^h[2-3]$/))
+      .filter((block) => block._type === 'block' && block.style?.match(/^h[2-2]$/))
       .map((block, index) => {
         const text = block.children?.map((child: any) => child.text).join('') || ''
         const id = `heading-${index}`
@@ -78,10 +79,11 @@ export default function TableOfContents({ content }: TableOfContentsProps) {
   if (headings.length === 0) return null
 
   return (
-    <Box
-      as="aside"
-      position="sticky"
-      top="80px"
+  <Box
+     as="aside"
+     position="sticky"
+     top="80px">
+    <Box     
       height="fit-content"
       maxH="calc(100vh - 80px)"
       overflowY="auto"
@@ -142,5 +144,7 @@ export default function TableOfContents({ content }: TableOfContentsProps) {
         ))}
       </Box>
     </Box>
+    <InlineCTA headingFontSize={{base:'18px', md:'24px'}} textFontSize='15px' />
+  </Box>
   )
 }

@@ -2,11 +2,12 @@ import { PortableTextComponents } from '@portabletext/react'
 import { Box, Heading, Text, Code, Image as ChakraImage } from '@chakra-ui/react'
 import { urlFor } from '@/sanity/lib/image'
 import { GoCheckCircle } from 'react-icons/go'
+import InlineCTA from '../sections/InlineCTA'
 
-// Track heading index for unique IDs
+export const portableTextComponents = (): PortableTextComponents => {
 let currentHeadingIndex = -1
 
-export const portableTextComponents: PortableTextComponents = {
+return {
   block: {
     h1: ({ children }) => (
       <Heading
@@ -172,5 +173,16 @@ export const portableTextComponents: PortableTextComponents = {
         </Box>
       )
     },
+    cta: ({ value }) => {
+      return (
+        <InlineCTA
+          variant={value?.variant}
+          title={value?.title}
+          text={value?.text}
+          url={value?.url}
+        />
+      )
+    },
   },
+}
 }

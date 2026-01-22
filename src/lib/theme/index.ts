@@ -50,6 +50,7 @@ const customConfig = {
         gradients: {
             faqGlow: { value: 'linear-gradient(89.44deg, #20A795 14.11%, #1D81AB 65.7%, #1C6DB6 91.83%)' },
             mobileMenu: { value: 'linear-gradient(163deg, #1c6db6 0%, #20a795 86%)' },
+            ctaBackground: { value: 'linear-gradient(90deg, #EEF6FF 0%, #F8FAFC 100%)' },
         },
         whiteAlpha: {
             24: { value: 'rgba(255, 255, 255, 0.24)' },

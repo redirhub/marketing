@@ -120,7 +120,7 @@ export default async function LandingPage({ params, searchParams }: PageProps) {
                 <Box fontSize="lg" lineHeight="1.8" color="#344054">
                   <PortableText
                     value={page.richContent}
-                    components={portableTextComponents}
+                    components={portableTextComponents()}
                   />
                 </Box>
               )}
