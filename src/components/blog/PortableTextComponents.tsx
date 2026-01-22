@@ -2,12 +2,10 @@ import { PortableTextComponents } from '@portabletext/react'
 import { Box, Heading, Text, Code, Image as ChakraImage } from '@chakra-ui/react'
 import { urlFor } from '@/sanity/lib/image'
 import { GoCheckCircle } from 'react-icons/go'
-import BlogCTA from './BlogCTA'
+import InlineCTA from '../sections/InlineCTA'
 
 export const portableTextComponents = (): PortableTextComponents => {
-let paragraphCount = 0
 let currentHeadingIndex = -1
-const CTA_AFTER_PARAGRAPH = 4
 
 return {
   block: {
@@ -70,18 +68,11 @@ return {
         {children}
       </Heading>
     ),
-    normal: ({ children }) => {
-      paragraphCount++
-      const showCTA = paragraphCount === CTA_AFTER_PARAGRAPH
-      return (
-        <>
-          <Text fontSize={{ base: 'md', md: 'lg' }} lineHeight="1.8" color="gray.700" mb={4}>
-            {children}
-          </Text>
-          {showCTA && <BlogCTA />}
-        </>
-      )
-    },
+    normal: ({ children }) => (
+      <Text fontSize={{ base: 'md', md: 'lg' }} lineHeight="1.8" color="gray.700" mb={4}>
+        {children}
+      </Text>
+    ),
     blockquote: ({ children }) => (
       <Box
         borderLeft="4px solid"
@@ -180,6 +171,16 @@ return {
             </Text>
           )}
         </Box>
+      )
+    },
+    cta: ({ value }) => {
+      return (
+        <InlineCTA
+          variant={value?.variant}
+          title={value?.title}
+          text={value?.text}
+          url={value?.url}
+        />
       )
     },
   },

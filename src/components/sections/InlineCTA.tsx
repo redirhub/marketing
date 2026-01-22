@@ -5,15 +5,30 @@ import { HiArrowRight } from 'react-icons/hi'
 import Link from 'next/link'
 import { FiArrowRight } from 'react-icons/fi'
 
-interface BlogCTAProps {
+interface CTAProps {
+    variant?: 'default' | 'custom'
+    title?: string
+    text?: string
+    url?: string
     headingFontSize?: { base: string; md: string }
     textFontSize?: string
 }
 
-const BlogCTA = ({
+const DEFAULT_TITLE = 'Start Making 5x Faster Redirects with RedirHub'
+const DEFAULT_TEXT = 'Get redirects in under 100 ms – with automatic HTTPS, analytics, and zero configuration.'
+const DEFAULT_URL = 'https://dash.redirhub.com/register'
+
+const InlineCTA = ({
+    variant = 'default',
+    title,
+    text,
+    url,
     headingFontSize = { base: '24px', md: '30px' },
     textFontSize = '18px',
-}: BlogCTAProps) => {
+}: CTAProps) => {
+    const ctaTitle = variant === 'default' ? DEFAULT_TITLE : (title || DEFAULT_TITLE)
+    const ctaText = variant === 'default' ? DEFAULT_TEXT : (text || DEFAULT_TEXT)
+    const ctaUrl = variant === 'default' ? DEFAULT_URL : (url || DEFAULT_URL)
     return (
         <Box
             background="gradients.ctaBackground"
@@ -41,7 +56,7 @@ const BlogCTA = ({
                     color="gray.darkGray"
                     lineHeight="38px"
                 >
-                    Start Making 5x Faster Redirects with RedirHub
+                    {ctaTitle}
                 </Heading>
 
                 <Text
@@ -51,14 +66,13 @@ const BlogCTA = ({
                     color="gray.blueGray"
                     lineHeight="28px"
                 >
-                    Get redirects in under 100 ms – with automatic HTTPS, analytics, and zero
-                    configuration.
+                    {ctaText}
                 </Text>
 
                 <Button
                     as={Link}
                     // @ts-expect-error
-                    href="https://dash.redirhub.com/register"
+                    href={ctaUrl}
                     size="lg"
                     bg="brand.500"
                     color="white"
@@ -78,4 +92,4 @@ const BlogCTA = ({
     )
 }
 
-export default BlogCTA
+export default InlineCTA

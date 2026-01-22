@@ -2,7 +2,7 @@
 
 import { Box, Heading, Link } from '@chakra-ui/react'
 import { useEffect, useState, useRef } from 'react'
-import BlogCTA from './BlogCTA'
+import InlineCTA from '../sections/InlineCTA'
 
 interface Heading {
   text: string
@@ -24,7 +24,7 @@ export default function TableOfContents({ content }: TableOfContentsProps) {
     if (!Array.isArray(content)) return
 
     const extractedHeadings = content
-      .filter((block) => block._type === 'block' && block.style?.match(/^h[2-3]$/))
+      .filter((block) => block._type === 'block' && block.style?.match(/^h[2-2]$/))
       .map((block, index) => {
         const text = block.children?.map((child: any) => child.text).join('') || ''
         const id = `heading-${index}`
@@ -144,7 +144,7 @@ export default function TableOfContents({ content }: TableOfContentsProps) {
         ))}
       </Box>
     </Box>
-    <BlogCTA headingFontSize={{base:'18px', md:'24px'}} textFontSize='15px' />
+    <InlineCTA headingFontSize={{base:'18px', md:'24px'}} textFontSize='15px' />
   </Box>
   )
 }
