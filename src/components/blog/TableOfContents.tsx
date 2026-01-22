@@ -2,6 +2,7 @@
 
 import { Box, Heading, Link } from '@chakra-ui/react'
 import { useEffect, useState, useRef } from 'react'
+import BlogCTA from './BlogCTA'
 
 interface Heading {
   text: string
@@ -78,10 +79,11 @@ export default function TableOfContents({ content }: TableOfContentsProps) {
   if (headings.length === 0) return null
 
   return (
-    <Box
-      as="aside"
-      position="sticky"
-      top="80px"
+  <Box
+     as="aside"
+     position="sticky"
+     top="80px">
+    <Box     
       height="fit-content"
       maxH="calc(100vh - 80px)"
       overflowY="auto"
@@ -142,5 +144,7 @@ export default function TableOfContents({ content }: TableOfContentsProps) {
         ))}
       </Box>
     </Box>
+    <BlogCTA headingFontSize={{base:'18px', md:'24px'}} textFontSize='15px' />
+  </Box>
   )
 }
