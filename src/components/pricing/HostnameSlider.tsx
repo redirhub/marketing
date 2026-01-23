@@ -1,7 +1,7 @@
 "use client";
 
 import { Box, Flex, Text, Slider, HStack } from "@chakra-ui/react";
-import { sliderTicks } from "./pricingData";
+import { getRedirectSliderConfig } from "./redirectPlanData";
 
 interface HostnameSliderProps {
     value: number;
@@ -9,6 +9,8 @@ interface HostnameSliderProps {
 }
 
 export default function HostnameSlider({ value, onChange }: HostnameSliderProps) {
+    const sliderConfig = getRedirectSliderConfig();
+    const sliderTicks = sliderConfig.ticks;
     const currentTick = sliderTicks.find(tick => tick.value === value) || sliderTicks[0];
     const hostnameLabel = currentTick.label;
 
@@ -30,11 +32,14 @@ export default function HostnameSlider({ value, onChange }: HostnameSliderProps)
 
             <Box px={2} position="relative">
                 <Slider.Root
-                    value={[value]}
-                    onValueChange={(e) => onChange(e.value[0])}
+                    value={[sliderTicks.findIndex(t => t.value === value)]}
+                    onValueChange={(e) => {
+                        const tickIndex = Math.round(e.value[0]);
+                        onChange(sliderTicks[tickIndex].value);
+                    }}
                     min={0}
-                    max={100}
-                    step={25}
+                    max={sliderTicks.length - 1}
+                    step={1}
                 >
                     <Slider.Control>
                         <Slider.Track bg="gray.track" border={'none'} height="8px" cursor={'pointer'} borderRadius="full">

@@ -17,11 +17,12 @@ export interface PricingPlan {
 }
 
 export const sliderTicks = [
-  { value: 0, label: '15' },
-  { value: 25, label: '100' },
-  { value: 50, label: '1K' },
-  { value: 75, label: '10K' },
-  { value: 100, label: '50K+' },
+  { value: 0, label: '0' },
+  { value: 15, label: '15' },
+  { value: 100, label: '100' },
+  { value: 1000, label: '1K' },
+  { value: 10000, label: '10K' },
+  { value: 50000, label: '50K' },
 ];
 
 export const pricingPlans: PricingPlan[] = [

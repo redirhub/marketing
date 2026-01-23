@@ -51,10 +51,9 @@ export const FooterCtaHeader: React.FC = ({}) => {
           borderRadius="8px"
           _hover={{
             transform: "translateY(-2px)",
-            boxShadow: "0 10px 30px rgba(95, 82, 63, 0.3)",
+            boxShadow: "0 10px 20px rgba(95, 82, 63, 0.27)",
           }}
           _active={{
-            bg: "orange.700",
             transform: "translateY(0)",
           }}
           transition="all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1)"
