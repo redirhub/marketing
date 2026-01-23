@@ -7,9 +7,10 @@ interface ArticleItemProps {
   title: string;
   slug: string;
   locale: string;
+  tags?: string;
 }
 
-export function ArticleItem({ title, slug, locale }: ArticleItemProps) {
+export function ArticleItem({ title, slug, locale, tags }: ArticleItemProps) {
   return (
     <Box
       w="full"
@@ -42,6 +43,23 @@ export function ArticleItem({ title, slug, locale }: ArticleItemProps) {
           >
             {title}
           </Text>
+          {tags && (
+            <Box
+              px={4}
+              py={2}
+              bg="#FFF6ED"
+              borderRadius="16px"
+              flexShrink={0}
+            >
+              <Text
+                fontSize={{ base: "0.875rem", md: "0.875rem" }}
+                fontWeight="600"
+                color="#d65334"
+              >
+                {tags}
+              </Text>
+            </Box>
+          )}
         </Flex>
       </Link>
     </Box>

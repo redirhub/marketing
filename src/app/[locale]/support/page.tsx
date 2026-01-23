@@ -76,6 +76,7 @@ export default async function SupportPage({
                       title={article.title}
                       slug={article.slug.current}
                       locale={locale}
+                      tags={article.tags?.[0]}
                     />
                   ))
                 ) : (
