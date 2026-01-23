@@ -46,14 +46,14 @@ export function ArticleItem({ title, slug, locale, tags }: ArticleItemProps) {
           {tags && (
             <Box
               px={4}
-              py={2}
+              py={'5px'}
               bg="#FFF6ED"
               borderRadius="16px"
               flexShrink={0}
             >
               <Text
-                fontSize={{ base: "0.875rem", md: "0.875rem" }}
-                fontWeight="600"
+                fontSize={{ base: "0.875rem", md: "1rem" }}
+                fontWeight="400"
                 color="#d65334"
               >
                 {tags}

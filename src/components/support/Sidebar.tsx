@@ -7,11 +7,11 @@ import { usePathname } from "next/navigation";
 export default function Sidebar() {
   const pathname = usePathname();
   const categories = [
-    { name: "All", path: "/support" },
-    { name: "FAQ", path: "/blog/support-category/faq" },
-    { name: "Feature", path: "/blog/support-category/feature" },
-    { name: "Guide", path: "/blog/support-category/guide" },
-    { name: "Walkthrough", path: "/blog/support-category/walkthrough" },
+    { name: "All", path: "/support", tag: null },
+    { name: "FAQ", path: "/support/category/faq", tag: "FAQ" },
+    { name: "Feature", path: "/support/category/feature", tag: "Feature" },
+    { name: "Guide", path: "/support/category/guide", tag: "Guide" },
+    { name: "Walkthroughs", path: "/support/category/walkthroughs", tag: "Walkthroughs" },
   ];
 
   return (
@@ -21,7 +21,7 @@ export default function Sidebar() {
 
         return (
           <Link
-            key={cat.path}
+            key={cat.name}
             href={cat.path}
             passHref
             style={{ textDecoration: "none" }}

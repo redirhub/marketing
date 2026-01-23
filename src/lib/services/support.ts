@@ -51,7 +51,7 @@ export async function fetchSupportArticlesByTag(
   const query = `*[
     _type == "support" &&
     locale == $locale &&
-    $tag in tags
+    count(tags[lower(@) == lower($tag)]) > 0
   ] | order(publishedAt desc) {
     _id,
     title,
