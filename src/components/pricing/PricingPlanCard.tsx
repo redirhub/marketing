@@ -33,7 +33,7 @@ export default function PricingPlanCard({ plan, isAnnually, recommended, everyth
             flexDirection="column"
             maxW={{ base: "full", md: "370px" }}
             onClick={isUnavailable ? undefined : onClick}
-            cursor={isUnavailable ? "not-allowed" : "pointer"}
+            cursor={isUnavailable ? "not-allowed" : ''}
             opacity={isUnavailable ? 0.6 : 1}
         >
             {recommended && (

@@ -80,10 +80,10 @@ export const redirectData: RedirectData = {
       "limits": [
         {
           "id": "hosts",
-          "from": 2,
+          "from": 5,
           "to": null,
-          "text_list": "2 source domains",
-          "text_subscribe": "2 source domains",
+          "text_list": "5 source domains",
+          "text_subscribe": "5 source domains",
           "primary": true,
           "tooltip": "with www sub-domains included"
         },
@@ -1666,8 +1666,6 @@ export const redirectData: RedirectData = {
 };
 
 export const getRecommendedRedirectPlan = (hostnameCount: number): string => {
-  if (hostnameCount <= 2) return 'redirect-free';
-  if (hostnameCount <= 100) return 'redirect-basic';
   if (hostnameCount <= 50000) return 'redirect-pro';
   return 'redirect-enterprise';
 };
@@ -1686,11 +1684,19 @@ export const getRedirectSliderConfig = () => {
   const maxHostnames = 100000; 
 
   const sliderTicks = [
-    { value: 2, label: '2' },        
+    { value: 5, label: '5' },        
     { value: 15, label: '15' },     
+    { value: 25, label: '25' },     
+    { value: 50, label: '50' },     
     { value: 100, label: '100' },    
+    { value: 250, label: '250' },    
+    { value: 500, label: '500' },    
     { value: 1000, label: '1K' },  
+    { value: 2500, label: '2.5K' },  
+    { value: 5000, label: '5K' }, 
     { value: 10000, label: '10K' }, 
+    { value: 15000, label: '15K' }, 
+    { value: 25000, label: '25K' }, 
     { value: 50000, label: '50K' },  
     { value: 100000, label: '100K' }, 
   ];

@@ -26,9 +26,9 @@ export default function InteractivePricing() {
     if (activeTab === 'redirects') {
         recommendedPlanId = getRecommendedRedirectPlan(hostnameValue);
     } else if (activeTab === 'shorten') {
-        recommendedPlanId = manualRecommendedId || shortenUrlData.plans.find(p => p.badge === 'Popular')?.id || '';
+        recommendedPlanId = shortenUrlData.plans.find(p => p.badge === 'Popular')?.id || '';
     } else if (activeTab === 'monitor') {
-        recommendedPlanId = manualRecommendedId || monitorData.plans.find(p => p.badge === 'Popular')?.id || '';
+        recommendedPlanId = monitorData.plans.find(p => p.badge === 'Popular')?.id || '';
     }
 
     const getDisplayPlans = () => {
@@ -165,7 +165,6 @@ export default function InteractivePricing() {
                                 isAnnually={isAnnually}
                                 recommended={plan.id === recommendedPlanId}
                                 everythingInPlanName={plan.everythingInPlanName}
-                                onClick={activeTab !== 'redirects' ? () => setManualRecommendedId(plan.id) : undefined}
                                 isUnavailable={(plan as any).isUnavailable}
                                 isDynamicPricing={activeTab === 'redirects'}
                             />

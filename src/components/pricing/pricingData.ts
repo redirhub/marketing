@@ -85,22 +85,22 @@ export const addOnsData = [
   {
     title: "Single Sign-On (SSO)",
     description: "Team login through your organization account using SAML authentication.",
-    priceMonthly: 35,
-    priceAnnually: 29,
+    priceMonthly: 200,
+    priceAnnually: 2000,
     iconType: "sso",
   },
   {
     title: "Custom Name Servers",
     description: "Point entire domains to RedirHub using dedicated NS records for seamless DNS integration.",
-    priceMonthly: 59,
-    priceAnnually: 49,
+    priceMonthly: 200,
+    priceAnnually: 2000,
     iconType: "dns",
   },
   {
     title: "Dedicated Cluster",
     description: "2 IP nodes with Auto-Redirect — any domain pointed to this server follows your preset rules automatically.",
-    priceMonthly: 119,
-    priceAnnually: 99,
+    priceMonthly: 800,
+    priceAnnually: 8000,
     iconType: "cluster",
   },
 ];
