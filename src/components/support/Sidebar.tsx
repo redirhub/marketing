@@ -31,13 +31,13 @@ export default function Sidebar() {
               py={"9px"}
               border="1px solid"
               cursor="pointer"
-              borderColor={"#E9E9E9"}
-              bg={"transparent"}
-              color={"#667085"}
+              borderColor={isActive ? "#f8eadb" : "#E9E9E9"}
+              bg={isActive ? "#fcefe2" : "transparent"}
+              color={isActive ? "#d65334" : "#565d6c"}
               transition="all 0.2s"
               borderRadius={"8px"}
               _hover={{
-                bg: "#797A7C30",
+                bg: "#faf3eb",
                 borderColor: "#E9E9E9",
               }}
               textAlign={{ base: "center", md: "left" }}

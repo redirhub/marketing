@@ -59,7 +59,7 @@ export const FAQAccordion = ({ items }: FAQAccordionProps) => {
             zIndex={1}
             cursor="pointer"
             _hover={{
-              boxShadow: "sm",
+            boxShadow: "0 2px 8px rgba(0, 0, 0, 0.08)",
             }}
             transition="all 0.3s"
           >

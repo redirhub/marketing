@@ -37,7 +37,7 @@ export default function BlogFAQ({ faqs }: BlogFAQProps) {
             overflow="hidden"
             transition="all 0.3s ease"
             _hover={{
-              boxShadow: 'md',
+              boxShadow: "0 2px 8px rgba(0, 0, 0, 0.08)",
               borderColor: '#7D65DB',
             }}
           >
