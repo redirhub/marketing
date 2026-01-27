@@ -42,22 +42,43 @@ export default function HostnameSlider({ value, onChange }: HostnameSliderProps)
     };
 
     return (
-        <Box w="full" py={8}>
-            <Flex justify="space-between" align="center" mb={4}>
-                <Text fontSize="16px" lineHeight="24px" fontWeight="500" color="gray.textMedium">
+        <Box w="full" py={{ base: 4, md: 8 }}>
+            <Flex
+                direction={{ base: "column", md: "row" }}
+                justify={{ base: "flex-start", md: "space-between" }}
+                align={{ base: "flex-start", md: "center" }}
+                mb={{ base: 6, md: 4 }}
+                gap={{ base: 3, md: 0 }}
+            >
+                <Text
+                    fontSize={{ base: "14px", md: "16px" }}
+                    lineHeight={{ base: "20px", md: "24px" }}
+                    fontWeight="500"
+                    color="gray.textMedium"
+                >
                     How many hostnames do you need?
                 </Text>
-                <HStack gap={2} align="center">
-                    <Text fontSize="30px" lineHeight="38px" fontWeight="600" color="gray.darkGray">
+                <HStack gap={{ base: 1.5, md: 2 }} align="center">
+                    <Text
+                        fontSize={{ base: "24px", md: "30px" }}
+                        lineHeight={{ base: "32px", md: "38px" }}
+                        fontWeight="600"
+                        color="gray.darkGray"
+                    >
                         {hostnameLabel}
                     </Text>
-                    <Text fontSize="16px" lineHeight="24px" fontWeight="500" color="gray.textMedium">
+                    <Text
+                        fontSize={{ base: "14px", md: "16px" }}
+                        lineHeight={{ base: "20px", md: "24px" }}
+                        fontWeight="500"
+                        color="gray.textMedium"
+                    >
                         hostnames
                     </Text>
                 </HStack>
             </Flex>
 
-            <Box position="relative" px={1} pb={6}>
+            <Box position="relative" px={{ base: 0.5, md: 1 }} pb={{ base: 8, md: 6 }}>
                 <RcSlider
                     min={0}
                     max={sliderTicks.length - 1}
@@ -164,6 +185,21 @@ export default function HostnameSlider({ value, onChange }: HostnameSliderProps)
                     user-select: none;
                     padding-top: 14px;
                     -webkit-user-select: none;
+                    white-space: nowrap;
+                }
+
+                @media (max-width: 768px) {
+                    .rc-slider-mark-text {
+                        font-size: 11px;
+                        padding-top: 12px;
+                    }
+                }
+
+                @media (max-width: 480px) {
+                    .rc-slider-mark-text {
+                        font-size: 9px;
+                        padding-top: 10px;
+                    }
                 }
                 
                 .rc-slider-mark-text:hover {
@@ -171,6 +207,34 @@ export default function HostnameSlider({ value, onChange }: HostnameSliderProps)
                 }               
                 .rc-slider-handle-click-focused:focus {
                     border-color: ${primary600};
+                }
+
+                @media (max-width: 768px) {
+                    .rc-slider-track {
+                        height: 6px !important;
+                    }
+                    .rc-slider-rail {
+                        height: 6px !important;
+                    }
+                    .rc-slider-handle {
+                        width: 20px !important;
+                        height: 20px !important;
+                        margin-top: -7px !important;
+                    }
+                }
+
+                @media (max-width: 480px) {
+                    .rc-slider-track {
+                        height: 5px !important;
+                    }
+                    .rc-slider-rail {
+                        height: 5px !important;
+                    }
+                    .rc-slider-handle {
+                        width: 18px !important;
+                        height: 18px !important;
+                        margin-top: -6.5px !important;
+                    }
                 }
             `}</style>
         </Box>

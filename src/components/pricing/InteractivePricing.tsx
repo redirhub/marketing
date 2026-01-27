@@ -6,6 +6,7 @@ import { TabsLayout, TabTriggerButton } from "@/components/ui/TabsLayout";
 import HostnameSlider from "./HostnameSlider";
 import PricingPlanCard from "./PricingPlanCard";
 import AddOns from "./AddOns";
+import PlansComparisonTable from "./PlansComparisonTable";
 import { pricingPlans } from "./pricingData";
 import { redirectData, getRecommendedRedirectPlan, calculatePlanPricing } from "./redirectPlanData";
 import { shortenUrlData } from "./shortenUrlPlanData";
@@ -232,7 +233,7 @@ export default function InteractivePricing() {
     );
 
     return (
-        <Box position="relative" mt={{ base: "-125px", md: "-350px" }} pb={20} px={4} zIndex={99}>
+        <Box position="relative" mt={{ base: "-125px", md: "-350px" }} pb={20} px={5} zIndex={99}>
             <TabsLayout
                 defaultValue="redirects"
                 value={activeTab}
@@ -242,6 +243,7 @@ export default function InteractivePricing() {
                 headerRight={headerRight}
                 maxW="1180px"
             />
+            <PlansComparisonTable isAnnually={isAnnually} />
         </Box>
     );
 }
