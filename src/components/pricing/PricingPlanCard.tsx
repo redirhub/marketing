@@ -10,27 +10,31 @@ interface PricingPlanCardProps {
     recommended?: boolean;
     everythingInPlanName?: string | null;
     onClick?: () => void;
+    isUnavailable?: boolean;
+    isDynamicPricing?: boolean;
 }
 
-export default function PricingPlanCard({ plan, isAnnually, recommended, everythingInPlanName, onClick }: PricingPlanCardProps) {
+export default function PricingPlanCard({ plan, isAnnually, recommended, everythingInPlanName, onClick, isUnavailable, isDynamicPricing }: PricingPlanCardProps) {
     const price = isAnnually ? plan.priceAnnually : plan.priceMonthly;
     const isCustom = typeof price === 'string';
+    const showFromLabel = !isCustom && !isDynamicPricing;
 
     return (
         <Box
             flex="1"
-            bg={recommended ? "brand.cardActiveBg" : "white"}
+            bg={isUnavailable ? "gray.50" : (recommended ? "brand.cardActiveBg" : "white")}
             borderRadius="24px"
             border="1px solid"
-            borderColor={recommended ? "brand.500" : "gray.borderLight"}
+            borderColor={isUnavailable ? "gray.300" : (recommended ? "brand.500" : "gray.borderLight")}
             position="relative"
             transition="all 0.3s"
-            boxShadow={recommended ? "0px 12px 16px -4px rgba(16, 24, 40, 0.08), 0px 4px 6px -2px rgba(16, 24, 40, 0.03)" : "none"}
+            boxShadow={recommended && !isUnavailable ? "0px 12px 16px -4px rgba(16, 24, 40, 0.08), 0px 4px 6px -2px rgba(16, 24, 40, 0.03)" : "none"}
             display="flex"
             flexDirection="column"
             maxW={{ base: "full", md: "370px" }}
-            onClick={onClick}
-            cursor={"pointer"}
+            onClick={isUnavailable ? undefined : onClick}
+            cursor={isUnavailable ? "not-allowed" : ''}
+            opacity={isUnavailable ? 0.6 : 1}
         >
             {recommended && (
                 <Badge
@@ -65,7 +69,7 @@ export default function PricingPlanCard({ plan, isAnnually, recommended, everyth
                 </Heading>
 
                 <Flex align="baseline" direction={isCustom ? "column" : "row"} gap={1}>
-                    {!isCustom && (
+                    {showFromLabel && (
                         <Text fontSize="16px" lineHeight="24px" fontWeight="500" color="gray.textMedium">
                             from
                         </Text>
@@ -95,19 +99,21 @@ export default function PricingPlanCard({ plan, isAnnually, recommended, everyth
                     <Button
                         w="full"
                         h="48px"
-                        bg={recommended ? "brand.500" : "white"}
-                        color={recommended ? "white" : "gray.900"}
-                        border={recommended ? "none" : "1px solid"}
-                        borderColor={recommended ? "none" : "gray.borderLight"}
+                        bg={isUnavailable ? "gray.300" : (recommended ? "brand.500" : "white")}
+                        color={isUnavailable ? "gray.600" : (recommended ? "white" : "gray.900")}
+                        border={recommended || isUnavailable ? "none" : "1px solid"}
+                        borderColor={recommended || isUnavailable ? "none" : "gray.borderLight"}
                         borderRadius="12px"
                         fontSize="16px"
                         fontWeight="600"
+                        disabled={isUnavailable}
+                        cursor={isUnavailable ? "not-allowed" : "pointer"}
                         _hover={{
-                            bg: recommended ? "brand.600" : "gray.50",
-                            transform: "translateY(-1px)",
+                            bg: isUnavailable ? "gray.300" : (recommended ? "brand.600" : "gray.50"),
+                            transform: isUnavailable ? "none" : "translateY(-1px)",
                         }}
                     >
-                        {plan.ctaText}  <Icon as={FiArrowRight} ml={1} />
+                        {isUnavailable ? "Unavailable" : plan.ctaText}  {!isUnavailable && <Icon as={FiArrowRight} ml={1} />}
                     </Button>
                 </Flex>
             </Stack>

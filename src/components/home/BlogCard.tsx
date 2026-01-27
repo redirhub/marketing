@@ -37,7 +37,7 @@ export const BlogCard = ({
         borderRadius="16px"
         overflow="hidden"
         cursor="pointer"
-        maxH={'450px'}
+        maxH={{ base:'auto', lg:'450px' }}
         _hover={{
           transform: "translateY(-8px)",
           boxShadow: "0 12px 40px rgba(0, 0, 0, 0.12)",

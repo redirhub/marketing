@@ -23,7 +23,7 @@ interface CustomerLogosSectionProps {
 }
 
 export default function CustomerLogosSection({
-  paddingY = { base: 2, md: 4, lg: 8 }
+  paddingY = { base: 2, md: 4, lg: 10 }
 }: CustomerLogosSectionProps) {
   const settings = {
     // Basic Slider Settings
@@ -62,7 +62,7 @@ export default function CustomerLogosSection({
   };
 
   return (
-    <Box py={paddingY} maxW={'1200px'} mx="auto">
+    <Box py={paddingY} maxW={'1188px'} mx="auto">
       <Slider {...settings}>
         {LOGOS.map((logo, index) => (
           <Box key={logo.alt + "-" + index} px={4}>
@@ -76,7 +76,7 @@ export default function CustomerLogosSection({
                 src={logo.src}
                 alt={logo.alt}
                 h={{ base: "60px", lg: "100px" }}
-                maxW={{ base: "100px", md: "125px", lg: "160px" }}
+                maxW={{ base: "100px", md: "125px", lg: "150px" }}
                 objectFit="contain"
               />
             </Box>

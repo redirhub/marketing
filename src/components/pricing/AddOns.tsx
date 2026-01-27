@@ -25,7 +25,7 @@ export default function AddOns({ isAnnually }: AddOnsProps) {
                 {addOnsData.map((addon, index) => (
                     <Box
                         key={index}
-                        bgGradient="linear(to-b, white,rgb(245, 245, 245))"
+                        background={'linear-gradient(180deg, #FFFFFF 0%, #F5F5F5 100%)'}
                         borderRadius="16px"
                         p={4}
                         border="1px solid"
@@ -42,7 +42,6 @@ export default function AddOns({ isAnnually }: AddOnsProps) {
                                 display="flex"
                                 alignItems="center"
                                 justifyContent="center"
-                                boxShadow="sm"
                             >
                                 <Image
                                     src={index === 0 ? "/assets/images/log-in.png" : index === 1 ? "/assets/images/server.png" : "/assets/images/cluster.png"}
@@ -52,7 +51,7 @@ export default function AddOns({ isAnnually }: AddOnsProps) {
                                 />
                             </Box>
                             <Flex align="baseline" gap={1}>
-                                <Text fontSize="24px" fontWeight="700" color="gray.900">
+                                <Text fontSize="24px" fontWeight="600" color="gray.900">
                                     ${isAnnually ? addon.priceAnnually : addon.priceMonthly}
                                 </Text>
                                 <Text fontSize="14px" fontWeight="500" color="gray.500">
@@ -64,7 +63,7 @@ export default function AddOns({ isAnnually }: AddOnsProps) {
                         <Heading as="h4" fontSize="16px" fontWeight="600" color="gray.darkGray" mb={2}>
                             {addon.title}
                         </Heading>
-                        <Text fontSize="14px" fontWeight="400" color="gray.blueGray" lineHeight="1.6">
+                        <Text fontSize="14px" fontWeight="400" color="gray.blueGray" lineHeight="1.5">
                             {addon.description}
                         </Text>
                     </Box>

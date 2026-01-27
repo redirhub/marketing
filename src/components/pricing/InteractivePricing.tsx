@@ -7,14 +7,16 @@ import HostnameSlider from "./HostnameSlider";
 import PricingPlanCard from "./PricingPlanCard";
 import AddOns from "./AddOns";
 import { pricingPlans } from "./pricingData";
-import { redirectData, getRecommendedRedirectPlan } from "./redirectPlanData";
+import { redirectData, getRecommendedRedirectPlan, calculatePlanPricing } from "./redirectPlanData";
 import { shortenUrlData } from "./shortenUrlPlanData";
 import { monitorData } from "./monitorPlanData";
+
+
 
 export default function InteractivePricing() {
     const [activeTab, setActiveTab] = useState("redirects");
     const [isAnnually, setIsAnnually] = useState(false);
-    const [hostnameValue, setHostnameValue] = useState(0);
+    const [hostnameValue, setHostnameValue] = useState(5);
     const [manualRecommendedId, setManualRecommendedId] = useState<string | null>(null);
     const handleTabChange = (val: string) => {
         setActiveTab(val);
@@ -24,9 +26,9 @@ export default function InteractivePricing() {
     if (activeTab === 'redirects') {
         recommendedPlanId = getRecommendedRedirectPlan(hostnameValue);
     } else if (activeTab === 'shorten') {
-        recommendedPlanId = manualRecommendedId || shortenUrlData.plans.find(p => p.badge === 'Popular')?.id || '';
+        recommendedPlanId = shortenUrlData.plans.find(p => p.badge === 'Popular')?.id || '';
     } else if (activeTab === 'monitor') {
-        recommendedPlanId = manualRecommendedId || monitorData.plans.find(p => p.badge === 'Popular')?.id || '';
+        recommendedPlanId = monitorData.plans.find(p => p.badge === 'Popular')?.id || '';
     }
 
     const getDisplayPlans = () => {
@@ -50,16 +52,18 @@ export default function InteractivePricing() {
                         isHighlighted: false
                     }))
                 ];
+                const { totalPrice, isUnavailable } = calculatePlanPricing(plan, hostnameValue, isAnnually);
 
                 return {
                     id: plan.id,
                     name: plan.label,
-                    priceMonthly: plan.price,
-                    priceAnnually: plan.annual_price,
+                    priceMonthly: totalPrice,
+                    priceAnnually: totalPrice,
                     range: (redirectData.comparison.find(c => c.id === 'basic.records')?.plans[plan.id]?.value as string) || '',
                     ctaText: plan.price === 0 ? 'Start for Free' : ((typeof plan.price === 'number' && plan.price > 100) ? 'Chat with us' : `Get Started with ${plan.label}`),
                     features: mappedFeatures,
                     everythingInPlanName: previousPlanName,
+                    isUnavailable,
                 };
             });
         } else if (activeTab === 'shorten') {
@@ -161,7 +165,8 @@ export default function InteractivePricing() {
                                 isAnnually={isAnnually}
                                 recommended={plan.id === recommendedPlanId}
                                 everythingInPlanName={plan.everythingInPlanName}
-                                onClick={activeTab !== 'redirects' ? () => setManualRecommendedId(plan.id) : undefined}
+                                isUnavailable={(plan as any).isUnavailable}
+                                isDynamicPricing={activeTab === 'redirects'}
                             />
                         ))}
                     </SimpleGrid>

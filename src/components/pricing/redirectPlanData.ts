@@ -80,10 +80,10 @@ export const redirectData: RedirectData = {
       "limits": [
         {
           "id": "hosts",
-          "from": 2,
+          "from": 5,
           "to": null,
-          "text_list": "2 source domains",
-          "text_subscribe": "2 source domains",
+          "text_list": "5 source domains",
+          "text_subscribe": "5 source domains",
           "primary": true,
           "tooltip": "with www sub-domains included"
         },
@@ -1665,9 +1665,94 @@ export const redirectData: RedirectData = {
   ]
 };
 
-export const getRecommendedRedirectPlan = (sliderValue: number): string => {
-  if (sliderValue === 0) return 'redirect-free';
-  if (sliderValue < 40) return 'redirect-basic';
-  if (sliderValue < 80) return 'redirect-pro';
+export const getRecommendedRedirectPlan = (hostnameCount: number): string => {
+  if (hostnameCount <= 5) return 'redirect-free';
+  if (hostnameCount <= 100) return 'redirect-basic';
+  if (hostnameCount <= 50000) return 'redirect-pro';
   return 'redirect-enterprise';
+};
+
+export const getRedirectSliderConfig = () => {
+  const proPlan = redirectData.plans.find(p => p.id === 'redirect-pro');
+  let proMaxHostnames = 50000;
+  if (proPlan) {
+    const baseHosts = proPlan.limits.find(l => l.id === 'hosts')?.from || 15;
+    const maxAddon = proPlan.addons.length > 0
+      ? Math.max(...proPlan.addons.map(a => a.limits.hosts))
+      : 0;
+    proMaxHostnames = baseHosts + maxAddon;
+  }
+
+  const maxHostnames = 100000; 
+
+  const sliderTicks = [
+    { value: 5, label: '5' },        
+    { value: 15, label: '15' },     
+    { value: 25, label: '25' },     
+    { value: 50, label: '50' },     
+    { value: 100, label: '100' },    
+    { value: 250, label: '250' },    
+    { value: 500, label: '500' },    
+    { value: 1000, label: '1K' },  
+    { value: 2500, label: '2.5K' },  
+    { value: 5000, label: '5K' }, 
+    { value: 10000, label: '10K' }, 
+    { value: 15000, label: '15K' }, 
+    { value: 25000, label: '25K' }, 
+    { value: 50000, label: '50K' },  
+    { value: 100000, label: '100K' }, 
+  ];
+
+  return {
+    min: 5, 
+    max: maxHostnames,
+    ticks: sliderTicks,
+    proMaxHostnames, 
+  };
+};
+
+export const calculatePlanPricing = (plan: RedirectPlan, hostnameCount: number, isAnnually: boolean) => {
+    const hostsLimit = plan.limits.find((l) => l.id === 'hosts');
+    const baseHostnames = hostsLimit?.from || 0;
+    const maxBaseHostnames = hostsLimit?.to;
+
+    let addonPrice = 0;
+    let totalHostnames = baseHostnames;
+    let isUnavailable = false;
+    let selectedAddon: any = null;
+
+    if (baseHostnames === 0) {
+        totalHostnames = Infinity;
+    } else if (hostnameCount > baseHostnames) {
+        if (plan.addons && plan.addons.length > 0) {
+            const sortedAddons = [...plan.addons].sort((a, b) => a.limits.hosts - b.limits.hosts);
+            const requiredAddon = sortedAddons.find((addon) =>
+                baseHostnames + addon.limits.hosts >= hostnameCount
+            );
+            if (requiredAddon) {
+                addonPrice = isAnnually ? requiredAddon.annual_price : requiredAddon.price;
+                totalHostnames = baseHostnames + requiredAddon.limits.hosts;
+                selectedAddon = requiredAddon;
+            } else {
+                isUnavailable = true;
+                const maxAddon = sortedAddons[sortedAddons.length - 1];
+                totalHostnames = baseHostnames + maxAddon.limits.hosts;
+            }
+        } else {
+            isUnavailable = true;
+            if (maxBaseHostnames !== null && maxBaseHostnames !== undefined) {
+                totalHostnames = maxBaseHostnames;
+            }
+        }
+    }
+    const basePrice = isAnnually ? plan.annual_price : plan.price;
+    const totalPrice = typeof basePrice === 'number' ? basePrice + addonPrice : basePrice;
+    return {
+        totalPrice,
+        isUnavailable,
+        totalHostnames,
+        basePrice,
+        addonPrice,
+        selectedAddon
+    };
 };

@@ -5,28 +5,36 @@ import SupportBanner from "@/components/share/banners/support/SupportBanner";
 import { Box, Flex, Heading, VStack } from "@chakra-ui/react";
 import Sidebar from "@/components/support/Sidebar";
 import { ArticleItem } from "@/components/support/ArticleItem";
-import { fetchSupportArticles } from "@/lib/services/support";
-import { buildCanonicalUrl, buildStaticHreflangAlternates } from '@/lib/utils/seo'
-import { allLanguages } from '@/sanity/config/i18n'
+import { fetchSupportArticlesByTag } from "@/lib/services/support";
+import { buildCanonicalUrl, buildStaticHreflangAlternates } from '@/lib/utils/seo';
+import { allLanguages } from '@/sanity/config/i18n';
+import { denormalizeTag, formatTagForDisplay } from "@/lib/utils/tagsHelpers";
+
+
+interface CategoryPageProps {
+  params: Promise<{
+    locale: string;
+    tag: string;
+  }>;
+}
 
 export async function generateMetadata({
   params,
-}: {
-  params: Promise<{ locale: string }>;
-}): Promise<Metadata> {
-  const { locale } = await params;
+}: CategoryPageProps): Promise<Metadata> {
+  const { locale, tag } = await params;
   const { resources } = await initTranslations(locale, ["common"]);
   const t = (key: string, fallback: string) => {
     const translation = resources?.[locale]?.common?.[key];
     return translation || fallback;
   };
 
-  // Generate canonical URL and hreflang alternates for support page
-  const canonicalUrl = buildCanonicalUrl(locale, '/support')
-  const hreflangAlternates = buildStaticHreflangAlternates(allLanguages, '/support')
+  const decodedTag = denormalizeTag(tag);
+  const categoryName = formatTagForDisplay(decodedTag);
+  const canonicalUrl = buildCanonicalUrl(locale, `/support/category/${tag}`);
+  const hreflangAlternates = buildStaticHreflangAlternates(allLanguages, `/support/category/${tag}`);
 
   return {
-    title: `${t("meta.support.title", "Support")} - ${getAppName()}`,
+    title: `${categoryName} - ${t("meta.support.title", "Support")} - ${getAppName()}`,
     description: t(
       "meta.support.description",
       "Simple, transparent enterprise for RedirHub"
@@ -38,13 +46,12 @@ export async function generateMetadata({
   };
 }
 
-export default async function SupportPage({
+export default async function SupportCategoryPage({
   params,
-}: {
-  params: Promise<{ locale: string }>;
-}) {
-  const { locale } = await params;
-  const articles = await fetchSupportArticles(locale);
+}: CategoryPageProps) {
+  const { locale, tag } = await params;
+  const decodedTag = denormalizeTag(tag);
+  const articles = await fetchSupportArticlesByTag(decodedTag, locale);
 
   return (
     <>
@@ -82,7 +89,7 @@ export default async function SupportPage({
                 ) : (
                   <Box py={10} textAlign="center">
                     <Heading size="sm" color="gray.500">
-                      No support articles found.
+                      No support articles found in this category.
                     </Heading>
                   </Box>
                 )}

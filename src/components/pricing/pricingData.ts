@@ -17,11 +17,12 @@ export interface PricingPlan {
 }
 
 export const sliderTicks = [
-  { value: 0, label: '15' },
-  { value: 25, label: '100' },
-  { value: 50, label: '1K' },
-  { value: 75, label: '10K' },
-  { value: 100, label: '50K+' },
+  { value: 0, label: '0' },
+  { value: 15, label: '15' },
+  { value: 100, label: '100' },
+  { value: 1000, label: '1K' },
+  { value: 10000, label: '10K' },
+  { value: 50000, label: '50K' },
 ];
 
 export const pricingPlans: PricingPlan[] = [
@@ -84,22 +85,22 @@ export const addOnsData = [
   {
     title: "Single Sign-On (SSO)",
     description: "Team login through your organization account using SAML authentication.",
-    priceMonthly: 35,
-    priceAnnually: 29,
+    priceMonthly: 200,
+    priceAnnually: 2000,
     iconType: "sso",
   },
   {
     title: "Custom Name Servers",
     description: "Point entire domains to RedirHub using dedicated NS records for seamless DNS integration.",
-    priceMonthly: 59,
-    priceAnnually: 49,
+    priceMonthly: 200,
+    priceAnnually: 2000,
     iconType: "dns",
   },
   {
     title: "Dedicated Cluster",
     description: "2 IP nodes with Auto-Redirect — any domain pointed to this server follows your preset rules automatically.",
-    priceMonthly: 119,
-    priceAnnually: 99,
+    priceMonthly: 800,
+    priceAnnually: 8000,
     iconType: "cluster",
   },
 ];
