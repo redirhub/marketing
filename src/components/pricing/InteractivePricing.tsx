@@ -16,7 +16,7 @@ import { monitorData } from "./monitorPlanData";
 export default function InteractivePricing() {
     const [activeTab, setActiveTab] = useState("redirects");
     const [isAnnually, setIsAnnually] = useState(false);
-    const [hostnameValue, setHostnameValue] = useState(2);
+    const [hostnameValue, setHostnameValue] = useState(5);
     const [manualRecommendedId, setManualRecommendedId] = useState<string | null>(null);
     const handleTabChange = (val: string) => {
         setActiveTab(val);
