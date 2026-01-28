@@ -115,42 +115,6 @@ export const monitorData = {
       "level": 3
     },
     {
-      "id": "monitor-business",
-      "label": "Business",
-      "badge": null,
-      "product": "monitor",
-      "product_name": "Monitoring",
-      "parent": null,
-      "children": 0,
-      "free": false,
-      "price": 290,
-      "annual_price": 2900,
-      "currency": "usd",
-      "addons": [],
-      "limits": [
-        {
-          "id": "tasks",
-          "from": 800,
-          "to": null,
-          "text_list": "800 monitorings",
-          "text_subscribe": "800 monitorings",
-          "primary": true,
-          "tooltip": null
-        },
-        {
-          "id": "members",
-          "from": 0,
-          "to": null,
-          "text_list": "Unlimited team members",
-          "text_subscribe": "Unlimited team members",
-          "primary": false,
-          "tooltip": null
-        }
-      ],
-      "features": [] as MonitorFeature[],
-      "level": 5
-    },
-    {
       "id": "monitor-enterprise",
       "label": "Enterprise",
       "badge": null,
@@ -207,10 +171,6 @@ export const monitorData = {
           "value": false,
           "tooltip": null
         },
-        "monitor-business": {
-          "value": false,
-          "tooltip": null
-        },
         "monitor-enterprise": {
           "value": true,
           "tooltip": null
@@ -233,10 +193,6 @@ export const monitorData = {
           "tooltip": null
         },
         "monitor-plus": {
-          "value": true,
-          "tooltip": null
-        },
-        "monitor-business": {
           "value": true,
           "tooltip": null
         },
@@ -265,10 +221,6 @@ export const monitorData = {
           "value": false,
           "tooltip": null
         },
-        "monitor-business": {
-          "value": false,
-          "tooltip": null
-        },
         "monitor-enterprise": {
           "value": true,
           "tooltip": null
@@ -291,10 +243,6 @@ export const monitorData = {
           "tooltip": null
         },
         "monitor-plus": {
-          "value": true,
-          "tooltip": null
-        },
-        "monitor-business": {
           "value": true,
           "tooltip": null
         },
@@ -323,10 +271,6 @@ export const monitorData = {
           "value": true,
           "tooltip": null
         },
-        "monitor-business": {
-          "value": true,
-          "tooltip": null
-        },
         "monitor-enterprise": {
           "value": true,
           "tooltip": null
@@ -349,10 +293,6 @@ export const monitorData = {
           "tooltip": null
         },
         "monitor-plus": {
-          "value": false,
-          "tooltip": null
-        },
-        "monitor-business": {
           "value": false,
           "tooltip": null
         },
@@ -381,10 +321,6 @@ export const monitorData = {
           "value": false,
           "tooltip": null
         },
-        "monitor-business": {
-          "value": false,
-          "tooltip": null
-        },
         "monitor-enterprise": {
           "value": true,
           "tooltip": null
@@ -407,10 +343,6 @@ export const monitorData = {
           "tooltip": null
         },
         "monitor-plus": {
-          "value": true,
-          "tooltip": null
-        },
-        "monitor-business": {
           "value": true,
           "tooltip": null
         },
@@ -439,10 +371,6 @@ export const monitorData = {
           "value": true,
           "tooltip": null
         },
-        "monitor-business": {
-          "value": true,
-          "tooltip": null
-        },
         "monitor-enterprise": {
           "value": true,
           "tooltip": null
@@ -465,10 +393,6 @@ export const monitorData = {
           "tooltip": null
         },
         "monitor-plus": {
-          "value": false,
-          "tooltip": null
-        },
-        "monitor-business": {
           "value": false,
           "tooltip": null
         },
@@ -497,10 +421,6 @@ export const monitorData = {
           "value": false,
           "tooltip": null
         },
-        "monitor-business": {
-          "value": false,
-          "tooltip": null
-        },
         "monitor-enterprise": {
           "value": true,
           "tooltip": null
@@ -526,10 +446,6 @@ export const monitorData = {
           "value": false,
           "tooltip": null
         },
-        "monitor-business": {
-          "value": false,
-          "tooltip": null
-        },
         "monitor-enterprise": {
           "value": true,
           "tooltip": null
@@ -552,10 +468,6 @@ export const monitorData = {
           "tooltip": null
         },
         "monitor-plus": {
-          "value": false,
-          "tooltip": null
-        },
-        "monitor-business": {
           "value": false,
           "tooltip": null
         },

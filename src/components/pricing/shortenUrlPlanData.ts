@@ -231,121 +231,6 @@ export const shortenUrlData = {
       "level": 3
     },
     {
-      "id": "short-url-business",
-      "label": "Business",
-      "badge": null,
-      "product": "short-url",
-      "product_name": "URL Shortener",
-      "parent": null,
-      "children": 0,
-      "free": false,
-      "price": 190,
-      "annual_price": 1900,
-      "currency": "usd",
-      "addons": [],
-      "limits": [
-        {
-          "id": "records",
-          "from": 1000000,
-          "to": null,
-          "text_list": "1000000 links",
-          "text_subscribe": "1000000 links",
-          "primary": true,
-          "tooltip": null
-        },
-        {
-          "id": "visits",
-          "from": 50,
-          "to": null,
-          "text_list": "50 million requests / mo",
-          "text_subscribe": "50 million requests / mo",
-          "primary": true,
-          "tooltip": null
-        },
-        {
-          "id": "hosts",
-          "from": 20,
-          "to": null,
-          "text_list": "20 custom domains",
-          "text_subscribe": "20 custom domains",
-          "primary": true,
-          "tooltip": null
-        },
-        {
-          "id": "members",
-          "from": 20,
-          "to": null,
-          "text_list": "20 team members",
-          "text_subscribe": "20 team members",
-          "primary": false,
-          "tooltip": null
-        }
-      ],
-      "features": [
-        {
-          "id": "analytics.detail",
-          "label": "Detailed analytics",
-          "tooltip": null
-        },
-        {
-          "id": "analytics.raw",
-          "label": "Raw log export",
-          "tooltip": "We can send original http log to your email"
-        },
-        {
-          "id": "analytics.history",
-          "label": "More analytics history",
-          "tooltip": "Look back over 12 months of basic historical analytics data."
-        },
-        {
-          "id": "manage.bulk",
-          "label": "Bulk manage",
-          "tooltip": "Bulk modify destination, tags"
-        },
-        {
-          "id": "manage.import",
-          "label": "CVS import",
-          "tooltip": "Import and export redirects from or to CVS file"
-        },
-        {
-          "id": "manage.tag",
-          "label": "Tagging",
-          "tooltip": "Make your redirects easier to find, group and organize by adding tags to them."
-        },
-        {
-          "id": "manage.plugins",
-          "label": "Security plugins",
-          "tooltip": null
-        },
-        {
-          "id": "manage.speedtest",
-          "label": "Redirect to the fastest",
-          "tooltip": "We run a speed test on each request and redirect to the fastest one"
-        },
-        {
-          "id": "manage.https",
-          "label": "Full HTTPS",
-          "tooltip": "We will automatically protect all your source hostnames with SSL/TLS certificates and renew them 30 days before expiry."
-        },
-        {
-          "id": "manage.frame",
-          "label": "Frame",
-          "tooltip": "Using iframe to keep source URL displayed in browser instead of 301 redirect."
-        },
-        {
-          "id": "manage.pathbased",
-          "label": "Path-based redirect",
-          "tooltip": "Redirect your traffic to different destination according to slug"
-        },
-        {
-          "id": "analytics.basic",
-          "label": "Basic analytics",
-          "tooltip": null
-        }
-      ],
-      "level": 4
-    },
-    {
       "id": "short-url-enterprise",
       "label": "Enterprise",
       "badge": null,
@@ -451,10 +336,6 @@ export const shortenUrlData = {
           "value": "100000 links",
           "tooltip": null
         },
-        "short-url-business": {
-          "value": "1000000 links",
-          "tooltip": null
-        },
         "short-url-enterprise": {
           "value": "Unlimited",
           "tooltip": null
@@ -478,10 +359,6 @@ export const shortenUrlData = {
         },
         "short-url-plus": {
           "value": "10 custom domains",
-          "tooltip": null
-        },
-        "short-url-business": {
-          "value": "20 custom domains",
           "tooltip": null
         },
         "short-url-enterprise": {
@@ -509,10 +386,6 @@ export const shortenUrlData = {
           "value": "10 million requests / mo",
           "tooltip": null
         },
-        "short-url-business": {
-          "value": "50 million requests / mo",
-          "tooltip": null
-        },
         "short-url-enterprise": {
           "value": "Unlimited",
           "tooltip": null
@@ -538,10 +411,6 @@ export const shortenUrlData = {
           "value": "10 team members",
           "tooltip": null
         },
-        "short-url-business": {
-          "value": "20 team members",
-          "tooltip": null
-        },
         "short-url-enterprise": {
           "value": "Unlimited",
           "tooltip": null
@@ -564,10 +433,6 @@ export const shortenUrlData = {
           "tooltip": null
         },
         "short-url-plus": {
-          "value": true,
-          "tooltip": null
-        },
-        "short-url-business": {
           "value": true,
           "tooltip": null
         },
@@ -596,10 +461,6 @@ export const shortenUrlData = {
           "value": true,
           "tooltip": null
         },
-        "short-url-business": {
-          "value": true,
-          "tooltip": null
-        },
         "short-url-enterprise": {
           "value": true,
           "tooltip": null
@@ -622,10 +483,6 @@ export const shortenUrlData = {
           "tooltip": null
         },
         "short-url-plus": {
-          "value": true,
-          "tooltip": null
-        },
-        "short-url-business": {
           "value": true,
           "tooltip": null
         },
@@ -654,10 +511,6 @@ export const shortenUrlData = {
           "value": true,
           "tooltip": null
         },
-        "short-url-business": {
-          "value": true,
-          "tooltip": null
-        },
         "short-url-enterprise": {
           "value": true,
           "tooltip": null
@@ -680,10 +533,6 @@ export const shortenUrlData = {
           "tooltip": null
         },
         "short-url-plus": {
-          "value": true,
-          "tooltip": null
-        },
-        "short-url-business": {
           "value": true,
           "tooltip": null
         },
@@ -712,10 +561,6 @@ export const shortenUrlData = {
           "value": true,
           "tooltip": null
         },
-        "short-url-business": {
-          "value": true,
-          "tooltip": null
-        },
         "short-url-enterprise": {
           "value": true,
           "tooltip": null
@@ -738,10 +583,6 @@ export const shortenUrlData = {
           "tooltip": null
         },
         "short-url-plus": {
-          "value": false,
-          "tooltip": null
-        },
-        "short-url-business": {
           "value": false,
           "tooltip": null
         },
@@ -770,10 +611,6 @@ export const shortenUrlData = {
           "value": true,
           "tooltip": null
         },
-        "short-url-business": {
-          "value": true,
-          "tooltip": null
-        },
         "short-url-enterprise": {
           "value": true,
           "tooltip": null
@@ -799,10 +636,6 @@ export const shortenUrlData = {
           "value": false,
           "tooltip": null
         },
-        "short-url-business": {
-          "value": true,
-          "tooltip": null
-        },
         "short-url-enterprise": {
           "value": true,
           "tooltip": null
@@ -825,10 +658,6 @@ export const shortenUrlData = {
           "tooltip": null
         },
         "short-url-plus": {
-          "value": true,
-          "tooltip": null
-        },
-        "short-url-business": {
           "value": true,
           "tooltip": null
         },
@@ -857,10 +686,6 @@ export const shortenUrlData = {
           "value": false,
           "tooltip": null
         },
-        "short-url-business": {
-          "value": true,
-          "tooltip": null
-        },
         "short-url-enterprise": {
           "value": true,
           "tooltip": null
@@ -883,10 +708,6 @@ export const shortenUrlData = {
           "tooltip": null
         },
         "short-url-plus": {
-          "value": true,
-          "tooltip": null
-        },
-        "short-url-business": {
           "value": true,
           "tooltip": null
         },
@@ -915,10 +736,6 @@ export const shortenUrlData = {
           "value": true,
           "tooltip": null
         },
-        "short-url-business": {
-          "value": true,
-          "tooltip": null
-        },
         "short-url-enterprise": {
           "value": true,
           "tooltip": null
@@ -942,10 +759,6 @@ export const shortenUrlData = {
         },
         "short-url-plus": {
           "value": false,
-          "tooltip": null
-        },
-        "short-url-business": {
-          "value": true,
           "tooltip": null
         },
         "short-url-enterprise": {
@@ -973,10 +786,6 @@ export const shortenUrlData = {
           "value": false,
           "tooltip": null
         },
-        "short-url-business": {
-          "value": true,
-          "tooltip": null
-        },
         "short-url-enterprise": {
           "value": true,
           "tooltip": null
@@ -999,10 +808,6 @@ export const shortenUrlData = {
           "tooltip": null
         },
         "short-url-plus": {
-          "value": false,
-          "tooltip": null
-        },
-        "short-url-business": {
           "value": false,
           "tooltip": null
         },
@@ -1031,10 +836,6 @@ export const shortenUrlData = {
           "value": true,
           "tooltip": null
         },
-        "short-url-business": {
-          "value": true,
-          "tooltip": null
-        },
         "short-url-enterprise": {
           "value": true,
           "tooltip": null
@@ -1057,10 +858,6 @@ export const shortenUrlData = {
           "tooltip": null
         },
         "short-url-plus": {
-          "value": true,
-          "tooltip": null
-        },
-        "short-url-business": {
           "value": true,
           "tooltip": null
         },
@@ -1089,10 +886,6 @@ export const shortenUrlData = {
           "value": false,
           "tooltip": null
         },
-        "short-url-business": {
-          "value": true,
-          "tooltip": null
-        },
         "short-url-enterprise": {
           "value": true,
           "tooltip": null
@@ -1115,10 +908,6 @@ export const shortenUrlData = {
           "tooltip": null
         },
         "short-url-plus": {
-          "value": null,
-          "tooltip": null
-        },
-        "short-url-business": {
           "value": null,
           "tooltip": null
         },
@@ -1147,10 +936,6 @@ export const shortenUrlData = {
           "value": false,
           "tooltip": null
         },
-        "short-url-business": {
-          "value": false,
-          "tooltip": null
-        },
         "short-url-enterprise": {
           "value": true,
           "tooltip": null
@@ -1173,10 +958,6 @@ export const shortenUrlData = {
           "tooltip": null
         },
         "short-url-plus": {
-          "value": true,
-          "tooltip": null
-        },
-        "short-url-business": {
           "value": true,
           "tooltip": null
         },
@@ -1205,10 +986,6 @@ export const shortenUrlData = {
           "value": true,
           "tooltip": null
         },
-        "short-url-business": {
-          "value": true,
-          "tooltip": null
-        },
         "short-url-enterprise": {
           "value": true,
           "tooltip": null
@@ -1231,10 +1008,6 @@ export const shortenUrlData = {
           "tooltip": null
         },
         "short-url-plus": {
-          "value": false,
-          "tooltip": null
-        },
-        "short-url-business": {
           "value": false,
           "tooltip": null
         },
@@ -1263,10 +1036,6 @@ export const shortenUrlData = {
           "value": false,
           "tooltip": null
         },
-        "short-url-business": {
-          "value": false,
-          "tooltip": null
-        },
         "short-url-enterprise": {
           "value": true,
           "tooltip": null
@@ -1289,10 +1058,6 @@ export const shortenUrlData = {
           "tooltip": null
         },
         "short-url-plus": {
-          "value": true,
-          "tooltip": null
-        },
-        "short-url-business": {
           "value": true,
           "tooltip": null
         },
@@ -1321,10 +1086,6 @@ export const shortenUrlData = {
           "value": true,
           "tooltip": null
         },
-        "short-url-business": {
-          "value": true,
-          "tooltip": null
-        },
         "short-url-enterprise": {
           "value": true,
           "tooltip": null
@@ -1347,10 +1108,6 @@ export const shortenUrlData = {
           "tooltip": null
         },
         "short-url-plus": {
-          "value": false,
-          "tooltip": null
-        },
-        "short-url-business": {
           "value": false,
           "tooltip": null
         },
@@ -1379,10 +1136,6 @@ export const shortenUrlData = {
           "value": false,
           "tooltip": null
         },
-        "short-url-business": {
-          "value": false,
-          "tooltip": null
-        },
         "short-url-enterprise": {
           "value": true,
           "tooltip": null
@@ -1408,10 +1161,6 @@ export const shortenUrlData = {
           "value": false,
           "tooltip": null
         },
-        "short-url-business": {
-          "value": false,
-          "tooltip": null
-        },
         "short-url-enterprise": {
           "value": true,
           "tooltip": null
@@ -1434,10 +1183,6 @@ export const shortenUrlData = {
           "tooltip": null
         },
         "short-url-plus": {
-          "value": false,
-          "tooltip": null
-        },
-        "short-url-business": {
           "value": false,
           "tooltip": null
         },

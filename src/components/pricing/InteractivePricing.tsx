@@ -6,7 +6,7 @@ import { TabsLayout, TabTriggerButton } from "@/components/ui/TabsLayout";
 import HostnameSlider from "./HostnameSlider";
 import PricingPlanCard from "./PricingPlanCard";
 import AddOns from "./AddOns";
-import PlansComparisonTable from "./PlansComparisonTable";
+import PlansComparisonTable, { ProductTab } from "./PlansComparisonTable";
 import { pricingPlans } from "./pricingData";
 import { redirectData, getRecommendedRedirectPlan, calculatePlanPricing } from "./redirectPlanData";
 import { shortenUrlData } from "./shortenUrlPlanData";
@@ -54,12 +54,13 @@ export default function InteractivePricing() {
                     }))
                 ];
                 const { totalPrice, isUnavailable } = calculatePlanPricing(plan, hostnameValue, isAnnually);
+                const isEnterprise = plan.label === "Enterprise";
 
                 return {
                     id: plan.id,
                     name: plan.label,
-                    priceMonthly: totalPrice,
-                    priceAnnually: totalPrice,
+                    priceMonthly: isEnterprise ? "Custom pricing" : totalPrice,
+                    priceAnnually: isEnterprise ? "Custom pricing" : totalPrice,
                     range: (redirectData.comparison.find(c => c.id === 'basic.records')?.plans[plan.id]?.value as string) || '',
                     ctaText: plan.price === 0 ? 'Start for Free' : ((typeof plan.price === 'number' && plan.price > 100) ? 'Chat with us' : `Get Started with ${plan.label}`),
                     features: mappedFeatures,
@@ -88,11 +89,13 @@ export default function InteractivePricing() {
                     }))
                 ];
 
+                const isEnterprise = plan.label === "Enterprise";
+
                 return {
                     id: plan.id,
                     name: plan.label,
-                    priceMonthly: plan.price,
-                    priceAnnually: plan.annual_price,
+                    priceMonthly: isEnterprise ? "Custom pricing" : plan.price,
+                    priceAnnually: isEnterprise ? "Custom pricing" : plan.annual_price,
                     range: (shortenUrlData.comparison.find(c => c.id === 'basic.records')?.plans[plan.id]?.value as string) || '',
                     ctaText: plan.price === 0 ? 'Start for Free' : ((typeof plan.price === 'number' && plan.price > 100) ? 'Chat with us' : `Get Started with ${plan.label}`),
                     features: mappedFeatures,
@@ -120,12 +123,13 @@ export default function InteractivePricing() {
                         isHighlighted: false
                     }))
                 ];
+                const isEnterprise = plan.label === "Enterprise";
 
                 return {
                     id: plan.id,
                     name: plan.label,
-                    priceMonthly: plan.price,
-                    priceAnnually: plan.annual_price,
+                    priceMonthly: isEnterprise ? "Custom pricing" : plan.price,
+                    priceAnnually: isEnterprise ? "Custom pricing" : plan.annual_price,
                     range: plan.limits.find(l => l.id === 'tasks')?.text_list || '',
                     ctaText: plan.price === 0 ? 'Start for Free' : ((typeof plan.price === 'number' && plan.price > 100) ? 'Chat with us' : `Get Started with ${plan.label}`),
                     features: mappedFeatures,
@@ -243,7 +247,7 @@ export default function InteractivePricing() {
                 headerRight={headerRight}
                 maxW="1180px"
             />
-            <PlansComparisonTable isAnnually={isAnnually} />
+            <PlansComparisonTable isAnnually={isAnnually} product={activeTab === 'redirects' ? 'redirect' : activeTab as ProductTab} />
         </Box>
     );
 }

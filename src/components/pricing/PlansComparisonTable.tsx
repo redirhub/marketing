@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useMemo, useCallback, Fragment } from "react";
+import { useMemo, useCallback, Fragment } from "react";
 import {
   Box,
   Heading,
@@ -14,16 +14,16 @@ import {
 import { HiMinus } from "react-icons/hi2";
 import { FiHelpCircle } from "react-icons/fi";
 import { Tooltip } from "@/components/ui/tooltip";
-import { TabsLayout, TabTriggerButton } from "@/components/ui/TabsLayout";
 import { redirectData, ComparisonRow } from "./redirectPlanData";
 import { shortenUrlData } from "./shortenUrlPlanData";
 import { monitorData } from "./monitorPlanData";
 
+export type ProductTab = "redirect" | "shorten" | "monitor";
+
 interface PlansComparisonTableProps {
   isAnnually: boolean;
+  product: ProductTab;
 }
-
-type ProductTab = "redirect" | "shorten" | "monitor";
 
 const TAB_DATA = {
   redirect: { plans: redirectData.plans, comparison: redirectData.comparison },
@@ -95,10 +95,9 @@ const PlanButton = ({ plan, size = "sm", mt, text }: PlanButtonProps) => {
 
 export default function PlansComparisonTable({
   isAnnually,
+  product,
 }: PlansComparisonTableProps) {
-  const [activeTab, setActiveTab] = useState<ProductTab>("redirect");
-
-  const { plans, comparison } = useMemo(() => TAB_DATA[activeTab], [activeTab]);
+  const { plans, comparison } = useMemo(() => TAB_DATA[product], [product]);
   const groupedComparison = useMemo(() =>
     comparison.reduce<Record<string, ComparisonRow[]>>((acc, row) => {
       const category = row.category || "Other";
@@ -109,6 +108,9 @@ export default function PlansComparisonTable({
   );
 
   const formatPrice = useCallback((plan: (typeof plans)[0]) => {
+    if (plan.label === "Enterprise") {
+      return "Custom pricing";
+    }
     const price = isAnnually ? plan.annual_price : plan.price;
     return `$${price}`;
   }, [isAnnually]);
@@ -134,19 +136,7 @@ export default function PlansComparisonTable({
     return <DashIcon />;
   }, []);
 
-  const handleTabChange = useCallback((val: string) => {
-    setActiveTab(val as ProductTab);
-  }, []);
-
-  const tabHeader = (
-    <>
-      <TabTriggerButton value="redirect" label="Redirect" />
-      <TabTriggerButton value="shorten" label="Shorten URL" />
-      <TabTriggerButton value="monitor" label="Monitor" />
-    </>
-  );
-
-  const tabBody = (
+  const tableContent = (
     <Box overflowX="auto" background={'transparent'}>
       <Table.Root size="md" css={{ borderCollapse: "separate", borderSpacing: 0 }}>
         <Table.Header>
@@ -206,14 +196,17 @@ export default function PlansComparisonTable({
                 <Flex direction="column" gap={2} background={'transparent'}>
                   <Flex align="baseline" gap={1} pb={2.5} pt={1}>
                     <Text
-                      fontSize={{ base: "32px", md: "40px" }}
+                      fontSize={{ base: "24px", md: "30px" }}
                       fontWeight="600"
+                      whiteSpace='nowrap'
                       color="gray.700"
                       lineHeight="1"
                     >
                       {formatPrice(plan)}
                     </Text>
-                    <Text fontSize="14px" color="gray.700">{isAnnually ? 'annually' : 'per month'}</Text>
+                    {plan.label !== "Enterprise" && (
+                      <Text fontSize="14px" color="gray.700">{isAnnually ? 'annually' : 'per month'}</Text>
+                    )}
                   </Flex>
                   <PlanButton plan={plan} size="sm" mt={1.5} />
                 </Flex>
@@ -310,18 +303,7 @@ export default function PlansComparisonTable({
         Our Plans Compared
       </Heading>
 
-      <TabsLayout
-        defaultValue="redirect"
-        value={activeTab}
-        onValueChange={handleTabChange}
-        tabHeader={tabHeader}
-        tabBody={tabBody}
-        bg="transparent"
-        border="none"
-        p={0}
-        boxShadow="none"
-        maxW="100%"
-      />
+      {tableContent}
     </Box>
   );
 }
