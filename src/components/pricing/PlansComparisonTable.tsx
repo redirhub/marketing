@@ -109,7 +109,7 @@ export default function PlansComparisonTable({
 
   const formatPrice = useCallback((plan: (typeof plans)[0]) => {
     if (plan.label === "Enterprise") return "n/a";
-    const price = isAnnually ? Math.round(plan.annual_price / 12) : plan.price;
+    const price = isAnnually ? plan.annual_price : plan.price;
     return `$${price}`;
   }, [isAnnually]);
 
