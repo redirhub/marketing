@@ -46,14 +46,17 @@ export default function InteractivePricing() {
                 const isPro = plan.label === "Pro";
                 const hostsLimit = plan.limits.find(l => l.id === 'hosts');
                 const minHosts = hostsLimit?.from || 15;
-                const maxHosts = hostsLimit?.to || 100;
-                const clampedHostnameValue = Math.min(Math.max(hostnameValue, minHosts), maxHosts);
+                const maxHosts = isPro ? 50000 : hostsLimit?.to;
+                let hostNameValue = Math.max(hostnameValue, minHosts);
+                if (maxHosts) {
+                    hostNameValue = Math.min(hostNameValue, maxHosts);
+                }
 
                 const mappedFeatures = [
                     ...plan.limits.map(l => {
                         let text = l.text_list;
-                        if (isBasic && l.id === 'hosts') {
-                            text = `${clampedHostnameValue} source domains`;
+                        if ((isBasic || isPro) && l.id === 'hosts') {
+                            text = `${hostNameValue} source domains`;
                         }
                         return {
                             text,
@@ -68,9 +71,9 @@ export default function InteractivePricing() {
                     }))
                 ];
                 let rangeText = (redirectData.comparison.find(c => c.id === 'basic.records')?.plans[plan.id]?.value as string) || '';
-                if (isBasic) {
-                    rangeText = `${clampedHostnameValue} source urls`;
-                } else if (isPro || isEnterprise) {
+                if (isBasic || isPro) {
+                    rangeText = `${hostNameValue} source urls`;
+                } else if (isEnterprise) {
                     rangeText = 'Unlimited';
                 }
 
