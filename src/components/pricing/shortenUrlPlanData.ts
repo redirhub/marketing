@@ -231,121 +231,6 @@ export const shortenUrlData = {
       "level": 3
     },
     {
-      "id": "short-url-business",
-      "label": "Business",
-      "badge": null,
-      "product": "short-url",
-      "product_name": "URL Shortener",
-      "parent": null,
-      "children": 0,
-      "free": false,
-      "price": 190,
-      "annual_price": 1900,
-      "currency": "usd",
-      "addons": [],
-      "limits": [
-        {
-          "id": "records",
-          "from": 1000000,
-          "to": null,
-          "text_list": "1000000 links",
-          "text_subscribe": "1000000 links",
-          "primary": true,
-          "tooltip": null
-        },
-        {
-          "id": "visits",
-          "from": 50,
-          "to": null,
-          "text_list": "50 million requests / mo",
-          "text_subscribe": "50 million requests / mo",
-          "primary": true,
-          "tooltip": null
-        },
-        {
-          "id": "hosts",
-          "from": 20,
-          "to": null,
-          "text_list": "20 custom domains",
-          "text_subscribe": "20 custom domains",
-          "primary": true,
-          "tooltip": null
-        },
-        {
-          "id": "members",
-          "from": 20,
-          "to": null,
-          "text_list": "20 team members",
-          "text_subscribe": "20 team members",
-          "primary": false,
-          "tooltip": null
-        }
-      ],
-      "features": [
-        {
-          "id": "analytics.detail",
-          "label": "Detailed analytics",
-          "tooltip": null
-        },
-        {
-          "id": "analytics.raw",
-          "label": "Raw log export",
-          "tooltip": "We can send original http log to your email"
-        },
-        {
-          "id": "analytics.history",
-          "label": "More analytics history",
-          "tooltip": "Look back over 12 months of basic historical analytics data."
-        },
-        {
-          "id": "manage.bulk",
-          "label": "Bulk manage",
-          "tooltip": "Bulk modify destination, tags"
-        },
-        {
-          "id": "manage.import",
-          "label": "CVS import",
-          "tooltip": "Import and export redirects from or to CVS file"
-        },
-        {
-          "id": "manage.tag",
-          "label": "Tagging",
-          "tooltip": "Make your redirects easier to find, group and organize by adding tags to them."
-        },
-        {
-          "id": "manage.plugins",
-          "label": "Security plugins",
-          "tooltip": null
-        },
-        {
-          "id": "manage.speedtest",
-          "label": "Redirect to the fastest",
-          "tooltip": "We run a speed test on each request and redirect to the fastest one"
-        },
-        {
-          "id": "manage.https",
-          "label": "Full HTTPS",
-          "tooltip": "We will automatically protect all your source hostnames with SSL/TLS certificates and renew them 30 days before expiry."
-        },
-        {
-          "id": "manage.frame",
-          "label": "Frame",
-          "tooltip": "Using iframe to keep source URL displayed in browser instead of 301 redirect."
-        },
-        {
-          "id": "manage.pathbased",
-          "label": "Path-based redirect",
-          "tooltip": "Redirect your traffic to different destination according to slug"
-        },
-        {
-          "id": "analytics.basic",
-          "label": "Basic analytics",
-          "tooltip": null
-        }
-      ],
-      "level": 4
-    },
-    {
       "id": "short-url-enterprise",
       "label": "Enterprise",
       "badge": null,
@@ -451,15 +336,861 @@ export const shortenUrlData = {
           "value": "100000 links",
           "tooltip": null
         },
-        "short-url-business": {
-          "value": "1000000 links",
+        "short-url-enterprise": {
+          "value": "Unlimited",
+          "tooltip": null
+        }
+      } as Record<string, { value: string | boolean | null; tooltip: null }>
+    },
+    {
+      "id": "basic.hosts",
+      "category": "Basic",
+      "label": "Custom domains",
+      "tooltip": null,
+      "type": "param" as const,
+      "plans": {
+        "short-url-free": {
+          "value": "1 custom domains",
+          "tooltip": null
+        },
+        "short-url-basic": {
+          "value": "2-5 custom domains",
+          "tooltip": null
+        },
+        "short-url-plus": {
+          "value": "10 custom domains",
           "tooltip": null
         },
         "short-url-enterprise": {
           "value": "Unlimited",
           "tooltip": null
         }
-      } as Record<string, { value: string; tooltip: null }>
+      } as Record<string, { value: string | boolean | null; tooltip: null }>
+    },
+    {
+      "id": "basic.visits",
+      "category": "Basic",
+      "label": "Requests",
+      "tooltip": null,
+      "type": "param" as const,
+      "plans": {
+        "short-url-free": {
+          "value": "1 million requests / mo",
+          "tooltip": null
+        },
+        "short-url-basic": {
+          "value": "1-6 million requests / mo",
+          "tooltip": null
+        },
+        "short-url-plus": {
+          "value": "10 million requests / mo",
+          "tooltip": null
+        },
+        "short-url-enterprise": {
+          "value": "Unlimited",
+          "tooltip": null
+        }
+      } as Record<string, { value: string | boolean | null; tooltip: null }>
+    },
+    {
+      "id": "basic.members",
+      "category": "Basic",
+      "label": "Team Members",
+      "tooltip": null,
+      "type": "param" as const,
+      "plans": {
+        "short-url-free": {
+          "value": "1 team members",
+          "tooltip": null
+        },
+        "short-url-basic": {
+          "value": "1 team members",
+          "tooltip": null
+        },
+        "short-url-plus": {
+          "value": "10 team members",
+          "tooltip": null
+        },
+        "short-url-enterprise": {
+          "value": "Unlimited",
+          "tooltip": null
+        }
+      } as Record<string, { value: string | boolean | null; tooltip: null }>
+    },
+    {
+      "id": "basic.edge",
+      "category": "Basic",
+      "label": "Global delivery network ",
+      "tooltip": null,
+      "type": "bool" as const,
+      "plans": {
+        "short-url-free": {
+          "value": true,
+          "tooltip": null
+        },
+        "short-url-basic": {
+          "value": true,
+          "tooltip": null
+        },
+        "short-url-plus": {
+          "value": true,
+          "tooltip": null
+        },
+        "short-url-enterprise": {
+          "value": true,
+          "tooltip": null
+        }
+      } as Record<string, { value: string | boolean | null; tooltip: null }>
+    },
+    {
+      "id": "basic.api",
+      "category": "Basic",
+      "label": "management API ",
+      "tooltip": null,
+      "type": "bool" as const,
+      "plans": {
+        "short-url-free": {
+          "value": true,
+          "tooltip": null
+        },
+        "short-url-basic": {
+          "value": true,
+          "tooltip": null
+        },
+        "short-url-plus": {
+          "value": true,
+          "tooltip": null
+        },
+        "short-url-enterprise": {
+          "value": true,
+          "tooltip": null
+        }
+      } as Record<string, { value: string | boolean | null; tooltip: null }>
+    },
+    {
+      "id": "manage.qr",
+      "category": "Management",
+      "label": "QR codes",
+      "tooltip": null,
+      "type": "bool" as const,
+      "plans": {
+        "short-url-free": {
+          "value": true,
+          "tooltip": null
+        },
+        "short-url-basic": {
+          "value": true,
+          "tooltip": null
+        },
+        "short-url-plus": {
+          "value": true,
+          "tooltip": null
+        },
+        "short-url-enterprise": {
+          "value": true,
+          "tooltip": null
+        }
+      } as Record<string, { value: string | boolean | null; tooltip: null }>
+    },
+    {
+      "id": "manage.idn",
+      "category": "Management",
+      "label": "IDN domains support",
+      "tooltip": null,
+      "type": "bool" as const,
+      "plans": {
+        "short-url-free": {
+          "value": true,
+          "tooltip": null
+        },
+        "short-url-basic": {
+          "value": true,
+          "tooltip": null
+        },
+        "short-url-plus": {
+          "value": true,
+          "tooltip": null
+        },
+        "short-url-enterprise": {
+          "value": true,
+          "tooltip": null
+        }
+      } as Record<string, { value: string | boolean | null; tooltip: null }>
+    },
+    {
+      "id": "manage.3012",
+      "category": "Management",
+      "label": "301, 302 redirects",
+      "tooltip": null,
+      "type": "bool" as const,
+      "plans": {
+        "short-url-free": {
+          "value": true,
+          "tooltip": null
+        },
+        "short-url-basic": {
+          "value": true,
+          "tooltip": null
+        },
+        "short-url-plus": {
+          "value": true,
+          "tooltip": null
+        },
+        "short-url-enterprise": {
+          "value": true,
+          "tooltip": null
+        }
+      } as Record<string, { value: string | boolean | null; tooltip: null }>
+    },
+    {
+      "id": "manage.3078",
+      "category": "Management",
+      "label": "307, 308 redirects",
+      "tooltip": null,
+      "type": "bool" as const,
+      "plans": {
+        "short-url-free": {
+          "value": true,
+          "tooltip": null
+        },
+        "short-url-basic": {
+          "value": true,
+          "tooltip": null
+        },
+        "short-url-plus": {
+          "value": true,
+          "tooltip": null
+        },
+        "short-url-enterprise": {
+          "value": true,
+          "tooltip": null
+        }
+      } as Record<string, { value: string | boolean | null; tooltip: null }>
+    },
+    {
+      "id": "manage.txt",
+      "category": "Management",
+      "label": "Custom HTML",
+      "tooltip": "Response custom HTML code instead of 301 redirect.",
+      "type": "bool" as const,
+      "plans": {
+        "short-url-free": {
+          "value": false,
+          "tooltip": null
+        },
+        "short-url-basic": {
+          "value": false,
+          "tooltip": null
+        },
+        "short-url-plus": {
+          "value": false,
+          "tooltip": null
+        },
+        "short-url-enterprise": {
+          "value": true,
+          "tooltip": null
+        }
+      } as Record<string, { value: string | boolean | null; tooltip: null }>
+    },
+    {
+      "id": "manage.modify",
+      "category": "Management",
+      "label": "Change target any time",
+      "tooltip": null,
+      "type": "bool" as const,
+      "plans": {
+        "short-url-free": {
+          "value": true,
+          "tooltip": null
+        },
+        "short-url-basic": {
+          "value": true,
+          "tooltip": null
+        },
+        "short-url-plus": {
+          "value": true,
+          "tooltip": null
+        },
+        "short-url-enterprise": {
+          "value": true,
+          "tooltip": null
+        }
+      } as Record<string, { value: string | boolean | null; tooltip: null }>
+    },
+    {
+      "id": "manage.tag",
+      "category": "Management",
+      "label": "Tagging",
+      "tooltip": "Make your redirects easier to find, group and organize by adding tags to them.",
+      "type": "bool" as const,
+      "plans": {
+        "short-url-free": {
+          "value": false,
+          "tooltip": null
+        },
+        "short-url-basic": {
+          "value": false,
+          "tooltip": null
+        },
+        "short-url-plus": {
+          "value": false,
+          "tooltip": null
+        },
+        "short-url-enterprise": {
+          "value": true,
+          "tooltip": null
+        }
+      } as Record<string, { value: string | boolean | null; tooltip: null }>
+    },
+    {
+      "id": "manage.bulk",
+      "category": "Management",
+      "label": "Bulk manage",
+      "tooltip": "Bulk modify destination, tags",
+      "type": "bool" as const,
+      "plans": {
+        "short-url-free": {
+          "value": false,
+          "tooltip": null
+        },
+        "short-url-basic": {
+          "value": false,
+          "tooltip": null
+        },
+        "short-url-plus": {
+          "value": true,
+          "tooltip": null
+        },
+        "short-url-enterprise": {
+          "value": true,
+          "tooltip": null
+        }
+      } as Record<string, { value: string | boolean | null; tooltip: null }>
+    },
+    {
+      "id": "manage.import",
+      "category": "Management",
+      "label": "CVS import",
+      "tooltip": "Import and export redirects from or to CVS file",
+      "type": "bool" as const,
+      "plans": {
+        "short-url-free": {
+          "value": false,
+          "tooltip": null
+        },
+        "short-url-basic": {
+          "value": false,
+          "tooltip": null
+        },
+        "short-url-plus": {
+          "value": false,
+          "tooltip": null
+        },
+        "short-url-enterprise": {
+          "value": true,
+          "tooltip": null
+        }
+      } as Record<string, { value: string | boolean | null; tooltip: null }>
+    },
+    {
+      "id": "manage.export",
+      "category": "Management",
+      "label": "CVS export",
+      "tooltip": null,
+      "type": "bool" as const,
+      "plans": {
+        "short-url-free": {
+          "value": true,
+          "tooltip": null
+        },
+        "short-url-basic": {
+          "value": true,
+          "tooltip": null
+        },
+        "short-url-plus": {
+          "value": true,
+          "tooltip": null
+        },
+        "short-url-enterprise": {
+          "value": true,
+          "tooltip": null
+        }
+      } as Record<string, { value: string | boolean | null; tooltip: null }>
+    },
+    {
+      "id": "manage.https",
+      "category": "Management",
+      "label": "Full HTTPS",
+      "tooltip": "We will automatically protect all your source hostnames with SSL/TLS certificates and renew them 30 days before expiry.",
+      "type": "bool" as const,
+      "plans": {
+        "short-url-free": {
+          "value": true,
+          "tooltip": null
+        },
+        "short-url-basic": {
+          "value": true,
+          "tooltip": null
+        },
+        "short-url-plus": {
+          "value": true,
+          "tooltip": null
+        },
+        "short-url-enterprise": {
+          "value": true,
+          "tooltip": null
+        }
+      } as Record<string, { value: string | boolean | null; tooltip: null }>
+    },
+    {
+      "id": "manage.speedtest",
+      "category": "Management",
+      "label": "Redirect to the fastest",
+      "tooltip": "We run a speed test on each request and redirect to the fastest one",
+      "type": "bool" as const,
+      "plans": {
+        "short-url-free": {
+          "value": false,
+          "tooltip": null
+        },
+        "short-url-basic": {
+          "value": false,
+          "tooltip": null
+        },
+        "short-url-plus": {
+          "value": false,
+          "tooltip": null
+        },
+        "short-url-enterprise": {
+          "value": true,
+          "tooltip": null
+        }
+      } as Record<string, { value: string | boolean | null; tooltip: null }>
+    },
+    {
+      "id": "manage.plugins",
+      "category": "Management",
+      "label": "Security plugins",
+      "tooltip": null,
+      "type": "bool" as const,
+      "plans": {
+        "short-url-free": {
+          "value": false,
+          "tooltip": null
+        },
+        "short-url-basic": {
+          "value": false,
+          "tooltip": null
+        },
+        "short-url-plus": {
+          "value": false,
+          "tooltip": null
+        },
+        "short-url-enterprise": {
+          "value": true,
+          "tooltip": null
+        }
+      } as Record<string, { value: string | boolean | null; tooltip: null }>
+    },
+    {
+      "id": "manage.upload-ssl",
+      "category": "Management",
+      "label": "Upload custom SSL",
+      "tooltip": null,
+      "type": "bool" as const,
+      "plans": {
+        "short-url-free": {
+          "value": false,
+          "tooltip": null
+        },
+        "short-url-basic": {
+          "value": false,
+          "tooltip": null
+        },
+        "short-url-plus": {
+          "value": false,
+          "tooltip": null
+        },
+        "short-url-enterprise": {
+          "value": true,
+          "tooltip": null
+        }
+      } as Record<string, { value: string | boolean | null; tooltip: null }>
+    },
+    {
+      "id": "analytics.basic",
+      "category": "Analytics",
+      "label": "Basic analytics",
+      "tooltip": null,
+      "type": "bool" as const,
+      "plans": {
+        "short-url-free": {
+          "value": false,
+          "tooltip": null
+        },
+        "short-url-basic": {
+          "value": true,
+          "tooltip": null
+        },
+        "short-url-plus": {
+          "value": true,
+          "tooltip": null
+        },
+        "short-url-enterprise": {
+          "value": true,
+          "tooltip": null
+        }
+      } as Record<string, { value: string | boolean | null; tooltip: null }>
+    },
+    {
+      "id": "analytics.detail",
+      "category": "Analytics",
+      "label": "Detailed analytics",
+      "tooltip": null,
+      "type": "bool" as const,
+      "plans": {
+        "short-url-free": {
+          "value": false,
+          "tooltip": null
+        },
+        "short-url-basic": {
+          "value": false,
+          "tooltip": null
+        },
+        "short-url-plus": {
+          "value": true,
+          "tooltip": null
+        },
+        "short-url-enterprise": {
+          "value": true,
+          "tooltip": null
+        }
+      } as Record<string, { value: string | boolean | null; tooltip: null }>
+    },
+    {
+      "id": "analytics.raw",
+      "category": "Analytics",
+      "label": "Raw log export",
+      "tooltip": "We can send original http log to your email",
+      "type": "bool" as const,
+      "plans": {
+        "short-url-free": {
+          "value": false,
+          "tooltip": null
+        },
+        "short-url-basic": {
+          "value": false,
+          "tooltip": null
+        },
+        "short-url-plus": {
+          "value": false,
+          "tooltip": null
+        },
+        "short-url-enterprise": {
+          "value": true,
+          "tooltip": null
+        }
+      } as Record<string, { value: string | boolean | null; tooltip: null }>
+    },
+    {
+      "id": "analytics.history",
+      "category": "Analytics",
+      "label": "More analytics history",
+      "tooltip": "Look back over 12 months of basic historical analytics data.",
+      "type": "text" as const,
+      "plans": {
+        "short-url-free": {
+          "value": null,
+          "tooltip": null
+        },
+        "short-url-basic": {
+          "value": null,
+          "tooltip": null
+        },
+        "short-url-plus": {
+          "value": null,
+          "tooltip": null
+        },
+        "short-url-enterprise": {
+          "value": null,
+          "tooltip": null
+        }
+      } as Record<string, { value: string | boolean | null; tooltip: null }>
+    },
+    {
+      "id": "analytics.email",
+      "category": "Analytics",
+      "label": "Emailed reports ",
+      "tooltip": null,
+      "type": "bool" as const,
+      "plans": {
+        "short-url-free": {
+          "value": false,
+          "tooltip": null
+        },
+        "short-url-basic": {
+          "value": false,
+          "tooltip": null
+        },
+        "short-url-plus": {
+          "value": false,
+          "tooltip": null
+        },
+        "short-url-enterprise": {
+          "value": true,
+          "tooltip": null
+        }
+      } as Record<string, { value: string | boolean | null; tooltip: null }>
+    },
+    {
+      "id": "security.encryption",
+      "category": "Security & Compliance",
+      "label": "Data encryption at rest/in transit ",
+      "tooltip": null,
+      "type": "bool" as const,
+      "plans": {
+        "short-url-free": {
+          "value": true,
+          "tooltip": null
+        },
+        "short-url-basic": {
+          "value": true,
+          "tooltip": null
+        },
+        "short-url-plus": {
+          "value": true,
+          "tooltip": null
+        },
+        "short-url-enterprise": {
+          "value": true,
+          "tooltip": null
+        }
+      } as Record<string, { value: string | boolean | null; tooltip: null }>
+    },
+    {
+      "id": "security.2fs",
+      "category": "Security & Compliance",
+      "label": "Two-factor authentication ",
+      "tooltip": null,
+      "type": "bool" as const,
+      "plans": {
+        "short-url-free": {
+          "value": true,
+          "tooltip": null
+        },
+        "short-url-basic": {
+          "value": true,
+          "tooltip": null
+        },
+        "short-url-plus": {
+          "value": true,
+          "tooltip": null
+        },
+        "short-url-enterprise": {
+          "value": true,
+          "tooltip": null
+        }
+      } as Record<string, { value: string | boolean | null; tooltip: null }>
+    },
+    {
+      "id": "security.sso",
+      "category": "Security & Compliance",
+      "label": "SAML single sign-on",
+      "tooltip": null,
+      "type": "bool" as const,
+      "plans": {
+        "short-url-free": {
+          "value": false,
+          "tooltip": null
+        },
+        "short-url-basic": {
+          "value": false,
+          "tooltip": null
+        },
+        "short-url-plus": {
+          "value": false,
+          "tooltip": null
+        },
+        "short-url-enterprise": {
+          "value": true,
+          "tooltip": null
+        }
+      } as Record<string, { value: string | boolean | null; tooltip: null }>
+    },
+    {
+      "id": "security.assessment",
+      "category": "Security & Compliance",
+      "label": "Security assessment",
+      "tooltip": null,
+      "type": "bool" as const,
+      "plans": {
+        "short-url-free": {
+          "value": false,
+          "tooltip": null
+        },
+        "short-url-basic": {
+          "value": false,
+          "tooltip": null
+        },
+        "short-url-plus": {
+          "value": false,
+          "tooltip": null
+        },
+        "short-url-enterprise": {
+          "value": true,
+          "tooltip": null
+        }
+      } as Record<string, { value: string | boolean | null; tooltip: null }>
+    },
+    {
+      "id": "support.email",
+      "category": "Support",
+      "label": "Email Support",
+      "tooltip": null,
+      "type": "bool" as const,
+      "plans": {
+        "short-url-free": {
+          "value": true,
+          "tooltip": null
+        },
+        "short-url-basic": {
+          "value": true,
+          "tooltip": null
+        },
+        "short-url-plus": {
+          "value": true,
+          "tooltip": null
+        },
+        "short-url-enterprise": {
+          "value": true,
+          "tooltip": null
+        }
+      } as Record<string, { value: string | boolean | null; tooltip: null }>
+    },
+    {
+      "id": "support.livechat",
+      "category": "Support",
+      "label": "Live chat",
+      "tooltip": null,
+      "type": "bool" as const,
+      "plans": {
+        "short-url-free": {
+          "value": true,
+          "tooltip": null
+        },
+        "short-url-basic": {
+          "value": true,
+          "tooltip": null
+        },
+        "short-url-plus": {
+          "value": true,
+          "tooltip": null
+        },
+        "short-url-enterprise": {
+          "value": true,
+          "tooltip": null
+        }
+      } as Record<string, { value: string | boolean | null; tooltip: null }>
+    },
+    {
+      "id": "support.sla",
+      "category": "Support",
+      "label": "100% uptime SLA",
+      "tooltip": null,
+      "type": "bool" as const,
+      "plans": {
+        "short-url-free": {
+          "value": false,
+          "tooltip": null
+        },
+        "short-url-basic": {
+          "value": false,
+          "tooltip": null
+        },
+        "short-url-plus": {
+          "value": false,
+          "tooltip": null
+        },
+        "short-url-enterprise": {
+          "value": true,
+          "tooltip": null
+        }
+      } as Record<string, { value: string | boolean | null; tooltip: null }>
+    },
+    {
+      "id": "support.email-sla",
+      "category": "Support",
+      "label": "Email Support SLA",
+      "tooltip": null,
+      "type": "bool" as const,
+      "plans": {
+        "short-url-free": {
+          "value": false,
+          "tooltip": null
+        },
+        "short-url-basic": {
+          "value": false,
+          "tooltip": null
+        },
+        "short-url-plus": {
+          "value": false,
+          "tooltip": null
+        },
+        "short-url-enterprise": {
+          "value": true,
+          "tooltip": null
+        }
+      } as Record<string, { value: string | boolean | null; tooltip: null }>
+    },
+    {
+      "id": "support.onboarding",
+      "category": "Support",
+      "label": "Onboarding Support",
+      "tooltip": null,
+      "type": "bool" as const,
+      "plans": {
+        "short-url-free": {
+          "value": false,
+          "tooltip": null
+        },
+        "short-url-basic": {
+          "value": false,
+          "tooltip": null
+        },
+        "short-url-plus": {
+          "value": false,
+          "tooltip": null
+        },
+        "short-url-enterprise": {
+          "value": true,
+          "tooltip": null
+        }
+      } as Record<string, { value: string | boolean | null; tooltip: null }>
+    },
+    {
+      "id": "support.manager",
+      "category": "Support",
+      "label": "Account Manager",
+      "tooltip": null,
+      "type": "bool" as const,
+      "plans": {
+        "short-url-free": {
+          "value": false,
+          "tooltip": null
+        },
+        "short-url-basic": {
+          "value": false,
+          "tooltip": null
+        },
+        "short-url-plus": {
+          "value": false,
+          "tooltip": null
+        },
+        "short-url-enterprise": {
+          "value": true,
+          "tooltip": null
+        }
+      } as Record<string, { value: string | boolean | null; tooltip: null }>
     }
   ]
 };

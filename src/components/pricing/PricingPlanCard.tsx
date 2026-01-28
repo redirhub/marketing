@@ -24,7 +24,7 @@ export default function PricingPlanCard({ plan, isAnnually, recommended, everyth
             flex="1"
             bg={isUnavailable ? "gray.50" : (recommended ? "brand.cardActiveBg" : "white")}
             borderRadius="24px"
-            border="1px solid"
+            border="1.8px solid"
             borderColor={isUnavailable ? "gray.300" : (recommended ? "brand.500" : "gray.borderLight")}
             position="relative"
             transition="all 0.3s"
@@ -100,7 +100,7 @@ export default function PricingPlanCard({ plan, isAnnually, recommended, everyth
                         w="full"
                         h="48px"
                         bg={isUnavailable ? "gray.300" : (recommended ? "brand.500" : "white")}
-                        color={isUnavailable ? "gray.600" : (recommended ? "white" : "gray.900")}
+                        color={isUnavailable ? "gray.600" : (recommended ? "white" : "gray.blueGray")}
                         border={recommended || isUnavailable ? "none" : "1px solid"}
                         borderColor={recommended || isUnavailable ? "none" : "gray.borderLight"}
                         borderRadius="12px"
@@ -122,12 +122,12 @@ export default function PricingPlanCard({ plan, isAnnually, recommended, everyth
                 borderColor="gray.borderLight"
             />
             <VStack align="start" gap={4} flex="1" p={6}>
-                <Text fontSize="16px" fontWeight="600" color="gray.700" textTransform="uppercase" letterSpacing="wider">
+                <Text fontSize="16px" fontWeight="600" color="gray.700" textTransform="uppercase">
                     Features
                 </Text>
                 {everythingInPlanName && (
-                    <Text fontSize="15px" fontWeight="500" color="gray.700" mt={-2}>
-                        Everything in <Text as="span" fontWeight="600">{everythingInPlanName}</Text> plus....
+                    <Text fontSize="15px" fontWeight="400" color="gray.700" mt={-2}>
+                        Everything in <Text as="span" fontWeight="600" color={"gray.700"}>{everythingInPlanName}</Text> plus....
                     </Text>
                 )}
                 <List.Root gap={3} variant="plain">
@@ -149,7 +149,7 @@ export default function PricingPlanCard({ plan, isAnnually, recommended, everyth
                                     strokeWidth={3.5}
                                 />
                             </Box>
-                            <Text fontSize="14px" fontWeight="500" color="gray.700">
+                            <Text fontSize="16px" fontWeight={feature.isHighlighted ? "600" : "400"} color="gray.700">
                                 {feature.text}
                             </Text>
                         </List.Item>
