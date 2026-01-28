@@ -40,28 +40,46 @@ export default function InteractivePricing() {
                     const prevPlan = allPlans.find(p => p.level === plan.level - 1 || (index > 0 && p === allPlans[index - 1]));
                     if (prevPlan) previousPlanName = prevPlan.label;
                 }
+                const { totalPrice, isUnavailable } = calculatePlanPricing(plan, hostnameValue, isAnnually);
+                const isEnterprise = plan.label === "Enterprise";
+                const isBasic = plan.label === "Basic";
+                const isPro = plan.label === "Pro";
+                const hostsLimit = plan.limits.find(l => l.id === 'hosts');
+                const minHosts = hostsLimit?.from || 15;
+                const maxHosts = hostsLimit?.to || 100;
+                const clampedHostnameValue = Math.min(Math.max(hostnameValue, minHosts), maxHosts);
 
                 const mappedFeatures = [
-                    ...plan.limits.map(l => ({
-                        text: l.text_list,
-                        included: true,
-                        isHighlighted: true
-                    })),
+                    ...plan.limits.map(l => {
+                        let text = l.text_list;
+                        if (isBasic && l.id === 'hosts') {
+                            text = `${clampedHostnameValue} source domains`;
+                        }
+                        return {
+                            text,
+                            included: true,
+                            isHighlighted: true
+                        };
+                    }),
                     ...plan.features.map(f => ({
                         text: f.label,
                         included: true,
                         isHighlighted: false
                     }))
                 ];
-                const { totalPrice, isUnavailable } = calculatePlanPricing(plan, hostnameValue, isAnnually);
-                const isEnterprise = plan.label === "Enterprise";
+                let rangeText = (redirectData.comparison.find(c => c.id === 'basic.records')?.plans[plan.id]?.value as string) || '';
+                if (isBasic) {
+                    rangeText = `${clampedHostnameValue} source urls`;
+                } else if (isPro || isEnterprise) {
+                    rangeText = 'Unlimited';
+                }
 
                 return {
                     id: plan.id,
                     name: plan.label,
                     priceMonthly: isEnterprise ? "Custom pricing" : totalPrice,
                     priceAnnually: isEnterprise ? "Custom pricing" : totalPrice,
-                    range: (redirectData.comparison.find(c => c.id === 'basic.records')?.plans[plan.id]?.value as string) || '',
+                    range: rangeText,
                     ctaText: plan.price === 0 ? 'Start for Free' : ((typeof plan.price === 'number' && plan.price > 100) ? 'Chat with us' : `Get Started with ${plan.label}`),
                     features: mappedFeatures,
                     everythingInPlanName: previousPlanName,
