@@ -102,7 +102,7 @@ export default function APIDocumentation() {
       <Box w="100%" maxW="7xl" mx="auto" textAlign="center">
         <Heading
           as={"h2"}
-          fontSize={{ base: "1.4rem", md: "2rem", lg: "3rem" }}
+          fontSize={{ base: "1.5rem", md: "2rem", lg: "3rem" }}
           lineHeight={{ base: "1.4rem", md: "3rem" }}
           fontWeight={500}
           color="#344054"

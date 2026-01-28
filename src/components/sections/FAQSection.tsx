@@ -32,11 +32,11 @@ export default function FAQSection({
     >
       <Heading
         as={"p"}
-        fontSize={{ base: "2rem", md: "3rem" }}
+        fontSize={{ base: "1.5rem", md: "2rem", lg: "3rem" }}
         fontWeight={500}
         color="#344054"
         letterSpacing="0.4px"
-        pt={20}
+        pt={{base: 6, md: 16}}
         mb={16}
       >
         {title}
