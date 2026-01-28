@@ -6,6 +6,7 @@ import { TabsLayout, TabTriggerButton } from "@/components/ui/TabsLayout";
 import HostnameSlider from "./HostnameSlider";
 import PricingPlanCard from "./PricingPlanCard";
 import AddOns from "./AddOns";
+import PlansComparisonTable, { ProductTab } from "./PlansComparisonTable";
 import { pricingPlans } from "./pricingData";
 import { redirectData, getRecommendedRedirectPlan, calculatePlanPricing } from "./redirectPlanData";
 import { shortenUrlData } from "./shortenUrlPlanData";
@@ -39,27 +40,49 @@ export default function InteractivePricing() {
                     const prevPlan = allPlans.find(p => p.level === plan.level - 1 || (index > 0 && p === allPlans[index - 1]));
                     if (prevPlan) previousPlanName = prevPlan.label;
                 }
+                const { totalPrice, isUnavailable } = calculatePlanPricing(plan, hostnameValue, isAnnually);
+                const isEnterprise = plan.label === "Enterprise";
+                const isBasic = plan.label === "Basic";
+                const isPro = plan.label === "Pro";
+                const hostsLimit = plan.limits.find(l => l.id === 'hosts');
+                const minHosts = hostsLimit?.from || 15;
+                const maxHosts = isPro ? 50000 : hostsLimit?.to;
+                let hostNameValue = Math.max(hostnameValue, minHosts);
+                if (maxHosts) {
+                    hostNameValue = Math.min(hostNameValue, maxHosts);
+                }
 
                 const mappedFeatures = [
-                    ...plan.limits.map(l => ({
-                        text: l.text_list,
-                        included: true,
-                        isHighlighted: true
-                    })),
+                    ...plan.limits.map(l => {
+                        let text = l.text_list;
+                        if ((isBasic || isPro) && l.id === 'hosts') {
+                            text = `${hostNameValue} source domains`;
+                        }
+                        return {
+                            text,
+                            included: true,
+                            isHighlighted: true
+                        };
+                    }),
                     ...plan.features.map(f => ({
                         text: f.label,
                         included: true,
                         isHighlighted: false
                     }))
                 ];
-                const { totalPrice, isUnavailable } = calculatePlanPricing(plan, hostnameValue, isAnnually);
+                let rangeText = (redirectData.comparison.find(c => c.id === 'basic.records')?.plans[plan.id]?.value as string) || '';
+                if (isBasic || isPro) {
+                    rangeText = `${hostNameValue} source urls`;
+                } else if (isEnterprise) {
+                    rangeText = 'Unlimited';
+                }
 
                 return {
                     id: plan.id,
                     name: plan.label,
-                    priceMonthly: totalPrice,
-                    priceAnnually: totalPrice,
-                    range: (redirectData.comparison.find(c => c.id === 'basic.records')?.plans[plan.id]?.value as string) || '',
+                    priceMonthly: isEnterprise ? "Custom pricing" : totalPrice,
+                    priceAnnually: isEnterprise ? "Custom pricing" : totalPrice,
+                    range: rangeText,
                     ctaText: plan.price === 0 ? 'Start for Free' : ((typeof plan.price === 'number' && plan.price > 100) ? 'Chat with us' : `Get Started with ${plan.label}`),
                     features: mappedFeatures,
                     everythingInPlanName: previousPlanName,
@@ -87,11 +110,13 @@ export default function InteractivePricing() {
                     }))
                 ];
 
+                const isEnterprise = plan.label === "Enterprise";
+
                 return {
                     id: plan.id,
                     name: plan.label,
-                    priceMonthly: plan.price,
-                    priceAnnually: plan.annual_price,
+                    priceMonthly: isEnterprise ? "Custom pricing" : plan.price,
+                    priceAnnually: isEnterprise ? "Custom pricing" : plan.annual_price,
                     range: (shortenUrlData.comparison.find(c => c.id === 'basic.records')?.plans[plan.id]?.value as string) || '',
                     ctaText: plan.price === 0 ? 'Start for Free' : ((typeof plan.price === 'number' && plan.price > 100) ? 'Chat with us' : `Get Started with ${plan.label}`),
                     features: mappedFeatures,
@@ -119,12 +144,13 @@ export default function InteractivePricing() {
                         isHighlighted: false
                     }))
                 ];
+                const isEnterprise = plan.label === "Enterprise";
 
                 return {
                     id: plan.id,
                     name: plan.label,
-                    priceMonthly: plan.price,
-                    priceAnnually: plan.annual_price,
+                    priceMonthly: isEnterprise ? "Custom pricing" : plan.price,
+                    priceAnnually: isEnterprise ? "Custom pricing" : plan.annual_price,
                     range: plan.limits.find(l => l.id === 'tasks')?.text_list || '',
                     ctaText: plan.price === 0 ? 'Start for Free' : ((typeof plan.price === 'number' && plan.price > 100) ? 'Chat with us' : `Get Started with ${plan.label}`),
                     features: mappedFeatures,
@@ -232,7 +258,7 @@ export default function InteractivePricing() {
     );
 
     return (
-        <Box position="relative" mt={{ base: "-125px", md: "-350px" }} pb={20} px={4} zIndex={99}>
+        <Box position="relative" mt={{ base: "-125px", md: "-350px" }} pb={20} px={5} zIndex={99}>
             <TabsLayout
                 defaultValue="redirects"
                 value={activeTab}
@@ -242,6 +268,7 @@ export default function InteractivePricing() {
                 headerRight={headerRight}
                 maxW="1180px"
             />
+            <PlansComparisonTable isAnnually={isAnnually} product={activeTab === 'redirects' ? 'redirect' : activeTab as ProductTab} />
         </Box>
     );
 }

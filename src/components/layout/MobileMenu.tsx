@@ -32,13 +32,13 @@ export default function MobileMenu({ navItems }: MobileMenuProps) {
                 <Box
                     as="button"
                     display={{ base: "flex", xl: "none" }}
-                    p={2}
+                    p={1.5}
                     color="white"
                     cursor='pointer'
                     backgroundColor="interactive.blue"
                     borderRadius={'md'}
                 >
-                    <FaBars size={24} />
+                    <FaBars size={22} />
                 </Box>
             </Drawer.Trigger>
             <Drawer.Backdrop />

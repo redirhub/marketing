@@ -34,12 +34,12 @@ export default async function BlogSection({
       <Box w="100%" maxW="7xl" mx="auto" textAlign="center">
         <Heading
           as={"p"}
-          fontSize={{ base: "2rem", md: "3rem" }}
+          fontSize={{ base: "1.5rem", md: "2rem", lg: "3rem" }}
           lineHeight={{ base: "2.5rem", md: "2.8rem" }}
           fontWeight={500}
           color="#344054"
           letterSpacing="0.4px"
-          mb={16}
+          mb={{base: 10, md: 16}}
         >
           {title}
         </Heading>

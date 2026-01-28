@@ -16,7 +16,7 @@ export default function ChooseUs() {
         {/* Main Title */}
         <Heading
           as={"p"}
-          fontSize={{ base: "2rem", md: "3rem" }}
+          fontSize={{ base: "1.5rem", md: "2rem", lg: "3rem" }}
           fontWeight={500}
           lineHeight={{ base: "2rem", md: "3rem" }}
           color="#344054"

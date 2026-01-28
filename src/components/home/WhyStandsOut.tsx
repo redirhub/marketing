@@ -84,7 +84,7 @@ export default function WhyStandsOut() {
     >
       <Box w="100%" maxW="7xl" mx="auto" textAlign="center">
         <Heading
-          fontSize={{ base: "1.6rem", md: "2rem", lg: "2.8rem" }}
+          fontSize={{ base: "1.5rem", md: "2rem", lg: "2.8rem" }}
           fontWeight={500}
           color="#344054"
           letterSpacing="0.4px"
@@ -100,6 +100,8 @@ export default function WhyStandsOut() {
             p={{ base: 4, md: 6 }}
             display="flex"
             flexDirection="column"
+            justifyContent={'center'}
+            alignItems={{ base: 'center', md: 'baseline' }}
             textAlign="center"
             gap={6}
           >
@@ -115,7 +117,7 @@ export default function WhyStandsOut() {
             >
               <MainIcon />
             </Box>
-            <Stack gap={{ base: 2, md: 4 }} textAlign="left" justify="center">
+            <Stack gap={{ base: 2, md: 4 }} textAlign={{ base: "center", md: "left" }} justify="center">
               <Heading
                 as={"p"}
                 fontWeight={{ base: 600, md: 600, lg: 700 }}
@@ -134,10 +136,12 @@ export default function WhyStandsOut() {
 
               <ChakraLink
                 as={Link}
+                textAlign={{ base: "center", md: "left" }}
                 href="https://findredirect.com/uptime"
                 target="_blank"
                 fontSize={{ base: "0.9rem", md: "1rem" }}
                 color="#1C6DB6"
+                justifyContent={{ base: 'center', md: 'start' }}
                 fontWeight={600}
                 display="inline-flex"
                 alignItems="center"
@@ -183,7 +187,7 @@ export const StatsCard = ({
       p="14px"
       gap="20px"
       w="100%"
-      align={{ base: "left", md: "center" }}
+      align={{ base: "center", md: "center" }}
       direction={{ base: "column", md: "row" }}
     >
       <Box
@@ -203,7 +207,7 @@ export const StatsCard = ({
           color="#333"
           lineHeight="1"
           mb="2px"
-          textAlign={"left"}
+          textAlign={{ base: "center", md: "left" }}
           fontWeight={{ base: 600, md: 700 }}
           fontSize={{ base: "1.5rem", md: "1.5rem" }}
         >
@@ -213,7 +217,7 @@ export const StatsCard = ({
         <Text
           fontSize="14px"
           fontWeight="500"
-          textAlign={"left"}
+          textAlign={{ base: "center", md: "left" }}
           color="#667085"
         >
           {label}
@@ -230,7 +234,7 @@ export const StatsCard = ({
           color="#667085"
           lineHeight="1.4rem"
           fontWeight="400"
-          textAlign={"left"}
+          textAlign={{ base: "center", md: "left" }}
         >
           {description}
         </Text>

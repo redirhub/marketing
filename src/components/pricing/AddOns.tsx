@@ -16,7 +16,7 @@ export default function AddOns({ isAnnually }: AddOnsProps) {
                 <Heading as="h3" fontSize="xl" fontWeight="600" color="gray.darkGray">
                     Pro Add-Ons
                 </Heading>
-                <Text fontSize="14px" fontWeight="500" color="gray.blueGray">
+                <Text fontSize="16px" fontWeight="400" color="gray.blueGray">
                     Enhance your Pro plan with powerful features
                 </Text>
             </Stack>
@@ -33,7 +33,7 @@ export default function AddOns({ isAnnually }: AddOnsProps) {
                         transition="all 0.3s"
                         _hover={{ borderColor: "gray.200", transform: "translateY(-2px)" }}
                     >
-                        
+
                         <Flex justify="space-between" align="start" mb={4}>
                             <Box
                                 bg="primary.lightBlue"
@@ -51,8 +51,11 @@ export default function AddOns({ isAnnually }: AddOnsProps) {
                                 />
                             </Box>
                             <Flex align="baseline" gap={1}>
-                                <Text fontSize="24px" fontWeight="600" color="gray.900">
-                                    ${isAnnually ? addon.priceAnnually : addon.priceMonthly}
+                                <Text fontSize="24px" fontWeight="600" color="gray.textMedium">
+                                    $
+                                    <Text as="span" color="gray.900" ml={1}>
+                                        {isAnnually ? addon.priceAnnually : addon.priceMonthly}
+                                    </Text>
                                 </Text>
                                 <Text fontSize="14px" fontWeight="500" color="gray.500">
                                     /mo
