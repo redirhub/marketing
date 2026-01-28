@@ -62,9 +62,10 @@ interface PlanButtonProps {
   plan: { badge: string | null; label: string };
   size?: "sm" | "md";
   mt?: number;
+  text?: string;
 }
 
-const PlanButton = ({ plan, size = "sm", mt }: PlanButtonProps) => {
+const PlanButton = ({ plan, size = "sm", mt, text }: PlanButtonProps) => {
   const styles = plan.badge ? BUTTON_STYLES.popular : BUTTON_STYLES.default;
 
   return (
@@ -74,7 +75,7 @@ const PlanButton = ({ plan, size = "sm", mt }: PlanButtonProps) => {
       borderRadius="12px"
       p={6}
       fontWeight="700"
-      fontSize="14px"
+      fontSize="15px"
       minW="180px"
       maxW={'180px'}
       bg={styles.bg}
@@ -87,7 +88,7 @@ const PlanButton = ({ plan, size = "sm", mt }: PlanButtonProps) => {
         color: styles.hoverColor,
       }}
     >
-      {plan.label === "Enterprise" ? "Contact Us" : "Try For Free"}
+      {text ?? (plan.label === "Enterprise" ? "Contact Us" : "Try For Free")}
     </Button>
   );
 };
@@ -108,7 +109,6 @@ export default function PlansComparisonTable({
   );
 
   const formatPrice = useCallback((plan: (typeof plans)[0]) => {
-    if (plan.label === "Enterprise") return "n/a";
     const price = isAnnually ? plan.annual_price : plan.price;
     return `$${price}`;
   }, [isAnnually]);
@@ -168,7 +168,7 @@ export default function PlansComparisonTable({
                 p={4}
               >
                 <Flex align="center" justifyContent={'flex-start'} gap={2}>
-                  <Text fontSize="18px" fontWeight="600" color="gray.700">
+                  <Text fontSize="20px" fontWeight="600" color="gray.700">
                     {plan.label}
                   </Text>
                   {plan.badge && (
@@ -213,9 +213,7 @@ export default function PlansComparisonTable({
                     >
                       {formatPrice(plan)}
                     </Text>
-                    {plan.label !== "Enterprise" && (
-                      <Text fontSize="14px" color="gray.700">per month</Text>
-                    )}
+                    <Text fontSize="14px" color="gray.700">{isAnnually ? 'annually' : 'per month'}</Text>
                   </Flex>
                   <PlanButton plan={plan} size="sm" mt={1.5} />
                 </Flex>
@@ -289,8 +287,8 @@ export default function PlansComparisonTable({
           <Table.Row bg="transparent">
             <Table.Cell border="none" borderTop="1px solid" borderColor="gray.300" py={6} bg="transparent" />
             {plans.map((plan) => (
-              <Table.Cell key={`cta-${plan.id}`}  textAlign="center" border={'none'} borderTop="1px solid" borderColor="gray.300" py={6}>
-                <PlanButton plan={plan} size="md" />
+              <Table.Cell key={`cta-${plan.id}`} textAlign="center" border={'none'} borderTop="1px solid" borderColor="gray.300" py={6}>
+                <PlanButton plan={plan} size="md" text="Try For Free" />
               </Table.Cell>
             ))}
           </Table.Row>
@@ -300,7 +298,7 @@ export default function PlansComparisonTable({
   );
 
   return (
-    <Box w="full" mt={16} bg="warning.100" borderRadius="24px" px={{ base: 4, md: 8 }} py={12}>
+    <Box w="full" mt={16} maxW='1180px' mx='auto' bg="warning.100" borderRadius={{ base: '18px', md: "32px" }} px={{ base: 4, md: 8 }} py={12}>
       <Heading
         as="h2"
         fontSize={{ base: "24px", md: "38px" }}

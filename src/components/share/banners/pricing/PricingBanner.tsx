@@ -39,8 +39,8 @@ export default function PricingBanner({
                         as="h2"
                         fontSize={{
                             base: "1.5rem",
-                            md: "3rem",
-                            lg: "46px",
+                            md: "2.5rem",
+                            lg: "44px",
                         }}
                         fontWeight="600"
                         lineHeight="1.2"
@@ -58,7 +58,7 @@ export default function PricingBanner({
                         color="white"
                         maxW="3xl"
                         fontFamily="'Inter', sans-serif"
-                        mt={{ base: '4px', md: "12px" }}
+                        mt={{ base: '4px', md: "10px" }}
                     >
                         {subtitle}
                     </Text>
