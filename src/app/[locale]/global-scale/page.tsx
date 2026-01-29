@@ -134,8 +134,10 @@ export default async function Globalscale({
           imageSrc="/assets/images/feature/Enterprise-Infrastructure.jpeg"
           imageAlt="Enterprise-Infrastructure"
           removePaddingBottom={true}
-        />
-        <TestimonialsSlider marginBottom={"20px"} />
+        />  
+        <Box pt={{base: 4, md: 0}}>
+          <TestimonialsSlider marginBottom={"20px"} />
+        </Box>
       </Box>
       {faqData.length > 0 && <FAQSection faqData={faqData} />}
     </>

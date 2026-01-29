@@ -94,7 +94,7 @@ export default async function LandingPage({ params, searchParams }: PageProps) {
       <LandingPageBanner hero={page.hero} />
 
       {/* Rich Content Section */}
-      <Container maxW="7xl" mx="auto" px={{ base: 2, md: 2, lg: 0 }} mt={12}>
+      <Container maxW="7xl" mx="auto" px={{ base: 3, md: 4, lg: 6 }} mt={12}>
         <Box
           display="grid"
           gridTemplateColumns={
@@ -108,7 +108,7 @@ export default async function LandingPage({ params, searchParams }: PageProps) {
           <Box minW="0">
             <Box
               bg="white"
-              p={{ base: 6, md: 12 }}
+              pr={{ base: 0, lg: 2 }}
               borderRadius="2xl"
               borderColor="gray.100"
             >
@@ -134,7 +134,9 @@ export default async function LandingPage({ params, searchParams }: PageProps) {
 
       {/* Testimonials Section */}
       {showTestimonials && (
-        <TestimonialsSection marginTop={12} marginBottom={24} />
+       <Box px={{ base: 3, md: 4, lg: 6 }}>
+         <TestimonialsSection marginTop={12} marginBottom={24} />
+       </Box>
       )}
 
       {/* Blog Insight Section */}

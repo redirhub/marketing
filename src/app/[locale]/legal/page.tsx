@@ -32,7 +32,7 @@ export default async function LegalPage({
   const legalDocs = await fetchLegalDocuments(locale);
 
   return (
-    <Box py={20} mt={100}>
+    <Box py={20} mt={{base: 50, md: 90}} px={{base: 5, lg: 0}}>
       <Container maxW="4xl" mx="auto">
         <Heading as="h1" size="2xl" mb={8}>
           Legal

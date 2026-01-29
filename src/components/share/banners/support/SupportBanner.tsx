@@ -21,6 +21,7 @@ const SupportBanner = () => {
                 lineHeight="tight"
                 maxW="4xl"
                 color="#fff"
+                mt={{base: 2, md: 5}}
               >
                 Get All Your Questions Answered With The
               </Heading>
@@ -32,7 +33,7 @@ const SupportBanner = () => {
                 md: "2.4rem",
                 lg: "3rem",
               }}
-              fontWeight="900"
+              fontWeight="700"
               lineHeight="tight"
               maxW={{ base: "full", md: "4xl" }}
               color="#fff"
@@ -40,12 +41,12 @@ const SupportBanner = () => {
               RedirHub Support
             </Heading>
             <Text
-              fontSize={{ base: "1rem", md: "1rem" }}
-              color="#FFFFFFBA"
+              fontSize={{ base: "1rem", md: "1.15rem" }}
+              color="#FFFFFF"
               maxW={{ base: "full", md: "4xl" }}
               letterSpacing={"0.2px"}
               fontWeight={400}
-              mt={4}
+              mt={{base: 0, md: 4}}
               textAlign={{ base: "center", md: "center" }}
             >
               Get All Your Questions Answered With The RedirHub Support Explore

@@ -19,7 +19,7 @@ export const FooterLinkColumn: React.FC<FooterLinkColumnProps> = ({
   return (
     <Stack
       gap={3}
-      alignItems={{ base: "center", md: "center", lg: "flex-start" }}
+      alignItems={{ base: "center", md: "flex-start", lg: "flex-start" }}
     >
       <Text
         fontSize="1.1rem"

@@ -20,7 +20,7 @@ export default function EnterpriseBanner() {
                 md: "2.5rem",
                 lg: "3.2rem",
               }}
-              fontWeight="600"
+              fontWeight="700"
               lineHeight="tight"
               maxW="4xl"
               color="#fff"
@@ -30,18 +30,18 @@ export default function EnterpriseBanner() {
               Reach Out to RedirHub
             </Heading>
             <Text
-              fontSize={{ base: "lg", md: "1rem" }}
-              color="#FFFFFFBA"
+              fontSize={{ base: "18px", md: "20px" }}
+              color="#FFFFFF"
               maxW="4xl"
               letterSpacing={"0.2px"}
-              mt={4}
+              mt={3}
             >
               Organize a demo or get help purchasing the product
             </Text>
           </Box>
         </Flex>
-        <CustomerLogosSection />
       </Container>
+        <CustomerLogosSection />
     </Box>
   );
 }

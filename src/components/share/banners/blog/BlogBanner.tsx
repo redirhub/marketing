@@ -62,7 +62,7 @@ const BlogBanner = () => {
                 md: "2.5rem",
                 lg: "3.4rem",
               }}
-              fontWeight="600"
+              fontWeight="700"
               lineHeight="tight"
               maxW="4xl"
               color="#fff"

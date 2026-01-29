@@ -24,6 +24,7 @@ export default function SinglePageBanner({
             alignItems={"center"}
             px={{ base: 0, md: 10 }}
             mb={10}
+            mt={5}
           >
             <NextLink
               href="/support"
@@ -67,7 +68,7 @@ export default function SinglePageBanner({
                 md: "2.4rem",
                 lg: "3rem",
               }}
-              fontWeight="900"
+              fontWeight="700"
               lineHeight="tight"
               maxW={{ base: "full", md: "4xl" }}
               color="#fff"

@@ -74,7 +74,7 @@ export default function PostHeader({
             <Heading
               as="h1"
               fontSize={{ base: '24px', md: '28px', lg: '36px' }}
-              fontWeight="800"
+              fontWeight="700"
               lineHeight={{ base: '32px', md: '36px', lg: '44px' }}
               mb={6}
               color="white"

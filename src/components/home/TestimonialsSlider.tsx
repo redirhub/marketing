@@ -65,7 +65,7 @@ function CustomPrevArrow(props: ArrowProps) {
       disabled={isDisabled}
       position="absolute"
       top={{ base: "-60px", md: "-80px" }}
-      right={{ base: "85px", md: "105px" }}
+      right={{ base: "75px", sm: "85px", md: "105px" }}
       zIndex={2}
       bg={isDisabled ? "whiteAlpha.40" : "whiteAlpha.84"}
       color="gray.700"
@@ -123,7 +123,7 @@ function CustomNextArrow(props: ArrowProps) {
 }
 
 interface Props {
-  marginBottom?: string|number|object;
+  marginBottom?: string | number | object;
 }
 
 export default function TestimonialsSlider({ marginBottom }: Props) {
@@ -165,7 +165,7 @@ export default function TestimonialsSlider({ marginBottom }: Props) {
       py={baseVerticalPadding}
       position="relative"
       overflow="hidden"
-      borderRadius={"32px"}
+      borderRadius={{ base: '24px', md: "32px" }}
       mt={baseVerticalMargin}
       mb={marginBottom ? marginBottom : baseVerticalMargin}
       maxW="7xl"
@@ -178,16 +178,16 @@ export default function TestimonialsSlider({ marginBottom }: Props) {
       >
         <Heading
           as="p"
-          fontSize={{ base: "24px", md: "34px", lg: "40px" }}
+          fontSize={{ base: "20px", md: "30px", lg: "40px" }}
           fontWeight={600}
           color="whiteAlpha.88"
-          mb={{ base: 6, md: 12 }}
+          mb={{ base: 3, sm: 6, md: 12 }}
           pl={{ base: "25px", md: "45px" }}
           pr={{ base: "110px", md: "110px", lg: "0px" }}
           textAlign="left"
         >
           Why Our Customers Love{" "}
-          <Text as="span" color={"white"} fontSize={{ base: "24px", md: "34px", lg: "40px" }} fontWeight={800}>
+          <Text as="span" color={"white"} fontSize={{ base: "20px", md: "30px", lg: "40px" }} fontWeight={800}>
             RedirHub
           </Text>
         </Heading>
@@ -208,7 +208,7 @@ export default function TestimonialsSlider({ marginBottom }: Props) {
                   w="100%"
                   overflowX={'auto'}
                   height="100%"
-                  minH="386px"
+                  minH={{ base: "350px", md: "386px" }}
                   maxH={'386px'}
                   display="flex"
                   flexDirection="column"
@@ -230,6 +230,7 @@ export default function TestimonialsSlider({ marginBottom }: Props) {
                         fontWeight={500}
                         textAlign={"left"}
                         fontFamily={"Inter"}
+                        lineClamp={4}
                         color="gray.700"
                         lineHeight={{ base: "140%", md: "160%" }}
                         fontStyle={"italic"}

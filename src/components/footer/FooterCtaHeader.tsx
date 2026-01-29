@@ -4,14 +4,14 @@ import React from "react";
 
 export const FooterCtaHeader: React.FC = ({}) => {
   return (
-    <VStack gap={6} textAlign="center" mb="60px">
+    <VStack gap={6} textAlign="center" mb={"60px"}>
       <Heading
         as="p"
         fontSize={{ base: "1.5rem", md: "2rem", lg: "3rem" }}
-        fontWeight="600"
+        fontWeight="700"
         color="white"
         lineHeight={{ base: "2rem", md: "2rem", lg: "3rem" }}
-        maxW="900px"
+        maxW="1000px"
         letterSpacing={"0.8px"}
       >
         Redirect 5x Faster with Built-in Security

@@ -39,6 +39,7 @@ export function ArticleItem({ title, slug, locale, tags }: ArticleItemProps) {
             fontWeight="600"
             color="#344054"
             transition="color 0.2s"
+            textAlign={{base: 'center', md: 'left'}}
             _hover={{ color: "#D65334" }}
           >
             {title}
