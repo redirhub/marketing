@@ -33,7 +33,7 @@ export default function FeatureBanner({
   const { t } = useTranslation("common");
 
   return (
-    <Box pt={28} className={styles.heroContainer}>
+    <Box pt={{ base: 24, lg: 28 }} className={styles.heroContainer}>
       <Container maxW="7xl" mx="auto" px={{ base: 2, md: 2, lg: 0 }}>
         <Flex direction="column" align="center" textAlign="center" gap={2}>
           <Heading
@@ -43,19 +43,19 @@ export default function FeatureBanner({
               md: "2.5rem",
               lg: "3.2rem",
             }}
-            fontWeight="600"
+            fontWeight="700"
             lineHeight="tight"
             maxW="4xl"
             color="#fff"
             mb={{ base: 4, md: 2 }}
-            letterSpacing={"-1.8px"}
+            letterSpacing={{base: "-0.5", md: "-1.8px"}}
           >
             {title}
           </Heading>
           <Text
-            fontSize={{ base: "1rem", md: "1rem" }}
-            color="#FFFFFFBA"
-            w={{ base: "100%", md: subtitleWidth ? subtitleWidth : "35%" }}
+            fontSize={{ base: "18px", md: "20px" }}
+            color="#FFFFFF"
+            w={{ base: "100%", md: subtitleWidth ? subtitleWidth : "46%" }}
             letterSpacing={"0.2px"}
             mb={"12px"}
           >
@@ -65,23 +65,26 @@ export default function FeatureBanner({
           <VStack gap={6} textAlign="center" mb="10px">
             <Link href={"https://dash.redirhub.com/register"} target={"_blank"}>
               <Button
-                bg="#E49426"
+                bg="brand.500"
                 color="white"
+                borderColor="brand.500"
                 px="24px"
                 py="12px"
+                minH={'44px'}
                 fontSize="1rem"
                 fontWeight="semibold"
                 borderRadius="8px"
+                transition="all 0.2s"
                 _hover={{
-                  bg: "#C78121",
+                  borderColor: "brand.600",
+                  color: "white",
                   transform: "translateY(-2px)",
-                  boxShadow: "lg",
+                  boxShadow: "0 10px 20px rgba(95, 82, 63, 0.27)",
                 }}
                 _active={{
-                  bg: "orange.700",
+                  bg: "brand.700",
                   transform: "translateY(0)",
                 }}
-                transition="all 0.2s"
               >
                 Get Started For Free
               </Button>

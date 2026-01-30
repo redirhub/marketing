@@ -160,11 +160,11 @@ export default function Footer({ legalLinks }: FooterProps) {
           <Box w="100%" maxW="6xl" mx="auto" mb={14}>
             <Heading
               as="p"
-              fontSize={{ base: "2rem", md: "3rem", lg: "3rem" }}
+              fontSize={{ base: "1.5rem", md: "3rem", lg: "3rem" }}
               fontWeight="600"
               color="white"
-              lineHeight={{ base: "3rem", md: "3rem", lg: "3rem" }}
-              letterSpacing={"-1.8px"}
+              lineHeight={{ base: "2rem", md: "3rem", lg: "3rem" }}
+              letterSpacing={{base: "-0.5px", md: "-1.5px"}}
               textAlign={"center"}
               mb={{ base: "2rem", md: "3rem", lg: "3rem" }}
             >
@@ -182,7 +182,7 @@ export default function Footer({ legalLinks }: FooterProps) {
           p={10}
         >
           <Grid
-            templateColumns={{ base: "1fr", md: "1fr", lg: "repeat(5, 1fr)" }}
+            templateColumns={{ base: "1fr", md: "repeat(3, 1fr)" , lg: "repeat(5, 1fr)" }}
             gap={8}
             mb={8}
           >
@@ -190,7 +190,7 @@ export default function Footer({ legalLinks }: FooterProps) {
               gap={4}
               alignItems={{
                 base: "center",
-                md: "center",
+                md: "flex-start",
                 lg: "flex-start",
               }}
             >

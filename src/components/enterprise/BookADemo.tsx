@@ -11,15 +11,16 @@ const BookADemo = async () => {
             textAlign="center"
             color="#344054"
             fontWeight={500}
-            fontSize={{ base: "2.7rem", md: "3rem" }}
+            fontSize={{ base: "2.2rem", md: "3rem" }}
             letterSpacing={"0.4px"}
+            lineHeight={{base: '40px', md: 'auto'}}
             mb={{ base: 6, md: 12 }}
           >
             Book a demo with RedirHub
           </Heading>
           <Box
             w="100%"
-            h={{ base: "500px", md: "500px" }}
+            h={{ base: "450px", md: "500px" }}
             borderRadius="24px"
             overflow="hidden"
             bg="white"

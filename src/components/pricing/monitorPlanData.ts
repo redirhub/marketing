@@ -115,42 +115,6 @@ export const monitorData = {
       "level": 3
     },
     {
-      "id": "monitor-business",
-      "label": "Business",
-      "badge": null,
-      "product": "monitor",
-      "product_name": "Monitoring",
-      "parent": null,
-      "children": 0,
-      "free": false,
-      "price": 290,
-      "annual_price": 2900,
-      "currency": "usd",
-      "addons": [],
-      "limits": [
-        {
-          "id": "tasks",
-          "from": 800,
-          "to": null,
-          "text_list": "800 monitorings",
-          "text_subscribe": "800 monitorings",
-          "primary": true,
-          "tooltip": null
-        },
-        {
-          "id": "members",
-          "from": 0,
-          "to": null,
-          "text_list": "Unlimited team members",
-          "text_subscribe": "Unlimited team members",
-          "primary": false,
-          "tooltip": null
-        }
-      ],
-      "features": [] as MonitorFeature[],
-      "level": 5
-    },
-    {
       "id": "monitor-enterprise",
       "label": "Enterprise",
       "badge": null,
@@ -207,7 +171,303 @@ export const monitorData = {
           "value": false,
           "tooltip": null
         },
-        "monitor-business": {
+        "monitor-enterprise": {
+          "value": true,
+          "tooltip": null
+        }
+      } as Record<string, { value: boolean | string; tooltip: null }>
+    },
+    {
+      "id": "basic.api",
+      "category": "Basic",
+      "label": "management API ",
+      "tooltip": null,
+      "type": "bool" as const,
+      "plans": {
+        "monitor-free": {
+          "value": true,
+          "tooltip": null
+        },
+        "monitor-basic": {
+          "value": true,
+          "tooltip": null
+        },
+        "monitor-plus": {
+          "value": true,
+          "tooltip": null
+        },
+        "monitor-enterprise": {
+          "value": true,
+          "tooltip": null
+        }
+      } as Record<string, { value: boolean | string; tooltip: null }>
+    },
+    {
+      "id": "manage.bulk",
+      "category": "Management",
+      "label": "Bulk manage",
+      "tooltip": "Bulk modify destination, tags",
+      "type": "bool" as const,
+      "plans": {
+        "monitor-free": {
+          "value": false,
+          "tooltip": null
+        },
+        "monitor-basic": {
+          "value": false,
+          "tooltip": null
+        },
+        "monitor-plus": {
+          "value": false,
+          "tooltip": null
+        },
+        "monitor-enterprise": {
+          "value": true,
+          "tooltip": null
+        }
+      } as Record<string, { value: boolean | string; tooltip: null }>
+    },
+    {
+      "id": "security.encryption",
+      "category": "Security & Compliance",
+      "label": "Data encryption at rest/in transit ",
+      "tooltip": null,
+      "type": "bool" as const,
+      "plans": {
+        "monitor-free": {
+          "value": true,
+          "tooltip": null
+        },
+        "monitor-basic": {
+          "value": true,
+          "tooltip": null
+        },
+        "monitor-plus": {
+          "value": true,
+          "tooltip": null
+        },
+        "monitor-enterprise": {
+          "value": true,
+          "tooltip": null
+        }
+      } as Record<string, { value: boolean | string; tooltip: null }>
+    },
+    {
+      "id": "security.2fs",
+      "category": "Security & Compliance",
+      "label": "Two-factor authentication ",
+      "tooltip": null,
+      "type": "bool" as const,
+      "plans": {
+        "monitor-free": {
+          "value": true,
+          "tooltip": null
+        },
+        "monitor-basic": {
+          "value": true,
+          "tooltip": null
+        },
+        "monitor-plus": {
+          "value": true,
+          "tooltip": null
+        },
+        "monitor-enterprise": {
+          "value": true,
+          "tooltip": null
+        }
+      } as Record<string, { value: boolean | string; tooltip: null }>
+    },
+    {
+      "id": "security.sso",
+      "category": "Security & Compliance",
+      "label": "SAML single sign-on",
+      "tooltip": null,
+      "type": "bool" as const,
+      "plans": {
+        "monitor-free": {
+          "value": false,
+          "tooltip": null
+        },
+        "monitor-basic": {
+          "value": false,
+          "tooltip": null
+        },
+        "monitor-plus": {
+          "value": false,
+          "tooltip": null
+        },
+        "monitor-enterprise": {
+          "value": true,
+          "tooltip": null
+        }
+      } as Record<string, { value: boolean | string; tooltip: null }>
+    },
+    {
+      "id": "security.assessment",
+      "category": "Security & Compliance",
+      "label": "Security assessment",
+      "tooltip": null,
+      "type": "bool" as const,
+      "plans": {
+        "monitor-free": {
+          "value": false,
+          "tooltip": null
+        },
+        "monitor-basic": {
+          "value": false,
+          "tooltip": null
+        },
+        "monitor-plus": {
+          "value": false,
+          "tooltip": null
+        },
+        "monitor-enterprise": {
+          "value": true,
+          "tooltip": null
+        }
+      } as Record<string, { value: boolean | string; tooltip: null }>
+    },
+    {
+      "id": "support.email",
+      "category": "Support",
+      "label": "Email Support",
+      "tooltip": null,
+      "type": "bool" as const,
+      "plans": {
+        "monitor-free": {
+          "value": true,
+          "tooltip": null
+        },
+        "monitor-basic": {
+          "value": true,
+          "tooltip": null
+        },
+        "monitor-plus": {
+          "value": true,
+          "tooltip": null
+        },
+        "monitor-enterprise": {
+          "value": true,
+          "tooltip": null
+        }
+      } as Record<string, { value: boolean | string; tooltip: null }>
+    },
+    {
+      "id": "support.livechat",
+      "category": "Support",
+      "label": "Live chat",
+      "tooltip": null,
+      "type": "bool" as const,
+      "plans": {
+        "monitor-free": {
+          "value": true,
+          "tooltip": null
+        },
+        "monitor-basic": {
+          "value": true,
+          "tooltip": null
+        },
+        "monitor-plus": {
+          "value": true,
+          "tooltip": null
+        },
+        "monitor-enterprise": {
+          "value": true,
+          "tooltip": null
+        }
+      } as Record<string, { value: boolean | string; tooltip: null }>
+    },
+    {
+      "id": "support.sla",
+      "category": "Support",
+      "label": "100% uptime SLA",
+      "tooltip": null,
+      "type": "bool" as const,
+      "plans": {
+        "monitor-free": {
+          "value": false,
+          "tooltip": null
+        },
+        "monitor-basic": {
+          "value": false,
+          "tooltip": null
+        },
+        "monitor-plus": {
+          "value": false,
+          "tooltip": null
+        },
+        "monitor-enterprise": {
+          "value": true,
+          "tooltip": null
+        }
+      } as Record<string, { value: boolean | string; tooltip: null }>
+    },
+    {
+      "id": "support.email-sla",
+      "category": "Support",
+      "label": "Email Support SLA",
+      "tooltip": null,
+      "type": "bool" as const,
+      "plans": {
+        "monitor-free": {
+          "value": false,
+          "tooltip": null
+        },
+        "monitor-basic": {
+          "value": false,
+          "tooltip": null
+        },
+        "monitor-plus": {
+          "value": false,
+          "tooltip": null
+        },
+        "monitor-enterprise": {
+          "value": true,
+          "tooltip": null
+        }
+      } as Record<string, { value: boolean | string; tooltip: null }>
+    },
+    {
+      "id": "support.onboarding",
+      "category": "Support",
+      "label": "Onboarding Support",
+      "tooltip": null,
+      "type": "bool" as const,
+      "plans": {
+        "monitor-free": {
+          "value": false,
+          "tooltip": null
+        },
+        "monitor-basic": {
+          "value": false,
+          "tooltip": null
+        },
+        "monitor-plus": {
+          "value": false,
+          "tooltip": null
+        },
+        "monitor-enterprise": {
+          "value": true,
+          "tooltip": null
+        }
+      } as Record<string, { value: boolean | string; tooltip: null }>
+    },
+    {
+      "id": "support.manager",
+      "category": "Support",
+      "label": "Account Manager",
+      "tooltip": null,
+      "type": "bool" as const,
+      "plans": {
+        "monitor-free": {
+          "value": false,
+          "tooltip": null
+        },
+        "monitor-basic": {
+          "value": false,
+          "tooltip": null
+        },
+        "monitor-plus": {
           "value": false,
           "tooltip": null
         },

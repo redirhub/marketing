@@ -46,11 +46,11 @@ export const FeatureStatCard = ({
     <Box
       bg={"#F2F4EF"}
       borderRadius="32px"
-      p={"14px"}
+      p={"16px"}
       pb="28px"
       display="flex"
       flexDirection="column"
-      justifyContent="space-between"
+      justifyContent="center"
       height="100%"
     >
       <Stack gap={4}>
@@ -88,7 +88,6 @@ export const FeatureStatCard = ({
             fontSize={"1rem"}
             lineHeight="tall"
             letterSpacing={"0.2px"}
-            mb={6}
           >
             {description}
           </Text>
@@ -103,9 +102,10 @@ export const FeatureStatCard = ({
               display="inline-flex"
               alignItems="center"
               gap="6px"
+              pt={3}
               _hover={{ color: "#667085" }}
             >
-              View real-time speed report
+              {linkLabel}
               <FaArrowRightLong />
             </ChakraLink>
           )}

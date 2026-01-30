@@ -37,20 +37,20 @@ export default function LandingPageBanner({ hero }: LandingPageBannerProps) {
               md: "2.5rem",
               lg: "3.2rem",
             }}
-            fontWeight="600"
+            fontWeight="700"
             lineHeight="tight"
             maxW="4xl"
             color="#fff"
             mb={{ base: 4, md: 2 }}
-            letterSpacing={"-1.8px"}
+            letterSpacing={{ base: "-0.5px", lg: "-1px" }}
           >
             {hero.headline}
           </Heading>
 
           {hero.subheadline && (
             <Text
-              fontSize={{ base: "1rem", md: "1.1rem" }}
-              color="#FFFFFFBA"
+              fontSize={{ base: "1rem", md: "1.15rem" }}
+              color="#FFFFFF"
               w={{ base: "100%", md: "50%" }}
               letterSpacing={"0.2px"}
               mb={"12px"}
@@ -64,7 +64,7 @@ export default function LandingPageBanner({ hero }: LandingPageBannerProps) {
             <VStack gap={2} textAlign="center" mb="10px">
               <Link href={hero.ctaPrimary.url} target={hero.ctaPrimary.url.startsWith('http') ? "_blank" : "_self"}>
                 <Button
-                  bg="#E49426"
+                  bg="brand.500"
                   color="white"
                   px="24px"
                   py="12px"
@@ -72,12 +72,12 @@ export default function LandingPageBanner({ hero }: LandingPageBannerProps) {
                   fontWeight="semibold"
                   borderRadius="8px"
                   _hover={{
-                    bg: "#C78121",
+                    bg: "brand.600",
                     transform: "translateY(-2px)",
                     boxShadow: "lg",
                   }}
                   _active={{
-                    bg: "orange.700",
+                    bg: "brand.700",
                     transform: "translateY(0)",
                   }}
                   transition="all 0.2s"

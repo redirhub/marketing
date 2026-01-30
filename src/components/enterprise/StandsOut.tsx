@@ -98,10 +98,10 @@ const StandsOut = () => {
           Stands Out
         </Heading>
 
-        <Container maxW="7xl" mx="auto" px={{ base: 4, md: 0 }}>
+        <Container maxW="7xl" mx="auto" px={{ base: 4, md: 4 }}>
           <Flex
             direction={{ base: "column", lg: "row" }}
-            gap={6}
+            gap={5}
             align="stretch"
             mb={{ base: 6, md: "40px" }}
           >

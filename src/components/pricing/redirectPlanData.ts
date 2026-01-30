@@ -1666,8 +1666,6 @@ export const redirectData: RedirectData = {
 };
 
 export const getRecommendedRedirectPlan = (hostnameCount: number): string => {
-  if (hostnameCount <= 5) return 'redirect-free';
-  if (hostnameCount <= 100) return 'redirect-basic';
   if (hostnameCount <= 50000) return 'redirect-pro';
   return 'redirect-enterprise';
 };

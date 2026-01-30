@@ -55,9 +55,9 @@ const ActionButton: React.FC<
   }
 > = ({ label, isPrimary = false, href = "#", ...rest }) => {
   const primaryStyles = {
-    bg: "#E49426",
+    bg: "brand.500",
     color: "white",
-    _hover: { bg: "#C78121", transform: "translateY(-2px)", boxShadow: "lg" },
+    _hover: { bg: "brand.600", transform: "translateY(-2px)", boxShadow: "0 10px 20px rgba(95, 82, 63, 0.27)", },
   };
   const secondaryStyles = {
     bg: "#fff",
@@ -102,7 +102,7 @@ export default function APIDocumentation() {
       <Box w="100%" maxW="7xl" mx="auto" textAlign="center">
         <Heading
           as={"h2"}
-          fontSize={{ base: "1.4rem", md: "2rem", lg: "3rem" }}
+          fontSize={{ base: "1.5rem", md: "2rem", lg: "3rem" }}
           lineHeight={{ base: "1.4rem", md: "3rem" }}
           fontWeight={500}
           color="#344054"

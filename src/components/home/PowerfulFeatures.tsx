@@ -320,7 +320,7 @@ export default function PowerfulFeatures() {
       <Box w="100%" maxW="7xl" mx="auto" textAlign="center">
         <Heading
           as={"p"}
-          fontSize={{ base: "2rem", md: "3rem" }}
+          fontSize={{ base: "1.5rem", md: "2rem", lg: "3rem" }}
           fontWeight={500}
           color="gray.700"
           lineHeight={{ base: "2.4rem", md: "3rem" }}

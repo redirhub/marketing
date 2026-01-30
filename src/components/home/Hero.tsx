@@ -21,23 +21,23 @@ export default function Hero() {
             <Heading
               as="h2"
               fontSize={{
-                base: "2rem",
+                base: "1.8rem",
                 md: "2.5rem",
                 lg: "3.2rem",
               }}
               fontWeight={600}
               maxW="4xl"
               color="#fff"
-              mt={3}
-              mb={{ base: 4, md: "12px" }}
+              mt={{base: 1, md: 3}}
+              mb={{ base: 2, md: "12px" }}
             >
               {t(`home.hero.title`, "Your domains.")}
             </Heading>
             <Box>
               <Heading
                 as="h1"
-                fontSize={{ base: "2rem", md: "2rem", lg: "4rem" }}
-                fontWeight={800}
+                fontSize={{ base: "2rem", md: "2.5rem", lg: "4rem" }}
+                fontWeight={700}
                 lineHeight="tight"
                 maxW="5xl"
                 color="#fff"
@@ -54,9 +54,9 @@ export default function Hero() {
           </Box>
           {/* Subheading */}
           <Text
-            fontSize={{ base: "1.2rem", md: "1.2rem" }}
+            fontSize={{ base: "1rem", md: "1.2rem" }}
             color="#fff"
-            lineHeight={"1.75rem"}
+            lineHeight={{base: "1.5rem", md: "1.75rem"}}
             maxW="4xl"
           >
             {t(
