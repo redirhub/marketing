@@ -79,6 +79,15 @@ export const redirectData: RedirectData = {
       "addons": [],
       "limits": [
         {
+          "id": "records",
+          "from": 5,
+          "to": null,
+          "text_list": "5 source urls",
+          "text_subscribe": "5 source urls",
+          "primary": false,
+          "tooltip": null
+        },
+        {
           "id": "hosts",
           "from": 5,
           "to": null,
@@ -143,7 +152,7 @@ export const redirectData: RedirectData = {
           "type": "hostnames",
           "metric_1": 50,
           "metric_2": 50,
-          "metric_3": null,
+          "metric_3": 3,
           "limits": {
             "hosts": 50,
             "records": 50
@@ -156,7 +165,7 @@ export const redirectData: RedirectData = {
           "type": "hostnames",
           "metric_1": 100,
           "metric_2": 100,
-          "metric_3": null,
+          "metric_3": 6,
           "limits": {
             "hosts": 100,
             "records": 100
@@ -167,10 +176,19 @@ export const redirectData: RedirectData = {
       ],
       "limits": [
         {
+          "id": "records",
+          "from": 15,
+          "to": null,
+          "text_list": "15 source urls",
+          "text_subscribe": "15 source urls",
+          "primary": false,
+          "tooltip": null
+        },
+        {
           "id": "hosts",
           "from": 15,
           "to": 100,
-          "text_list": "15-100 source domains",
+          "text_list": "15 source domains",
           "text_subscribe": "15 source domains",
           "primary": true,
           "tooltip": "with www sub-domains included"
@@ -179,7 +197,7 @@ export const redirectData: RedirectData = {
           "id": "visits",
           "from": 1,
           "to": 6,
-          "text_list": "1-6 million requests / mo",
+          "text_list": "1 million requests / mo",
           "text_subscribe": "1 million requests / mo",
           "primary": true,
           "tooltip": null
@@ -377,6 +395,15 @@ export const redirectData: RedirectData = {
         }
       ],
       "limits": [
+        {
+          "id": "records",
+          "from": 0,
+          "to": null,
+          "text_list": "Unlimited source urls",
+          "text_subscribe": "Unlimited source urls",
+          "primary": false,
+          "tooltip": null
+        },
         {
           "id": "hosts",
           "from": 15,
@@ -1709,48 +1736,27 @@ export const getRedirectSliderConfig = () => {
   };
 };
 
-export const calculatePlanPricing = (plan: RedirectPlan, hostnameCount: number, isAnnually: boolean) => {
+export const calculatePlanPricing = (plan: RedirectPlan, isAnnually: boolean, addon: RedirectAddon | null) => {
     const hostsLimit = plan.limits.find((l) => l.id === 'hosts');
     const baseHostnames = hostsLimit?.from || 0;
-    const maxBaseHostnames = hostsLimit?.to;
 
     let addonPrice = 0;
     let totalHostnames = baseHostnames;
-    let isUnavailable = false;
-    let selectedAddon: any = null;
 
     if (baseHostnames === 0) {
         totalHostnames = Infinity;
-    } else if (hostnameCount > baseHostnames) {
-        if (plan.addons && plan.addons.length > 0) {
-            const sortedAddons = [...plan.addons].sort((a, b) => a.limits.hosts - b.limits.hosts);
-            const requiredAddon = sortedAddons.find((addon) =>
-                baseHostnames + addon.limits.hosts >= hostnameCount
-            );
-            if (requiredAddon) {
-                addonPrice = isAnnually ? requiredAddon.annual_price : requiredAddon.price;
-                totalHostnames = baseHostnames + requiredAddon.limits.hosts;
-                selectedAddon = requiredAddon;
-            } else {
-                isUnavailable = true;
-                const maxAddon = sortedAddons[sortedAddons.length - 1];
-                totalHostnames = baseHostnames + maxAddon.limits.hosts;
-            }
-        } else {
-            isUnavailable = true;
-            if (maxBaseHostnames !== null && maxBaseHostnames !== undefined) {
-                totalHostnames = maxBaseHostnames;
-            }
-        }
+    } else if (addon) {
+        addonPrice = isAnnually ? addon.annual_price : addon.price;
+        totalHostnames = baseHostnames + addon.limits.hosts;
     }
+
     const basePrice = isAnnually ? plan.annual_price : plan.price;
     const totalPrice = typeof basePrice === 'number' ? basePrice + addonPrice : basePrice;
     return {
         totalPrice,
-        isUnavailable,
         totalHostnames,
         basePrice,
         addonPrice,
-        selectedAddon
+        selectedAddon: addon
     };
 };

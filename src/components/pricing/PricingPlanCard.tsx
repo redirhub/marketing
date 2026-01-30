@@ -94,7 +94,8 @@ export default function PricingPlanCard({ plan, isAnnually, recommended, everyth
 
                 <Flex direction={'column'} justify={'space-between'} flex="1">
                     <Text fontSize="16px" fontWeight="500" color="gray.blueGray">
-                        {plan.range}
+                        {/* get first from features and show here as primary feature */}
+                        {plan.features.length > 0 ? plan.features[0].text : ""}
                     </Text>
                     <Button
                         w="full"
@@ -131,7 +132,9 @@ export default function PricingPlanCard({ plan, isAnnually, recommended, everyth
                     </Text>
                 )}
                 <List.Root gap={3} variant="plain">
-                    {plan.features.map((feature, index) => (
+                    {/* show from second features as the first already shown as primary */}
+
+                    {plan.features.slice(1).map((feature, index) => (
                         <List.Item key={index} display="flex" alignItems="center" gap={3}>
                             <Box
                                 bg={feature.isHighlighted ? "success.500" : (feature.included ? "success.50" : "success.800")}

@@ -40,23 +40,52 @@ export default function InteractivePricing() {
                     const prevPlan = allPlans.find(p => p.level === plan.level - 1 || (index > 0 && p === allPlans[index - 1]));
                     if (prevPlan) previousPlanName = prevPlan.label;
                 }
-                const { totalPrice, isUnavailable } = calculatePlanPricing(plan, hostnameValue, isAnnually);
                 const isEnterprise = plan.label === "Enterprise";
                 const isBasic = plan.label === "Basic";
                 const isPro = plan.label === "Pro";
                 const hostsLimit = plan.limits.find(l => l.id === 'hosts');
                 const minHosts = hostsLimit?.from || 15;
-                const maxHosts = isPro ? 50000 : hostsLimit?.to;
+                const maxHosts = plan.addons.length > 0 ? plan.addons[plan.addons.length - 1].metric_1 : null;
                 let hostNameValue = Math.max(hostnameValue, minHosts);
                 if (maxHosts) {
                     hostNameValue = Math.min(hostNameValue, maxHosts);
+                }
+                
+                let addon = null;
+
+                if (hostnameValue > minHosts && plan.addons?.length) {
+                const sortedAddons = [...plan.addons].sort(
+                    (a, b) => a.metric_1 - b.metric_1
+                );
+
+                addon =
+                    sortedAddons.find(a => a.metric_1 >= hostnameValue) ||
+                    sortedAddons[sortedAddons.length - 1];
+                }
+
+                const { totalPrice } = calculatePlanPricing(plan, isAnnually, addon);
+
+                // Calculate isUnavailable based on hostname value and plan capacity
+                let isUnavailable = false;
+                if (minHosts > 0) {
+                    const maxCapacity = maxHosts || minHosts;
+                    if (hostnameValue > maxCapacity) {
+                        isUnavailable = true;
+                    }
                 }
 
                 const mappedFeatures = [
                     ...plan.limits.map(l => {
                         let text = l.text_list;
-                        if ((isBasic || isPro) && l.id === 'hosts') {
-                            text = `${hostNameValue} source domains`;
+                        if (isBasic && addon && l.id === 'records') {
+                            text = `${addon.metric_2} source urls`;
+                        }
+                        if (isBasic && addon && l.id === 'visits') {
+                            text = `${addon.metric_3} million requests / mo`;
+                        }
+                        // drop hosts limit as we show dynamic one
+                        if (l.id === 'hosts') {
+                            return null;
                         }
                         return {
                             text,
@@ -70,13 +99,7 @@ export default function InteractivePricing() {
                         isHighlighted: false
                     }))
                 ];
-                let rangeText = (redirectData.comparison.find(c => c.id === 'basic.records')?.plans[plan.id]?.value as string) || '';
-                if (isBasic || isPro) {
-                    rangeText = `${hostNameValue} source urls`;
-                } else if (isEnterprise) {
-                    rangeText = 'Unlimited';
-                }
-
+                let rangeText = plan.limits[0]?.text_list || '';
                 return {
                     id: plan.id,
                     name: plan.label,
@@ -84,7 +107,7 @@ export default function InteractivePricing() {
                     priceAnnually: isEnterprise ? "Custom pricing" : totalPrice,
                     range: rangeText,
                     ctaText: plan.price === 0 ? 'Start for Free' : ((typeof plan.price === 'number' && plan.price > 100) ? 'Chat with us' : `Get Started with ${plan.label}`),
-                    features: mappedFeatures,
+                    features: mappedFeatures.filter(f => f !== null),
                     everythingInPlanName: previousPlanName,
                     isUnavailable,
                 };
