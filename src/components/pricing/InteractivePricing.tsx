@@ -75,7 +75,7 @@ export default function InteractivePricing() {
 
                 // Calculate isUnavailable based on hostname value and plan capacity
                 let isUnavailable = false;
-                if (minHosts > 0) {
+                if (minHosts > 0 && !isEnterprise) {
                     const maxCapacity = maxHosts || minHosts;
                     if (hostnameValue > maxCapacity) {
                         isUnavailable = true;
