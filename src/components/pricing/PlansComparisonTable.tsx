@@ -59,7 +59,7 @@ const CheckIcon = () => (
 const DashIcon = () => <Icon as={HiMinus} color="gray.400" boxSize={5} />;
 
 interface PlanButtonProps {
-  plan: { badge: string | null; label: string };
+  plan: { badge: string | null; label: string; level: number };
   size?: "sm" | "md";
   mt?: number;
   text?: string;
