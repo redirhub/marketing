@@ -8,9 +8,118 @@ import PricingPlanCard from "./PricingPlanCard";
 import AddOns from "./AddOns";
 import PlansComparisonTable, { ProductTab } from "./PlansComparisonTable";
 import { pricingPlans } from "./pricingData";
-import { redirectData, getRecommendedRedirectPlan, calculatePlanPricing } from "./redirectPlanData";
+import { redirectData, getRecommendedRedirectPlan } from "./redirectPlanData";
 import { shortenUrlData } from "./shortenUrlPlanData";
 import { monitorData } from "./monitorPlanData";
+import { ProductConfig, redirectConfig, shortenConfig, monitorConfig } from "./productConfigs";
+
+// Helper function to map plans to display format
+function mapPlanToDisplay(
+    plan: any,
+    index: number,
+    allPlans: any[],
+    config: ProductConfig,
+    isAnnually: boolean,
+    hostnameValue: number,
+    manualRecommendedId: string | null
+) {
+    // Find previous plan
+    let previousPlanName = null;
+    let prevPlan = null;
+    if (plan.level > 0) {
+        prevPlan = allPlans.find(p => p.level === plan.level - 1 || (index > 0 && p === allPlans[index - 1]));
+        if (prevPlan) previousPlanName = prevPlan.label;
+    }
+
+    // Get feature IDs from previous plan to filter out (features only, not limits)
+    const prevFeatureIds = new Set<string>();
+    if (prevPlan) {
+        prevPlan.features.forEach((f: any) => prevFeatureIds.add(f.id));
+    }
+
+    const isEnterprise = plan.label === "Enterprise";
+
+    // Calculate addon if the product has addons
+    let addon = null;
+    let minHosts = 0;
+    let maxHosts = null;
+    if (config.hasAddons && config.getAddon) {
+        const hostsLimit = plan.limits.find((l: any) => l.id === 'hosts');
+        minHosts = hostsLimit?.from || 15;
+        maxHosts = plan.addons.length > 0 ? plan.addons[plan.addons.length - 1].metric_1 : null;
+        addon = config.getAddon(plan, hostnameValue, minHosts);
+    }
+
+    // Get pricing
+    const pricing = config.getPricing(plan, isAnnually, addon);
+
+    // Get isUnavailable status
+    const isUnavailable = config.getIsUnavailable
+        ? config.getIsUnavailable(plan, hostnameValue, addon, minHosts, maxHosts)
+        : false;
+
+    // Map limits to features
+    const mappedFeatures = [
+        ...plan.limits
+            .filter((l: any) => {
+                // Always show primary features
+                if (l.primary) return true;
+                // Filter out features from previous plan
+                if (prevFeatureIds.has(l.id)) return false;
+                // Apply product-specific filter (e.g., filter 'hosts' for redirects)
+                if (config.shouldFilterLimit && config.shouldFilterLimit(l)) return false;
+                return true;
+            })
+            .map((l: any) => {
+                // Check for product-specific text override
+                let text = l.text_list;
+                if (config.getLimitTextOverride) {
+                    const override = config.getLimitTextOverride(plan, l, addon);
+                    if (override) text = override;
+                }
+                return {
+                    text,
+                    included: true,
+                    isHighlighted: true
+                };
+            }),
+        ...plan.features
+            .filter((f: any) => !prevFeatureIds.has(f.id))
+            .map((f: any) => ({
+                text: f.label,
+                included: true,
+                isHighlighted: false
+            }))
+    ];
+
+    // Get range text
+    const rangeText = config.getRange(plan, config.data);
+
+    // Build CTA text
+    const ctaText = plan.price === 0
+        ? 'Start for Free'
+        : ((typeof plan.price === 'number' && plan.price > 100)
+            ? 'Chat with us'
+            : `Get Started with ${plan.label}`);
+
+    // Handle recommended logic
+    const recommended = config.hasAddons
+        ? undefined
+        : plan.id === (manualRecommendedId || config.data.plans.find((p: any) => p.badge === 'Popular')?.id);
+
+    return {
+        id: plan.id,
+        name: plan.label,
+        priceMonthly: isEnterprise ? "Custom pricing" : pricing,
+        priceAnnually: isEnterprise ? "Custom pricing" : pricing,
+        range: rangeText,
+        ctaText,
+        features: mappedFeatures,
+        everythingInPlanName: previousPlanName,
+        isUnavailable,
+        recommended
+    };
+}
 
 
 
@@ -33,192 +142,18 @@ export default function InteractivePricing() {
     }
 
     const getDisplayPlans = () => {
-        if (activeTab === 'redirects') {
-            return redirectData.plans.map((plan, index, allPlans) => {
-                let previousPlanName = null;
-                let prevPlan = null;
-                if (plan.level > 0) {
-                    prevPlan = allPlans.find(p => p.level === plan.level - 1 || (index > 0 && p === allPlans[index - 1]));
-                    if (prevPlan) previousPlanName = prevPlan.label;
-                }
+        const configMap: Record<string, ProductConfig> = {
+            'redirects': redirectConfig,
+            'shorten': shortenConfig,
+            'monitor': monitorConfig
+        };
 
-                // Get feature IDs from previous plan to filter out
-                const prevFeatureIds = new Set<string>();
-                if (prevPlan) {
-                    prevPlan.features.forEach(f => prevFeatureIds.add(f.id));
-                }
+        const config = configMap[activeTab];
+        if (!config) return pricingPlans;
 
-                const isEnterprise = plan.label === "Enterprise";
-                const isBasic = plan.label === "Basic";
-                const isPro = plan.label === "Pro";
-                const hostsLimit = plan.limits.find(l => l.id === 'hosts');
-                const minHosts = hostsLimit?.from || 15;
-                const maxHosts = plan.addons.length > 0 ? plan.addons[plan.addons.length - 1].metric_1 : null;
-                let hostNameValue = Math.max(hostnameValue, minHosts);
-                if (maxHosts) {
-                    hostNameValue = Math.min(hostNameValue, maxHosts);
-                }
-
-                let addon = null;
-
-                if (hostnameValue > minHosts && plan.addons?.length) {
-                const sortedAddons = [...plan.addons].sort(
-                    (a, b) => a.metric_1 - b.metric_1
-                );
-
-                addon =
-                    sortedAddons.find(a => a.metric_1 >= hostnameValue) ||
-                    sortedAddons[sortedAddons.length - 1];
-                }
-
-                const { totalPrice } = calculatePlanPricing(plan, isAnnually, addon);
-
-                // Calculate isUnavailable based on hostname value and plan capacity
-                let isUnavailable = false;
-                if (minHosts > 0 && !isEnterprise) {
-                    const maxCapacity = maxHosts || minHosts;
-                    if (hostnameValue > maxCapacity) {
-                        isUnavailable = true;
-                    }
-                }
-
-                const mappedFeatures = [
-                    ...plan.limits
-                        .filter(l => l.primary || !prevFeatureIds.has(l.id))
-                        .map(l => {
-                            let text = l.text_list;
-                            if (isBasic && addon && l.id === 'records') {
-                                text = `${addon.metric_2} source urls`;
-                            }
-                            if (isBasic && addon && l.id === 'visits') {
-                                text = `${addon.metric_3} million requests / mo`;
-                            }
-                            // drop hosts limit as we show dynamic one
-                            if (l.id === 'hosts') {
-                                return null;
-                            }
-                            return {
-                                text,
-                                included: true,
-                                isHighlighted: true
-                            };
-                        }),
-                    ...plan.features
-                        .filter(f => !prevFeatureIds.has(f.id))
-                        .map(f => ({
-                            text: f.label,
-                            included: true,
-                            isHighlighted: false
-                        }))
-                ];
-                let rangeText = plan.limits[0]?.text_list || '';
-                return {
-                    id: plan.id,
-                    name: plan.label,
-                    priceMonthly: isEnterprise ? "Custom pricing" : totalPrice,
-                    priceAnnually: isEnterprise ? "Custom pricing" : totalPrice,
-                    range: rangeText,
-                    ctaText: plan.price === 0 ? 'Start for Free' : ((typeof plan.price === 'number' && plan.price > 100) ? 'Chat with us' : `Get Started with ${plan.label}`),
-                    features: mappedFeatures.filter(f => f !== null),
-                    everythingInPlanName: previousPlanName,
-                    isUnavailable,
-                };
-            });
-        } else if (activeTab === 'shorten') {
-            return shortenUrlData.plans.map((plan, index, allPlans) => {
-                let previousPlanName = null;
-                let prevPlan = null;
-                if (plan.level > 0) {
-                    prevPlan = allPlans.find(p => p.level === plan.level - 1 || (index > 0 && p === allPlans[index - 1]));
-                    if (prevPlan) previousPlanName = prevPlan.label;
-                }
-
-                // Get feature IDs from previous plan to filter out
-                const prevFeatureIds = new Set<string>();
-                if (prevPlan) {
-                    prevPlan.limits.forEach(l => prevFeatureIds.add(l.id));
-                    prevPlan.features.forEach(f => prevFeatureIds.add(f.id));
-                }
-
-                const mappedFeatures = [
-                    ...plan.limits
-                        .filter(l => l.primary || !prevFeatureIds.has(l.id))
-                        .map(l => ({
-                            text: l.text_list,
-                            included: true,
-                            isHighlighted: true
-                        })),
-                    ...plan.features
-                        .filter(f => !prevFeatureIds.has(f.id))
-                        .map(f => ({
-                            text: f.label,
-                            included: true,
-                            isHighlighted: false
-                        }))
-                ];
-
-                const isEnterprise = plan.label === "Enterprise";
-
-                return {
-                    id: plan.id,
-                    name: plan.label,
-                    priceMonthly: isEnterprise ? "Custom pricing" : plan.price,
-                    priceAnnually: isEnterprise ? "Custom pricing" : plan.annual_price,
-                    range: (shortenUrlData.comparison.find(c => c.id === 'basic.records')?.plans[plan.id]?.value as string) || '',
-                    ctaText: plan.price === 0 ? 'Start for Free' : ((typeof plan.price === 'number' && plan.price > 100) ? 'Chat with us' : `Get Started with ${plan.label}`),
-                    features: mappedFeatures,
-                    everythingInPlanName: previousPlanName,
-                    recommended: plan.id === (manualRecommendedId || shortenUrlData.plans.find(p => p.badge === 'Popular')?.id)
-                };
-            });
-        } else if (activeTab === 'monitor') {
-            return monitorData.plans.map((plan, index, allPlans) => {
-                let previousPlanName = null;
-                let prevPlan = null;
-                if (plan.level > 0) {
-                    prevPlan = allPlans.find(p => p.level === plan.level - 1 || (index > 0 && p === allPlans[index - 1]));
-                    if (prevPlan) previousPlanName = prevPlan.label;
-                }
-
-                // Get feature IDs from previous plan to filter out
-                const prevFeatureIds = new Set<string>();
-                if (prevPlan) {
-                    prevPlan.limits.forEach(l => prevFeatureIds.add(l.id));
-                    prevPlan.features.forEach(f => prevFeatureIds.add(f.id));
-                }
-
-                const mappedFeatures = [
-                    ...plan.limits
-                        .filter(l => l.primary || !prevFeatureIds.has(l.id))
-                        .map(l => ({
-                            text: l.text_list,
-                            included: true,
-                            isHighlighted: true
-                        })),
-                    ...plan.features
-                        .filter(f => !prevFeatureIds.has(f.id))
-                        .map(f => ({
-                            text: f.label,
-                            included: true,
-                            isHighlighted: false
-                        }))
-                ];
-                const isEnterprise = plan.label === "Enterprise";
-
-                return {
-                    id: plan.id,
-                    name: plan.label,
-                    priceMonthly: isEnterprise ? "Custom pricing" : plan.price,
-                    priceAnnually: isEnterprise ? "Custom pricing" : plan.annual_price,
-                    range: plan.limits.find(l => l.id === 'tasks')?.text_list || '',
-                    ctaText: plan.price === 0 ? 'Start for Free' : ((typeof plan.price === 'number' && plan.price > 100) ? 'Chat with us' : `Get Started with ${plan.label}`),
-                    features: mappedFeatures,
-                    everythingInPlanName: previousPlanName,
-                    recommended: plan.id === (manualRecommendedId || monitorData.plans.find(p => p.badge === 'Popular')?.id)
-                };
-            });
-        }
-        return pricingPlans;
+        return config.data.plans.map((plan, index, allPlans) =>
+            mapPlanToDisplay(plan, index, allPlans, config, isAnnually, hostnameValue, manualRecommendedId)
+        );
     };
 
     const displayPlans = getDisplayPlans();
