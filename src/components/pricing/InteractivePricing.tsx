@@ -37,7 +37,8 @@ function mapPlanToDisplay(
         prevPlan.features.forEach((f: any) => prevFeatureIds.add(f.id));
     }
 
-    const isEnterprise = plan.label === "Enterprise";
+    // Enterprise plans have level >= 50
+    const isEnterprise = plan.level >= 50;
 
     // Calculate addon if the product has addons
     let addon = null;

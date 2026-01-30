@@ -28,8 +28,8 @@ export const redirectConfig: ProductConfig = {
   },
 
   getIsUnavailable: (plan, hostnameValue, addon, minHosts, maxHosts) => {
-    // Enterprise is always available
-    if (plan.label === "Enterprise") {
+    // Enterprise is always available (level 50)
+    if (plan.level >= 50) {
       return false;
     }
 
@@ -43,7 +43,8 @@ export const redirectConfig: ProductConfig = {
   },
 
   getLimitTextOverride: (plan, limit, addon) => {
-    const isBasic = plan.label === "Basic";
+    // Basic plan has level 1
+    const isBasic = plan.level === 1;
     if (isBasic && addon) {
       if (limit.id === 'records') {
         return `${addon.metric_2} source urls`;

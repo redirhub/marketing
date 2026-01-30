@@ -88,7 +88,7 @@ const PlanButton = ({ plan, size = "sm", mt, text }: PlanButtonProps) => {
         color: styles.hoverColor,
       }}
     >
-      {text ?? (plan.label === "Enterprise" ? "Contact Us" : "Try For Free")}
+      {text ?? (plan.level >= 50 ? "Contact Us" : "Try For Free")}
     </Button>
   );
 };
@@ -108,7 +108,8 @@ export default function PlansComparisonTable({
   );
 
   const formatPrice = useCallback((plan: (typeof plans)[0]) => {
-    if (plan.label === "Enterprise") {
+    // Enterprise plans have level >= 50
+    if (plan.level >= 50) {
       return "Custom pricing";
     }
     const price = isAnnually ? plan.annual_price : plan.price;
