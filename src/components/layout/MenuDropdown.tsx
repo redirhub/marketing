@@ -158,6 +158,7 @@ export default function MenuDropdown({
                                     alt={item.label}
                                     width={24}
                                     height={24}
+                                    preload
                                   />
                                 ) : (
                                   <Icon as={item.icon} boxSize={5} />
