@@ -28,6 +28,11 @@ export const redirectConfig: ProductConfig = {
   },
 
   getIsUnavailable: (plan, hostnameValue, addon, minHosts, maxHosts) => {
+    // Enterprise is always available
+    if (plan.label === "Enterprise") {
+      return false;
+    }
+
     if (minHosts > 0) {
       const maxCapacity = maxHosts || minHosts;
       if (hostnameValue > maxCapacity) {
