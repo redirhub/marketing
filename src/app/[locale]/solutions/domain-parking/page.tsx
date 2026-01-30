@@ -227,7 +227,9 @@ export default async function WebsiteMigrations() {
           subTitleWidth="100%"
           removePaddingBottom={true}
         />
-        <TestimonialsSlider marginBottom={"20px"} />
+        <Box pt={{ base: 6, md: 0 }}>
+           <TestimonialsSlider marginBottom={"20px"} />
+        </Box>
       </Box>
 
       <FAQSection faqData={faqData} />

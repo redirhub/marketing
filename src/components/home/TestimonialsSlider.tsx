@@ -132,7 +132,7 @@ export default function TestimonialsSlider({ marginBottom }: Props) {
     dots: false,
     infinite: false,
     speed: 500,
-    slidesToShow: 1.5,
+    slidesToShow: 1.3,
     slidesToScroll: 1,
     autoplay: false,
     autoplaySpeed: 5000,
@@ -144,14 +144,14 @@ export default function TestimonialsSlider({ marginBottom }: Props) {
       {
         breakpoint: 1024,
         settings: {
-          slidesToShow: 1.2,
+          slidesToShow: 1.5,
           slidesToScroll: 1,
         },
       },
       {
         breakpoint: 768,
         settings: {
-          slidesToShow: 1.1,
+          slidesToShow: 1.15,
           slidesToScroll: 1,
         },
       },
@@ -197,25 +197,26 @@ export default function TestimonialsSlider({ marginBottom }: Props) {
             {testimonials.map((testimonial, index) => (
               <Box
                 key={testimonial.id}
-                px={3}
-                pl={index === 0 ? { base: "25px", md: "45px" } : 3}
-                pr={index === testimonials.length - 1 ? { base: "25px", md: "45px" } : 3}
+                px={{ base: 2, md: 3 }}
+                pl={index === 0 ? { base: "20px", md: "45px" } : 3}
+                pr={index === testimonials.length - 1 ? { base: "20px", md: "45px" } : 3}
               >
                 <Box
                   className="testimonial-card"
-                  borderRadius="30px"
-                  p={{ base: 6, md: 8 }}
+                  borderRadius={{ base: '24px', md: "30px" }}
+                  p={{ base: 4, md: 8 }}
                   w="100%"
                   overflowX={'auto'}
+                  minWidth={{ base: "285px", md: "320px", lg: "350px" }}
                   height="100%"
-                  minH={{ base: "350px", md: "386px" }}
-                  maxH={'386px'}
+                  minH={{ base: "360px", md: "390px" }}
+                  maxH={{ base: "360px", md: "390px" }}
                   display="flex"
                   flexDirection="column"
                   justifyContent="space-between"
                 >
                   <Box flex="1" display="flex" flexDirection="column">
-                    <Box>
+                    <Box maxW={{ base: "35px", md: "60px" }} maxH={{ base: "35px", md: "60px" }}>
                       <Image
                         src="/assets/images/format-quote.png"
                         alt="Quote"
@@ -250,14 +251,14 @@ export default function TestimonialsSlider({ marginBottom }: Props) {
                     </Avatar.Root>
                     <Box>
                       <Text
-                        fontSize={{ base: "1.1rem", md: "1.2rem" }}
+                        fontSize={{ base: "1rem", md: "1.2rem" }}
                         fontWeight="700"
                         color="gray.900"
                         textAlign={'left'}
                       >
                         {testimonial.name}
                       </Text>
-                      <Text fontSize="0.95rem" color="gray.500">
+                      <Text fontSize={{ base: "0.8rem", md: "0.95rem" }} textAlign={'left'} color="gray.500">
                         {testimonial.role}
                       </Text>
                     </Box>

@@ -135,7 +135,7 @@ export default async function Globalscale({
           imageAlt="Enterprise-Infrastructure"
           removePaddingBottom={true}
         />  
-        <Box pt={{base: 4, md: 0}}>
+        <Box pt={{base: 6, md: 0}}>
           <TestimonialsSlider marginBottom={"20px"} />
         </Box>
       </Box>
