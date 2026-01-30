@@ -81,7 +81,7 @@ function mapPlanToDisplay(
                 return {
                     text,
                     included: true,
-                    isHighlighted: true
+                    isHighlighted: l.primary
                 };
             }),
         ...plan.features

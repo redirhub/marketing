@@ -152,7 +152,7 @@ export default function PricingPlanCard({ plan, isAnnually, recommended, everyth
                                     strokeWidth={3.5}
                                 />
                             </Box>
-                            <Text fontSize="16px" fontWeight={feature.isHighlighted ? "600" : "400"} color="gray.700">
+                            <Text fontSize="15px" fontWeight={feature.isHighlighted ? "500" : "400"} color="gray.700">
                                 {feature.text}
                             </Text>
                         </List.Item>
