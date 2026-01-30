@@ -8,12 +8,13 @@ export interface PricingPlan {
   name: string;
   id: 'basic' | 'pro' | 'enterprise';
   priceMonthly: number | string;
-  priceAnnually: number | string; 
+  priceAnnually: number | string;
   range: string;
   features: PlanFeature[];
   ctaText: string;
   recommended?: boolean;
   everythingInPlanName?: string | null;
+  level?: number;
 }
 
 export const sliderTicks = [

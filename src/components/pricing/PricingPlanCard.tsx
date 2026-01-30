@@ -1,8 +1,9 @@
 "use client";
 
-import { Box, VStack, Heading, Text, Button, List, Icon, Badge, Flex, Stack } from "@chakra-ui/react";
+import { Box, VStack, Heading, Text, Button, List, Icon, Badge, Flex, Stack, Link } from "@chakra-ui/react";
 import { PricingPlan } from "./pricingData";
 import { FiCheck, FiArrowRight } from "react-icons/fi";
+import { getDashboardBase } from "@/lib/utils/constants";
 
 interface PricingPlanCardProps {
     plan: PricingPlan;
@@ -12,12 +13,27 @@ interface PricingPlanCardProps {
     onClick?: () => void;
     isUnavailable?: boolean;
     isDynamicPricing?: boolean;
+    addon?: { code: string } | null;
 }
 
-export default function PricingPlanCard({ plan, isAnnually, recommended, everythingInPlanName, onClick, isUnavailable, isDynamicPricing }: PricingPlanCardProps) {
+export default function PricingPlanCard({ plan, isAnnually, recommended, everythingInPlanName, onClick, isUnavailable, isDynamicPricing, addon }: PricingPlanCardProps) {
     const price = isAnnually ? plan.priceAnnually : plan.priceMonthly;
     const isCustom = typeof price === 'string';
     const showFromLabel = !isCustom && !isDynamicPricing;
+
+    // Construct the subscribe URL
+    const getSubscribeUrl = () => {
+        // Free plans (level = 0) go to register page
+        if (plan.level === 0) {
+            return `${getDashboardBase()}/register`;
+        }
+
+        const baseUrl = `${getDashboardBase()}/subscribe/${plan.id}`;
+        if (addon?.code) {
+            return `${baseUrl}?addon=${addon.code}`;
+        }
+        return baseUrl;
+    };
 
     return (
         <Box
@@ -32,8 +48,6 @@ export default function PricingPlanCard({ plan, isAnnually, recommended, everyth
             display="flex"
             flexDirection="column"
             maxW={{ base: "full", md: "370px" }}
-            onClick={isUnavailable ? undefined : onClick}
-            cursor={isUnavailable ? "not-allowed" : ''}
             opacity={isUnavailable ? 0.6 : 1}
         >
             {recommended && (
@@ -98,6 +112,8 @@ export default function PricingPlanCard({ plan, isAnnually, recommended, everyth
                         {plan.features.length > 0 ? plan.features[0].text : ""}
                     </Text>
                     <Button
+                        as={isUnavailable ? Button : Link}
+                        {...(!isUnavailable && { href: getSubscribeUrl() })}
                         w="full"
                         h="48px"
                         bg={isUnavailable ? "gray.300" : (recommended ? "brand.500" : "white")}
@@ -108,7 +124,6 @@ export default function PricingPlanCard({ plan, isAnnually, recommended, everyth
                         fontSize="16px"
                         fontWeight="600"
                         disabled={isUnavailable}
-                        cursor={isUnavailable ? "not-allowed" : "pointer"}
                         _hover={{
                             bg: isUnavailable ? "gray.300" : (recommended ? "brand.600" : "gray.50"),
                             transform: isUnavailable ? "none" : "translateY(-1px)",

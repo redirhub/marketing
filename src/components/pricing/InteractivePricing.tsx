@@ -118,7 +118,9 @@ function mapPlanToDisplay(
         features: mappedFeatures,
         everythingInPlanName: previousPlanName,
         isUnavailable,
-        recommended
+        recommended,
+        addon,
+        level: plan.level
     };
 }
 
@@ -188,6 +190,7 @@ export default function InteractivePricing() {
                                 everythingInPlanName={plan.everythingInPlanName}
                                 isUnavailable={(plan as any).isUnavailable}
                                 isDynamicPricing={activeTab === 'redirects'}
+                                addon={(plan as any).addon}
                             />
                         ))}
                     </SimpleGrid>
