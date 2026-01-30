@@ -526,6 +526,15 @@ export const redirectData: RedirectData = {
       "addons": [],
       "limits": [
         {
+          "id": "records",
+          "from": 0,
+          "to": null,
+          "text_list": "Unlimited source urls",
+          "text_subscribe": "Unlimited source urls",
+          "primary": false,
+          "tooltip": null
+        },
+        {
           "id": "hosts",
           "from": 0,
           "to": null,

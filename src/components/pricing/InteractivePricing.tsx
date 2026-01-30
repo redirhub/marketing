@@ -36,10 +36,18 @@ export default function InteractivePricing() {
         if (activeTab === 'redirects') {
             return redirectData.plans.map((plan, index, allPlans) => {
                 let previousPlanName = null;
+                let prevPlan = null;
                 if (plan.level > 0) {
-                    const prevPlan = allPlans.find(p => p.level === plan.level - 1 || (index > 0 && p === allPlans[index - 1]));
+                    prevPlan = allPlans.find(p => p.level === plan.level - 1 || (index > 0 && p === allPlans[index - 1]));
                     if (prevPlan) previousPlanName = prevPlan.label;
                 }
+
+                // Get feature IDs from previous plan to filter out
+                const prevFeatureIds = new Set<string>();
+                if (prevPlan) {
+                    prevPlan.features.forEach(f => prevFeatureIds.add(f.id));
+                }
+
                 const isEnterprise = plan.label === "Enterprise";
                 const isBasic = plan.label === "Basic";
                 const isPro = plan.label === "Pro";
@@ -50,7 +58,7 @@ export default function InteractivePricing() {
                 if (maxHosts) {
                     hostNameValue = Math.min(hostNameValue, maxHosts);
                 }
-                
+
                 let addon = null;
 
                 if (hostnameValue > minHosts && plan.addons?.length) {
@@ -75,29 +83,33 @@ export default function InteractivePricing() {
                 }
 
                 const mappedFeatures = [
-                    ...plan.limits.map(l => {
-                        let text = l.text_list;
-                        if (isBasic && addon && l.id === 'records') {
-                            text = `${addon.metric_2} source urls`;
-                        }
-                        if (isBasic && addon && l.id === 'visits') {
-                            text = `${addon.metric_3} million requests / mo`;
-                        }
-                        // drop hosts limit as we show dynamic one
-                        if (l.id === 'hosts') {
-                            return null;
-                        }
-                        return {
-                            text,
+                    ...plan.limits
+                        .filter(l => l.primary || !prevFeatureIds.has(l.id))
+                        .map(l => {
+                            let text = l.text_list;
+                            if (isBasic && addon && l.id === 'records') {
+                                text = `${addon.metric_2} source urls`;
+                            }
+                            if (isBasic && addon && l.id === 'visits') {
+                                text = `${addon.metric_3} million requests / mo`;
+                            }
+                            // drop hosts limit as we show dynamic one
+                            if (l.id === 'hosts') {
+                                return null;
+                            }
+                            return {
+                                text,
+                                included: true,
+                                isHighlighted: true
+                            };
+                        }),
+                    ...plan.features
+                        .filter(f => !prevFeatureIds.has(f.id))
+                        .map(f => ({
+                            text: f.label,
                             included: true,
-                            isHighlighted: true
-                        };
-                    }),
-                    ...plan.features.map(f => ({
-                        text: f.label,
-                        included: true,
-                        isHighlighted: false
-                    }))
+                            isHighlighted: false
+                        }))
                 ];
                 let rangeText = plan.limits[0]?.text_list || '';
                 return {
@@ -115,22 +127,34 @@ export default function InteractivePricing() {
         } else if (activeTab === 'shorten') {
             return shortenUrlData.plans.map((plan, index, allPlans) => {
                 let previousPlanName = null;
+                let prevPlan = null;
                 if (plan.level > 0) {
-                    const prevPlan = allPlans.find(p => p.level === plan.level - 1 || (index > 0 && p === allPlans[index - 1]));
+                    prevPlan = allPlans.find(p => p.level === plan.level - 1 || (index > 0 && p === allPlans[index - 1]));
                     if (prevPlan) previousPlanName = prevPlan.label;
                 }
 
+                // Get feature IDs from previous plan to filter out
+                const prevFeatureIds = new Set<string>();
+                if (prevPlan) {
+                    prevPlan.limits.forEach(l => prevFeatureIds.add(l.id));
+                    prevPlan.features.forEach(f => prevFeatureIds.add(f.id));
+                }
+
                 const mappedFeatures = [
-                    ...plan.limits.map(l => ({
-                        text: l.text_list,
-                        included: true,
-                        isHighlighted: true
-                    })),
-                    ...plan.features.map(f => ({
-                        text: f.label,
-                        included: true,
-                        isHighlighted: false
-                    }))
+                    ...plan.limits
+                        .filter(l => l.primary || !prevFeatureIds.has(l.id))
+                        .map(l => ({
+                            text: l.text_list,
+                            included: true,
+                            isHighlighted: true
+                        })),
+                    ...plan.features
+                        .filter(f => !prevFeatureIds.has(f.id))
+                        .map(f => ({
+                            text: f.label,
+                            included: true,
+                            isHighlighted: false
+                        }))
                 ];
 
                 const isEnterprise = plan.label === "Enterprise";
@@ -150,22 +174,34 @@ export default function InteractivePricing() {
         } else if (activeTab === 'monitor') {
             return monitorData.plans.map((plan, index, allPlans) => {
                 let previousPlanName = null;
+                let prevPlan = null;
                 if (plan.level > 0) {
-                    const prevPlan = allPlans.find(p => p.level === plan.level - 1 || (index > 0 && p === allPlans[index - 1]));
+                    prevPlan = allPlans.find(p => p.level === plan.level - 1 || (index > 0 && p === allPlans[index - 1]));
                     if (prevPlan) previousPlanName = prevPlan.label;
                 }
 
+                // Get feature IDs from previous plan to filter out
+                const prevFeatureIds = new Set<string>();
+                if (prevPlan) {
+                    prevPlan.limits.forEach(l => prevFeatureIds.add(l.id));
+                    prevPlan.features.forEach(f => prevFeatureIds.add(f.id));
+                }
+
                 const mappedFeatures = [
-                    ...plan.limits.map(l => ({
-                        text: l.text_list,
-                        included: true,
-                        isHighlighted: true
-                    })),
-                    ...plan.features.map(f => ({
-                        text: f.label,
-                        included: true,
-                        isHighlighted: false
-                    }))
+                    ...plan.limits
+                        .filter(l => l.primary || !prevFeatureIds.has(l.id))
+                        .map(l => ({
+                            text: l.text_list,
+                            included: true,
+                            isHighlighted: true
+                        })),
+                    ...plan.features
+                        .filter(f => !prevFeatureIds.has(f.id))
+                        .map(f => ({
+                            text: f.label,
+                            included: true,
+                            isHighlighted: false
+                        }))
                 ];
                 const isEnterprise = plan.label === "Enterprise";
 
