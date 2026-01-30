@@ -179,7 +179,9 @@ export default async function WebsiteMigrations() {
           imageBorderRadius="0px 15px 0px 0px"
           removePaddingBottom={true}
         />
-        <TestimonialsSlider marginBottom={"20px"} />
+        <Box pt={{ base: 6, md: 0 }}>
+          <TestimonialsSlider marginBottom={"20px"} />
+        </Box>
       </Box>
 
       <FAQSection faqData={faqData} />

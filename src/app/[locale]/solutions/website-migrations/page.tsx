@@ -147,7 +147,9 @@ export default async function WebsiteMigrations() {
           imageAlt="Match-Old-Pages-New-URLs"
           removePaddingBottom={true}
         />
-        <TestimonialsSlider marginBottom={"20px"} />
+        <Box pt={{ base: 6, md: 0 }}>
+          <TestimonialsSlider marginBottom={"20px"} />
+        </Box>
       </Box>
       <FAQSection faqData={faqData} />
     </>

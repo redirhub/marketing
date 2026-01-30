@@ -132,7 +132,7 @@ export default async function AnalyzeRedirects({
           imageAlt="Technical-Analysis"
           removePaddingBottom={true}
         />
-        <Box pt={{ base: 3, md: 0 }}>
+        <Box pt={{ base: 6, md: 0 }}>
            <TestimonialsSlider marginBottom={"20px"} />
         </Box>
       </Box>
