@@ -138,12 +138,15 @@ export default function PlansComparisonTable({
   }, []);
 
   const tableContent = (
-    <Box overflowX="auto" background={'transparent'}>
+    <Box overflowX="auto" overflowY="auto" maxH="calc(100vh + 400px)" background={'transparent'}
+      style={{
+        scrollbarWidth: "none",
+      }}>
       <Table.Root size="md" css={{ borderCollapse: "separate", borderSpacing: 0 }}>
         <Table.Header>
-          <Table.Row bg="transparent">
+          <Table.Row bg="warning.100" position="sticky" top={0} zIndex={10}>
             <Table.ColumnHeader
-              background="transparent"
+              background="warning.100"
               border={'none'}
               borderBottom={'1px solid'}
               borderBottomColor={'gray.300'}
@@ -152,7 +155,7 @@ export default function PlansComparisonTable({
               <Table.ColumnHeader
                 key={plan.id}
                 textAlign="center"
-                background="transparent"
+                background="warning.100"
                 border={'none'}
                 borderBottom={'1px solid'}
                 borderBottomColor={'gray.300'}
@@ -181,20 +184,20 @@ export default function PlansComparisonTable({
               </Table.ColumnHeader>
             ))}
           </Table.Row>
-          <Table.Row bg="transparent">
+          <Table.Row bg="warning.100">
             <Table.ColumnHeader
-              background="transparent"
+              background="warning.100"
               border={'none'}
             />
             {plans.map((plan) => (
               <Table.ColumnHeader
                 key={`price-${plan.id}`}
                 textAlign="center"
-                background="transparent"
+                background="warning.100"
                 border={'none'}
                 p={3}
               >
-                <Flex direction="column" gap={2} background={'transparent'}>
+                <Flex direction="column" gap={2} background={'warning.100'}>
                   <Flex align="baseline" gap={1} pb={2.5} pt={1}>
                     <Text
                       fontSize={{ base: "24px", md: "30px" }}
