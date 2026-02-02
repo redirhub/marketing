@@ -129,7 +129,7 @@ function mapPlanToDisplay(
 export default function InteractivePricing() {
     const [activeTab, setActiveTab] = useState("redirects");
     const [isAnnually, setIsAnnually] = useState(false);
-    const [hostnameValue, setHostnameValue] = useState(5);
+    const [hostnameValue, setHostnameValue] = useState(15);
     const [manualRecommendedId, setManualRecommendedId] = useState<string | null>(null);
     const handleTabChange = (val: string) => {
         setActiveTab(val);

@@ -28,8 +28,8 @@ export const redirectConfig: ProductConfig = {
   },
 
   getIsUnavailable: (plan, hostnameValue, addon, minHosts, maxHosts) => {
-    // Enterprise is always available (level 50)
-    if (plan.level >= 50) {
+    // Free / Enterprise is always available (level 50/0)
+    if (plan.level >= 50 || plan.level === 0) {
       return false;
     }
 
