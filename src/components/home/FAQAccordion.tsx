@@ -1,6 +1,6 @@
 "use client";
 
-import { Accordion, Box, Span } from "@chakra-ui/react";
+import { Accordion, Box, Heading, Span } from "@chakra-ui/react";
 import { AddIcon, MinusIcon } from "@chakra-ui/icons";
 import { useState } from "react";
 
@@ -68,7 +68,8 @@ export const FAQAccordion = ({ items }: FAQAccordionProps) => {
                 transition="all 0.2s"
                 cursor="pointer"
               >
-                <Span
+                <Heading
+                  as={"h2"}
                   flex="1"
                   textAlign="left"
                   fontSize={{ base: "14px", md: "1.1rem" }}
@@ -78,7 +79,7 @@ export const FAQAccordion = ({ items }: FAQAccordionProps) => {
                   letterSpacing={"0.2px"}
                 >
                   {item.question}
-                </Span>
+                </Heading>
 
                 <Accordion.ItemIndicator>
                   <Box
