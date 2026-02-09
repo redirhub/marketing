@@ -13,10 +13,11 @@ interface PricingPlanCardProps {
     onClick?: () => void;
     isUnavailable?: boolean;
     isDynamicPricing?: boolean;
+    trial_option?: boolean;
     addon?: { code: string } | null;
 }
 
-export default function PricingPlanCard({ plan, isAnnually, recommended, everythingInPlanName, onClick, isUnavailable, isDynamicPricing, addon }: PricingPlanCardProps) {
+export default function PricingPlanCard({ plan, isAnnually, recommended, everythingInPlanName, onClick, isUnavailable, isDynamicPricing, addon, trial_option = true }: PricingPlanCardProps) {
     const price = isAnnually ? plan.priceAnnually : plan.priceMonthly;
     const isCustom = typeof price === 'string';
     const showFromLabel = !isCustom && !isDynamicPricing;
