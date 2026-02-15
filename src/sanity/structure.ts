@@ -24,6 +24,13 @@ const contentTypes = [
     orderBy: { field: 'publishedAt', direction: 'desc' as const },
   },
   {
+    id: 'changelog',
+    type: 'changelog',
+    title: 'Changelog',
+    icon: '📋',
+    orderBy: { field: 'publishedAt', direction: 'desc' as const },
+  },
+  {
     id: 'legal',
     type: 'legal',
     title: 'Legal Documents',

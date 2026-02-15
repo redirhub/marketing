@@ -12,6 +12,7 @@
     "migrate:support": "tsx --env-file=.env.local scripts/migrate-support.ts",
     "migrate:legal": "tsx --env-file=.env.local scripts/migrate-legal.ts",
     "migrate:faqs": "tsx --env-file=.env.local scripts/migrate-faqs.ts",
+    "migrate:changelog": "tsx --env-file=.env.local scripts/migrate-changelog.ts",
     "fix:faq-keys": "tsx --env-file=.env.local scripts/fix-faq-keys.ts",
     "fix:html-entities": "tsx --env-file=.env.local scripts/fix-html-entities.ts"
   },

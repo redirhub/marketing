@@ -8,6 +8,7 @@ import { ArticleItem } from "@/components/support/ArticleItem";
 import { fetchSupportArticles } from "@/lib/services/support";
 import { buildCanonicalUrl, buildStaticHreflangAlternates } from '@/lib/utils/seo'
 import { allLanguages } from '@/sanity/config/i18n'
+import { useTranslation } from "react-i18next";
 
 export async function generateMetadata({
   params,
@@ -15,25 +16,15 @@ export async function generateMetadata({
   params: Promise<{ locale: string }>;
 }): Promise<Metadata> {
   const { locale } = await params;
-  const { resources } = await initTranslations(locale, ["common"]);
-  const t = (key: string, fallback: string) => {
-    const translation = resources?.[locale]?.common?.[key];
-    return translation || fallback;
-  };
-
-  // Generate canonical URL and hreflang alternates for support page
-  const canonicalUrl = buildCanonicalUrl(locale, '/support')
-  const hreflangAlternates = buildStaticHreflangAlternates(allLanguages, '/support')
 
   return {
     title: `${t("meta.support.title", "Support")} - ${getAppName()}`,
-    description: t(
-      "meta.support.description",
-      "Simple, transparent enterprise for RedirHub"
+    description: t("meta.support.description", "Simple, transparent enterprise for {{n}}",
+        { n: getAppName() }
     ),
     alternates: {
-      canonical: canonicalUrl,
-      ...hreflangAlternates,
+      canonical: buildCanonicalUrl(locale, '/support'),
+      ...buildStaticHreflangAlternates(allLanguages, '/support'),
     },
   };
 }

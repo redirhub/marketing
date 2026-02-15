@@ -153,6 +153,23 @@ export interface LegalDocument {
   footer?: boolean
 }
 
+export interface ChangelogEntry {
+  _id: string
+  _type: 'changelog'
+  _createdAt?: string
+  _updatedAt?: string
+  title: string
+  slug: {
+    _type: 'slug'
+    current: string
+  }
+  description: string
+  content?: PortableTextContent
+  publishedAt: string
+  locale: string
+  needsTranslation?: boolean
+}
+
 export interface Translation {
   locale: string
   slug: string

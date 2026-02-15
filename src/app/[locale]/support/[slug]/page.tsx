@@ -40,7 +40,7 @@ export async function generateMetadata({
     : {}
 
   return {
-    title: `${article.title} | RedirHub Support`,
+    title: `${article.title} | Support`,
     description: `Learn how to ${article.title} with RedirHub.`,
     alternates: {
       canonical: canonicalUrl,
