@@ -10,6 +10,7 @@ import {
   IconButton,
 } from "@chakra-ui/react";
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
 import Slider from "react-slick";
 import { ChevronLeftIcon, ChevronRightIcon } from "@chakra-ui/icons";
 import styles from "./Testimonials.module.css";
@@ -127,6 +128,7 @@ interface Props {
 }
 
 export default function TestimonialsSlider({ marginBottom }: Props) {
+  const { t } = useTranslation();
   const [, setCurrentSlide] = useState(0);
   const settings = {
     dots: false,
@@ -186,9 +188,9 @@ export default function TestimonialsSlider({ marginBottom }: Props) {
           pr={{ base: "110px", md: "110px", lg: "0px" }}
           textAlign="left"
         >
-          Why Our Customers Love{" "}
+          {t("home.testimonials-title", "Why Our Customers Love")}{" "}
           <Text as="span" color={"white"} fontSize={{ base: "20px", md: "30px", lg: "40px" }} fontWeight={800}>
-            RedirHub
+            {t("home.testimonials-brand", "RedirHub")}
           </Text>
         </Heading>
 

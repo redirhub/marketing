@@ -43,6 +43,7 @@ export default async function HomePage({
   params: Promise<{ locale: string }>;
 }) {
   const { locale } = await params;
+  const t = await getT();
 
   // Fetch FAQs from CMS
   const faqSet = await fetchFAQSetByPage('homepage', locale);
@@ -72,8 +73,8 @@ export default async function HomePage({
       <ChooseUs />
       <PowerfulFeatures />
       <APIDocumentation />
-      <BlogSection locale={locale} title="Go Through Our Blogs Today" />
-      {faqData.length > 0 && <FAQSection faqData={faqData} />}
+      <BlogSection locale={locale} title={t("home.blog-title", "Go Through Our Blogs Today")} />
+      {faqData.length > 0 && <FAQSection faqData={faqData} title={t("home.faq-title", "Frequently asked questions")} />}
     </>
   );
 }

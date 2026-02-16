@@ -9,8 +9,10 @@ import {
   Stack,
 } from "@chakra-ui/react";
 import Image from "next/image";
+import { useTranslation } from "react-i18next";
 import Link from "next/link";
 import { GoCheckCircle } from "react-icons/go";
+import { APP_NAME, getAppName } from "@/lib/utils/constants";
 
 interface FeatureListItemProps {
   heading: string;
@@ -91,6 +93,8 @@ const ActionButton: React.FC<
   );
 };
 export default function APIDocumentation() {
+  const { t } = useTranslation();
+
   return (
     <Box
       w="100%"
@@ -109,7 +113,7 @@ export default function APIDocumentation() {
           letterSpacing="0.4px"
           mb={{ base: 4, md: 8, lg: 16 }}
         >
-          Explore RedirHub's API Documentation
+          {t("home.api-title", "Explore {{n}}'s API Documentation", { n: APP_NAME })}
         </Heading>
       </Box>
 
@@ -136,32 +140,28 @@ export default function APIDocumentation() {
                 letterSpacing={"0.2px"}
                 lineHeight={"1.7rem"}
               >
-                Unleash the full potential of RedirHub with our detailed API
-                documentation. Designed to support developers at every stage,
-                the documentation provides clear and concise guidance to
-                integrate, automate, and optimize your redirect management
-                workflows seamlessly.
+                {t("home.api-desc", "Unleash the full potential of RedirHub with our detailed API documentation. Designed to support developers at every stage, the documentation provides clear and concise guidance to integrate, automate, and optimize your redirect management workflows seamlessly.")}
               </Text>
               <Box as="ul" pl={0} color="#667085" display="grid" rowGap={3}>
                 <FeatureListItem
-                  heading="Authentication Made Simple:"
-                  description="Learn how to securely generate and use API keys for safe and reliable requests."
+                  heading={t("home.api-auth", "Authentication Made Simple:")}
+                  description={t("home.api-auth-desc", "Learn how to securely generate and use API keys for safe and reliable requests.")}
                 />
                 <FeatureListItem
-                  heading="Error Handling & Troubleshooting:"
-                  description="Quickly identify and resolve issues with detailed error codes and explanations."
+                  heading={t("home.api-error", "Error Handling & Troubleshooting:")}
+                  description={t("home.api-error-desc", "Quickly identify and resolve issues with detailed error codes and explanations.")}
                 />
                 <FeatureListItem
-                  heading="Pagination & Rate Limits:"
-                  description="Efficiently manage large datasets and ensure smooth API interactions with structured guidelines."
+                  heading={t("home.api-pagination", "Pagination & Rate Limits:")}
+                  description={t("home.api-pagination-desc", "Efficiently manage large datasets and ensure smooth API interactions with structured guidelines.")}
                 />
                 <FeatureListItem
-                  heading="Robust Reference Material:"
-                  description="Access a comprehensive API reference with examples to kickstart your implementation."
+                  heading={t("home.api-reference", "Robust Reference Material:")}
+                  description={t("home.api-reference-desc", "Access a comprehensive API reference with examples to kickstart your implementation.")}
                 />
                 <FeatureListItem
-                  heading="Scalable Solutions:"
-                  description="Leverage advanced features to automate workflows and scale your redirect management effortlessly."
+                  heading={t("home.api-scalable", "Scalable Solutions:")}
+                  description={t("home.api-scalable-desc", "Leverage advanced features to automate workflows and scale your redirect management effortlessly.")}
                 />
               </Box>
               <Stack
@@ -171,11 +171,11 @@ export default function APIDocumentation() {
                 mt={8}
               >
                 <ActionButton
-                  label="Get Started For Free"
+                  label={t("nav.get-started", "Get Started For Free")}
                   isPrimary
                   href="https://dash.redirhub.com/register"
                 />
-                <ActionButton label="Learn More" />
+                <ActionButton label={t("nav.learn-more", "Learn More")} />
               </Stack>
             </Box>
 
