@@ -17,9 +17,9 @@ export async function generateMetadata({
   const t = await getT();
 
   return {
-    title: `${t("meta.global-scale.title", "Global scale")} - ${APP_NAME}`,
+    title: `${t("nav.global-scale-title", "Global scale")} - ${APP_NAME}`,
     description: t(
-      "meta.global-scale.description",
+      "nav.global-scale-description",
       "Simple, transparent enterprise for RedirHub"
     ),
   };

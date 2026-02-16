@@ -50,7 +50,7 @@ export default function SinglePageBanner({
                 }}
               >
                 <FaArrowLeftLong />
-                <Text as="span">{t("support.back-to-support", "Back to Support")}</Text>
+                <Text as="span">{t("nav.support", "Support")}</Text>
               </Flex>
             </NextLink>
 

@@ -13,7 +13,7 @@ export async function generateMetadata({
 
   return {
     title: `${t('meta.features.title', 'Features')} - ${APP_NAME}`,
-    description: t('meta.features.description', 'Explore RedirHub features for managing redirects and short URLs'),
+    description: t('nav.features-description', 'Explore RedirHub features for managing redirects and short URLs'),
   };
 }
 

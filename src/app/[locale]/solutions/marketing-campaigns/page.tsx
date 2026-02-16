@@ -18,7 +18,7 @@ export async function generateMetadata({
   return {
     title: `${t("meta-marketing-campaigns.title", "Marketing Campaigns")} - ${APP_NAME}`,
     description: t(
-      "meta.marketing-campaigns.description",
+      "nav.marketing-campaigns-description",
       "Simple, transparent enterprise for RedirHub"
     ),
   };

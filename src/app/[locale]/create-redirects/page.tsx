@@ -19,7 +19,7 @@ export async function generateMetadata({
   return {
     title: `${t("meta-create-redirects.title", "Create redirects")} - ${APP_NAME}`,
     description: t(
-      "meta.create-redirects.description",
+      "nav.create-redirects-description",
       "Simple, transparent enterprise for RedirHub"
     ),
   };

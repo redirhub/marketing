@@ -14,9 +14,9 @@ export async function generateMetadata({
   const t = await getT();
 
   return {
-    title: t("enterprise.title", "Enterprise Solutions - {{n}}", { n: APP_NAME }),
+    title: t("nav.enterprise-title", "Enterprise Solutions - {{n}}", { n: APP_NAME }),
     description: t(
-      "enterprise.description",
+      "nav.enterprise-description",
       "Enterprise redirect management with dedicated support, custom SLAs, and advanced security. Scale your business with {{n}}.",
       { n: APP_NAME }
     ),

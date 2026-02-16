@@ -17,9 +17,9 @@ export async function generateMetadata({
   const t = await getT();
 
   return {
-    title: `${t("meta.manage-redirects.title", "Manage redirects")} - ${APP_NAME}`,
+    title: `${t("nav.manage-redirects-title", "Manage redirects")} - ${APP_NAME}`,
     description: t(
-      "meta.manage-redirects.description",
+      "nav.manage-redirects-description",
       "Simple, transparent enterprise for RedirHub"
     ),
   };

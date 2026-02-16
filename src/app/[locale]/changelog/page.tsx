@@ -12,8 +12,8 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
   const t = await getT();
 
   return {
-    title: t("changelog.title", "Changelog - {{n}}", { n: APP_NAME }),
-    description: t("changelog.description", "Stay updated with the latest features, improvements, and fixes to {{n}}", { n: APP_NAME }),
+    title: t("nav.changelog-title", "Changelog - {{n}}", { n: APP_NAME }),
+    description: t("nav.changelog-description", "Stay updated with the latest features, improvements, and fixes to {{n}}", { n: APP_NAME }),
     alternates: {
       canonical: buildCanonicalUrl(locale, '/changelog'),
       ...buildStaticHreflangAlternates(allLanguages, '/changelog'),

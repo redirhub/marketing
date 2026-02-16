@@ -37,8 +37,8 @@ export async function generateMetadata({
   });
 
   return {
-    title: t("blog.title", "Blog - {{n}}", { n: APP_NAME }),
-    description: t("blog.description", "Latest guides, tutorials, and insights on URL redirects, SEO best practices, and web performance optimization."),
+    title: t("nav.blog-title", "Blog - {{n}}", { n: APP_NAME }),
+    description: t("nav.blog-description", "Latest guides, tutorials, and insights on URL redirects, SEO best practices, and web performance optimization."),
     alternates: {
       canonical: canonicalUrl,
       languages,

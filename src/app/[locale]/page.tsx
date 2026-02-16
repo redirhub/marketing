@@ -24,9 +24,9 @@ export async function generateMetadata({
   const hreflangAlternates = buildStaticHreflangAlternates(allLanguages, '/')
 
   return {
-    title: t("home.title", "{{n}} - Fast & Secure URL Redirect Management", { n: APP_NAME }),
+    title: t("nav.home-title", "{{n}} - Fast & Secure URL Redirect Management", { n: APP_NAME }),
     description: t(
-      "home.description",
+      "nav.home-description",
       "Enterprise-grade URL redirect service. Manage redirects, track analytics, and scale globally with {{n}}. Trusted by businesses worldwide.",
       { n: APP_NAME }
     ),

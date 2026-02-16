@@ -13,8 +13,8 @@ export async function generateMetadata({
   const t = await getT();
 
   return {
-    title: t("pricing.title", "Pricing - {{n}}", { n: APP_NAME }),
-    description: t("pricing.description", "Transparent pricing plans for {{n}}. From startups to enterprise. No hidden fees, cancel anytime.", { n: APP_NAME }),
+    title: t("nav.pricing-title", "Pricing - {{n}}", { n: APP_NAME }),
+    description: t("nav.pricing-description", "Transparent pricing plans for {{n}}. From startups to enterprise. No hidden fees, cancel anytime.", { n: APP_NAME }),
   };
 }
 

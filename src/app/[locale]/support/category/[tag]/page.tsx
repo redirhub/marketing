@@ -30,9 +30,9 @@ export async function generateMetadata({
   const hreflangAlternates = buildStaticHreflangAlternates(allLanguages, `/support/category/${tag}`);
 
   return {
-    title: `${categoryName} - ${t("support.title", "Support - {{n}}", { n: APP_NAME })}`,
+    title: `${categoryName} - ${t("nav.support-title", "Support - {{n}}", { n: APP_NAME })}`,
     description: t(
-      "support.category-description",
+      "nav.support-category-description",
       "Browse {{category}} articles and guides for {{n}}.",
       { category: categoryName.toLowerCase(), n: APP_NAME }
     ),

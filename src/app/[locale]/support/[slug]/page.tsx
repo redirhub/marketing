@@ -44,7 +44,7 @@ export async function generateMetadata({
 
   return {
     title: `${article.title} | Support`,
-    description: t("support.article-description", "Learn how to {{title}} with {{n}}.", {
+    description: t("nav.support-article-description", "Learn how to {{title}} with {{n}}.", {
       title: article.title,
       n: APP_NAME
     }),

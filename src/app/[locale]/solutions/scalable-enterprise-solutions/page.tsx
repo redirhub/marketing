@@ -18,7 +18,7 @@ export async function generateMetadata({
   return {
     title: `${t("meta-domain-parking.title", "Scalable Enterprise Solutions")} - ${APP_NAME}`,
     description: t(
-      "meta.domain-parking.description",
+      "nav.domain-parking-description",
       "Simple, transparent enterprise for RedirHub"
     ),
   };

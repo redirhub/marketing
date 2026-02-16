@@ -31,7 +31,7 @@ export async function generateMetadata({
 
   if (!entry) {
     return {
-      title: t("changelog.not-found", "Changelog Not Found"),
+      title: t("nav.changelog-not-found", "Changelog Not Found"),
     };
   }
 
@@ -45,7 +45,7 @@ export async function generateMetadata({
     : {};
 
   return {
-    title: t("changelog.detail-title", "{{title}} - Changelog - {{n}}", { title: entry.title, n: APP_NAME }),
+    title: t("nav.changelog-detail-title", "{{title}} - Changelog - {{n}}", { title: entry.title, n: APP_NAME }),
     description: entry.description,
     alternates: {
       canonical: canonicalUrl,

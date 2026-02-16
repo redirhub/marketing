@@ -15,8 +15,8 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
   const t = await getT();
 
   return {
-    title: t("support.title", "Support - {{n}}", { n: APP_NAME }),
-    description: t("support.description", "Find answers, guides, and tutorials for {{n}}. Get help with redirects, analytics, and troubleshooting.", { n: APP_NAME }),
+    title: t("nav.support-title", "Support - {{n}}", { n: APP_NAME }),
+    description: t("nav.support-description", "Find answers, guides, and tutorials for {{n}}. Get help with redirects, analytics, and troubleshooting.", { n: APP_NAME }),
     alternates: {
       canonical: buildCanonicalUrl(locale, "/support"),
       ...buildStaticHreflangAlternates(allLanguages, "/support"),

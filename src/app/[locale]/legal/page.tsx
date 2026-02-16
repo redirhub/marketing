@@ -14,8 +14,8 @@ export async function generateMetadata({
   const t = await getT();
 
   return {
-    title: t("legal.title", "Legal - {{n}}", { n: APP_NAME }),
-    description: t("legal.description", "Terms of service, privacy policy, and legal documentation."),
+    title: t("nav.legal-title", "Legal - {{n}}", { n: APP_NAME }),
+    description: t("nav.legal-description", "Terms of service, privacy policy, and legal documentation."),
   };
 }
 
