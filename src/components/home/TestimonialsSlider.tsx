@@ -21,6 +21,7 @@ interface TestimonialData {
   quote: string;
   name: string;
   role: string;
+  company?: string;
   avatar: string;
 }
 
@@ -239,7 +240,9 @@ export default function TestimonialsSlider({ testimonials, marginBottom }: Props
                         {testimonial.name}
                       </Text>
                       <Text fontSize={{ base: "0.8rem", md: "0.95rem" }} textAlign={'left'} color="gray.500">
-                        {testimonial.role}
+                        {testimonial.company && testimonial.role
+                          ? `${testimonial.company} • ${testimonial.role}`
+                          : testimonial.company || testimonial.role}
                       </Text>
                     </Box>
                   </Flex>

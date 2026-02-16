@@ -41,6 +41,7 @@ export function formatTestimonialForSlider(testimonial: TestimonialDocument) {
     quote: testimonial.quote,
     name: testimonial.author,
     role: testimonial.role || '',
+    company: testimonial.company || '',
     avatar: testimonial.avatar
       ? urlFor(testimonial.avatar).width(200).height(200).url()
       : '/assets/images/placeholder-avatar.png',
