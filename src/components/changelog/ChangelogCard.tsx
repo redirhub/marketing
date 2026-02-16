@@ -66,14 +66,6 @@ export const ChangelogCard = ({ entry, locale = "en" }: ChangelogCardProps) => {
             fontSize="md"
             color="gray.600"
             lineHeight="1.6"
-            sx={{
-              "& > *:first-of-type": {
-                marginTop: 0,
-              },
-              "& > *:last-child": {
-                marginBottom: 0,
-              },
-            }}
           >
             <PortableText
               value={entry.content}
