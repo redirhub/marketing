@@ -13,6 +13,7 @@ import { useTranslation } from "react-i18next";
 import Image from "next/image";
 import styles from "../../../sections/Hero.module.css";
 import Link from "next/link";
+import { URL_DASHBOARD_REGISTER } from "@/lib/utils/constants";
 
 interface FeatureBannerProps {
   title: string;
@@ -63,7 +64,7 @@ export default function FeatureBanner({
           </Text>
 
           <VStack gap={6} textAlign="center" mb="10px">
-            <Link href={"https://dash.redirhub.com/register"} target={"_blank"}>
+            <Link href={URL_DASHBOARD_REGISTER} target={"_blank"}>
               <Button
                 bg="brand.500"
                 color="white"

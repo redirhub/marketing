@@ -1,6 +1,6 @@
 import { Metadata } from "next";
 import { getT } from "@/lib/i18n";
-import { getAppName } from "@/lib/utils/constants";
+import { APP_NAME } from "@/lib/utils/constants";
 import BlogList from "@/components/blogs/BlogList";
 import BlogBanner from "@/components/share/banners/blog/BlogBanner";
 import { buildCanonicalUrl } from "@/lib/utils/seo";
@@ -37,7 +37,7 @@ export async function generateMetadata({
   });
 
   return {
-    title: t("blog.title", "Blog - {{n}}", { n: getAppName() }),
+    title: t("blog.title", "Blog - {{n}}", { n: APP_NAME }),
     description: t("blog.description", "Latest guides, tutorials, and insights on URL redirects, SEO best practices, and web performance optimization."),
     alternates: {
       canonical: canonicalUrl,

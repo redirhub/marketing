@@ -4,7 +4,7 @@ import { Drawer, Accordion, Box, Flex, Text, VStack, HStack, Icon, Button } from
 import Link from "next/link";
 import { useTranslation } from "react-i18next";
 import { FaBars, FaTimes, FaChevronDown } from "react-icons/fa";
-import { getAppName, getDashboardBase } from "@/lib/utils/constants";
+import { APP_NAME, URL_DASHBOARD_LOGIN, URL_DASHBOARD_REGISTER } from "@/lib/utils/constants";
 import { useState } from "react";
 import Image from "next/image";
 
@@ -39,7 +39,7 @@ export default function MobileMenu({ navItems }: MobileMenuProps) {
               <Box>
                 <Image
                   src="/assets/images/logo-dark.png"
-                  alt={getAppName()}
+                  alt={APP_NAME}
                   width={100}
                   height={32}
                   style={{ height: "auto" }}
@@ -202,7 +202,7 @@ export default function MobileMenu({ navItems }: MobileMenuProps) {
 
           <Drawer.Footer p={4} borderTop="1px solid" borderColor="whiteAlpha.200">
             <VStack width="100%" gap={3}>
-              <Link href={`${getDashboardBase()}/login`} style={{ width: "100%" }}>
+              <Link href={URL_DASHBOARD_LOGIN} style={{ width: "100%" }}>
                 <Button
                   variant="outline"
                   width="100%"
@@ -216,7 +216,7 @@ export default function MobileMenu({ navItems }: MobileMenuProps) {
                   {t(`nav.login`, "Login")}
                 </Button>
               </Link>
-              <Link href={`${getDashboardBase()}/register`} style={{ width: "100%" }}>
+              <Link href={URL_DASHBOARD_REGISTER} style={{ width: "100%" }}>
                 <Button
                   bg="brand.solid"
                   color="white"

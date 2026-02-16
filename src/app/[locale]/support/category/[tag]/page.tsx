@@ -1,6 +1,6 @@
 import { Metadata } from "next";
 import { getT } from "@/lib/i18n";
-import { getAppName } from "@/lib/utils/constants";
+import { APP_NAME } from "@/lib/utils/constants";
 import SupportBanner from "@/components/share/banners/support/SupportBanner";
 import { Box, Flex, Heading, VStack } from "@chakra-ui/react";
 import Sidebar from "@/components/support/Sidebar";
@@ -30,11 +30,11 @@ export async function generateMetadata({
   const hreflangAlternates = buildStaticHreflangAlternates(allLanguages, `/support/category/${tag}`);
 
   return {
-    title: `${categoryName} - ${t("support.title", "Support - {{n}}", { n: getAppName() })}`,
+    title: `${categoryName} - ${t("support.title", "Support - {{n}}", { n: APP_NAME })}`,
     description: t(
       "support.category-description",
       "Browse {{category}} articles and guides for {{n}}.",
-      { category: categoryName.toLowerCase(), n: getAppName() }
+      { category: categoryName.toLowerCase(), n: APP_NAME }
     ),
     alternates: {
       canonical: canonicalUrl,

@@ -1,6 +1,6 @@
 import { Metadata } from 'next';
 import { getT } from '@/lib/i18n';
-import { getAppName } from '@/lib/utils/constants';
+import { APP_NAME } from '@/lib/utils/constants';
 import PricingBanner from '@/components/share/banners/pricing/PricingBanner';
 import InteractivePricing from '@/components/pricing/InteractivePricing';
 
@@ -13,8 +13,8 @@ export async function generateMetadata({
   const t = await getT();
 
   return {
-    title: t("pricing.title", "Pricing - {{n}}", { n: getAppName() }),
-    description: t("pricing.description", "Transparent pricing plans for {{n}}. From startups to enterprise. No hidden fees, cancel anytime.", { n: getAppName() }),
+    title: t("pricing.title", "Pricing - {{n}}", { n: APP_NAME }),
+    description: t("pricing.description", "Transparent pricing plans for {{n}}. From startups to enterprise. No hidden fees, cancel anytime.", { n: APP_NAME }),
   };
 }
 

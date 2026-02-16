@@ -2,6 +2,7 @@ import { EyeOpenIcon } from '@sanity/icons'
 import { definePlugin } from 'sanity'
 import type { DocumentActionComponent } from 'sanity'
 import { defaultLocale } from '../config/i18n'
+import { APP_URL } from '@/lib/utils/constants'
 
 const getPreviewUrl = (doc: any): string | null => {
   if (!doc || !doc.slug?.current) return null
@@ -9,7 +10,7 @@ const getPreviewUrl = (doc: any): string | null => {
   const locale = doc.locale || 'en'
   const slug = doc.slug?.current
 
-  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || ''
+  const baseUrl = APP_URL
   const prefix = locale === defaultLocale ? `${baseUrl}` : `${baseUrl}/${locale}`
 
   switch (doc._type) {

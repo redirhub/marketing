@@ -13,7 +13,7 @@ import RelatedArticles from '@/components/blog/RelatedArticles'
 import BlogFAQ from '@/components/blog/BlogFAQ'
 import { buildCanonicalUrl, buildHreflangAlternates, generateFAQSchema } from '@/lib/utils/seo'
 import InactivityPopup from '@/components/popups/InactivityPopup'
-import { getAppName } from '@/lib/utils/constants'
+import { APP_NAME, APP_URL } from '@/lib/utils/constants'
 
 interface BlogPostPageProps {
   params: Promise<{
@@ -51,7 +51,7 @@ export async function generateMetadata({
     : {}
 
   return {
-    title: `${post.title} - ${getAppName()}`,
+    title: `${post.title} - ${APP_NAME}`,
     description: post.excerpt || undefined,
     alternates: {
       canonical: canonicalUrl,
@@ -114,7 +114,7 @@ export default async function BlogPostPage({ params, searchParams }: BlogPostPag
       name: 'RedirHub',
       logo: {
         '@type': 'ImageObject',
-        url: `${process.env.NEXT_PUBLIC_SITE_URL || ''}/logo.png`,
+        url: `${APP_URL}/logo.png`,
       },
     },
     timeRequired: readTime ? `PT${readTime}M` : undefined,

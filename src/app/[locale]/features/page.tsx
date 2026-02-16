@@ -1,7 +1,7 @@
 import { Metadata } from 'next';
 import { Box, Container, Heading, Text } from '@chakra-ui/react';
 import { getT } from '@/lib/i18n';
-import { getAppName } from '@/lib/utils/constants';
+import { APP_NAME } from '@/lib/utils/constants';
 
 export async function generateMetadata({
   params,
@@ -12,7 +12,7 @@ export async function generateMetadata({
   const t = await getT();
 
   return {
-    title: `${t('meta.features.title', 'Features')} - ${getAppName()}`,
+    title: `${t('meta.features.title', 'Features')} - ${APP_NAME}`,
     description: t('meta.features.description', 'Explore RedirHub features for managing redirects and short URLs'),
   };
 }

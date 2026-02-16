@@ -8,7 +8,7 @@ import { portableTextComponents } from '@/components/blog/PortableTextComponents
 import { getClient } from '@/lib/preview'
 import { buildCanonicalUrl, buildHreflangAlternates } from '@/lib/utils/seo'
 import { getT } from "@/lib/i18n";
-import { getAppName } from "@/lib/utils/constants";
+import { APP_NAME } from "@/lib/utils/constants";
 
 interface PageProps {
   params: Promise<{
@@ -46,7 +46,7 @@ export async function generateMetadata({
     title: `${article.title} | Support`,
     description: t("support.article-description", "Learn how to {{title}} with {{n}}.", {
       title: article.title,
-      n: getAppName()
+      n: APP_NAME
     }),
     alternates: {
       canonical: canonicalUrl,

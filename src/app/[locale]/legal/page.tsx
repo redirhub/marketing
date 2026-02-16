@@ -2,7 +2,7 @@ import { Metadata } from 'next';
 import { Box, Container, Heading, Text, Stack } from '@chakra-ui/react';
 import Link from 'next/link';
 import { getT } from '@/lib/i18n';
-import { getAppName } from '@/lib/utils/constants';
+import { APP_NAME } from '@/lib/utils/constants';
 import { fetchLegalDocuments } from '@/lib/services/legal';
 
 export async function generateMetadata({
@@ -14,7 +14,7 @@ export async function generateMetadata({
   const t = await getT();
 
   return {
-    title: t("legal.title", "Legal - {{n}}", { n: getAppName() }),
+    title: t("legal.title", "Legal - {{n}}", { n: APP_NAME }),
     description: t("legal.description", "Terms of service, privacy policy, and legal documentation."),
   };
 }

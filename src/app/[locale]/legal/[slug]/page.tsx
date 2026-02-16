@@ -5,7 +5,7 @@ import { Box, Container, Heading } from "@chakra-ui/react";
 import { fetchLegalDocumentBySlug, fetchLegalDocumentTranslations } from "@/lib/services/legal";
 import { portableTextComponents } from '@/components/blog/PortableTextComponents'
 import { getClient } from '@/lib/preview'
-import { getAppName } from "@/lib/utils/constants";
+import { APP_NAME } from "@/lib/utils/constants";
 
 interface PageProps {
   params: Promise<{
@@ -43,7 +43,7 @@ export async function generateMetadata({
   }
 
   return {
-    title: `${document.title} | ${getAppName()}`,
+    title: `${document.title} | ${APP_NAME}`,
     description: document.title,
     alternates,
   };

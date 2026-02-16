@@ -5,7 +5,7 @@ import { Box, Container, Flex } from "@chakra-ui/react";
 import { useTranslation } from "react-i18next";
 import Link from "next/link";
 import { useParams, usePathname } from "next/navigation";
-import { getAppName, getDashboardBase, URL_API_DEV } from "@/lib/utils/constants";
+import { APP_NAME, URL_DASHBOARD_LOGIN, URL_DASHBOARD_REGISTER, URL_API_DEV } from "@/lib/utils/constants";
 import { useLocalePath } from "@/lib/hooks/useLocalePath";
 import MobileMenu from "./MobileMenu";
 import { FiRefreshCw, FiUsers } from "react-icons/fi";
@@ -262,7 +262,7 @@ export default function Header({ mode = "dark" }: HeaderProps) {
                     ? "/assets/images/logo-dark.png"
                     : "/assets/images/logo.png"
                 }
-                alt={getAppName()}
+                alt={APP_NAME}
                 width={150}
                 height={53}
                 style={{ height: "auto" }}
@@ -321,7 +321,7 @@ export default function Header({ mode = "dark" }: HeaderProps) {
             gap={4}
             display={{ base: "none", xl: "flex" }}
           >
-            <Link href={`${getDashboardBase()}/login`}>
+            <Link href={URL_DASHBOARD_LOGIN}>
               <Box
                 as="button"
                 display="flex"
@@ -346,7 +346,7 @@ export default function Header({ mode = "dark" }: HeaderProps) {
                 {t(`nav.login`, "Login")}
               </Box>
             </Link>
-            <Link href={`${getDashboardBase()}/register`}>
+            <Link href={URL_DASHBOARD_REGISTER}>
               <Box
                 as="button"
                 display="flex"
@@ -366,7 +366,7 @@ export default function Header({ mode = "dark" }: HeaderProps) {
                 cursor="pointer"
                 _hover={{ bg: "brand.hover" }}
               >
-                {t(`nav.start-for-free`, "Start for Free")}
+                {t(`nav.get-started`, "Start for Free")}
               </Box>
             </Link>
           </Flex>

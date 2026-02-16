@@ -1,6 +1,6 @@
 import { Metadata } from "next";
 import { getT } from "@/lib/i18n";
-import { getAppName } from "@/lib/utils/constants";
+import { APP_NAME } from "@/lib/utils/constants";
 import FeatureBanner from "@/components/share/banners/features/FeatureBanner";
 import FAQSection from "@/components/home/FAQSection";
 import TestimonialsSlider from "@/components/home/TestimonialsSlider";
@@ -16,7 +16,7 @@ export async function generateMetadata({
   const t = await getT();
 
   return {
-    title: `${t("meta-domain-parking.title", "Domain Parking")} - ${getAppName()}`,
+    title: `${t("meta-domain-parking.title", "Domain Parking")} - ${APP_NAME}`,
     description: t(
       "meta.domain-parking.description",
       "Simple, transparent enterprise for RedirHub"

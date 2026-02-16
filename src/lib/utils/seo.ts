@@ -2,6 +2,8 @@
  * SEO utility functions for generating canonical URLs, hreflang alternates, and structured data schemas
  */
 
+import { APP_URL } from "./constants"
+
 /**
  * FAQ item interface for schema generation
  */
@@ -22,7 +24,7 @@ export interface FAQItem {
  * buildCanonicalUrl('es', '/blog/my-post') // https://findredirect.com/es/blog/my-post
  */
 export function buildCanonicalUrl(locale: string, path: string): string {
-  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || process.env.SITE_URL || ''
+  const baseUrl = APP_URL
 
   // English (default locale) doesn't have a prefix
   if (locale === 'en') {

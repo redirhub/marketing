@@ -1,7 +1,7 @@
 import { Metadata } from "next";
 import { Box } from "@chakra-ui/react";
 import { getT } from "@/lib/i18n";
-import { getAppName } from "@/lib/utils/constants";
+import { APP_NAME } from "@/lib/utils/constants";
 import FeatureBanner from "@/components/share/banners/features/FeatureBanner";
 import TestimonialsSlider from "@/components/home/TestimonialsSlider";
 import FAQSection from "@/components/home/FAQSection";
@@ -17,7 +17,7 @@ export async function generateMetadata({
   const t = await getT();
 
   return {
-    title: `${t("meta.global-scale.title", "Global scale")} - ${getAppName()}`,
+    title: `${t("meta.global-scale.title", "Global scale")} - ${APP_NAME}`,
     description: t(
       "meta.global-scale.description",
       "Simple, transparent enterprise for RedirHub"

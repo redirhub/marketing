@@ -15,6 +15,7 @@ import TestimonialsSlider from "./TestimonialsSlider";
 import { GoCheckCircle } from "react-icons/go";
 import Link from "next/link";
 import { TabsLayout, TabTriggerButton } from "../ui/TabsLayout";
+import { URL_DASHBOARD_REGISTER } from "@/lib/utils/constants";
 
 interface FeatureDetail {
   heading: string;
@@ -174,7 +175,7 @@ const FeatureContent: React.FC<FeatureContentProps> = ({ data }) => {
             <ActionButton
               label={!hideLeanMore ? t("home.features-get-started", "Get Started For Free") : t("home.features-learn-more", "Learn More")}
               isPrimary
-              href="https://dash.redirhub.com/register"
+              href={URL_DASHBOARD_REGISTER}
             />
             {!hideLeanMore && <ActionButton label={t("home.features-learn-more", "Learn More")} />}
           </Stack>

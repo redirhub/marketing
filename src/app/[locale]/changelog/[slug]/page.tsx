@@ -3,7 +3,7 @@ import { notFound } from "next/navigation";
 import { PortableText } from "@portabletext/react";
 import { Box, Container } from "@chakra-ui/react";
 import { fetchChangelogBySlug, fetchChangelogTranslations, formatDate } from "@/lib/services/changelog";
-import { getAppName } from "@/lib/utils/constants";
+import { APP_NAME } from "@/lib/utils/constants";
 import { buildCanonicalUrl, buildHreflangAlternates } from "@/lib/utils/seo";
 import { getClient } from "@/lib/preview";
 import { portableTextComponents } from "@/components/blog/PortableTextComponents";
@@ -45,7 +45,7 @@ export async function generateMetadata({
     : {};
 
   return {
-    title: t("changelog.detail-title", "{{title}} - Changelog - {{n}}", { title: entry.title, n: getAppName() }),
+    title: t("changelog.detail-title", "{{title}} - Changelog - {{n}}", { title: entry.title, n: APP_NAME }),
     description: entry.description,
     alternates: {
       canonical: canonicalUrl,

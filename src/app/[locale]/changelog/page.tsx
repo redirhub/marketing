@@ -1,5 +1,5 @@
 import { Metadata } from "next";
-import { getAppName } from "@/lib/utils/constants";
+import { APP_NAME } from "@/lib/utils/constants";
 import { buildCanonicalUrl, buildStaticHreflangAlternates } from "@/lib/utils/seo";
 import { allLanguages } from "@/sanity/config/i18n";
 import ChangelogBanner from "@/components/changelog/ChangelogBanner";
@@ -12,8 +12,8 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
   const t = await getT();
 
   return {
-    title: t("changelog.title", "Changelog - {{n}}", { n: getAppName() }),
-    description: t("changelog.description", "Stay updated with the latest features, improvements, and fixes to {{n}}", { n: getAppName() }),
+    title: t("changelog.title", "Changelog - {{n}}", { n: APP_NAME }),
+    description: t("changelog.description", "Stay updated with the latest features, improvements, and fixes to {{n}}", { n: APP_NAME }),
     alternates: {
       canonical: buildCanonicalUrl(locale, '/changelog'),
       ...buildStaticHreflangAlternates(allLanguages, '/changelog'),

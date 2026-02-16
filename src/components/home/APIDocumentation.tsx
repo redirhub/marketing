@@ -12,7 +12,7 @@ import Image from "next/image";
 import { useTranslation } from "react-i18next";
 import Link from "next/link";
 import { GoCheckCircle } from "react-icons/go";
-import { APP_NAME, getAppName } from "@/lib/utils/constants";
+import { APP_NAME, URL_DASHBOARD_REGISTER } from "@/lib/utils/constants";
 
 interface FeatureListItemProps {
   heading: string;
@@ -173,7 +173,7 @@ export default function APIDocumentation() {
                 <ActionButton
                   label={t("nav.get-started", "Get Started For Free")}
                   isPrimary
-                  href="https://dash.redirhub.com/register"
+                  href={URL_DASHBOARD_REGISTER}
                 />
                 <ActionButton label={t("nav.learn-more", "Learn More")} />
               </Stack>

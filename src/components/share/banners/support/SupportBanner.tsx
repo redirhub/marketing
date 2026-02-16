@@ -2,7 +2,7 @@
 
 import { Box, Container, Flex, Heading, Text } from "@chakra-ui/react";
 import { useTranslation } from "react-i18next";
-import { getAppName } from "@/lib/utils/constants";
+import { APP_NAME } from "@/lib/utils/constants";
 import styles from "../blog/BlogBanner.module.css";
 
 const SupportBanner = () => {
@@ -26,7 +26,7 @@ const SupportBanner = () => {
               color="#fff"
               mt={{base: 2, md: 5}}
             >
-              {t("support.banner-title", "{{n}} Support", { n: getAppName() })}
+              {t("support.banner-title", "{{n}} Support", { n: APP_NAME })}
             </Heading>
             <Text
               fontSize={{ base: "1rem", md: "1.15rem" }}
@@ -37,7 +37,7 @@ const SupportBanner = () => {
               mt={{base: 0, md: 4}}
               textAlign={{ base: "center", md: "center" }}
             >
-              {t("support.banner-description", "Explore our resources for expert articles, guides, and tutorials to help you make the most of {{n}}. Find tips, best practices, and troubleshooting advice to optimize your URL management.", { n: getAppName() })}
+              {t("support.banner-description", "Explore our resources for expert articles, guides, and tutorials to help you make the most of {{n}}. Find tips, best practices, and troubleshooting advice to optimize your URL management.", { n: APP_NAME })}
             </Text>
           </Flex>
         </Container>

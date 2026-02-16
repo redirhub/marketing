@@ -3,7 +3,7 @@
 import { Box, VStack, Heading, Text, Button, List, Icon, Badge, Flex, Stack, Link } from "@chakra-ui/react";
 import { PricingPlan } from "./pricingData";
 import { FiCheck, FiArrowRight } from "react-icons/fi";
-import { getDashboardBase } from "@/lib/utils/constants";
+import { URL_DASHBOARD, URL_DASHBOARD_REGISTER } from "@/lib/utils/constants";
 
 interface PricingPlanCardProps {
     plan: PricingPlan;
@@ -26,10 +26,10 @@ export default function PricingPlanCard({ plan, isAnnually, recommended, everyth
     const getSubscribeUrl = () => {
         // Free plans (level = 0) go to register page
         if (plan.level === 0) {
-            return `${getDashboardBase()}/register`;
+            return URL_DASHBOARD_REGISTER;
         }
 
-        const baseUrl = `${getDashboardBase()}/subscribe/${plan.id}`;
+        const baseUrl = `${URL_DASHBOARD}/subscribe/${plan.id}`;
         if (addon?.code) {
             return `${baseUrl}?addon=${addon.code}`;
         }

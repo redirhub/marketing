@@ -1,7 +1,7 @@
 import { Metadata } from "next";
 import Hero from "@/components/home/Hero";
 import { getT } from "@/lib/i18n";
-import { getAppName } from "@/lib/utils/constants";
+import { APP_NAME } from "@/lib/utils/constants";
 import ChooseUs from "@/components/home/ChooseUs";
 import WhyStandsOut from "@/components/home/WhyStandsOut";
 import PowerfulFeatures from "@/components/home/PowerfulFeatures";
@@ -24,11 +24,11 @@ export async function generateMetadata({
   const hreflangAlternates = buildStaticHreflangAlternates(allLanguages, '/')
 
   return {
-    title: t("home.title", "{{n}} - Fast & Secure URL Redirect Management", { n: getAppName() }),
+    title: t("home.title", "{{n}} - Fast & Secure URL Redirect Management", { n: APP_NAME }),
     description: t(
       "home.description",
       "Enterprise-grade URL redirect service. Manage redirects, track analytics, and scale globally with {{n}}. Trusted by businesses worldwide.",
-      { n: getAppName() }
+      { n: APP_NAME }
     ),
     alternates: {
       canonical: canonicalUrl,

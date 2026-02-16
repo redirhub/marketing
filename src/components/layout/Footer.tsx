@@ -12,7 +12,7 @@ import {
 import { useTranslation } from "react-i18next";
 import Link from "next/link";
 import { useParams, usePathname } from "next/navigation";
-import { getAppName, SOCIAL_HANDLE, URL_API_DEV } from "@/lib/utils/constants";
+import { APP_NAME, SOCIAL_HANDLE, URL_API_DEV, URL_DASHBOARD_LOGIN, URL_DASHBOARD_REGISTER } from "@/lib/utils/constants";
 import { useLocalePath } from "@/lib/hooks/useLocalePath";
 import { FaYoutube, FaXTwitter, FaFacebook, FaLinkedin } from "react-icons/fa6";
 import styles from "./Footer.module.css";
@@ -116,11 +116,11 @@ export default function Footer({ legalLinks }: FooterProps) {
     contact: [
       {
         label: t(`nav.login`, "Login"),
-        href: "https://dash.redirhub.com/login?redirect=/",
+        href: `${URL_DASHBOARD_LOGIN}?redirect=/`,
       },
       {
         label: t(`nav.start-free`, "Start for Free"),
-        href: "https://dash.redirhub.com/register",
+        href: URL_DASHBOARD_REGISTER,
       },
       {
         label: t(`nav.contact-business`, "Business Email / service[@]redirhub.com"),
@@ -190,7 +190,7 @@ export default function Footer({ legalLinks }: FooterProps) {
                 <Link href={localePath("/")}>
                   <Image
                     src="/assets/images/logo.png"
-                    alt={getAppName()}
+                    alt={APP_NAME}
                     width={150}
                     height={53}
                     style={{ height: "auto" }}

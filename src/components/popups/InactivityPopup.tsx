@@ -13,7 +13,7 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import { CloseIcon } from "@chakra-ui/icons";
 import { FiArrowRight } from "react-icons/fi";
-import { getDashboardBase } from "@/lib/utils/constants";
+import { URL_DASHBOARD_REGISTER } from "@/lib/utils/constants";
 
 
 export default function InactivityPopup() {
@@ -158,7 +158,7 @@ export default function InactivityPopup() {
                         See why thousands of people trust RedirHub with their
                         redirects, links management and analytics.
                     </Text>
-                    <Link href={`${getDashboardBase()}/register`} target="_blank">
+                    <Link href={URL_DASHBOARD_REGISTER} target="_blank">
                         <Button
                             bg="brand.500"
                             color="white"

@@ -1,6 +1,7 @@
 import { VStack, Heading, Text, Button } from "@chakra-ui/react";
 import Link from "next/link";
 import React from "react";
+import { URL_DASHBOARD_REGISTER } from "@/lib/utils/constants";
 
 export const FooterCtaHeader: React.FC = ({}) => {
   return (
@@ -32,7 +33,7 @@ export const FooterCtaHeader: React.FC = ({}) => {
           RedirHub speeds up your workflow while keeping your domain safe.
         </Text>
       </VStack>
-      <Link href={"https://dash.redirhub.com/register"} target={"_blank"}>
+      <Link href={URL_DASHBOARD_REGISTER} target={"_blank"}>
        <Button
           bg="brand.500"
           color="white"

@@ -58,7 +58,7 @@ export default function WhyStandsOut() {
     {
       icon: <SSLIcon />,
       value: "900K+",
-      label: t("home.why-ssl", "SSL"),
+      label: "SSL",
       description: t(
         "home.why-ssl-desc",
         "SSL certificates issued in past 60 days, enhancing data security for users"

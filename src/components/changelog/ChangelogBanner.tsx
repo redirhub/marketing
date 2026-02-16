@@ -2,7 +2,7 @@
 
 import { Box, Container, Flex, Heading, Text } from "@chakra-ui/react";
 import { useTranslation } from "react-i18next";
-import { getAppName } from "@/lib/utils/constants";
+import { APP_NAME } from "@/lib/utils/constants";
 import styles from "../share/banners/blog/BlogBanner.module.css";
 
 const ChangelogBanner = () => {
@@ -34,7 +34,7 @@ const ChangelogBanner = () => {
             mt={{ base: 0, md: 4 }}
             textAlign="center"
           >
-            {t("changelog.banner-description", "Latest updates and improvements to {{n}}", { n: getAppName() })}
+            {t("changelog.banner-description", "Latest updates and improvements to {{n}}", { n: APP_NAME })}
           </Text>
         </Flex>
       </Container>
