@@ -86,8 +86,7 @@ export default function Footer({ legalLinks }: FooterProps) {
       },
       {
         label: t(`nav.changelog`, "Changelog"),
-        href: "https://headwayapp.co/redirhub-changelog",
-        target: "blank",
+        href: getLocalePath("/changelog"),
       },
       {
         label: t(`nav.api-documentation`, "API Documentation"),
@@ -129,12 +128,10 @@ export default function Footer({ legalLinks }: FooterProps) {
         href: "https://dash.redirhub.com/register",
       },
       {
-        label: "Business Email / service[@]redirhub.com",
-        href: "mailto:service@redirhub.com",
+        label: t(`nav.contact-business`, "Business Email / service[@]redirhub.com"),
       },
       {
-        label: "Report Abuse / abuse[@]redirhub.com",
-        href: "mailto:abuse@redirhub.com",
+        label: t(`nav.contact-abuse`, "Report Abuse / abuse[@]redirhub.com"),
       },
     ],
     legal: legalLinks || [],
@@ -168,7 +165,7 @@ export default function Footer({ legalLinks }: FooterProps) {
               textAlign={"center"}
               mb={{ base: "2rem", md: "3rem", lg: "3rem" }}
             >
-              Fast, Secure, Effortless Link Management
+              {t("nav.widget-title", "Fast, Secure, Effortless Link Management")}
             </Heading>
             <RedirectWidget />
           </Box>
@@ -230,15 +227,15 @@ export default function Footer({ legalLinks }: FooterProps) {
             </Stack>
 
             {/* Company */}
-            <FooterLinkColumn title="Company" links={footerLinks.company} />
+            <FooterLinkColumn title={t("nav.company", "Company")} links={footerLinks.company} />
 
             {/* Resources */}
-            <FooterLinkColumn title="Resources" links={footerLinks.resources} />
+            <FooterLinkColumn title={t("nav.resources", "Resources")} links={footerLinks.resources} />
 
             {/* Products */}
-            <FooterLinkColumn title="Products" links={footerLinks.products} />
+            <FooterLinkColumn title={t("nav.products", "Products")} links={footerLinks.products} />
 
-            <FooterLinkColumn title="Contact" links={footerLinks.contact} />
+            <FooterLinkColumn title={t("nav.contact", "Contact")} links={footerLinks.contact} />
           </Grid>
 
           {/* Bottom Bar */}

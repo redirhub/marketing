@@ -35,8 +35,8 @@ export const FooterLinkColumn: React.FC<FooterLinkColumnProps> = ({
       {links.map((link) => {
         return (
           <Link
-            key={link.href}
-            href={link.href}
+            key={link?.label}
+            href={link?.href || "javascript:void(0)"}
             target={(link as any).target === "blank" ? "_blank" : undefined}
             rel={
               (link as any).target === "blank"

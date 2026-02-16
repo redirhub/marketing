@@ -73,27 +73,27 @@ export default function Header({ mode = "dark" }: HeaderProps) {
             header: "CREATE",
             items: [
               {
-                label: t(`nav.features.create-redirects`, "Create redirects"),
+                label: t(`nav.features-create-redirects`, "Create redirects"),
                 description: t(
-                  `nav.features.create-description`,
+                  `nav.features-create-description`,
                   "Create and deploy all your redirects quickly and easily"
                 ),
                 icon: "/assets/images/dropdown-icons/switch-horizontal.svg",
                 href: getLocalePath("/create-redirects"),
               },
               {
-                label: t(`nav.features.manage-redirects`, "Manage redirects"),
+                label: t(`nav.features-manage-redirects`, "Manage redirects"),
                 description: t(
-                  `nav.features.manage-description`,
+                  `nav.features-manage-description`,
                   "Manage all your redirects in one centralized platform"
                 ),
                 icon: "/assets/images/dropdown-icons/toggle-right.svg",
                 href: getLocalePath("/manage-redirects"),
               },
               {
-                label: t(`nav.features.analyze-redirects`, "Analyse redirects"), // Note UK spelling in screenshot
+                label: t(`nav.features-analyze-redirects`, "Analyse redirects"), // Note UK spelling in screenshot
                 description: t(
-                  `nav.features.analyze-description`,
+                  `nav.features-analyze-description`,
                   "Gain powerful insights from your redirect traffic"
                 ),
                 icon: "/assets/images/dropdown-icons/line-chart-up.svg",
@@ -105,27 +105,27 @@ export default function Header({ mode = "dark" }: HeaderProps) {
             header: "COLLABORATE",
             items: [
               {
-                label: t(`nav.features.team-management`, "Team Management"),
+                label: t(`nav.features-team-management`, "Team Management"),
                 description: t(
-                  `nav.features.team-description`,
+                  `nav.features-team-description`,
                   "Collaborate securely across your organization"
                 ),
                 icon: FiUsers,
                 href: getLocalePath("/team-management"),
               },
               {
-                label: t(`nav.features.global-scale`, "Global Scale"),
+                label: t(`nav.features-global-scale`, "Global Scale"),
                 description: t(
-                  `nav.features.global-description`,
+                  `nav.features-global-description`,
                   "Deliver seamless experiences across websites and domains"
                 ),
                 icon: "/assets/images/dropdown-icons/globe.svg",
                 href: getLocalePath("/global-scale"),
               },
               {
-                label: t(`nav.features.security-privacy`, "Security & Privacy"),
+                label: t(`nav.features-security-privacy`, "Security & Privacy"),
                 description: t(
-                  `nav.features.security-description`,
+                  `nav.features-security-description`,
                   "Keep all your audiences and web properties safe"
                 ),
                 icon: "/assets/images/dropdown-icons/shield-tick.svg",
@@ -136,12 +136,12 @@ export default function Header({ mode = "dark" }: HeaderProps) {
         ],
         footer: [
           {
-            label: t(`nav.features.dev-resources`, "Dev resources"),
+            label: t(`nav.features-dev-resources`, "Dev resources"),
             icon: "/assets/images/dropdown-icons/code.svg",
             href: getLocalePath(""),
           },
           {
-            label: t(`nav.features.api-access`, "API access"),
+            label: t(`nav.features-api-access`, "API access"),
             icon: "/assets/images/dropdown-icons/file-code.svg",
             href: getLocalePath(""),
           },
@@ -157,20 +157,20 @@ export default function Header({ mode = "dark" }: HeaderProps) {
             items: [
               {
                 label: t(
-                  `nav.features.website-migrations`,
+                  `nav.features-website-migrations`,
                   "Website Migration"
                 ),
                 description: t(
-                  `nav.features.migration-description`,
+                  `nav.features-migration-description`,
                   "Seamless migration while preserving SEO"
                 ),
                 icon: "/assets/images/dropdown-icons/switch-horizontal.svg",
                 href: getLocalePath("/solutions/website-migrations"),
               },
               {
-                label: t(`nav.features.domain-parking`, "Domain Parking"),
+                label: t(`nav.features-domain-parking`, "Domain Parking"),
                 description: t(
-                  `nav.features.parking-description`,
+                  `nav.features-parking-description`,
                   "Centralized redirects and brand defense"
                 ),
                 icon: "/assets/images/dropdown-icons/server.svg",
@@ -183,11 +183,11 @@ export default function Header({ mode = "dark" }: HeaderProps) {
             items: [
               {
                 label: t(
-                  `nav.features.marketing-campaigns`,
+                  `nav.features-marketing-campaigns`,
                   "Marketing Campaigns"
                 ),
                 description: t(
-                  `nav.features.marketing-description`,
+                  `nav.features-marketing-description`,
                   "Streamlined link management and A/B testing"
                 ),
                 icon: "/assets/images/dropdown-icons/announcement.svg",
@@ -195,11 +195,11 @@ export default function Header({ mode = "dark" }: HeaderProps) {
               },
               {
                 label: t(
-                  `nav.features.scalable-enterprise-solutions`,
+                  `nav.features-scalable-enterprise-solutions`,
                   "Enterprise Solutions"
                 ),
                 description: t(
-                  `nav.features.enterprise-description`,
+                  `nav.features-enterprise-description`,
                   "Global edge network with guaranteed uptime"
                 ),
                 icon: "/assets/images/dropdown-icons/building.svg",
@@ -210,7 +210,7 @@ export default function Header({ mode = "dark" }: HeaderProps) {
         ],
         footer: [
           {
-            label: t(`nav.features.whats-new`, "What's new"),
+            label: t(`nav.features-whats-new`, "What's new"),
             icon: FiRefreshCw,
             href: getLocalePath(""),
           },
