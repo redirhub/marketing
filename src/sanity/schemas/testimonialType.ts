@@ -7,6 +7,17 @@ export const testimonialType = defineType({
   type: 'document',
   fields: [
     defineField({
+      name: 'slug',
+      type: 'slug',
+      title: 'Slug',
+      description: 'Unique identifier for this testimonial (used for translations)',
+      options: {
+        source: 'author',
+        maxLength: 96,
+      },
+      validation: (rule) => rule.required(),
+    }),
+    defineField({
       name: 'quote',
       type: 'text',
       title: 'Quote',

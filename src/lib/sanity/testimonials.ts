@@ -14,6 +14,7 @@ export async function getTestimonials(
     _type,
     _createdAt,
     _updatedAt,
+    slug,
     quote,
     author,
     role,

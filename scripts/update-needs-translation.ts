@@ -13,7 +13,7 @@ async function run() {
 
   // 1️⃣ Fetch all English posts
   const docs: { _id: string; title: string; needsTranslation?: boolean }[] = await writeClient.fetch(
-    `*[_type == "faqSet" && locale == "en"]{
+    `*[_type == "landingPage" && locale == "en"]{
       _id,
       title,
       needsTranslation

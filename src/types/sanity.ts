@@ -248,6 +248,10 @@ export interface TestimonialDocument {
   _type: 'testimonial'
   _createdAt?: string
   _updatedAt?: string
+  slug: {
+    _type: 'slug'
+    current: string
+  }
   quote: string
   author: string
   role?: string
