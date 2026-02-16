@@ -44,6 +44,13 @@ const contentTypes = [
     icon: '💬',
     orderBy: { field: 'pageSlug', direction: 'asc' as const },
   },
+  {
+    id: 'testimonial',
+    type: 'testimonial',
+    title: 'Testimonials',
+    icon: '✅',
+    orderBy: { field: 'order', direction: 'desc' as const },
+  },
 ]
 
 export const structure: StructureResolver = (S) => {

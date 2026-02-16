@@ -16,36 +16,13 @@ import { ChevronLeftIcon, ChevronRightIcon } from "@chakra-ui/icons";
 import styles from "./Testimonials.module.css";
 import Image from "next/image";
 
-const testimonials = [
-  {
-    id: 1,
-    quote: `“I’ve been using this for a while, and it’s great—easy to manage and track URLs with no hassle. Simple, reliable, and effective.”	`,
-    name: "Chris Panton",
-    role: "Building world's best Ecom market",
-    avatar: "/assets/images/TestimonialsSlider/test-1.svg",
-  },
-  {
-    id: 2,
-    quote: `It works like a charm, redirecting domain names with SSL is a huge pain. I have to do it frequently, often at mass and it was hours of work. Now it is few clicks.`,
-    name: "Zsolt Bikadi",
-    role: "",
-    avatar: "/assets/images/TestimonialsSlider/test-2.jpeg",
-  },
-  {
-    id: 3,
-    quote: `Extremely easy to set up and reporting on redirects that have never had access to before. Easier to sleep now knowing that if a redirect link ever gets broken I will be notified via email.5 tacos PLUS on this one`,
-    name: "InSearchOf",
-    role: "",
-    avatar: "/assets/images/TestimonialsSlider/test-3.jpeg",
-  },
-  {
-    id: 4,
-    quote: `“Great tool for redirecting domains with https, without the additional cost of a cert. Simple to setup and it walks you through each step. No guessing what needs to be done!”`,
-    name: "MarketedPotential",
-    role: "",
-    avatar: "/assets/images/TestimonialsSlider/test-4.png",
-  },
-];
+interface TestimonialData {
+  id: string | number;
+  quote: string;
+  name: string;
+  role: string;
+  avatar: string;
+}
 
 interface ArrowProps {
   onClick?: () => void;
@@ -124,10 +101,11 @@ function CustomNextArrow(props: ArrowProps) {
 }
 
 interface Props {
+  testimonials: TestimonialData[];
   marginBottom?: string | number | object;
 }
 
-export default function TestimonialsSlider({ marginBottom }: Props) {
+export default function TestimonialsSlider({ testimonials, marginBottom }: Props) {
   const { t } = useTranslation();
   const [, setCurrentSlide] = useState(0);
   const settings = {

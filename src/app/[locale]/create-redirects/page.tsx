@@ -3,7 +3,7 @@ import { getT } from "@/lib/i18n";
 import { APP_NAME } from "@/lib/utils/constants";
 import FeatureBanner from "@/components/share/banners/features/FeatureBanner";
 import FAQSection from "@/components/home/FAQSection";
-import TestimonialsSlider from "@/components/home/TestimonialsSlider";
+import TestimonialsSection from "@/components/sections/TestimonialsSection";
 import FeatureSplitSection from "@/components/share/features/FeatureSplitSection";
 import { Box } from "@chakra-ui/react";
 import { fetchFAQSetByPage } from "@/lib/services/faq";
@@ -196,7 +196,7 @@ URLs, destination paths, and redirect types in seconds"
           imageSrc="/assets/images/feature/Domain-Configuration.png"
           imageAlt="Domain-Configuration"
         />
-        <TestimonialsSlider marginBottom={"20px"} />
+        <TestimonialsSection locale={locale} marginBottom={"20px"} />
       </Box>
       {faqData.length > 0 && <FAQSection faqData={faqData} />}
     </>

@@ -5,7 +5,7 @@ import { APP_NAME } from "@/lib/utils/constants";
 import { buildCanonicalUrl, buildStaticHreflangAlternates, buildSocialCards } from "@/lib/utils/seo";
 import { allLanguages } from "@/sanity/config/i18n";
 import FeatureBanner from "@/components/share/banners/features/FeatureBanner";
-import TestimonialsSlider from "@/components/home/TestimonialsSlider";
+import TestimonialsSection from "@/components/sections/TestimonialsSection";
 import FAQSection from "@/components/home/FAQSection";
 import FeatureSplitSection from "@/components/share/features/FeatureSplitSection";
 import { fetchFAQSetByPage } from "@/lib/services/faq";
@@ -146,7 +146,7 @@ export default async function Globalscale({
           removePaddingBottom={true}
         />
         <Box pt={{ base: 6, md: 0 }}>
-          <TestimonialsSlider marginBottom={"20px"} />
+          <TestimonialsSection locale={locale} marginBottom={"20px"} />
         </Box>
       </Box>
       {faqData.length > 0 && <FAQSection faqData={faqData} />}

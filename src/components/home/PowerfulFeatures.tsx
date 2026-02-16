@@ -11,11 +11,19 @@ import {
 } from "@chakra-ui/react";
 import Image from "next/image";
 import { useTranslation } from "react-i18next";
-import TestimonialsSlider from "./TestimonialsSlider";
 import { GoCheckCircle } from "react-icons/go";
 import Link from "next/link";
 import { TabsLayout, TabTriggerButton } from "../ui/TabsLayout";
 import { URL_DASHBOARD_REGISTER } from "@/lib/utils/constants";
+import TestimonialsSlider from "./TestimonialsSlider";
+
+interface TestimonialData {
+  id: string | number;
+  quote: string;
+  name: string;
+  role: string;
+  avatar: string;
+}
 
 interface FeatureDetail {
   heading: string;
@@ -208,7 +216,11 @@ const FeatureContent: React.FC<FeatureContentProps> = ({ data }) => {
   );
 };
 
-export default function PowerfulFeatures() {
+interface PowerfulFeaturesProps {
+  testimonials: TestimonialData[];
+}
+
+export default function PowerfulFeatures({ testimonials }: PowerfulFeaturesProps) {
   const { t } = useTranslation();
 
   const featuresData: FeatureItem[] = [
@@ -376,7 +388,7 @@ export default function PowerfulFeatures() {
         />
       </Box>
 
-      <TestimonialsSlider />
+      <TestimonialsSlider testimonials={testimonials} />
     </Box>
   );
 }

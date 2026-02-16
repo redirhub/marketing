@@ -5,7 +5,7 @@ import { buildCanonicalUrl, buildStaticHreflangAlternates } from "@/lib/utils/se
 import { allLanguages } from "@/sanity/config/i18n";
 import FeatureBanner from "@/components/share/banners/features/FeatureBanner";
 import FAQSection from "@/components/home/FAQSection";
-import TestimonialsSlider from "@/components/home/TestimonialsSlider";
+import TestimonialsSection from "@/components/sections/TestimonialsSection";
 import FeatureSplitSection from "@/components/share/features/FeatureSplitSection";
 import { Box } from "@chakra-ui/react";
 
@@ -30,7 +30,12 @@ export async function generateMetadata({
   };
 }
 
-export default async function WebsiteMigrations() {
+export default async function WebsiteMigrations({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}) {
+  const { locale } = await params;
   const MaintainSEORankings = [
     {
       heading: "Preserve Traffic:",
@@ -150,7 +155,7 @@ export default async function WebsiteMigrations() {
           removePaddingBottom={true}
         />
         <Box pt={{ base: 6, md: 0 }}>
-          <TestimonialsSlider marginBottom={"20px"} />
+          <TestimonialsSection locale={locale} marginBottom={"20px"} />
         </Box>
       </Box>
       <FAQSection faqData={faqData} />

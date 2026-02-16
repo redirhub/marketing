@@ -6,7 +6,18 @@ import { faqSetType } from './faqSetType'
 import { landingPageType } from './landingPageType'
 import { ctaType } from './ctaType'
 import { changelogType } from './changelogType'
+import { testimonialType } from './testimonialType'
 
 export const schema = {
-  types: [postType, authorType, supportType, legalType, faqSetType, landingPageType, ctaType, changelogType],
+  types: [
+    postType,
+    authorType,
+    supportType,
+    legalType,
+    faqSetType,
+    landingPageType,
+    ctaType,
+    changelogType,
+    testimonialType,
+  ],
 }
