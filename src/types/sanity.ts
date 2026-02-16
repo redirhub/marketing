@@ -243,6 +243,22 @@ export interface Testimonial {
   avatar?: SanityImageAsset
 }
 
+export interface TestimonialDocument {
+  _id: string
+  _type: 'testimonial'
+  _createdAt?: string
+  _updatedAt?: string
+  quote: string
+  author: string
+  role?: string
+  company?: string
+  avatar?: SanityImageAsset
+  order: number
+  isActive: boolean
+  locale: string
+  needsTranslation?: boolean
+}
+
 export interface StatItem {
   _key: string
   value: string

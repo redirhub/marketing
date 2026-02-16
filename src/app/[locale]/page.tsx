@@ -10,6 +10,7 @@ import { BlogSection, FAQSection } from "@/components/sections";
 import { fetchFAQSetByPage } from "@/lib/services/faq";
 import { buildCanonicalUrl, buildStaticHreflangAlternates, buildSocialCards, generateFAQSchema } from '@/lib/utils/seo'
 import { allLanguages } from '@/sanity/config/i18n'
+import { getTestimonials, formatTestimonialForSlider } from "@/lib/sanity/testimonials";
 
 export async function generateMetadata({
   params,
@@ -65,6 +66,10 @@ export default async function HomePage({
   // Generate FAQ Schema.org JSON-LD
   const faqSchema = generateFAQSchema(faqSet?.faqs);
 
+  // Fetch testimonials from CMS
+  const testimonialsData = await getTestimonials(locale);
+  const testimonials = testimonialsData.map(formatTestimonialForSlider);
+
   return (
     <>
       {/* FAQ Schema.org JSON-LD */}
@@ -78,7 +83,7 @@ export default async function HomePage({
       <Hero />
       <WhyStandsOut />
       <ChooseUs />
-      <PowerfulFeatures />
+      <PowerfulFeatures testimonials={testimonials} />
       <APIDocumentation />
       <BlogSection locale={locale} title={t("home.blog-title", "Go Through Our Blogs Today")} />
       {faqData.length > 0 && <FAQSection faqData={faqData} title={t("home.faq-title", "Frequently asked questions")} />}
