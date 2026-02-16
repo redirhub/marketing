@@ -6,6 +6,8 @@ import { useTranslation } from "react-i18next";
 import NextLink from "next/link";
 import { formatDate } from "@/lib/services/changelog";
 import type { ChangelogEntry } from "@/types/sanity";
+import { PortableText } from "@portabletext/react";
+import { portableTextComponents } from "../blog/PortableTextComponents";
 
 interface InfiniteScrollChangelogProps {
   initialEntries: ChangelogEntry[];
@@ -30,9 +32,7 @@ export default function InfiniteScrollChangelog({
 
     setLoading(true);
     try {
-      const response = await fetch(
-        `/api/changelog?locale=${locale}&cursor=${encodeURIComponent(cursor)}`
-      );
+      const response = await fetch(`/api/changelog?locale=${locale}&cursor=${encodeURIComponent(cursor)}`);
       const data = await response.json();
 
       setEntries((prev) => [...prev, ...data.entries]);
@@ -72,18 +72,11 @@ export default function InfiniteScrollChangelog({
       <Container maxW="4xl" mx="auto" px={{ base: 4, md: 6 }}>
         {entries.map((entry, index) => {
           const href =
-            locale === "en"
-              ? `/changelog/${entry.slug.current}`
-              : `/${locale}/changelog/${entry.slug.current}`;
+            locale === "en" ? `/changelog/${entry.slug.current}` : `/${locale}/changelog/${entry.slug.current}`;
           const isLast = index === entries.length - 1;
 
           return (
-            <Flex
-              key={entry._id}
-              gap={6}
-              position="relative"
-              pb={isLast ? 0 : 16}
-            >
+            <Flex key={entry._id} gap={6} position="relative" pb={isLast ? 0 : 16}>
               {/* Date column */}
               <Box w="120px" flexShrink={0} textAlign="right" pt={1}>
                 <Text fontSize="sm" color="gray.500">
@@ -93,25 +86,8 @@ export default function InfiniteScrollChangelog({
 
               {/* Timeline dot and line */}
               <Box position="relative" w="20px" flexShrink={0}>
-                <Box
-                  w="8px"
-                  h="8px"
-                  borderRadius="full"
-                  bg="primary.600"
-                  position="absolute"
-                  left="6px"
-                  top="8px"
-                />
-                {!isLast && (
-                  <Box
-                    position="absolute"
-                    left="9px"
-                    top="16px"
-                    bottom="-64px"
-                    w="1px"
-                    bg="gray.300"
-                  />
-                )}
+                <Box w="8px" h="8px" borderRadius="full" bg="primary.600" position="absolute" left="6px" top="8px" />
+                {!isLast && <Box position="absolute" left="9px" top="16px" bottom="-64px" w="1px" bg="gray.300" />}
               </Box>
 
               {/* Content column */}
@@ -130,9 +106,12 @@ export default function InfiniteScrollChangelog({
                     {entry.title}
                   </Heading>
                 </NextLink>
-                <Text fontSize="md" color="gray.600" lineHeight="1.7">
-                  {entry.description}
-                </Text>
+                {/* Content */}
+                {entry.content && (
+                  <Box fontSize="md" color="gray.600" lineHeight="1.6">
+                    <PortableText value={entry.content} components={portableTextComponents()} />
+                  </Box>
+                )}
               </Box>
             </Flex>
           );
