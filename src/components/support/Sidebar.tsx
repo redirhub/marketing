@@ -3,15 +3,18 @@
 import Link from "next/link";
 import { VStack, Box, Text, Icon } from "@chakra-ui/react";
 import { usePathname } from "next/navigation";
+import { useTranslation } from "react-i18next";
 
 export default function Sidebar() {
   const pathname = usePathname();
+  const { t } = useTranslation();
+
   const categories = [
-    { name: "All", path: "/support", tag: null },
-    { name: "FAQ", path: "/support/category/faq", tag: "FAQ" },
-    { name: "Feature", path: "/support/category/feature", tag: "Feature" },
-    { name: "Guide", path: "/support/category/guide", tag: "Guide" },
-    { name: "Walkthroughs", path: "/support/category/walkthroughs", tag: "Walkthroughs" },
+    { name: t("support.cat-all", "All"), path: "/support", tag: null },
+    { name: t("support.cat-faq", "FAQ"), path: "/support/category/faq", tag: "FAQ" },
+    { name: t("support.cat-feature", "Feature"), path: "/support/category/feature", tag: "Feature" },
+    { name: t("support.cat-guide", "Guide"), path: "/support/category/guide", tag: "Guide" },
+    { name: t("support.cat-walkthroughs", "Walkthroughs"), path: "/support/category/walkthroughs", tag: "Walkthroughs" },
   ];
 
   return (

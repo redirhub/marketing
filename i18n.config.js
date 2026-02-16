@@ -12,13 +12,13 @@ class NoLoadHttpBackend extends HttpBackend {
 
 module.exports = {
     i18n: {
-        locales: ['en', 'de', 'es', 'fr', 'it', 'pt', 'ja', 'zh', 'ko'],
+        locales: [ 'en', 'de', 'es', 'fr', 'it', 'pt', 'ja', 'zh', 'ko' ],
         defaultLocale: 'en',
     },
     // Browser: Uses NoLoadHttpBackend (no HTTP calls)
     // Server: Uses pre-generated files from public/locales/{lang}/common.json
-    use: isBrowser ? [ChainedBackend] : [],
-    backends: isBrowser ? [NoLoadHttpBackend] : [],
+    use: isBrowser ? [ ChainedBackend ] : [],
+    backends: isBrowser ? [ HttpBackend ] : [],
     backend: {
         backendOptions: [
             {

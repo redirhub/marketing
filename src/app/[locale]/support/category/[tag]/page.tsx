@@ -49,6 +49,7 @@ export default async function SupportCategoryPage({
   const { locale, tag } = await params;
   const decodedTag = denormalizeTag(tag);
   const articles = await fetchSupportArticlesByTag(decodedTag, locale);
+  const t = await getT();
 
   return (
     <>
@@ -67,7 +68,7 @@ export default async function SupportCategoryPage({
                 letterSpacing="0.2px"
                 textAlign={{ base: "center", md: "left" }}
               >
-                Categories
+                {t("support.categories", "Categories")}
               </Heading>
               <Sidebar />
             </Box>
@@ -86,7 +87,7 @@ export default async function SupportCategoryPage({
                 ) : (
                   <Box py={10} textAlign="center">
                     <Heading size="sm" color="gray.500">
-                      No support articles found in this category.
+                      {t("support.no-articles-category", "No support articles found in this category.")}
                     </Heading>
                   </Box>
                 )}
