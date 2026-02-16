@@ -28,12 +28,12 @@
 
 import { NextRequest, NextResponse } from 'next/server'
 import { writeClient } from '@/sanity/lib/client'
-import { translateDocument } from '@/lib/translation/translate-document'
+import { translateDocument, TRANSLATABLE_FIELDS } from '@/lib/translation/translate-document'
 
 const MAX_JOBS_PER_RUN = 10
 
-// Supported document types for translation
-const TRANSLATABLE_TYPES = ['post', 'support', 'legal', 'faqSet'] as const
+// Automatically derive supported types from TRANSLATABLE_FIELDS config
+const TRANSLATABLE_TYPES = Object.keys(TRANSLATABLE_FIELDS) as Array<keyof typeof TRANSLATABLE_FIELDS>
 type TranslatableType = typeof TRANSLATABLE_TYPES[number]
 
 export async function GET(req: NextRequest) {

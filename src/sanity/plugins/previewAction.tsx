@@ -22,6 +22,8 @@ const getPreviewUrl = (doc: any): string | null => {
       return `${prefix}/support/${slug}?version=drafts`
     case 'legal':
       return `${prefix}/legal/${slug}?version=drafts`
+    case 'changelog':
+      return `${prefix}/changelog/${slug}?version=drafts`
     default:
       return null
   }
@@ -46,7 +48,7 @@ export const previewActionPlugin = definePlugin({
   name: 'preview-action',
   document: {
     actions: (prev, context) => {
-      const contentTypes = ['post', 'landingPage', 'support', 'legal']
+      const contentTypes = ['post', 'landingPage', 'support', 'legal', 'changelog']
       if (contentTypes.includes(context.schemaType)) {
         return [...prev, PreviewAction]
       }

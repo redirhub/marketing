@@ -1,11 +1,17 @@
 /**
- * Generalized Document Translation Service
+ * Flexible Document Translation Service
  *
- * This module provides translation functionality for all Sanity document types:
- * - post (blog posts)
- * - support (support articles)
- * - legal (legal documents)
- * - faqSet (FAQ sets)
+ * This module provides translation functionality for all Sanity document types.
+ *
+ * Architecture:
+ * 1. 'content' field (PortableText) - Translated using translatePortableText (if defined in config)
+ * 2. Other fields - Translated in bulk using translateMetadata (if defined in config)
+ * 3. All other fields - Automatically preserved from source document
+ *
+ * To add new document types:
+ * - Simply add the type and its translatable fields to TRANSLATABLE_FIELDS config
+ * - Include 'content' in the array if PortableText content should be translated
+ * - No other code changes needed
  */
 
 import OpenAI from 'openai'
@@ -32,44 +38,34 @@ const LOCALE_NAMES: Record<string, string> = {
   ko: 'Korean (한국어)',
 }
 
-type DocumentType = 'post' | 'support' | 'legal' | 'faqSet'
+/**
+ * SINGLE SOURCE OF TRUTH: Define which fields need translation per document type
+ *
+ * To add a new document type:
+ * - Simply add one line here: myNewType: ['title', 'content', 'otherField']
+ * - That's it! No other code changes needed.
+ *
+ * Field handling:
+ * - 'content' field → Translated using translatePortableText (if included)
+ * - Other fields → Translated in bulk using translateMetadata
+ * - Unlisted fields → Preserved as-is from source document
+ */
+export const TRANSLATABLE_FIELDS: Record<string, string[]> = {
+  post: ['title', 'excerpt', 'content', 'tags', 'faqs'],
+  support: ['title', 'content'],
+  legal: ['title', 'content'],
+  faqSet: ['title', 'faqs'],
+  changelog: ['title', 'description', 'content'],
+  landingPage: ['title', 'content'], // Can be expanded as needed
+}
 
-interface BaseDocument {
+interface AnyDocument {
   _id: string
-  _type: DocumentType
+  _type: string
   locale: string
-  title?: string
-  slug?: { current: string }
   content?: any[]
-  publishedAt?: string
+  [key: string]: any
 }
-
-interface PostDocument extends BaseDocument {
-  _type: 'post'
-  excerpt?: string
-  tags?: string[]
-  faqs?: any[]
-  image?: any
-  author?: any
-}
-
-interface SupportDocument extends BaseDocument {
-  _type: 'support'
-  tags?: string[]
-}
-
-interface LegalDocument extends BaseDocument {
-  _type: 'legal'
-  footer?: boolean
-}
-
-interface FaqSetDocument extends BaseDocument {
-  _type: 'faqSet'
-  pageSlug: string
-  faqs: any[]
-}
-
-type Document = PostDocument | SupportDocument | LegalDocument | FaqSetDocument
 
 async function translateText(text: string, targetLocale: string): Promise<string> {
   const targetLanguage = LOCALE_NAMES[targetLocale]
@@ -93,63 +89,58 @@ async function translateText(text: string, targetLocale: string): Promise<string
   return response.choices[0].message.content?.trim() || text
 }
 
+/**
+ * Translates metadata fields in bulk
+ * Accepts any fields object and returns translated version with same structure
+ */
 async function translateMetadata(
-  sourceDoc: Document,
-  targetLocale: string
-): Promise<any> {
+  fieldsToTranslate: Record<string, any>,
+  targetLocale: string,
+  documentType: string
+): Promise<Record<string, any>> {
+  // If no fields to translate, return empty object
+  if (Object.keys(fieldsToTranslate).length === 0) {
+    return {}
+  }
+
   const targetLanguage = LOCALE_NAMES[targetLocale]
-
-  // Build metadata object based on document type
-  const metadata: any = {
-    title: sourceDoc.title,
-  }
-
-  // Type-specific fields
-  if (sourceDoc._type === 'post') {
-    metadata.excerpt = sourceDoc.excerpt || ''
-    metadata.tags = sourceDoc.tags || []
-    metadata.faqs = sourceDoc.faqs || []
-  } else if (sourceDoc._type === 'support') {
-    metadata.tags = sourceDoc.tags || []
-  } else if (sourceDoc._type === 'faqSet') {
-    metadata.pageSlug = sourceDoc.pageSlug
-    metadata.faqs = sourceDoc.faqs || []
-  }
-
   const openai = getOpenAIClient()
+
   const response = await openai.chat.completions.create({
     model: 'gpt-4o-mini',
     messages: [
       {
         role: 'system',
-        content: `You are a professional translator. Translate the following document metadata to ${targetLanguage}. Maintain the tone, style, and context. Return ONLY a valid JSON object with the same structure, containing the translations. Do not add any explanations or markdown formatting.`,
+        content: `You are a professional translator. Translate the following document metadata to ${targetLanguage}. Maintain the tone, style, and context. Return ONLY a valid JSON object with the same structure, containing the translations. Preserve all _key, _type, and _ref fields exactly as they are. Do not add any explanations or markdown formatting.`,
       },
       {
         role: 'user',
-        content: JSON.stringify(metadata, null, 2),
+        content: JSON.stringify(fieldsToTranslate, null, 2),
       },
     ],
     temperature: 0.3,
     response_format: { type: 'json_object' },
   })
 
-  const translatedMetadata = JSON.parse(
+  const translatedFields = JSON.parse(
     response.choices[0].message.content || '{}'
   )
 
-  // Preserve _key fields from original FAQs if present
-  if (Array.isArray(translatedMetadata.faqs)) {
-    const originalFaqs = sourceDoc._type === 'post' || sourceDoc._type === 'faqSet'
-      ? sourceDoc.faqs || []
-      : []
-
-    translatedMetadata.faqs = translatedMetadata.faqs.map((faq: any, index: number) => ({
-      ...faq,
-      _key: originalFaqs[index]?._key || faq._key,
-    }))
+  // Post-process to preserve _key fields in arrays (FAQs, etc.)
+  for (const [key, value] of Object.entries(translatedFields)) {
+    if (Array.isArray(value) && Array.isArray(fieldsToTranslate[key])) {
+      translatedFields[key] = value.map((item: any, index: number) => {
+        const originalItem = fieldsToTranslate[key][index]
+        return {
+          ...item,
+          ...(originalItem?._key && { _key: originalItem._key }),
+          ...(originalItem?._type && { _type: originalItem._type }),
+        }
+      })
+    }
   }
 
-  return translatedMetadata
+  return translatedFields
 }
 
 async function translatePortableText(
@@ -192,107 +183,97 @@ async function translatePortableText(
   return translatedBlocks
 }
 
+/**
+ * Creates a translated version of a document
+ * Preserves ALL fields and only translates the configured ones
+ */
 async function createTranslatedDocument(
-  sourceDoc: Document,
+  sourceDoc: AnyDocument,
   targetLocale: string
 ): Promise<any> {
-  // Translate metadata and content in parallel
-  const [translatedMetadata, translatedContent] = await Promise.all([
-    translateMetadata(sourceDoc, targetLocale),
-    sourceDoc.content ? translatePortableText(sourceDoc.content, targetLocale) : Promise.resolve([]),
+  const documentType = sourceDoc._type
+
+  // Get translatable fields for this document type
+  const translatableFieldNames = TRANSLATABLE_FIELDS[documentType] || []
+
+  // Check if 'content' field should be translated
+  const shouldTranslateContent = translatableFieldNames.includes('content')
+
+  // Extract only the fields that need translation (excluding 'content')
+  const fieldsToTranslate: Record<string, any> = {}
+  for (const fieldName of translatableFieldNames) {
+    if (fieldName !== 'content' && sourceDoc[fieldName] !== undefined) {
+      fieldsToTranslate[fieldName] = sourceDoc[fieldName]
+    }
+  }
+
+  // Translate metadata fields and content in parallel
+  const [translatedFields, translatedContent] = await Promise.all([
+    translateMetadata(fieldsToTranslate, targetLocale, documentType),
+    shouldTranslateContent && sourceDoc.content
+      ? translatePortableText(sourceDoc.content, targetLocale)
+      : Promise.resolve(undefined),
   ])
 
-  const baseSlug = sourceDoc.slug?.current
+  // Build the translated document by preserving ALL original fields
+  const translatedDoc: any = {
+    ...sourceDoc, // Copy ALL fields from source
+    locale: targetLocale, // Override locale
+    ...translatedFields, // Override translated fields
+  }
+
+  // Override content if it was translated
+  if (translatedContent !== undefined) {
+    translatedDoc.content = translatedContent
+  }
+
+  // Remove internal Sanity fields that shouldn't be copied to new documents
+  delete translatedDoc._id
+  delete translatedDoc._createdAt
+  delete translatedDoc._updatedAt
+  delete translatedDoc._rev
+  delete translatedDoc.needsTranslation
 
   // Check if translation already exists
-  const existingTranslation = await writeClient.fetch(
-    `*[_type == $type && locale == $locale && slug.current == $baseSlug][0]`,
-    {
-      type: sourceDoc._type,
-      baseSlug,
-      locale: targetLocale,
-    }
-  )
+  // Use slug.current for most types, pageSlug for faqSet
+  const identifier = sourceDoc.slug?.current || sourceDoc.pageSlug
+  if (identifier) {
+    const queryField = sourceDoc.pageSlug ? 'pageSlug' : 'slug.current'
+    const existingTranslation = await writeClient.fetch(
+      `*[_type == $type && locale == $locale && ${queryField} == $identifier][0]`,
+      {
+        type: documentType,
+        locale: targetLocale,
+        identifier,
+      }
+    )
 
-  // Build translated document based on type
-  let translatedDoc: any = {
-    _type: sourceDoc._type,
-    locale: targetLocale,
-    title: translatedMetadata.title,
-    slug: sourceDoc.slug,
-    publishedAt: sourceDoc.publishedAt,
+    // Update or create the document
+    if (existingTranslation) {
+      return await writeClient
+        .patch(existingTranslation._id)
+        .set(translatedDoc)
+        .commit()
+    }
   }
 
-  // Add content if present
-  if (sourceDoc.content) {
-    translatedDoc.content = Array.isArray(translatedContent) ? translatedContent : []
-  }
-
-  // Add type-specific fields
-  if (sourceDoc._type === 'post') {
-    translatedDoc = {
-      ...translatedDoc,
-      excerpt: translatedMetadata.excerpt,
-      tags: translatedMetadata.tags,
-      image: sourceDoc.image,
-      author: sourceDoc.author,
-      faqs: translatedMetadata.faqs,
-    }
-  } else if (sourceDoc._type === 'support') {
-    translatedDoc = {
-      ...translatedDoc,
-      tags: translatedMetadata.tags,
-    }
-  } else if (sourceDoc._type === 'legal') {
-    translatedDoc = {
-      ...translatedDoc,
-      footer: (sourceDoc as LegalDocument).footer,
-    }
-  } else if (sourceDoc._type === 'faqSet') {
-    translatedDoc = {
-      ...translatedDoc,
-      pageSlug: translatedMetadata.pageSlug,
-      faqs: translatedMetadata.faqs,
-    }
-    // Remove slug field for faqSet as it doesn't use it
-    delete translatedDoc.slug
-  }
-
-  // Update or create the document
-  if (existingTranslation) {
-    return await writeClient
-      .patch(existingTranslation._id)
-      .set(translatedDoc)
-      .commit()
-  } else {
-    return await writeClient.create(translatedDoc)
-  }
+  // Create new document
+  return await writeClient.create(translatedDoc)
 }
 
+/**
+ * Main translation function
+ * Translates a document to target locales (all supported locales by default)
+ */
 export async function translateDocument(
   documentId: string,
   targetLocales?: string[]
 ): Promise<{ success: boolean; results: any[] }> {
   console.log(`[Translate] Processing translation for document: ${documentId}`)
 
-  // Fetch the document - support all types
+  // Fetch ALL fields from the document
   const sourceDoc = await writeClient.fetch(
-    `*[_id == $id][0]{
-      _id,
-      _type,
-      title,
-      slug,
-      excerpt,
-      content,
-      tags,
-      image,
-      publishedAt,
-      author,
-      faqs,
-      locale,
-      pageSlug,
-      footer
-    }`,
+    `*[_id == $id][0]`,
     { id: documentId }
   )
 
@@ -308,7 +289,15 @@ export async function translateDocument(
     throw new Error(message)
   }
 
-  const identifier = sourceDoc.slug?.current || sourceDoc.pageSlug || sourceDoc.title || 'unknown'
+  // Check if document type is supported
+  if (!TRANSLATABLE_FIELDS[sourceDoc._type]) {
+    const message = `Document type '${sourceDoc._type}' is not configured for translation. Add it to TRANSLATABLE_FIELDS.`
+    console.error(`[Translate] ${message}`)
+    throw new Error(message)
+  }
+
+  const identifier =
+    sourceDoc.slug?.current || sourceDoc.pageSlug || sourceDoc.title || 'unknown'
   const locales = targetLocales || SUPPORTED_LOCALES
 
   console.log(
@@ -343,10 +332,16 @@ export async function translateDocument(
 
   // Mark the source document as no longer needing translation
   try {
-    await writeClient.patch(documentId).set({ needsTranslation: false }).commit()
+    await writeClient
+      .patch(documentId)
+      .set({ needsTranslation: false })
+      .commit()
     console.log(`[Translate] [${identifier}] Marked needsTranslation=false`)
   } catch (error) {
-    console.warn(`[Translate] [${identifier}] Could not update needsTranslation flag:`, error)
+    console.warn(
+      `[Translate] [${identifier}] Could not update needsTranslation flag:`,
+      error
+    )
     // Don't fail the whole translation just because we couldn't update the flag
   }
 
