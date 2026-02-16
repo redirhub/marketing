@@ -26,6 +26,13 @@ export async function fetchChangelogEntries(
     title,
     slug,
     description,
+    content,
+    author->{
+      _id,
+      name,
+      slug,
+      image
+    },
     publishedAt,
     locale
   }`
@@ -63,6 +70,12 @@ export async function fetchChangelogBySlug(
     slug,
     description,
     content,
+    author->{
+      _id,
+      name,
+      slug,
+      image
+    },
     publishedAt,
     locale
   }`

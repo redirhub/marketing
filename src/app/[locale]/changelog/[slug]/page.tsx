@@ -80,6 +80,7 @@ export default async function ChangelogDetailPage({
         title={entry.title}
         date={formatDate(entry.publishedAt)}
         backHref={backHref}
+        authorName={entry.author?.name}
       />
       <Container maxW="5xl" mx="auto" px={{ base: 2, md: 2, lg: 0 }}>
         <Box

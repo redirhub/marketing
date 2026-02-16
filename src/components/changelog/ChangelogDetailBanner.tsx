@@ -10,12 +10,14 @@ interface ChangelogDetailBannerProps {
   title: string;
   date: string;
   backHref: string;
+  authorName?: string;
 }
 
 export default function ChangelogDetailBanner({
   title,
   date,
   backHref,
+  authorName,
 }: ChangelogDetailBannerProps) {
   const { t } = useTranslation();
   return (
@@ -77,6 +79,15 @@ export default function ChangelogDetailBanner({
           >
             {title}
           </Heading>
+          {authorName && (
+            <Text
+              fontSize={{ base: "sm", md: "md" }}
+              color="rgba(255, 255, 255, 0.8)"
+              fontWeight="500"
+            >
+              {t("nav.by-author", "by {{author}}", { author: authorName })}
+            </Text>
+          )}
         </Flex>
       </Container>
     </Box>

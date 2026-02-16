@@ -165,6 +165,7 @@ export interface ChangelogEntry {
   }
   description: string
   content?: PortableTextContent
+  author?: Author
   publishedAt: string
   locale: string
   needsTranslation?: boolean

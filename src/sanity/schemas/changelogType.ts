@@ -49,8 +49,8 @@ export const changelogType = defineType({
     defineField({
       name: 'description',
       type: 'text',
-      title: 'Description',
-      description: 'Short summary of this update (shown in the changelog list)',
+      title: 'Description (SEO)',
+      description: 'Short summary for SEO meta description and social sharing (not displayed on the page)',
       rows: 3,
       validation: (rule) => rule.required().max(300),
     }),
@@ -79,6 +79,13 @@ export const changelogType = defineType({
           ],
         },
       ],
+    }),
+    defineField({
+      name: 'author',
+      type: 'reference',
+      title: 'Author',
+      to: [{ type: 'author' }],
+      description: 'The author of this changelog entry',
     }),
     defineField({
       name: 'publishedAt',
@@ -118,8 +125,9 @@ export const changelogType = defineType({
       locale: 'locale',
       publishedAt: 'publishedAt',
       description: 'description',
+      authorName: 'author.name',
     },
-    prepare({ title, locale, publishedAt, description }) {
+    prepare({ title, locale, publishedAt, description, authorName }) {
       const date = publishedAt
         ? new Date(publishedAt).toLocaleDateString('en-US', {
             year: 'numeric',
@@ -127,9 +135,10 @@ export const changelogType = defineType({
             day: 'numeric',
           })
         : ''
+      const author = authorName ? ` by ${authorName}` : ''
       return {
         title: title,
-        subtitle: `${getLocaleLabel(locale)} • ${date}`,
+        subtitle: `${getLocaleLabel(locale)} • ${date}${author}`,
         description: description?.substring(0, 100),
       }
     },

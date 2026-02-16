@@ -2,8 +2,10 @@
 
 import { Box, Heading, Text } from "@chakra-ui/react";
 import NextLink from "next/link";
+import { PortableText } from "@portabletext/react";
 import { formatDate } from "@/lib/services/changelog";
 import { ChangelogEntry } from "@/types/sanity";
+import { portableTextComponents } from "@/components/blog/PortableTextComponents";
 
 interface ChangelogCardProps {
   entry: ChangelogEntry;
@@ -29,13 +31,21 @@ export const ChangelogCard = ({ entry, locale = "en" }: ChangelogCardProps) => {
         transition="all 0.2s"
         h="full"
       >
-        {/* Date */}
+        {/* Date and Author */}
         <Text
           fontSize="sm"
           color="gray.500"
           mb={3}
         >
           {formatDate(entry.publishedAt)}
+          {entry.author && (
+            <>
+              {" • "}
+              <Text as="span" fontWeight="500" color="gray.600">
+                {entry.author.name}
+              </Text>
+            </>
+          )}
         </Text>
 
         {/* Title */}
@@ -50,15 +60,27 @@ export const ChangelogCard = ({ entry, locale = "en" }: ChangelogCardProps) => {
           {entry.title}
         </Heading>
 
-        {/* Description */}
-        <Text
-          fontSize="md"
-          color="gray.600"
-          lineHeight="1.6"
-          lineClamp={3}
-        >
-          {entry.description}
-        </Text>
+        {/* Content */}
+        {entry.content && (
+          <Box
+            fontSize="md"
+            color="gray.600"
+            lineHeight="1.6"
+            sx={{
+              "& > *:first-of-type": {
+                marginTop: 0,
+              },
+              "& > *:last-child": {
+                marginBottom: 0,
+              },
+            }}
+          >
+            <PortableText
+              value={entry.content}
+              components={portableTextComponents()}
+            />
+          </Box>
+        )}
       </Box>
     </NextLink>
   );
