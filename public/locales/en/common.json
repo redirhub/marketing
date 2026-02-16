@@ -102,6 +102,7 @@
     "url": "URL Redirect Service",
     "url-expander": "Short URL expander",
     "url-redirect-service": "URL Redirect Service",
+    "website-migrations-description": "Simple, transparent enterprise for RedirHub",
     "widget-btn-check-redirect": "Check Redirect - it's FREE",
     "widget-btn-create-redirect": "Create Redirect - it's FREE",
     "widget-btn-shorten-url": "Shorten URL - it's FREE",
@@ -126,6 +127,22 @@
     "backHome": "Back to Home",
     "helpfulLinks": "Popular pages:",
     "support": "Get Support"
+  },
+  "pricing": {
+    "addons-subtitle": "Enhance your Pro plan with powerful features",
+    "addons-title": "Pro Add-Ons",
+    "billing-annually": "Annually",
+    "billing-monthly": "Monthly",
+    "description": "Transparent pricing plans for {{n}}. From startups to enterprise. No hidden fees, cancel anytime.",
+    "from-label": "from",
+    "hostname-question": "How many hostnames do you need?",
+    "per-month": "/mo",
+    "recommended-badge": "Recommended",
+    "save-badge": "Save 20%",
+    "tab-monitor": "Monitor",
+    "tab-redirects": "Redirects",
+    "tab-shorten": "Shorten URL",
+    "title": "Pricing - {{n}}"
   },
   "home": {
     "api-auth": "Authentication Made Simple:",
@@ -292,10 +309,6 @@
     "stat-uptime-desc": "Uptime guarantee, ensuring consistent access, dependable performance for all users",
     "stat-uptime-title": "Uptime",
     "title": "Enterprise Solutions - {{n}}"
-  },
-  "pricing": {
-    "description": "Transparent pricing plans for {{n}}. From startups to enterprise. No hidden fees, cancel anytime.",
-    "title": "Pricing - {{n}}"
   },
   "title": {
     "features": "Features"

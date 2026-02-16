@@ -46,14 +46,20 @@ export async function generateMetadata({
   };
 }
 
-export default async function BlogPage({ searchParams }: { searchParams: Promise<{ page?: string }> }) {
-  // Await the params from the URL
+export default async function BlogPage({
+  params,
+  searchParams
+}: {
+  params: Promise<{ locale: string }>;
+  searchParams: Promise<{ page?: string }>;
+}) {
+  const { locale } = await params;
   const { page } = await searchParams;
   const currentPage = Number(page) || 1;
   return (
     <>
       <BlogBanner />
-      <BlogList currentPage={currentPage} />
+      <BlogList currentPage={currentPage} locale={locale} />
     </>
   );
 }
