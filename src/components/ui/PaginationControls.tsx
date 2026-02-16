@@ -4,6 +4,7 @@ import React from "react";
 import { Button, HStack, Text } from "@chakra-ui/react";
 import NextLink from "next/link";
 import { useSearchParams } from "next/navigation";
+import { useTranslation } from "react-i18next";
 
 const StyledLink = Button as React.FC<any>;
 interface PaginationControlsProps {
@@ -17,6 +18,7 @@ const PaginationControls: React.FC<PaginationControlsProps> = ({
   totalPages,
   buttonProps,
 }) => {
+  const { t } = useTranslation();
   const searchParams = useSearchParams();
   if (totalPages <= 1) {
     return null;
@@ -115,7 +117,7 @@ const PaginationControls: React.FC<PaginationControlsProps> = ({
         }}
         {...buttonProps}
       >
-        Previous
+        {t("nav.pagination-previous", "Previous")}
       </StyledLink>
 
       {finalPages.map((page, index) => (
@@ -148,7 +150,7 @@ const PaginationControls: React.FC<PaginationControlsProps> = ({
         }}
         {...buttonProps}
       >
-        Next
+        {t("nav.pagination-next", "Next")}
       </StyledLink>
     </HStack>
   );
