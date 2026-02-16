@@ -150,7 +150,8 @@ export async function getT(namespace: string = 'common', options?: { trackMissin
   const shouldTrackMissing = options?.trackMissing ?? true;
 
   return (key: string, fallback: string, variables?: Record<string, any>) => {
-    const translation = resources?.[locale]?.[namespace]?.[key];
+    // Traverse nested object using dot notation (e.g., "support.title" -> resources.zh.common.support.title)
+    const translation = key.split('.').reduce((obj, k) => obj?.[k], resources?.[locale]?.[namespace]);
     const result = translation || fallback;
 
     if (!translation && shouldTrackMissing && typeof window === 'undefined') {
