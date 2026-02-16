@@ -10,10 +10,12 @@ import {
   Stack,
 } from "@chakra-ui/react";
 import Image from "next/image";
+import { useTranslation } from "react-i18next";
 import TestimonialsSlider from "./TestimonialsSlider";
 import { GoCheckCircle } from "react-icons/go";
 import Link from "next/link";
 import { TabsLayout, TabTriggerButton } from "../ui/TabsLayout";
+import { URL_DASHBOARD_REGISTER } from "@/lib/utils/constants";
 
 interface FeatureDetail {
   heading: string;
@@ -112,6 +114,7 @@ const ActionButton: React.FC<
   );
 };
 const FeatureContent: React.FC<FeatureContentProps> = ({ data }) => {
+  const { t } = useTranslation();
   const {
     title,
     description,
@@ -170,11 +173,11 @@ const FeatureContent: React.FC<FeatureContentProps> = ({ data }) => {
             mt={8}
           >
             <ActionButton
-              label={!hideLeanMore ? "Get Started For Free" : "Learn More"}
+              label={!hideLeanMore ? t("home.features-get-started", "Get Started For Free") : t("home.features-learn-more", "Learn More")}
               isPrimary
-              href="https://dash.redirhub.com/register"
+              href={URL_DASHBOARD_REGISTER}
             />
-            {!hideLeanMore && <ActionButton label="Learn More" />}
+            {!hideLeanMore && <ActionButton label={t("home.features-learn-more", "Learn More")} />}
           </Stack>
         </Box>
 
@@ -206,104 +209,123 @@ const FeatureContent: React.FC<FeatureContentProps> = ({ data }) => {
 };
 
 export default function PowerfulFeatures() {
+  const { t } = useTranslation();
+
   const featuresData: FeatureItem[] = [
     {
       key: "tab1",
-      tabLabel: "Quick DNS Setup",
-      title: "Effortless DNS Configuration",
-      description:
-        "Simplify DNS setup with RedirHub’s streamlined tools. Configure DNS records quickly and ensure your redirects work seamlessly without technical hurdles.",
+      tabLabel: t("home.features-dns-tab", "Quick DNS Setup"),
+      title: t("home.features-dns-title", "Effortless DNS Configuration"),
+      description: t(
+        "home.features-dns-desc",
+        "Simplify DNS setup with RedirHub's streamlined tools. Configure DNS records quickly and ensure your redirects work seamlessly without technical hurdles."
+      ),
       imageSrc: "/assets/images/powerful-features/quick-dns-Setup.png",
       imageAlt: "DNS Configuration dashboard preview",
       features: [
         {
-          heading: "Fast and Intuitive Setup:",
-          description:
-            "No more complex configurations—get your DNS set up in minutes.",
+          heading: t("home.features-dns-fast", "Fast and Intuitive Setup:"),
+          description: t(
+            "home.features-dns-fast-desc",
+            "No more complex configurations—get your DNS set up in minutes."
+          ),
         },
         {
-          heading: "Comprehensive Guides:",
-          description: "Step-by-step instructions for every configuration.",
+          heading: t("home.features-dns-guides", "Comprehensive Guides:"),
+          description: t("home.features-dns-guides-desc", "Step-by-step instructions for every configuration."),
         },
         {
-          heading: "Reliable Support:",
-          description:
-            "Our team is ready to assist with any DNS-related queries.",
+          heading: t("home.features-dns-support", "Reliable Support:"),
+          description: t(
+            "home.features-dns-support-desc",
+            "Our team is ready to assist with any DNS-related queries."
+          ),
         },
       ],
     },
     {
       key: "tab2",
-      tabLabel: "QR Code",
-
-      title: "Seamless QR Code Integration",
-      description:
-        "RedirHub lets you generate custom QR codes tied to your redirects, making it easier for users to access your content on the go.",
+      tabLabel: t("home.features-qr-tab", "QR Code"),
+      title: t("home.features-qr-title", "Seamless QR Code Integration"),
+      description: t(
+        "home.features-qr-desc",
+        "RedirHub lets you generate custom QR codes tied to your redirects, making it easier for users to access your content on the go."
+      ),
       imageSrc: "/assets/images/powerful-features/qr-code.png",
       imageAlt: "QR Code generation preview",
       features: [
         {
-          heading: "Dynamic QR Codes:",
-          description: "Update destination URLs without reprinting the code.",
+          heading: t("home.features-qr-dynamic", "Dynamic QR Codes:"),
+          description: t("home.features-qr-dynamic-desc", "Update destination URLs without reprinting the code."),
         },
         {
-          heading: "Custom Branding:",
-          description: "Add your logo and brand colors to every QR code.",
+          heading: t("home.features-qr-branding", "Custom Branding:"),
+          description: t("home.features-qr-branding-desc", "Add your logo and brand colors to every QR code."),
         },
         {
-          heading: "Track Scans:",
-          description:
-            "Monitor engagement metrics like scan count and locations.",
+          heading: t("home.features-qr-track", "Track Scans:"),
+          description: t(
+            "home.features-qr-track-desc",
+            "Monitor engagement metrics like scan count and locations."
+          ),
         },
       ],
       hideLeanMore: true,
     },
     {
       key: "tab3",
-      tabLabel: "Team Collaboration",
-      title: "Boost Productivity with Team Collaboration",
-      description:
-        "Manage your redirects more efficiently by enabling your team to work together seamlessly on RedirHub.",
+      tabLabel: t("home.features-team-tab", "Team Collaboration"),
+      title: t("home.features-team-title", "Boost Productivity with Team Collaboration"),
+      description: t(
+        "home.features-team-desc",
+        "Manage your redirects more efficiently by enabling your team to work together seamlessly on RedirHub."
+      ),
       imageSrc: "/assets/images/powerful-features/team-Collaboration.jpeg",
       imageAlt: "Team collaboration dashboard preview",
       features: [
         {
-          heading: "User Roles and Permissions:",
-          description: "Assign roles to team members for secure collaboration.",
+          heading: t("home.features-team-roles", "User Roles and Permissions:"),
+          description: t("home.features-team-roles-desc", "Assign roles to team members for secure collaboration."),
         },
         {
-          heading: "Shared Projects:",
-          description:
-            "Organize redirects into shared folders for team visibility.",
+          heading: t("home.features-team-shared", "Shared Projects:"),
+          description: t(
+            "home.features-team-shared-desc",
+            "Organize redirects into shared folders for team visibility."
+          ),
         },
         {
-          heading: "Activity Logs:",
-          description: "Keep track of changes made by team members.",
+          heading: t("home.features-team-logs", "Activity Logs:"),
+          description: t("home.features-team-logs-desc", "Keep track of changes made by team members."),
         },
       ],
       hideLeanMore: true,
     },
     {
       key: "tab4",
-      tabLabel: "Advanced Redirects",
-      title: "Advanced Redirect Options with Custom Codes",
-      description:
-        "Harness the full power of HTTP status codes to handle a variety of redirect scenarios, from temporary redirects to permanent migrations.",
+      tabLabel: t("home.features-advanced-tab", "Advanced Redirects"),
+      title: t("home.features-advanced-title", "Advanced Redirect Options with Custom Codes"),
+      description: t(
+        "home.features-advanced-desc",
+        "Harness the full power of HTTP status codes to handle a variety of redirect scenarios, from temporary redirects to permanent migrations."
+      ),
       imageSrc: "/assets/images/powerful-features/redirect.jpeg",
       imageAlt: "Redirect settings preview",
       features: [
         {
-          heading: "Customizable Redirects:",
-          description: "Configure 301, 302, and other HTTP codes effortlessly.",
+          heading: t("home.features-advanced-custom", "Customizable Redirects:"),
+          description: t("home.features-advanced-custom-desc", "Configure 301, 302, and other HTTP codes effortlessly."),
         },
         {
-          heading: "SEO-Friendly:",
-          description:
-            "Optimize search engine visibility with proper redirect handling.",
+          heading: t("home.features-advanced-seo", "SEO-Friendly:"),
+          description: t(
+            "home.features-advanced-seo-desc",
+            "Optimize search engine visibility with proper redirect handling."
+          ),
         },
         {
-          heading: "Real-Time Updates:",
-          description: "Make changes instantly without downtime.",
+          heading: t("home.features-advanced-realtime", "Real-Time Updates:"),
+          description: t("home.features-advanced-realtime-desc", "Make changes instantly without downtime."),
         },
       ],
       hideLeanMore: true,
@@ -327,7 +349,7 @@ export default function PowerfulFeatures() {
           letterSpacing="0.4px"
           mb={{ base: 8, md: 16 }}
         >
-          Discover RedirHub's Powerful Features
+          {t("home.features-title", "Discover RedirHub's Powerful Features")}
         </Heading>
       </Box>
 

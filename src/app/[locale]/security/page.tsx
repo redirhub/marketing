@@ -1,7 +1,9 @@
 import { Metadata } from "next";
 import { Box } from "@chakra-ui/react";
-import initTranslations from "@/lib/i18n";
-import { getAppName } from "@/lib/utils/constants";
+import { getT } from "@/lib/i18n";
+import { APP_NAME } from "@/lib/utils/constants";
+import { buildCanonicalUrl, buildStaticHreflangAlternates, buildSocialCards } from "@/lib/utils/seo";
+import { allLanguages } from "@/sanity/config/i18n";
 import FeatureBanner from "@/components/share/banners/features/FeatureBanner";
 import TestimonialsSlider from "@/components/home/TestimonialsSlider";
 import FAQSection from "@/components/home/FAQSection";
@@ -14,18 +16,25 @@ export async function generateMetadata({
   params: Promise<{ locale: string }>;
 }): Promise<Metadata> {
   const { locale } = await params;
-  const { resources } = await initTranslations(locale, ["common"]);
-  const t = (key: string, fallback: string) => {
-    const translation = resources?.[locale]?.common?.[key];
-    return translation || fallback;
-  };
+  const t = await getT();
+
+  const title = `${t("nav.global-scale-title", "Security & privacy")} - ${APP_NAME}`;
+  const description = t(
+    "nav.global-scale-description",
+    "Simple, transparent enterprise for RedirHub"
+  );
 
   return {
-    title: `${t("meta.global-scale.title", "Security & privacy")} - ${getAppName()}`,
-    description: t(
-      "meta.global-scale.description",
-      "Simple, transparent enterprise for RedirHub"
-    ),
+    title,
+    description,
+    alternates: {
+      canonical: buildCanonicalUrl(locale, '/security'),
+      ...buildStaticHreflangAlternates(allLanguages, '/security'),
+    },
+    ...buildSocialCards({
+      title,
+      description,
+    }),
   };
 }
 

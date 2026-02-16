@@ -1,8 +1,10 @@
 import { Metadata } from 'next';
 import { Box, Container, Heading, Text, Stack } from '@chakra-ui/react';
 import Link from 'next/link';
-import initTranslations from '@/lib/i18n';
-import { getAppName } from '@/lib/utils/constants';
+import { getT } from '@/lib/i18n';
+import { APP_NAME } from '@/lib/utils/constants';
+import { buildCanonicalUrl, buildStaticHreflangAlternates, buildSocialCards } from '@/lib/utils/seo';
+import { allLanguages } from '@/sanity/config/i18n';
 import { fetchLegalDocuments } from '@/lib/services/legal';
 
 export async function generateMetadata({
@@ -11,15 +13,22 @@ export async function generateMetadata({
   params: Promise<{ locale: string }>;
 }): Promise<Metadata> {
   const { locale } = await params;
-  const { resources } = await initTranslations(locale, ['common']);
-  const t = (key: string, fallback: string) => {
-    const translation = resources?.[locale]?.common?.[key];
-    return translation || fallback;
-  };
+  const t = await getT();
+
+  const title = t("nav.legal-title", "Legal - {{n}}", { n: APP_NAME });
+  const description = t("nav.legal-description", "Terms of service, privacy policy, and legal documentation.");
 
   return {
-    title: `${t('meta.legal.title', 'Legal')} - ${getAppName()}`,
-    description: t('meta.legal.description', 'Legal information and policies'),
+    title,
+    description,
+    alternates: {
+      canonical: buildCanonicalUrl(locale, '/legal'),
+      ...buildStaticHreflangAlternates(allLanguages, '/legal'),
+    },
+    ...buildSocialCards({
+      title,
+      description,
+    }),
   };
 }
 

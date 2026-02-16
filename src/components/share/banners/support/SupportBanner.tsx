@@ -1,31 +1,18 @@
 "use client";
 
 import { Box, Container, Flex, Heading, Text } from "@chakra-ui/react";
+import { useTranslation } from "react-i18next";
+import { APP_NAME } from "@/lib/utils/constants";
 import styles from "../blog/BlogBanner.module.css";
 
 const SupportBanner = () => {
+  const { t } = useTranslation();
+
   return (
     <>
       <Box pt={24} pb={{ base: 14, md: 10 }} className={styles.container}>
         <Container maxW="7xl" mx="auto" px={{ base: 2, md: 2, lg: 0 }}>
           <Flex direction="column" align="center" textAlign="center" gap={2}>
-            <Box>
-              <Heading
-                as="h6"
-                fontSize={{
-                  base: ".9rem",
-                  md: "1rem",
-                  lg: "1rem",
-                }}
-                fontWeight="600"
-                lineHeight="tight"
-                maxW="4xl"
-                color="#fff"
-                mt={{base: 2, md: 5}}
-              >
-                Get All Your Questions Answered With The
-              </Heading>
-            </Box>
             <Heading
               as="h1"
               fontSize={{
@@ -37,8 +24,9 @@ const SupportBanner = () => {
               lineHeight="tight"
               maxW={{ base: "full", md: "4xl" }}
               color="#fff"
+              mt={{base: 2, md: 5}}
             >
-              RedirHub Support
+              {t("support.banner-title", "{{n}} Support", { n: APP_NAME })}
             </Heading>
             <Text
               fontSize={{ base: "1rem", md: "1.15rem" }}
@@ -49,11 +37,7 @@ const SupportBanner = () => {
               mt={{base: 0, md: 4}}
               textAlign={{ base: "center", md: "center" }}
             >
-              Get All Your Questions Answered With The RedirHub Support Explore
-              our resources for expert articles, guides, and tutorials to help
-              you make the most of RedirHub. Find tips, best practices, and
-              troubleshooting advice to optimize your URL management and improve
-              your site’s performance.
+              {t("support.banner-description", "Explore our resources for expert articles, guides, and tutorials to help you make the most of {{n}}. Find tips, best practices, and troubleshooting advice to optimize your URL management.", { n: APP_NAME })}
             </Text>
           </Flex>
         </Container>

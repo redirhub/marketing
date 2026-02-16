@@ -11,6 +11,7 @@ import {
 } from "@chakra-ui/react";
 import Link from "next/link";
 import { GoCheckCircle } from "react-icons/go";
+import { URL_DASHBOARD_REGISTER } from "@/lib/utils/constants";
 
 interface FeatureListItemProps {
   heading: string;
@@ -247,7 +248,7 @@ export default function FeatureSplitSection({
                 <ActionButton
                   label="Get Started For Free"
                   isPrimary
-                  href="https://dash.redirhub.com/register"
+                  href={URL_DASHBOARD_REGISTER}
                 />
               </Stack>
             </Box>

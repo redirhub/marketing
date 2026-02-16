@@ -1,6 +1,8 @@
 import { Metadata } from "next";
-import initTranslations from "@/lib/i18n";
-import { getAppName } from "@/lib/utils/constants";
+import { getT } from "@/lib/i18n";
+import { APP_NAME } from "@/lib/utils/constants";
+import { buildCanonicalUrl, buildStaticHreflangAlternates } from "@/lib/utils/seo";
+import { allLanguages } from "@/sanity/config/i18n";
 import FeatureBanner from "@/components/share/banners/features/FeatureBanner";
 import FAQSection from "@/components/home/FAQSection";
 import TestimonialsSlider from "@/components/home/TestimonialsSlider";
@@ -13,18 +15,18 @@ export async function generateMetadata({
   params: Promise<{ locale: string }>;
 }): Promise<Metadata> {
   const { locale } = await params;
-  const { resources } = await initTranslations(locale, ["common"]);
-  const t = (key: string, fallback: string) => {
-    const translation = resources?.[locale]?.common?.[key];
-    return translation || fallback;
-  };
+  const t = await getT();
 
   return {
-    title: `${t("meta-website-migrations.title", "Website Migrations")} - ${getAppName()}`,
+    title: `${t("meta-website-migrations.title", "Website Migrations")} - ${APP_NAME}`,
     description: t(
-      "meta.website-migrations.description",
+      "nav.website-migrations-description",
       "Simple, transparent enterprise for RedirHub"
     ),
+    alternates: {
+      canonical: buildCanonicalUrl(locale, '/solutions/website-migrations'),
+      ...buildStaticHreflangAlternates(allLanguages, '/solutions/website-migrations'),
+    },
   };
 }
 

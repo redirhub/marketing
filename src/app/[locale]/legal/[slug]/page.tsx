@@ -5,7 +5,8 @@ import { Box, Container, Heading } from "@chakra-ui/react";
 import { fetchLegalDocumentBySlug, fetchLegalDocumentTranslations } from "@/lib/services/legal";
 import { portableTextComponents } from '@/components/blog/PortableTextComponents'
 import { getClient } from '@/lib/preview'
-import { getAppName } from "@/lib/utils/constants";
+import { APP_NAME } from "@/lib/utils/constants";
+import { buildCanonicalUrl, buildHreflangAlternates, buildSocialCards } from "@/lib/utils/seo";
 
 interface PageProps {
   params: Promise<{
@@ -31,21 +32,21 @@ export async function generateMetadata({
 
   // Fetch translations for hreflang alternates
   const translations = await fetchLegalDocumentTranslations(slug, client)
-  const alternates: { languages?: Record<string, string> } = {}
 
-  if (translations.length > 0) {
-    alternates.languages = {}
-    translations.forEach((translation: { locale: string; slug: { current: string } }) => {
-      if (alternates.languages) {
-        alternates.languages[translation.locale] = `/${translation.locale}/legal/${translation.slug.current}`
-      }
-    })
-  }
+  const title = `${document.title} | ${APP_NAME}`;
+  const description = document.title;
 
   return {
-    title: `${document.title} | ${getAppName()}`,
-    description: document.title,
-    alternates,
+    title,
+    description,
+    alternates: {
+      canonical: buildCanonicalUrl(locale, `/legal/${slug}`),
+      ...buildHreflangAlternates(translations, '/legal'),
+    },
+    ...buildSocialCards({
+      title,
+      description,
+    }),
   };
 }
 

@@ -13,10 +13,12 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import { CloseIcon } from "@chakra-ui/icons";
 import { FiArrowRight } from "react-icons/fi";
-import { getDashboardBase } from "@/lib/utils/constants";
+import { URL_DASHBOARD_REGISTER, APP_NAME } from "@/lib/utils/constants";
+import { useTranslation } from "react-i18next";
 
 
 export default function InactivityPopup() {
+    const { t } = useTranslation();
     const [isOpen, setIsOpen] = useState(false);
     const [hasOpened, setHasOpened] = useState(false);
 
@@ -116,7 +118,7 @@ export default function InactivityPopup() {
                         mb={2}
                         textTransform="uppercase"
                     >
-                        Wait a second...
+                        {t("home.inactivity-badge", "Wait a second...")}
                     </Text>
                     <Text
                         fontSize={{ base: "18px", md: "24px" }}
@@ -125,18 +127,17 @@ export default function InactivityPopup() {
                         mb={3}
                         lineHeight="shorter"
                     >
-                        Want to try RedirHub for free?
+                        {t("home.inactivity-title", "Want to try {{n}} for free?", { n: APP_NAME })}
                     </Text>
                     <Text color="gray.blueGray" fontSize="16px" mb={5}>
-                        Take RedirHub for a spin. It's 100% free - no commitment, no risk
-                        and no pressure.
+                        {t("home.inactivity-subtitle", "Take {{n}} for a spin. It's 100% free - no commitment, no risk and no pressure.", { n: APP_NAME })}
                     </Text>
 
                     <List.Root gap={3} mb={6} variant="plain">
                         {[
-                            "Use the free plan as long as you need",
-                            "No credit card needed",
-                            "Multiple upgrade options when you're ready",
+                            t("home.inactivity-feature-1", "Use the free plan as long as you need"),
+                            t("home.inactivity-feature-2", "No credit card needed"),
+                            t("home.inactivity-feature-3", "Multiple upgrade options when you're ready"),
                         ].map((item, index) => (
                             <List.Item key={index} display="flex" alignItems="center">
                                 <List.Indicator
@@ -155,10 +156,9 @@ export default function InactivityPopup() {
                         ))}
                     </List.Root>
                     <Text fontSize="md" color="gray.blueGray" mb={4}>
-                        See why thousands of people trust RedirHub with their
-                        redirects, links management and analytics.
+                        {t("home.inactivity-trust", "See why thousands of people trust {{n}} with their redirects, links management and analytics.", { n: APP_NAME })}
                     </Text>
-                    <Link href={`${getDashboardBase()}/register`} target="_blank">
+                    <Link href={URL_DASHBOARD_REGISTER} target="_blank">
                         <Button
                             bg="brand.500"
                             color="white"
@@ -168,7 +168,7 @@ export default function InactivityPopup() {
                             borderRadius={'12px'}
                             _hover={{ bg: "brand.700" }}
                         >
-                            Try RedirHub For Free <Icon as={FiArrowRight} />
+                            {t("home.inactivity-cta", "Try {{n}} For Free", { n: APP_NAME })} <Icon as={FiArrowRight} />
                         </Button>
                     </Link>
                 </Box>

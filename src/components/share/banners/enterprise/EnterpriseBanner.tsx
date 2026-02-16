@@ -4,9 +4,10 @@ import { Box, Container, Flex, Heading, Text } from "@chakra-ui/react";
 import { useTranslation } from "react-i18next";
 import styles from "../../../sections/Hero.module.css";
 import { CustomerLogosSection } from "@/components/sections";
+import { APP_NAME } from "@/lib/utils/constants";
 
 export default function EnterpriseBanner() {
-  const { t } = useTranslation("common");
+  const { t } = useTranslation();
 
   return (
     <Box pt={28} className={styles.heroContainer}>
@@ -27,7 +28,7 @@ export default function EnterpriseBanner() {
               mb={{ base: 4, md: 0 }}
               letterSpacing={"-1.8px"}
             >
-              Reach Out to RedirHub
+              {t("enterprise.banner-title", "Reach Out to {{n}}", { n: APP_NAME })}
             </Heading>
             <Text
               fontSize={{ base: "18px", md: "20px" }}
@@ -36,7 +37,7 @@ export default function EnterpriseBanner() {
               letterSpacing={"0.2px"}
               mt={3}
             >
-              Organize a demo or get help purchasing the product
+              {t("enterprise.banner-subtitle", "Organize a demo or get help purchasing the product")}
             </Text>
           </Box>
         </Flex>

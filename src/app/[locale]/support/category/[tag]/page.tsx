@@ -1,6 +1,6 @@
 import { Metadata } from "next";
-import initTranslations from "@/lib/i18n";
-import { getAppName } from "@/lib/utils/constants";
+import { getT } from "@/lib/i18n";
+import { APP_NAME } from "@/lib/utils/constants";
 import SupportBanner from "@/components/share/banners/support/SupportBanner";
 import { Box, Flex, Heading, VStack } from "@chakra-ui/react";
 import Sidebar from "@/components/support/Sidebar";
@@ -22,11 +22,7 @@ export async function generateMetadata({
   params,
 }: CategoryPageProps): Promise<Metadata> {
   const { locale, tag } = await params;
-  const { resources } = await initTranslations(locale, ["common"]);
-  const t = (key: string, fallback: string) => {
-    const translation = resources?.[locale]?.common?.[key];
-    return translation || fallback;
-  };
+  const t = await getT();
 
   const decodedTag = denormalizeTag(tag);
   const categoryName = formatTagForDisplay(decodedTag);
@@ -34,10 +30,11 @@ export async function generateMetadata({
   const hreflangAlternates = buildStaticHreflangAlternates(allLanguages, `/support/category/${tag}`);
 
   return {
-    title: `${categoryName} - ${t("meta.support.title", "Support")} - ${getAppName()}`,
+    title: `${categoryName} - ${t("nav.support-title", "Support - {{n}}", { n: APP_NAME })}`,
     description: t(
-      "meta.support.description",
-      "Simple, transparent enterprise for RedirHub"
+      "nav.support-category-description",
+      "Browse {{category}} articles and guides for {{n}}.",
+      { category: categoryName.toLowerCase(), n: APP_NAME }
     ),
     alternates: {
       canonical: canonicalUrl,
@@ -52,6 +49,7 @@ export default async function SupportCategoryPage({
   const { locale, tag } = await params;
   const decodedTag = denormalizeTag(tag);
   const articles = await fetchSupportArticlesByTag(decodedTag, locale);
+  const t = await getT();
 
   return (
     <>
@@ -70,7 +68,7 @@ export default async function SupportCategoryPage({
                 letterSpacing="0.2px"
                 textAlign={{ base: "center", md: "left" }}
               >
-                Categories
+                {t("support.categories", "Categories")}
               </Heading>
               <Sidebar />
             </Box>
@@ -89,7 +87,7 @@ export default async function SupportCategoryPage({
                 ) : (
                   <Box py={10} textAlign="center">
                     <Heading size="sm" color="gray.500">
-                      No support articles found in this category.
+                      {t("support.no-articles-category", "No support articles found in this category.")}
                     </Heading>
                   </Box>
                 )}

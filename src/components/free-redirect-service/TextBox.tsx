@@ -3,6 +3,7 @@
 import { Box, Button, Container, Heading } from "@chakra-ui/react";
 import styles from "../home/Testimonials.module.css";
 import Link from "next/link";
+import { URL_DASHBOARD_REGISTER } from "@/lib/utils/constants";
 
 export default function TextBox() {
   return (
@@ -27,7 +28,7 @@ export default function TextBox() {
             Ready to upgrade your redirects to under 100 ms – up to 4× faster
             than competitors, with automatic HTTPS?
           </Heading>
-          <Link href={"https://dash.redirhub.com/register"} target={"_blank"}>
+          <Link href={URL_DASHBOARD_REGISTER} target={"_blank"}>
             <Button
               bg="#E49426"
               color="white"

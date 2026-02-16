@@ -1,6 +1,8 @@
 "use client";
 
 import { Box, Container, Heading, Text, Flex } from "@chakra-ui/react";
+import { useTranslation } from "react-i18next";
+import { useLocalePath } from "@/lib/hooks/useLocalePath";
 import styles from "../blog/BlogBanner.module.css";
 import { FaArrowLeftLong } from "react-icons/fa6";
 import NextLink from "next/link";
@@ -14,6 +16,9 @@ export default function SinglePageBanner({
   title,
   category,
 }: SinglePageBannerProps) {
+  const { t } = useTranslation();
+  const localePath = useLocalePath();
+
   return (
     <>
       <Box pb={{ base: 14, md: 10 }} pt={24} className={styles.container}>
@@ -27,7 +32,7 @@ export default function SinglePageBanner({
             mt={5}
           >
             <NextLink
-              href="/support"
+              href={localePath("/support")}
               passHref
               style={{ textDecoration: "none" }}
             >
@@ -45,7 +50,7 @@ export default function SinglePageBanner({
                 }}
               >
                 <FaArrowLeftLong />
-                <Text as="span">Back to Support</Text>
+                <Text as="span">{t("nav.support", "Support")}</Text>
               </Flex>
             </NextLink>
 

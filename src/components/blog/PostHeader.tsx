@@ -8,6 +8,8 @@ import { urlFor } from '@/sanity/lib/image'
 import { SanityImageAsset } from '@/types/sanity'
 import { ClockIcon } from '@sanity/icons'
 import { CalendarIcon } from '@chakra-ui/icons'
+import { useTranslation } from 'react-i18next'
+import { useLocalePath } from '@/lib/hooks/useLocalePath'
 
 interface PostHeaderProps {
   title: string
@@ -26,6 +28,8 @@ export default function PostHeader({
   image,
   locale = 'en',
 }: PostHeaderProps) {
+  const { t } = useTranslation()
+  const localePath = useLocalePath()
   const imageUrl = image ? urlFor(image).width(1600).height(900).url() : null
 
   return (
@@ -53,7 +57,7 @@ export default function PostHeader({
             <Flex gap={3} my={6} flexWrap="wrap" alignItems="center" justifyContent="flex-start">
               {/* Back to Blog Link */}
               <Link
-                href={`/${locale}/blog`}
+                href={localePath('/blog')}
                 style={{
                   display: 'inline-flex',
                   alignItems: 'center',
@@ -66,7 +70,7 @@ export default function PostHeader({
                 }}
               >
                 <FiArrowLeft size={20} />
-                Back to Blog
+                {t('nav.blog', 'Blog')}
               </Link>
             </Flex>
 
@@ -108,7 +112,7 @@ export default function PostHeader({
                   {readTimeMinutes && (
                     <Flex align="center" gap={1}>
                       <ClockIcon width={24} height={24} />
-                      <Text>{readTimeMinutes} mins read</Text>
+                      <Text>{t('home.mins-read', '{{minutes}} mins read', { minutes: readTimeMinutes })}</Text>
                     </Flex>
                   )}
                 </>

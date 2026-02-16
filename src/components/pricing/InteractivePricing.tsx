@@ -13,9 +13,11 @@ import { shortenUrlData } from "./shortenUrlPlanData";
 import { monitorData } from "./monitorPlanData";
 import { ProductConfig, redirectConfig, shortenConfig, monitorConfig } from "./productConfigs";
 import { mapPlanToDisplay } from "@/lib/utils/pricingHelpers";
+import { useTranslation } from "react-i18next";
 
 
 export default function InteractivePricing() {
+    const { t } = useTranslation();
     const [activeTab, setActiveTab] = useState("redirects");
     const [isAnnually, setIsAnnually] = useState(false);
     const [hostnameValue, setHostnameValue] = useState(15);
@@ -52,9 +54,9 @@ export default function InteractivePricing() {
 
     const tabHeader = (
         <>
-            <TabTriggerButton value="redirects" label="Redirects" />
-            <TabTriggerButton value="shorten" label="Shorten URL" />
-            <TabTriggerButton value="monitor" label="Monitor" />
+            <TabTriggerButton value="redirects" label={t("pricing.tab-redirects", "Redirects")} />
+            <TabTriggerButton value="shorten" label={t("pricing.tab-shorten", "Shorten URL")} />
+            <TabTriggerButton value="monitor" label={t("pricing.tab-monitor", "Monitor")} />
         </>
     );
 
@@ -101,7 +103,7 @@ export default function InteractivePricing() {
                 cursor="pointer"
                 onClick={() => setIsAnnually(false)}
             >
-                Monthly
+                {t("pricing.billing-monthly", "Monthly")}
             </Text>
             <Switch.Root
                 checked={isAnnually}
@@ -123,7 +125,7 @@ export default function InteractivePricing() {
                     cursor="pointer"
                     onClick={() => setIsAnnually(true)}
                 >
-                    Annually
+                    {t("pricing.billing-annually", "Annually")}
                 </Text>
                 <Badge
                     bg="success.50"
@@ -138,7 +140,7 @@ export default function InteractivePricing() {
                     borderColor="success.200"
                     textTransform="none"
                 >
-                    Save 20%
+                    {t("pricing.save-badge", "Save 20%")}
                 </Badge>
             </HStack>
         </HStack>

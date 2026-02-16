@@ -10,6 +10,7 @@ import {
   Text,
 } from "@chakra-ui/react";
 import Link from "next/link";
+import { useTranslation } from "react-i18next";
 import { ArrowForwardIcon } from "@chakra-ui/icons";
 import { VStack } from "@chakra-ui/react";
 import {
@@ -31,44 +32,54 @@ interface StatsCardProps {
 }
 
 export default function WhyStandsOut() {
+  const { t } = useTranslation();
+
   const statsData = [
     {
       icon: <RapidRequestsIcon />,
       value: "100M+",
-      label: "Rapid requests",
-      description:
-        "Redirects handled in the last 24 hours, showcasing our platform’s scale and reliability",
+      label: t("home.why-rapid-requests", "Rapid requests"),
+      description: t(
+        "home.why-rapid-requests-desc",
+        "Redirects handled in the last 24 hours, showcasing our platform's scale and reliability"
+      ),
       iconBg: "teal.500",
     },
     {
       icon: <HostnamesIcon />,
       value: "500K+",
-      label: "Hostnames",
-      description:
-        "Hostnames actively managed, providing robust answer for businesses",
+      label: t("home.why-hostnames", "Hostnames"),
+      description: t(
+        "home.why-hostnames-desc",
+        "Hostnames actively managed, providing robust answer for businesses"
+      ),
       iconBg: "teal.500",
     },
     {
       icon: <SSLIcon />,
       value: "900K+",
       label: "SSL",
-      description:
-        "SSL certificates issued in past 60 days, enhancing data security for users",
+      description: t(
+        "home.why-ssl-desc",
+        "SSL certificates issued in past 60 days, enhancing data security for users"
+      ),
       iconBg: "teal.500",
     },
     {
       icon: <LocationsIcon />,
       value: "10+",
-      label: "Locations",
-      description: "Points of Presence worldwide for reliable, global coverage",
+      label: t("home.why-locations", "Locations"),
+      description: t("home.why-locations-desc", "Points of Presence worldwide for reliable, global coverage"),
       iconBg: "teal.500",
     },
     {
       icon: <UptimeIcon />,
       value: "99.99%",
-      label: "Uptime",
-      description:
-        "Uptime guarantee, ensuring consistent access, dependable performance for all users",
+      label: t("home.why-uptime", "Uptime"),
+      description: t(
+        "home.why-uptime-desc",
+        "Uptime guarantee, ensuring consistent access, dependable performance for all users"
+      ),
       iconBg: "teal.500",
     },
   ];
@@ -90,7 +101,7 @@ export default function WhyStandsOut() {
           letterSpacing="0.4px"
           mb={{ base: 8, md: 14 }}
         >
-          Why RedirHub Stands Out
+          {t("home.why-stands-out-title", "Why RedirHub Stands Out")}
         </Heading>
 
         <SimpleGrid columns={{ base: 1, md: 1, lg: 2 }} gap={6} mb={6}>
@@ -127,11 +138,10 @@ export default function WhyStandsOut() {
                 90ms
               </Heading>
               <Text color="#667085" fontSize={{ base: "1rem", md: "1rem" }}>
-                Rapid redirect
+                {t("home.why-rapid-redirect", "Rapid redirect")}
               </Text>
               <Text color="#667085" fontSize={{ base: "1rem", md: "1.1rem" }}>
-                Average redirect latency, ensuring quick, seamless user
-                experiences
+                {t("home.why-rapid-desc", "Average redirect latency, ensuring quick, seamless user experiences")}
               </Text>
 
               <ChakraLink
@@ -148,7 +158,7 @@ export default function WhyStandsOut() {
                 gap="6px"
                 _hover={{ color: "#667085" }}
               >
-                View real-time speed report
+                {t("home.why-speed-report", "View real-time speed report")}
                 <ArrowForwardIcon boxSize={4} />
               </ChakraLink>
             </Stack>

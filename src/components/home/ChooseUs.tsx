@@ -1,9 +1,13 @@
 "use client";
 
 import { Box, Heading, SimpleGrid } from "@chakra-ui/react";
+import { useTranslation } from "react-i18next";
+import { useLocalePath } from "@/lib/hooks/useLocalePath";
 import ChooseUsBox from "./ChooseUsBox";
 
 export default function ChooseUs() {
+  const { t } = useTranslation();
+  const localePath = useLocalePath();
   return (
     <Box
       w="100%"
@@ -23,7 +27,7 @@ export default function ChooseUs() {
           letterSpacing="0.4px"
           mb={{ base: 4, md: 6 }}
         >
-          Why should you choose us?
+          {t("home.choose-us-title", "Why should you choose us?")}
         </Heading>
 
         <SimpleGrid
@@ -32,17 +36,17 @@ export default function ChooseUs() {
           mb={6}
         >
           <ChooseUsBox
-            title="HTTPS everywhere"
-            subtitle="Automatically secure all your redirects with HTTPS for a better user experience and SEO."
-            buttonTitle="Explore Links Management"
-            buttonLink="/manage-redirects"
+            title={t("home.choose-us-https-title", "HTTPS everywhere")}
+            subtitle={t("home.choose-us-https-subtitle", "Automatically secure all your redirects with HTTPS for a better user experience and SEO.")}
+            buttonTitle={t("home.choose-us-https-button", "Explore Links Management")}
+            buttonLink={localePath("/manage-redirects")}
             imageSrc="/assets/images/why-us-1.png"
           />
           <ChooseUsBox
-            title="Easy Setup"
-            subtitle="Simplify your setup with easy DNS configuration, nameservers, API integration and multi-user support."
-            buttonTitle="Explore Links Management"
-            buttonLink="/create-redirects"
+            title={t("home.choose-us-easy-title", "Easy Setup")}
+            subtitle={t("home.choose-us-easy-subtitle", "Simplify your setup with easy DNS configuration, nameservers, API integration and multi-user support.")}
+            buttonTitle={t("home.choose-us-easy-button", "Explore Links Management")}
+            buttonLink={localePath("/create-redirects")}
             imageSrc="/assets/images/why-us-2.png"
           />
         </SimpleGrid>
@@ -50,10 +54,10 @@ export default function ChooseUs() {
         {/* Second Row: Single Image */}
 
         <ChooseUsBox
-          title="Real-Time Control and Analytics"
-          subtitle="Optimize your redirects with real-time analytics and instant updates, empowering smarter decisions and better performance."
-          buttonTitle="Explore Links Analysis"
-          buttonLink="/analyze-redirects"
+          title={t("home.choose-us-analytics-title", "Real-Time Control and Analytics")}
+          subtitle={t("home.choose-us-analytics-subtitle", "Optimize your redirects with real-time analytics and instant updates, empowering smarter decisions and better performance.")}
+          buttonTitle={t("home.choose-us-analytics-button", "Explore Links Analysis")}
+          buttonLink={localePath("/analyze-redirects")}
           imageSrc="/assets/images/why-us-3.png"
           maxWidth="7xl"
         />

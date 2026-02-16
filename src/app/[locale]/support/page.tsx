@@ -1,50 +1,40 @@
 import { Metadata } from "next";
-import initTranslations from "@/lib/i18n";
-import { getAppName } from "@/lib/utils/constants";
+import { getT } from "@/lib/i18n";
+import { APP_NAME } from "@/lib/utils/constants";
 import SupportBanner from "@/components/share/banners/support/SupportBanner";
 import { Box, Flex, Heading, VStack } from "@chakra-ui/react";
 import Sidebar from "@/components/support/Sidebar";
 import { ArticleItem } from "@/components/support/ArticleItem";
 import { fetchSupportArticles } from "@/lib/services/support";
-import { buildCanonicalUrl, buildStaticHreflangAlternates } from '@/lib/utils/seo'
-import { allLanguages } from '@/sanity/config/i18n'
+import { buildCanonicalUrl, buildStaticHreflangAlternates, buildSocialCards } from "@/lib/utils/seo";
+import { allLanguages } from "@/sanity/config/i18n";
 
-export async function generateMetadata({
-  params,
-}: {
-  params: Promise<{ locale: string }>;
-}): Promise<Metadata> {
+export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
   const { locale } = await params;
-  const { resources } = await initTranslations(locale, ["common"]);
-  const t = (key: string, fallback: string) => {
-    const translation = resources?.[locale]?.common?.[key];
-    return translation || fallback;
-  };
 
-  // Generate canonical URL and hreflang alternates for support page
-  const canonicalUrl = buildCanonicalUrl(locale, '/support')
-  const hreflangAlternates = buildStaticHreflangAlternates(allLanguages, '/support')
+  const t = await getT();
+
+  const title = t("nav.support-title", "Support - {{n}}", { n: APP_NAME });
+  const description = t("nav.support-description", "Find answers, guides, and tutorials for {{n}}. Get help with redirects, analytics, and troubleshooting.", { n: APP_NAME });
 
   return {
-    title: `${t("meta.support.title", "Support")} - ${getAppName()}`,
-    description: t(
-      "meta.support.description",
-      "Simple, transparent enterprise for RedirHub"
-    ),
+    title,
+    description,
     alternates: {
-      canonical: canonicalUrl,
-      ...hreflangAlternates,
+      canonical: buildCanonicalUrl(locale, "/support"),
+      ...buildStaticHreflangAlternates(allLanguages, "/support"),
     },
+    ...buildSocialCards({
+      title,
+      description,
+    }),
   };
 }
 
-export default async function SupportPage({
-  params,
-}: {
-  params: Promise<{ locale: string }>;
-}) {
+export default async function SupportPage({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params;
   const articles = await fetchSupportArticles(locale);
+  const t = await getT();
 
   return (
     <>
@@ -63,7 +53,7 @@ export default async function SupportPage({
                 letterSpacing="0.2px"
                 textAlign={{ base: "center", md: "left" }}
               >
-                Categories
+                {t("support.category", "Category")}
               </Heading>
               <Sidebar />
             </Box>
@@ -82,7 +72,7 @@ export default async function SupportPage({
                 ) : (
                   <Box py={10} textAlign="center">
                     <Heading size="sm" color="gray.500">
-                      No support articles found.
+                      {t("support.no-articles", "No support articles found.")}
                     </Heading>
                   </Box>
                 )}

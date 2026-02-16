@@ -6,7 +6,9 @@ import SinglePageBanner from "@/components/share/banners/support/SinglePageBanne
 import { fetchSupportArticleBySlug, fetchSupportArticleTranslations } from "@/lib/services/support";
 import { portableTextComponents } from '@/components/blog/PortableTextComponents'
 import { getClient } from '@/lib/preview'
-import { buildCanonicalUrl, buildHreflangAlternates } from '@/lib/utils/seo'
+import { buildCanonicalUrl, buildHreflangAlternates, buildSocialCards } from '@/lib/utils/seo'
+import { getT } from "@/lib/i18n";
+import { APP_NAME } from "@/lib/utils/constants";
 
 interface PageProps {
   params: Promise<{
@@ -24,6 +26,7 @@ export async function generateMetadata({
 }: PageProps): Promise<Metadata> {
   const { locale, slug } = await params;
   const client = getClient(await searchParams);
+  const t = await getT();
 
   const article = await fetchSupportArticleBySlug(slug, locale, client);
   if (!article) {
@@ -39,13 +42,23 @@ export async function generateMetadata({
     ? buildHreflangAlternates(translations, '/support')
     : {}
 
+  const title = `${article.title} | Support`;
+  const description = t("nav.support-article-description", "Learn how to {{title}} with {{n}}.", {
+    title: article.title,
+    n: APP_NAME
+  });
+
   return {
-    title: `${article.title} | RedirHub Support`,
-    description: `Learn how to ${article.title} with RedirHub.`,
+    title,
+    description,
     alternates: {
       canonical: canonicalUrl,
       ...hreflangAlternates,
     },
+    ...buildSocialCards({
+      title,
+      description,
+    }),
   };
 }
 
@@ -64,7 +77,7 @@ export default async function SupportSinglePage({ params, searchParams }: PagePr
         title={article.title}
         category={article.tags?.[0] || 'Support'}
       />
-      <Container maxW="7xl" mx="auto" px={{ base: 2, md: 2, lg: 0 }}>
+      <Container maxW="5xl" mx="auto" px={{ base: 2, md: 2, lg: 0 }}>
         <Box
           bg="white"
           p={{ base: 6, md: 12 }}

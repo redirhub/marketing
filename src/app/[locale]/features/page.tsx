@@ -1,7 +1,9 @@
 import { Metadata } from 'next';
 import { Box, Container, Heading, Text } from '@chakra-ui/react';
-import initTranslations from '@/lib/i18n';
-import { getAppName } from '@/lib/utils/constants';
+import { getT } from '@/lib/i18n';
+import { APP_NAME } from '@/lib/utils/constants';
+import { buildCanonicalUrl, buildStaticHreflangAlternates } from '@/lib/utils/seo';
+import { allLanguages } from '@/sanity/config/i18n';
 
 export async function generateMetadata({
   params,
@@ -9,15 +11,15 @@ export async function generateMetadata({
   params: Promise<{ locale: string }>;
 }): Promise<Metadata> {
   const { locale } = await params;
-  const { resources } = await initTranslations(locale, ['common']);
-  const t = (key: string, fallback: string) => {
-    const translation = resources?.[locale]?.common?.[key];
-    return translation || fallback;
-  };
+  const t = await getT();
 
   return {
-    title: `${t('meta.features.title', 'Features')} - ${getAppName()}`,
-    description: t('meta.features.description', 'Explore RedirHub features for managing redirects and short URLs'),
+    title: `${t('meta.features.title', 'Features')} - ${APP_NAME}`,
+    description: t('nav.features-description', 'Explore RedirHub features for managing redirects and short URLs'),
+    alternates: {
+      canonical: buildCanonicalUrl(locale, '/features'),
+      ...buildStaticHreflangAlternates(allLanguages, '/features'),
+    },
   };
 }
 

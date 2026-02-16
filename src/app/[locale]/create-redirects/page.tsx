@@ -1,6 +1,6 @@
 import { Metadata } from "next";
-import initTranslations from "@/lib/i18n";
-import { getAppName } from "@/lib/utils/constants";
+import { getT } from "@/lib/i18n";
+import { APP_NAME } from "@/lib/utils/constants";
 import FeatureBanner from "@/components/share/banners/features/FeatureBanner";
 import FAQSection from "@/components/home/FAQSection";
 import TestimonialsSlider from "@/components/home/TestimonialsSlider";
@@ -14,16 +14,12 @@ export async function generateMetadata({
   params: Promise<{ locale: string }>;
 }): Promise<Metadata> {
   const { locale } = await params;
-  const { resources } = await initTranslations(locale, ["common"]);
-  const t = (key: string, fallback: string) => {
-    const translation = resources?.[locale]?.common?.[key];
-    return translation || fallback;
-  };
+  const t = await getT();
 
   return {
-    title: `${t("meta-create-redirects.title", "Create redirects")} - ${getAppName()}`,
+    title: `${t("meta-create-redirects.title", "Create redirects")} - ${APP_NAME}`,
     description: t(
-      "meta.create-redirects.description",
+      "nav.create-redirects-description",
       "Simple, transparent enterprise for RedirHub"
     ),
   };

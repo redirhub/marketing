@@ -3,7 +3,8 @@
 import { Box, VStack, Heading, Text, Button, List, Icon, Badge, Flex, Stack, Link } from "@chakra-ui/react";
 import { PricingPlan } from "./pricingData";
 import { FiCheck, FiArrowRight } from "react-icons/fi";
-import { getDashboardBase } from "@/lib/utils/constants";
+import { URL_DASHBOARD, URL_DASHBOARD_REGISTER } from "@/lib/utils/constants";
+import { useTranslation } from "react-i18next";
 
 interface PricingPlanCardProps {
     plan: PricingPlan;
@@ -18,6 +19,7 @@ interface PricingPlanCardProps {
 }
 
 export default function PricingPlanCard({ plan, isAnnually, recommended, everythingInPlanName, onClick, isUnavailable, isDynamicPricing, addon, trial_option = true }: PricingPlanCardProps) {
+    const { t } = useTranslation();
     const price = isAnnually ? plan.priceAnnually : plan.priceMonthly;
     const isCustom = typeof price === 'string';
     const showFromLabel = !isCustom && !isDynamicPricing;
@@ -26,10 +28,10 @@ export default function PricingPlanCard({ plan, isAnnually, recommended, everyth
     const getSubscribeUrl = () => {
         // Free plans (level = 0) go to register page
         if (plan.level === 0) {
-            return `${getDashboardBase()}/register`;
+            return URL_DASHBOARD_REGISTER;
         }
 
-        const baseUrl = `${getDashboardBase()}/subscribe/${plan.id}`;
+        const baseUrl = `${URL_DASHBOARD}/subscribe/${plan.id}`;
         if (addon?.code) {
             return `${baseUrl}?addon=${addon.code}`;
         }
@@ -67,7 +69,7 @@ export default function PricingPlanCard({ plan, isAnnually, recommended, everyth
                     borderColor="warning.800"
                     textTransform="none"
                 >
-                    Recommended
+                    {t("pricing.recommended-badge", "Recommended")}
                 </Badge>
             )}
 
@@ -86,7 +88,7 @@ export default function PricingPlanCard({ plan, isAnnually, recommended, everyth
                 <Flex align="baseline" direction={isCustom ? "column" : "row"} gap={1}>
                     {showFromLabel && (
                         <Text fontSize="16px" lineHeight="24px" fontWeight="500" color="gray.textMedium">
-                            from
+                            {t("pricing.from-label", "from")}
                         </Text>
                     )}
                     <Flex align="baseline" gap={1}>

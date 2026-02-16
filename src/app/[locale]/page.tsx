@@ -1,14 +1,14 @@
 import { Metadata } from "next";
 import Hero from "@/components/home/Hero";
-import initTranslations from "@/lib/i18n";
-import { getAppName } from "@/lib/utils/constants";
+import { getT } from "@/lib/i18n";
+import { APP_NAME } from "@/lib/utils/constants";
 import ChooseUs from "@/components/home/ChooseUs";
 import WhyStandsOut from "@/components/home/WhyStandsOut";
 import PowerfulFeatures from "@/components/home/PowerfulFeatures";
 import APIDocumentation from "@/components/home/APIDocumentation";
 import { BlogSection, FAQSection } from "@/components/sections";
 import { fetchFAQSetByPage } from "@/lib/services/faq";
-import { buildCanonicalUrl, buildStaticHreflangAlternates, generateFAQSchema } from '@/lib/utils/seo'
+import { buildCanonicalUrl, buildStaticHreflangAlternates, buildSocialCards, generateFAQSchema } from '@/lib/utils/seo'
 import { allLanguages } from '@/sanity/config/i18n'
 
 export async function generateMetadata({
@@ -17,26 +17,30 @@ export async function generateMetadata({
   params: Promise<{ locale: string }>;
 }): Promise<Metadata> {
   const { locale } = await params;
-  const { resources } = await initTranslations(locale, ["common"]);
-  const t = (key: string, fallback: string) => {
-    const translation = resources?.[locale]?.common?.[key];
-    return translation || fallback;
-  };
+  const t = await getT();
 
   // Generate canonical URL and hreflang alternates for home page
   const canonicalUrl = buildCanonicalUrl(locale, '/')
   const hreflangAlternates = buildStaticHreflangAlternates(allLanguages, '/')
 
+  const title = t("nav.home-title", "{{n}} - Fast & Secure URL Redirect Management", { n: APP_NAME });
+  const description = t(
+    "nav.home-description",
+    "Enterprise-grade URL redirect service. Manage redirects, track analytics, and scale globally with {{n}}. Trusted by businesses worldwide.",
+    { n: APP_NAME }
+  );
+
   return {
-    title: `${getAppName()} - ${t("meta.home.title", "Rapid & Secure URL Redirect Service")}`,
-    description: t(
-      "meta.home.description",
-      "Effortlessly forward your URLs with unmatched speed with RedirHub Redirect Service. Our real-time dashboard makes it easy to manage domain and link redirects."
-    ),
+    title,
+    description,
     alternates: {
       canonical: canonicalUrl,
       ...hreflangAlternates,
     },
+    ...buildSocialCards({
+      title,
+      description,
+    }),
   };
 }
 
@@ -46,6 +50,7 @@ export default async function HomePage({
   params: Promise<{ locale: string }>;
 }) {
   const { locale } = await params;
+  const t = await getT();
 
   // Fetch FAQs from CMS
   const faqSet = await fetchFAQSetByPage('homepage', locale);
@@ -75,8 +80,8 @@ export default async function HomePage({
       <ChooseUs />
       <PowerfulFeatures />
       <APIDocumentation />
-      <BlogSection locale={locale} title="Go Through Our Blogs Today" />
-      {faqData.length > 0 && <FAQSection faqData={faqData} />}
+      <BlogSection locale={locale} title={t("home.blog-title", "Go Through Our Blogs Today")} />
+      {faqData.length > 0 && <FAQSection faqData={faqData} title={t("home.faq-title", "Frequently asked questions")} />}
     </>
   );
 }

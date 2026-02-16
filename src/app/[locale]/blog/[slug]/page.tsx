@@ -11,9 +11,10 @@ import TableOfContents from '@/components/blog/TableOfContents'
 import AuthorBox from '@/components/blog/AuthorBox'
 import RelatedArticles from '@/components/blog/RelatedArticles'
 import BlogFAQ from '@/components/blog/BlogFAQ'
-import { buildCanonicalUrl, buildHreflangAlternates, generateFAQSchema } from '@/lib/utils/seo'
+import { buildCanonicalUrl, buildStaticHreflangAlternates, buildSocialCards, generateFAQSchema } from '@/lib/utils/seo'
 import InactivityPopup from '@/components/popups/InactivityPopup'
-import { getAppName } from '@/lib/utils/constants'
+import { APP_NAME, APP_URL } from '@/lib/utils/constants'
+import { allLanguages } from '@/sanity/config/i18n'
 
 interface BlogPostPageProps {
   params: Promise<{
@@ -41,36 +42,21 @@ export async function generateMetadata({
 
   const imageUrl = post.image ? urlFor(post.image).width(1200).height(630).url() : undefined
 
-  // Generate canonical URL
-  const canonicalUrl = buildCanonicalUrl(locale, `/blog/${slug}`)
-
-  // Fetch translations for hreflang alternates
-  const translations = await fetchPostTranslations(slug, client)
-  const hreflangAlternates = translations.length > 0
-    ? buildHreflangAlternates(translations, '/blog')
-    : {}
-
   return {
-    title: `${post.title} - ${getAppName()}`,
+    title: `${post.title} - ${APP_NAME}`,
     description: post.excerpt || undefined,
     alternates: {
-      canonical: canonicalUrl,
-      ...hreflangAlternates,
+      canonical: buildCanonicalUrl(locale, `/blog/${slug}`),
+      ...buildStaticHreflangAlternates(allLanguages, `/blog/${slug}`),
     },
-    openGraph: {
+    ...buildSocialCards({
       title: post.title,
       description: post.excerpt || undefined,
+      image: imageUrl,
       type: 'article',
       publishedTime: post.publishedAt,
       authors: post.author?.name ? [post.author.name] : undefined,
-      images: imageUrl ? [{ url: imageUrl }] : undefined,
-    },
-    twitter: {
-      card: 'summary_large_image',
-      title: post.title,
-      description: post.excerpt || undefined,
-      images: imageUrl ? [imageUrl] : undefined,
-    },
+    }),
   }
 }
 
@@ -114,7 +100,7 @@ export default async function BlogPostPage({ params, searchParams }: BlogPostPag
       name: 'RedirHub',
       logo: {
         '@type': 'ImageObject',
-        url: `${process.env.NEXT_PUBLIC_SITE_URL || ''}/logo.png`,
+        url: `${APP_URL}/logo.png`,
       },
     },
     timeRequired: readTime ? `PT${readTime}M` : undefined,

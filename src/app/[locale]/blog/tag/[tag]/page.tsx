@@ -5,6 +5,8 @@ import PaginationControls from '@/components/ui/PaginationControls'
 import { fetchPostsByTag } from '@/lib/services/blog'
 import { urlFor } from '@/sanity/lib/image'
 import { client } from '@/sanity/lib/client'
+import { buildCanonicalUrl, buildStaticHreflangAlternates, buildSocialCards } from '@/lib/utils/seo'
+import { allLanguages } from '@/sanity/config/i18n'
 
 interface TagPageProps {
   params: Promise<{
@@ -43,9 +45,20 @@ export async function generateMetadata({
   const tag = denormalizeTag(tagSlug)
   const displayTag = formatTagForDisplay(tag)
 
+  const title = `Posts tagged with "${displayTag}"`;
+  const description = `Browse all blog posts tagged with "${displayTag}"`;
+
   return {
-    title: `Posts tagged with "${displayTag}"`,
-    description: `Browse all blog posts tagged with "${displayTag}"`,
+    title,
+    description,
+    alternates: {
+      canonical: buildCanonicalUrl(locale, `/blog/tag/${tagSlug}`),
+      ...buildStaticHreflangAlternates(allLanguages, `/blog/tag/${tagSlug}`),
+    },
+    ...buildSocialCards({
+      title,
+      description,
+    }),
   }
 }
 

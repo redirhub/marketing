@@ -1,3 +1,4 @@
+process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
 require('dotenv').config({ path: '.env.local' });
 const fs = require('fs');
 const path = require('path');

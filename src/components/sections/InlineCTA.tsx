@@ -4,6 +4,8 @@ import { Box, Heading, Text, Button, VStack, Icon } from '@chakra-ui/react'
 import { HiArrowRight } from 'react-icons/hi'
 import Link from 'next/link'
 import { FiArrowRight } from 'react-icons/fi'
+import { URL_DASHBOARD_REGISTER, APP_NAME } from '@/lib/utils/constants'
+import { useTranslation } from 'react-i18next'
 
 interface CTAProps {
     variant?: 'default' | 'custom'
@@ -14,9 +16,7 @@ interface CTAProps {
     textFontSize?: string
 }
 
-const DEFAULT_TITLE = 'Start Making 5x Faster Redirects with RedirHub'
-const DEFAULT_TEXT = 'Get redirects in under 100 ms – with automatic HTTPS, analytics, and zero configuration.'
-const DEFAULT_URL = 'https://dash.redirhub.com/register'
+const DEFAULT_URL = URL_DASHBOARD_REGISTER
 
 const InlineCTA = ({
     variant = 'default',
@@ -26,6 +26,9 @@ const InlineCTA = ({
     headingFontSize = { base: '24px', md: '30px' },
     textFontSize = '18px',
 }: CTAProps) => {
+    const { t } = useTranslation()
+    const DEFAULT_TITLE = t('home.inline-cta-title', 'Start Making 5x Faster Redirects with {{n}}', { n: APP_NAME })
+    const DEFAULT_TEXT = t('home.inline-cta-text', 'Get redirects in under 100 ms – with automatic HTTPS, analytics, and zero configuration.')
     const ctaTitle = variant === 'default' ? DEFAULT_TITLE : (title || DEFAULT_TITLE)
     const ctaText = variant === 'default' ? DEFAULT_TEXT : (text || DEFAULT_TEXT)
     const ctaUrl = variant === 'default' ? DEFAULT_URL : (url || DEFAULT_URL)
@@ -85,7 +88,7 @@ const InlineCTA = ({
                     rightIcon={<HiArrowRight />}
                     mt={4}
                 >
-                    Get Started Free  <Icon as={FiArrowRight} />
+                    {t('home.inline-cta-button', 'Get Started Free')}  <Icon as={FiArrowRight} />
                 </Button>
             </VStack>
         </Box>

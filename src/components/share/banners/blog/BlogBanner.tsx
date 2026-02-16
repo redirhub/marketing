@@ -5,8 +5,10 @@ import { FiSearch, FiX } from "react-icons/fi";
 import { useState, useEffect } from "react";
 import { useRouter, useParams } from "next/navigation";
 import styles from "./BlogBanner.module.css";
+import { useTranslation } from "react-i18next";
 
 const BlogBanner = () => {
+  const { t } = useTranslation();
   const params = useParams();
   const term = params?.term ? decodeURIComponent(params.term as string) : "";
   const [searchQuery, setSearchQuery] = useState(term);
@@ -52,7 +54,7 @@ const BlogBanner = () => {
                 maxW="4xl"
                 color="#fff"
               >
-                Gain Industry Insights
+                {t("blog.banner-subtitle", "Gain Industry Insights")}
               </Heading>
             </Box>
             <Heading
@@ -67,7 +69,7 @@ const BlogBanner = () => {
               maxW="4xl"
               color="#fff"
             >
-              {term ? `Search "${term}"` : "Read our blog today"}
+              {term ? t("blog.banner-search-title", 'Search "{{term}}"', { term }) : t("blog.banner-title", "Read our blog today")}
             </Heading>
             <Box w="full" maxW="600px" mt={4} mx="auto">
               <Box position="relative" maxW="400px" mx="auto">
@@ -83,7 +85,7 @@ const BlogBanner = () => {
                   pointerEvents="none"
                 />
                 <Input
-                  placeholder="Search"
+                  placeholder={t("blog.search-placeholder", "Search")}
                   bg="white"
                   borderRadius="12px"
                   border="none"
@@ -107,7 +109,7 @@ const BlogBanner = () => {
                 />
                 {searchQuery && (
                   <IconButton
-                    aria-label="Clear search"
+                    aria-label={t("blog.clear-search", "Clear search")}
                     position="absolute"
                     right={2}
                     top="50%"

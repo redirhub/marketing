@@ -5,6 +5,7 @@ import {
   SimpleGrid,
 } from "@chakra-ui/react";
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
 import {
   ApiResponse,
   createRedirect,
@@ -33,11 +34,6 @@ const DOMAIN_OPTIONS = {
   CUSTOM: "Custom",
 } as const;
 
-const DOMAIN_COLLECTION_ITEMS = [
-  { label: "6x.work", value: DOMAIN_OPTIONS.SYSTEM },
-  { label: "Connect your domain", value: DOMAIN_OPTIONS.CUSTOM },
-];
-
 const FORM_GRID_PROPS = {
   columns: { base: 1, md: 5 } as const,
   gap: 4,
@@ -63,6 +59,8 @@ const CHECKER_GRID_PROPS = {
 };
 
 export default function RedirectWidget({ fixed }: { fixed?: string }) {
+  const { t } = useTranslation();
+
   // STATE: Form inputs
   const [redirectFrom, setRedirectFrom] = useState("");
   const [redirectTo, setRedirectTo] = useState("");
@@ -94,7 +92,7 @@ export default function RedirectWidget({ fixed }: { fixed?: string }) {
   };
   const handleRedirectSubmit = async () => {
     if (!redirectFrom || !redirectTo) {
-      return setApiStatus("Please fill both Redirect URL fields.");
+      return setApiStatus(t("nav.widget-error-redirect-fields", "Please fill both Redirect URL fields."));
     }
     setIsLoading(true);
     const response = await createRedirect({
@@ -106,7 +104,7 @@ export default function RedirectWidget({ fixed }: { fixed?: string }) {
 
   const handleShortenSubmit = async () => {
     if (!shortenUrlValue) {
-      return setApiStatus("Please enter the Long URL.");
+      return setApiStatus(t("nav.widget-error-long-url", "Please enter the Long URL."));
     }
     setIsLoading(true);
     const response = await shortenUrl({
@@ -118,7 +116,7 @@ export default function RedirectWidget({ fixed }: { fixed?: string }) {
 
   const handleCheckerSubmit = () => {
     if (!checkerUrl) {
-      return setApiStatus("Please enter the URL to check.");
+      return setApiStatus(t("nav.widget-error-checker-url", "Please enter the URL to check."));
     }
     const formattedUrl = checkerUrl.startsWith("http")
       ? checkerUrl
@@ -127,19 +125,24 @@ export default function RedirectWidget({ fixed }: { fixed?: string }) {
     window.location.href = `https://findredirect.com/?url=${encodeURIComponent(formattedUrl)}`;
   };
 
+  const domainCollectionItems = [
+    { label: "6x.work", value: DOMAIN_OPTIONS.SYSTEM },
+    { label: t("nav.widget-connect-domain", "Connect your domain"), value: DOMAIN_OPTIONS.CUSTOM },
+  ];
+
   const tabHeader = (
     <>
       <TabTriggerButton
         value={TAB_IDS.REDIRECT}
-        label="Free Redirect"
+        label={t("nav.widget-tab-redirect", "Free Redirect")}
       />
       <TabTriggerButton
         value={TAB_IDS.SHORTEN}
-        label="Shorten URL"
+        label={t("nav.widget-tab-shorten", "Shorten URL")}
       />
       <TabTriggerButton
         value={TAB_IDS.CHECKER}
-        label="Check Redirect"
+        label={t("nav.widget-tab-checker", "Check Redirect")}
       />
     </>
   );
@@ -150,20 +153,20 @@ export default function RedirectWidget({ fixed }: { fixed?: string }) {
         <TabContentWrapper>
           <SimpleGrid {...FORM_GRID_PROPS}>
             <CustomInput
-              label="Redirect from"
-              placeholder="www.olddomain.com"
+              label={t("nav.widget-label-redirect-from", "Redirect from")}
+              placeholder={t("nav.widget-placeholder-old-domain", "www.olddomain.com")}
               value={redirectFrom}
               onChange={(e) => setRedirectFrom(e.target.value)}
             />
             <CustomInput
-              label="Redirect to"
-              placeholder="https://www.newdomain.com"
+              label={t("nav.widget-label-redirect-to", "Redirect to")}
+              placeholder={t("nav.widget-placeholder-new-domain", "https://www.newdomain.com")}
               value={redirectTo}
               onChange={(e) => setRedirectTo(e.target.value)}
             />
             <PrimaryActionButton
-              label={isLoading ? "Processing..." : "Create Redirect - it's FREE"}
-              subtext="No Credit Card Needed • Change anytime"
+              label={isLoading ? t("nav.widget-processing", "Processing...") : t("nav.widget-btn-create-redirect", "Create Redirect - it's FREE")}
+              subtext={t("nav.widget-subtext", "No Credit Card Needed • Change anytime")}
               onClick={handleRedirectSubmit}
               disabled={isLoading}
             />
@@ -177,20 +180,20 @@ export default function RedirectWidget({ fixed }: { fixed?: string }) {
           <SimpleGrid {...SHORTEN_GRID_PROPS}>
             <DomainSelector
               value={shortenDomain}
-              options={DOMAIN_COLLECTION_ITEMS}
+              options={domainCollectionItems}
               onChange={(value) =>
                 setShortenDomain(value as ShortenUrlParams["domain"])
               }
             />
             <CustomInput
-              label="Long URL"
-              placeholder="https://www.yourlongurl.com"
+              label={t("nav.widget-label-long-url", "Long URL")}
+              placeholder={t("nav.widget-placeholder-long-url", "https://www.yourlongurl.com")}
               value={shortenUrlValue}
               onChange={(e) => setShortenUrlValue(e.target.value)}
             />
             <PrimaryActionButton
-              label={isLoading ? "Processing..." : "Shorten URL - it's FREE"}
-              subtext="No Credit Card Needed • Change anytime"
+              label={isLoading ? t("nav.widget-processing", "Processing...") : t("nav.widget-btn-shorten-url", "Shorten URL - it's FREE")}
+              subtext={t("nav.widget-subtext", "No Credit Card Needed • Change anytime")}
               onClick={handleShortenSubmit}
               disabled={isLoading}
             />
@@ -203,14 +206,14 @@ export default function RedirectWidget({ fixed }: { fixed?: string }) {
         <TabContentWrapper>
           <SimpleGrid {...CHECKER_GRID_PROPS}>
             <CustomInput
-              label="URL"
-              placeholder="https://redirhub.com"
+              label={t("nav.widget-label-url", "URL")}
+              placeholder={t("nav.widget-placeholder-url", "https://redirhub.com")}
               value={checkerUrl}
               onChange={(e) => setCheckerUrl(e.target.value)}
             />
             <PrimaryActionButton
-              label={isLoading ? "Checking..." : "Check Redirect - it's FREE"}
-              subtext="No Credit Card Needed • Change anytime"
+              label={isLoading ? t("nav.widget-checking", "Checking...") : t("nav.widget-btn-check-redirect", "Check Redirect - it's FREE")}
+              subtext={t("nav.widget-subtext", "No Credit Card Needed • Change anytime")}
               onClick={handleCheckerSubmit}
               disabled={isLoading}
             />

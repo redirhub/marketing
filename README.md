@@ -1,6 +1,6 @@
 # RedirHub Marketing Site
 
-Modern Next.js 16 marketing website for RedirHub with Chakra UI v3 and HTTP backend translations. 
+Modern Next.js 16 marketing website for RedirHub with Chakra UI v3 and HTTP backend translations.
 
 ## 🚀 Tech Stack
 
@@ -148,15 +148,17 @@ primary: {
 ```
 
 ## 📄 Pages
+
 Information Architecture
 `
+
 1. Home
    - /
 
 2. SEO Landing Pages
-     - /free-redirect-service
-     - /301-redirect-service
-     - /url-redirect-service
+   - /free-redirect-service
+   - /301-redirect-service
+   - /url-redirect-service
 
 3. Features
    - /features
@@ -198,6 +200,7 @@ Information Architecture
    - /blog
 
 `
+
 ### Current Pages
 
 - **/** - Home page (Hero, Key Metrics, CTA)
@@ -228,7 +231,7 @@ The build outputs a **standalone** build in `.next/standalone/` for optimal Dock
 Set these in your deployment environment:
 
 ```env
-SITE_URL=https://redirhub.com
+NEXT_PUBLIC_SITE_URL=https://redirhub.com
 NEXT_PUBLIC_SITE_NAME=RedirHub
 NEXT_PUBLIC_DASHBOARD_BASE=https://app.redirhub.com
 TRANSLATION_URL=https://api.redirhub.com/translations/json/marketing/{{lng}}

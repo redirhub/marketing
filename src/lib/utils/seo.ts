@@ -2,6 +2,8 @@
  * SEO utility functions for generating canonical URLs, hreflang alternates, and structured data schemas
  */
 
+import { APP_URL, URL_OG_IMAGE } from "./constants"
+
 /**
  * FAQ item interface for schema generation
  */
@@ -22,7 +24,7 @@ export interface FAQItem {
  * buildCanonicalUrl('es', '/blog/my-post') // https://findredirect.com/es/blog/my-post
  */
 export function buildCanonicalUrl(locale: string, path: string): string {
-  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || process.env.SITE_URL || ''
+  const baseUrl = APP_URL
 
   // English (default locale) doesn't have a prefix
   if (locale === 'en') {
@@ -106,7 +108,7 @@ export function buildStaticHreflangAlternates(
  * const schema = generateFAQSchema([
  *   { question: "What is this?", answer: "This is a FAQ" }
  * ])
- * // Returns Schema.org FAQPage JSON-LD object
+ * // Returns Schema.org FAQPage JSON-LD JSON-LD object
  */
 export function generateFAQSchema(faqs: FAQItem[] | undefined | null) {
   if (!faqs || faqs.length === 0) {
@@ -124,5 +126,62 @@ export function generateFAQSchema(faqs: FAQItem[] | undefined | null) {
         text: faq.answer,
       },
     })),
+  }
+}
+
+/**
+ * Social card options for Open Graph and Twitter metadata
+ */
+export interface SocialCardOptions {
+  title: string
+  description?: string
+  image?: string
+  type?: 'article' | 'website'
+  publishedTime?: string
+  authors?: string[]
+}
+
+/**
+ * Builds Open Graph and Twitter social card metadata
+ *
+ * @param options - Social card configuration options
+ * @returns Object with openGraph and twitter properties for Next.js metadata
+ *
+ * @example
+ * buildSocialCards({
+ *   title: 'My Blog Post',
+ *   description: 'A great article',
+ *   image: 'https://example.com/image.jpg',
+ *   type: 'article',
+ *   publishedTime: '2024-01-01',
+ *   authors: ['John Doe']
+ * })
+ * // Returns: { openGraph: {...}, twitter: {...} }
+ */
+export function buildSocialCards(options: SocialCardOptions) {
+  const {
+    title,
+    description,
+    image = URL_OG_IMAGE,
+    type = 'website',
+    publishedTime,
+    authors,
+  } = options
+
+  return {
+    openGraph: {
+      title,
+      description: description || undefined,
+      type,
+      publishedTime: publishedTime || undefined,
+      authors: authors || undefined,
+      images: image ? [{ url: image }] : undefined,
+    },
+    twitter: {
+      card: 'summary_large_image' as const,
+      title,
+      description: description || undefined,
+      images: image ? [image] : undefined,
+    },
   }
 }

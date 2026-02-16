@@ -1,6 +1,8 @@
 import { Metadata } from "next";
-import initTranslations from "@/lib/i18n";
-import { getAppName } from "@/lib/utils/constants";
+import { getT } from "@/lib/i18n";
+import { APP_NAME } from "@/lib/utils/constants";
+import { buildCanonicalUrl, buildStaticHreflangAlternates } from "@/lib/utils/seo";
+import { allLanguages } from "@/sanity/config/i18n";
 import FeatureBanner from "@/components/share/banners/features/FeatureBanner";
 import FAQSection from "@/components/home/FAQSection";
 import TestimonialsSlider from "@/components/home/TestimonialsSlider";
@@ -13,18 +15,18 @@ export async function generateMetadata({
   params: Promise<{ locale: string }>;
 }): Promise<Metadata> {
   const { locale } = await params;
-  const { resources } = await initTranslations(locale, ["common"]);
-  const t = (key: string, fallback: string) => {
-    const translation = resources?.[locale]?.common?.[key];
-    return translation || fallback;
-  };
+  const t = await getT();
 
   return {
-    title: `${t("meta-domain-parking.title", "Domain Parking")} - ${getAppName()}`,
+    title: `${t("meta-domain-parking.title", "Domain Parking")} - ${APP_NAME}`,
     description: t(
-      "meta.domain-parking.description",
+      "nav.domain-parking-description",
       "Simple, transparent enterprise for RedirHub"
     ),
+    alternates: {
+      canonical: buildCanonicalUrl(locale, '/solutions/domain-parking'),
+      ...buildStaticHreflangAlternates(allLanguages, '/solutions/domain-parking'),
+    },
   };
 }
 

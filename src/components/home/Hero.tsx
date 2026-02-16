@@ -16,7 +16,7 @@ export default function Hero() {
         <Flex direction="column" align="center" textAlign="center" gap={8}>
           <Box>
             <Text as="span" bg={'header.bg.scrolled'} px={'14px'} py={'7px'} borderRadius="full" fontSize="sm" mb={4} display="inline-block" color="white" fontWeight={500}>
-              ✨ 1M+ domains redirected daily
+              {t("home.hero-badge", "✨ 1M+ domains redirected daily")}
             </Text>
             <Heading
               as="h2"
@@ -31,7 +31,7 @@ export default function Hero() {
               mt={{base: 1, md: 3}}
               mb={{ base: 2, md: "12px" }}
             >
-              {t(`home.hero.title`, "Your domains.")}
+              {t("home.hero-title", "Your domains.")}
             </Heading>
             <Box>
               <Heading
@@ -44,10 +44,10 @@ export default function Hero() {
                 letterSpacing={"-0.8px"}
               >
                 <Text as="span" className={styles.globallyText}>
-                  {t(`home.hero.underLineText`, "Globally")}{" "}
+                  {t("home.hero-underline-text", "Globally")}{" "}
                 </Text>
                 <Text as="span">
-                  {t(`home.hero.title2`, "redirected. Instantly.")}
+                  {t("home.hero-title2", "redirected. Instantly.")}
                 </Text>
               </Heading>
             </Box>
@@ -60,7 +60,7 @@ export default function Hero() {
             maxW="4xl"
           >
             {t(
-              `home.hero.subtitle`,
+              "home.hero-subtitle",
               "Forward your domains instantly and manage all redirects from a real-time dashboard. Enhance your SEO with 301/302 redirects and secure every link with HTTPS."
             )}
           </Text>

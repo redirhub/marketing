@@ -1,9 +1,9 @@
 import { Metadata } from "next";
-import initTranslations from "@/lib/i18n";
-import { getAppName } from "@/lib/utils/constants";
+import { getT } from "@/lib/i18n";
+import { APP_NAME } from "@/lib/utils/constants";
 import BlogList from "@/components/blogs/BlogList";
 import BlogBanner from "@/components/share/banners/blog/BlogBanner";
-import { buildCanonicalUrl } from "@/lib/utils/seo";
+import { buildCanonicalUrl, buildSocialCards } from "@/lib/utils/seo";
 import { allLanguages } from "@/sanity/config/i18n";
 
 export async function generateMetadata({
@@ -17,11 +17,7 @@ export async function generateMetadata({
   const { page } = await searchParams;
   const currentPage = Number(page) || 1;
 
-  const { resources } = await initTranslations(locale, ["common"]);
-  const t = (key: string, fallback: string) => {
-    const translation = resources?.[locale]?.common?.[key];
-    return translation || fallback;
-  };
+  const t = await getT();
 
   // Generate canonical URL with pagination support
   const basePath = "/blog";
@@ -40,24 +36,37 @@ export async function generateMetadata({
     }
   });
 
+  const title = t("nav.blog-title", "Blog - {{n}}", { n: APP_NAME });
+  const description = t("nav.blog-description", "Latest guides, tutorials, and insights on URL redirects, SEO best practices, and web performance optimization.");
+
   return {
-    title: `${t("meta.blog.title", "Blog")} - ${getAppName()}`,
-    description: t("meta.blog.description", "Latest articles and insights from our blog"),
+    title,
+    description,
     alternates: {
       canonical: canonicalUrl,
       languages,
     },
+    ...buildSocialCards({
+      title,
+      description,
+    }),
   };
 }
 
-export default async function BlogPage({ searchParams }: { searchParams: Promise<{ page?: string }> }) {
-  // Await the params from the URL
+export default async function BlogPage({
+  params,
+  searchParams
+}: {
+  params: Promise<{ locale: string }>;
+  searchParams: Promise<{ page?: string }>;
+}) {
+  const { locale } = await params;
   const { page } = await searchParams;
   const currentPage = Number(page) || 1;
   return (
     <>
       <BlogBanner />
-      <BlogList currentPage={currentPage} />
+      <BlogList currentPage={currentPage} locale={locale} />
     </>
   );
 }

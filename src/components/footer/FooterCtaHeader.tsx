@@ -1,8 +1,11 @@
 import { VStack, Heading, Text, Button } from "@chakra-ui/react";
 import Link from "next/link";
 import React from "react";
+import { URL_DASHBOARD_REGISTER, APP_NAME } from "@/lib/utils/constants";
+import { useTranslation } from "react-i18next";
 
 export const FooterCtaHeader: React.FC = ({}) => {
+  const { t } = useTranslation();
   return (
     <VStack gap={6} textAlign="center" mb={"60px"}>
       <Heading
@@ -14,7 +17,7 @@ export const FooterCtaHeader: React.FC = ({}) => {
         maxW="1000px"
         letterSpacing={"0.8px"}
       >
-        Redirect 5x Faster with Built-in Security
+        {t("nav.footer-cta-title", "Redirect 5x Faster with Built-in Security")}
       </Heading>
 
       <VStack gap={0} maxW="700px">
@@ -26,13 +29,10 @@ export const FooterCtaHeader: React.FC = ({}) => {
           letterSpacing="0.2px"
           textShadow="0px 0px 10px rgba(0, 0, 0, 0.3)"
         >
-          Experience the power of rapid, secure redirects and effortless
-          management.
-          <Text as={'span'} display={{base: 'none', md:'inline-block'}}><br /></Text>
-          RedirHub speeds up your workflow while keeping your domain safe.
+          {t("nav.footer-cta-text", "Experience the power of rapid, secure redirects and effortless management. {{n}} speeds up your workflow while keeping your domain safe.", { n: APP_NAME })}
         </Text>
       </VStack>
-      <Link href={"https://dash.redirhub.com/register"} target={"_blank"}>
+      <Link href={URL_DASHBOARD_REGISTER} target={"_blank"}>
        <Button
           bg="brand.500"
           color="white"
@@ -54,7 +54,7 @@ export const FooterCtaHeader: React.FC = ({}) => {
             transform: "translateY(0)",
           }}
         >
-          Get Started For Free
+          {t("nav.footer-cta-button", "Get Started For Free")}
         </Button>
       </Link>
     </VStack>

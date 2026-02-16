@@ -117,7 +117,7 @@ export const postType = defineType({
       name: 'faqs',
       title: 'FAQs',
       type: 'array',
-      description: 'Optional: 1–5 FAQs for this article',
+      description: 'Optional: 1–10 FAQs for this article',
       of: [
         {
           type: 'object',
@@ -133,7 +133,7 @@ export const postType = defineType({
           },
         },
       ],
-      validation: (rule) => rule.max(5),
+      validation: (rule) => rule.max(15),
     }),
     defineField({
       name: 'locale',

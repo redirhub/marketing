@@ -9,7 +9,7 @@ import LandingPageBanner from "@/components/share/banners/landingPage/LandingPag
 import TableOfContents from "@/components/blog/TableOfContents";
 import { TestimonialsSection, BlogSection, FAQSection } from "@/components/sections";
 import { buildCanonicalUrl, buildHreflangAlternates, generateFAQSchema } from '@/lib/utils/seo'
-import { getAppName } from "@/lib/utils/constants";
+import { APP_NAME } from "@/lib/utils/constants";
 
 interface PageProps {
   params: Promise<{
@@ -45,7 +45,7 @@ export async function generateMetadata({
     : {}
 
   return {
-    title: page.meta?.metaTitle || `${page.title} - ${getAppName()}`,
+    title: page.meta?.metaTitle || `${page.title} - ${APP_NAME}`,
     description: page.meta?.metaDescription || page.hero.subheadline || `${page.title}`,
     alternates: {
       canonical: canonicalUrl,
