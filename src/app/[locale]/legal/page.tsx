@@ -3,6 +3,8 @@ import { Box, Container, Heading, Text, Stack } from '@chakra-ui/react';
 import Link from 'next/link';
 import { getT } from '@/lib/i18n';
 import { APP_NAME } from '@/lib/utils/constants';
+import { buildCanonicalUrl, buildStaticHreflangAlternates, buildSocialCards } from '@/lib/utils/seo';
+import { allLanguages } from '@/sanity/config/i18n';
 import { fetchLegalDocuments } from '@/lib/services/legal';
 
 export async function generateMetadata({
@@ -13,9 +15,20 @@ export async function generateMetadata({
   const { locale } = await params;
   const t = await getT();
 
+  const title = t("nav.legal-title", "Legal - {{n}}", { n: APP_NAME });
+  const description = t("nav.legal-description", "Terms of service, privacy policy, and legal documentation.");
+
   return {
-    title: t("nav.legal-title", "Legal - {{n}}", { n: APP_NAME }),
-    description: t("nav.legal-description", "Terms of service, privacy policy, and legal documentation."),
+    title,
+    description,
+    alternates: {
+      canonical: buildCanonicalUrl(locale, '/legal'),
+      ...buildStaticHreflangAlternates(allLanguages, '/legal'),
+    },
+    ...buildSocialCards({
+      title,
+      description,
+    }),
   };
 }
 

@@ -6,7 +6,7 @@ import SinglePageBanner from "@/components/share/banners/support/SinglePageBanne
 import { fetchSupportArticleBySlug, fetchSupportArticleTranslations } from "@/lib/services/support";
 import { portableTextComponents } from '@/components/blog/PortableTextComponents'
 import { getClient } from '@/lib/preview'
-import { buildCanonicalUrl, buildHreflangAlternates } from '@/lib/utils/seo'
+import { buildCanonicalUrl, buildHreflangAlternates, buildSocialCards } from '@/lib/utils/seo'
 import { getT } from "@/lib/i18n";
 import { APP_NAME } from "@/lib/utils/constants";
 
@@ -42,16 +42,23 @@ export async function generateMetadata({
     ? buildHreflangAlternates(translations, '/support')
     : {}
 
+  const title = `${article.title} | Support`;
+  const description = t("nav.support-article-description", "Learn how to {{title}} with {{n}}.", {
+    title: article.title,
+    n: APP_NAME
+  });
+
   return {
-    title: `${article.title} | Support`,
-    description: t("nav.support-article-description", "Learn how to {{title}} with {{n}}.", {
-      title: article.title,
-      n: APP_NAME
-    }),
+    title,
+    description,
     alternates: {
       canonical: canonicalUrl,
       ...hreflangAlternates,
     },
+    ...buildSocialCards({
+      title,
+      description,
+    }),
   };
 }
 

@@ -2,6 +2,8 @@ import { Metadata } from 'next';
 import { Box, Container, Heading, Text } from '@chakra-ui/react';
 import { getT } from '@/lib/i18n';
 import { APP_NAME } from '@/lib/utils/constants';
+import { buildCanonicalUrl, buildStaticHreflangAlternates } from '@/lib/utils/seo';
+import { allLanguages } from '@/sanity/config/i18n';
 
 export async function generateMetadata({
   params,
@@ -14,6 +16,10 @@ export async function generateMetadata({
   return {
     title: `${t('meta.features.title', 'Features')} - ${APP_NAME}`,
     description: t('nav.features-description', 'Explore RedirHub features for managing redirects and short URLs'),
+    alternates: {
+      canonical: buildCanonicalUrl(locale, '/features'),
+      ...buildStaticHreflangAlternates(allLanguages, '/features'),
+    },
   };
 }
 

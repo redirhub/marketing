@@ -1,6 +1,8 @@
 import { Metadata } from 'next';
 import { getT } from '@/lib/i18n';
 import { APP_NAME } from '@/lib/utils/constants';
+import { buildCanonicalUrl, buildStaticHreflangAlternates, buildSocialCards } from '@/lib/utils/seo';
+import { allLanguages } from '@/sanity/config/i18n';
 import PricingBanner from '@/components/share/banners/pricing/PricingBanner';
 import InteractivePricing from '@/components/pricing/InteractivePricing';
 
@@ -12,9 +14,20 @@ export async function generateMetadata({
   const { locale } = await params;
   const t = await getT();
 
+  const title = t("nav.pricing-title", "Pricing - {{n}}", { n: APP_NAME });
+  const description = t("nav.pricing-description", "Transparent pricing plans for {{n}}. From startups to enterprise. No hidden fees, cancel anytime.", { n: APP_NAME });
+
   return {
-    title: t("nav.pricing-title", "Pricing - {{n}}", { n: APP_NAME }),
-    description: t("nav.pricing-description", "Transparent pricing plans for {{n}}. From startups to enterprise. No hidden fees, cancel anytime.", { n: APP_NAME }),
+    title,
+    description,
+    alternates: {
+      canonical: buildCanonicalUrl(locale, '/pricing'),
+      ...buildStaticHreflangAlternates(allLanguages, '/pricing'),
+    },
+    ...buildSocialCards({
+      title,
+      description,
+    }),
   };
 }
 

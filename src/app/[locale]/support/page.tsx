@@ -6,7 +6,7 @@ import { Box, Flex, Heading, VStack } from "@chakra-ui/react";
 import Sidebar from "@/components/support/Sidebar";
 import { ArticleItem } from "@/components/support/ArticleItem";
 import { fetchSupportArticles } from "@/lib/services/support";
-import { buildCanonicalUrl, buildStaticHreflangAlternates } from "@/lib/utils/seo";
+import { buildCanonicalUrl, buildStaticHreflangAlternates, buildSocialCards } from "@/lib/utils/seo";
 import { allLanguages } from "@/sanity/config/i18n";
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
@@ -14,13 +14,20 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
 
   const t = await getT();
 
+  const title = t("nav.support-title", "Support - {{n}}", { n: APP_NAME });
+  const description = t("nav.support-description", "Find answers, guides, and tutorials for {{n}}. Get help with redirects, analytics, and troubleshooting.", { n: APP_NAME });
+
   return {
-    title: t("nav.support-title", "Support - {{n}}", { n: APP_NAME }),
-    description: t("nav.support-description", "Find answers, guides, and tutorials for {{n}}. Get help with redirects, analytics, and troubleshooting.", { n: APP_NAME }),
+    title,
+    description,
     alternates: {
       canonical: buildCanonicalUrl(locale, "/support"),
       ...buildStaticHreflangAlternates(allLanguages, "/support"),
     },
+    ...buildSocialCards({
+      title,
+      description,
+    }),
   };
 }
 

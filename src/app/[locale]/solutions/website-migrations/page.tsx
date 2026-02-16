@@ -1,6 +1,8 @@
 import { Metadata } from "next";
 import { getT } from "@/lib/i18n";
 import { APP_NAME } from "@/lib/utils/constants";
+import { buildCanonicalUrl, buildStaticHreflangAlternates } from "@/lib/utils/seo";
+import { allLanguages } from "@/sanity/config/i18n";
 import FeatureBanner from "@/components/share/banners/features/FeatureBanner";
 import FAQSection from "@/components/home/FAQSection";
 import TestimonialsSlider from "@/components/home/TestimonialsSlider";
@@ -21,6 +23,10 @@ export async function generateMetadata({
       "nav.website-migrations-description",
       "Simple, transparent enterprise for RedirHub"
     ),
+    alternates: {
+      canonical: buildCanonicalUrl(locale, '/solutions/website-migrations'),
+      ...buildStaticHreflangAlternates(allLanguages, '/solutions/website-migrations'),
+    },
   };
 }
 

@@ -3,7 +3,7 @@ import { getT } from "@/lib/i18n";
 import { APP_NAME } from "@/lib/utils/constants";
 import BlogList from "@/components/blogs/BlogList";
 import BlogBanner from "@/components/share/banners/blog/BlogBanner";
-import { buildCanonicalUrl } from "@/lib/utils/seo";
+import { buildCanonicalUrl, buildSocialCards } from "@/lib/utils/seo";
 import { allLanguages } from "@/sanity/config/i18n";
 
 export async function generateMetadata({
@@ -36,13 +36,20 @@ export async function generateMetadata({
     }
   });
 
+  const title = t("nav.blog-title", "Blog - {{n}}", { n: APP_NAME });
+  const description = t("nav.blog-description", "Latest guides, tutorials, and insights on URL redirects, SEO best practices, and web performance optimization.");
+
   return {
-    title: t("nav.blog-title", "Blog - {{n}}", { n: APP_NAME }),
-    description: t("nav.blog-description", "Latest guides, tutorials, and insights on URL redirects, SEO best practices, and web performance optimization."),
+    title,
+    description,
     alternates: {
       canonical: canonicalUrl,
       languages,
     },
+    ...buildSocialCards({
+      title,
+      description,
+    }),
   };
 }
 

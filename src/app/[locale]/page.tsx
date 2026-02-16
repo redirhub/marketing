@@ -8,7 +8,7 @@ import PowerfulFeatures from "@/components/home/PowerfulFeatures";
 import APIDocumentation from "@/components/home/APIDocumentation";
 import { BlogSection, FAQSection } from "@/components/sections";
 import { fetchFAQSetByPage } from "@/lib/services/faq";
-import { buildCanonicalUrl, buildStaticHreflangAlternates, generateFAQSchema } from '@/lib/utils/seo'
+import { buildCanonicalUrl, buildStaticHreflangAlternates, buildSocialCards, generateFAQSchema } from '@/lib/utils/seo'
 import { allLanguages } from '@/sanity/config/i18n'
 
 export async function generateMetadata({
@@ -23,17 +23,24 @@ export async function generateMetadata({
   const canonicalUrl = buildCanonicalUrl(locale, '/')
   const hreflangAlternates = buildStaticHreflangAlternates(allLanguages, '/')
 
+  const title = t("nav.home-title", "{{n}} - Fast & Secure URL Redirect Management", { n: APP_NAME });
+  const description = t(
+    "nav.home-description",
+    "Enterprise-grade URL redirect service. Manage redirects, track analytics, and scale globally with {{n}}. Trusted by businesses worldwide.",
+    { n: APP_NAME }
+  );
+
   return {
-    title: t("nav.home-title", "{{n}} - Fast & Secure URL Redirect Management", { n: APP_NAME }),
-    description: t(
-      "nav.home-description",
-      "Enterprise-grade URL redirect service. Manage redirects, track analytics, and scale globally with {{n}}. Trusted by businesses worldwide.",
-      { n: APP_NAME }
-    ),
+    title,
+    description,
     alternates: {
       canonical: canonicalUrl,
       ...hreflangAlternates,
     },
+    ...buildSocialCards({
+      title,
+      description,
+    }),
   };
 }
 

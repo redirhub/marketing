@@ -4,7 +4,7 @@ import { PortableText } from "@portabletext/react";
 import { Box, Container } from "@chakra-ui/react";
 import { fetchChangelogBySlug, fetchChangelogTranslations, formatDate } from "@/lib/services/changelog";
 import { APP_NAME } from "@/lib/utils/constants";
-import { buildCanonicalUrl, buildHreflangAlternates } from "@/lib/utils/seo";
+import { buildCanonicalUrl, buildHreflangAlternates, buildSocialCards } from "@/lib/utils/seo";
 import { getClient } from "@/lib/preview";
 import { portableTextComponents } from "@/components/blog/PortableTextComponents";
 import ChangelogDetailBanner from "@/components/changelog/ChangelogDetailBanner";
@@ -51,17 +51,12 @@ export async function generateMetadata({
       canonical: canonicalUrl,
       ...hreflangAlternates,
     },
-    openGraph: {
+    ...buildSocialCards({
       title: entry.title,
       description: entry.description,
       type: "article",
       publishedTime: entry.publishedAt,
-    },
-    twitter: {
-      card: "summary_large_image",
-      title: entry.title,
-      description: entry.description,
-    },
+    }),
   };
 }
 
