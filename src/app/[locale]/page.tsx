@@ -1,6 +1,6 @@
 import { Metadata } from "next";
 import Hero from "@/components/home/Hero";
-import initTranslations from "@/lib/i18n";
+import { getT } from "@/lib/i18n";
 import { getAppName } from "@/lib/utils/constants";
 import ChooseUs from "@/components/home/ChooseUs";
 import WhyStandsOut from "@/components/home/WhyStandsOut";
@@ -17,21 +17,18 @@ export async function generateMetadata({
   params: Promise<{ locale: string }>;
 }): Promise<Metadata> {
   const { locale } = await params;
-  const { resources } = await initTranslations(locale, ["common"]);
-  const t = (key: string, fallback: string) => {
-    const translation = resources?.[locale]?.common?.[key];
-    return translation || fallback;
-  };
+  const t = await getT();
 
   // Generate canonical URL and hreflang alternates for home page
   const canonicalUrl = buildCanonicalUrl(locale, '/')
   const hreflangAlternates = buildStaticHreflangAlternates(allLanguages, '/')
 
   return {
-    title: `${getAppName()} - ${t("meta.home.title", "Rapid & Secure URL Redirect Service")}`,
+    title: t("home.title", "{{n}} - Fast & Secure URL Redirect Management", { n: getAppName() }),
     description: t(
-      "meta.home.description",
-      "Effortlessly forward your URLs with unmatched speed with RedirHub Redirect Service. Our real-time dashboard makes it easy to manage domain and link redirects."
+      "home.description",
+      "Enterprise-grade URL redirect service. Manage redirects, track analytics, and scale globally with {{n}}. Trusted by businesses worldwide.",
+      { n: getAppName() }
     ),
     alternates: {
       canonical: canonicalUrl,

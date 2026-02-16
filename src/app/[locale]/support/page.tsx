@@ -1,41 +1,33 @@
 import { Metadata } from "next";
-import initTranslations from "@/lib/i18n";
+import { getT } from "@/lib/i18n";
 import { getAppName } from "@/lib/utils/constants";
 import SupportBanner from "@/components/share/banners/support/SupportBanner";
 import { Box, Flex, Heading, VStack } from "@chakra-ui/react";
 import Sidebar from "@/components/support/Sidebar";
 import { ArticleItem } from "@/components/support/ArticleItem";
 import { fetchSupportArticles } from "@/lib/services/support";
-import { buildCanonicalUrl, buildStaticHreflangAlternates } from '@/lib/utils/seo'
-import { allLanguages } from '@/sanity/config/i18n'
-import { useTranslation } from "react-i18next";
+import { buildCanonicalUrl, buildStaticHreflangAlternates } from "@/lib/utils/seo";
+import { allLanguages } from "@/sanity/config/i18n";
 
-export async function generateMetadata({
-  params,
-}: {
-  params: Promise<{ locale: string }>;
-}): Promise<Metadata> {
+export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
   const { locale } = await params;
 
+  const t = await getT();
+
   return {
-    title: `${t("meta.support.title", "Support")} - ${getAppName()}`,
-    description: t("meta.support.description", "Simple, transparent enterprise for {{n}}",
-        { n: getAppName() }
-    ),
+    title: t("support.title", "Support - {{n}}", { n: getAppName() }),
+    description: t("support.description", "Find answers, guides, and tutorials for {{n}}. Get help with redirects, analytics, and troubleshooting.", { n: getAppName() }),
     alternates: {
-      canonical: buildCanonicalUrl(locale, '/support'),
-      ...buildStaticHreflangAlternates(allLanguages, '/support'),
+      canonical: buildCanonicalUrl(locale, "/support"),
+      ...buildStaticHreflangAlternates(allLanguages, "/support"),
     },
   };
 }
 
-export default async function SupportPage({
-  params,
-}: {
-  params: Promise<{ locale: string }>;
-}) {
+export default async function SupportPage({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params;
   const articles = await fetchSupportArticles(locale);
+  const t = await getT();
 
   return (
     <>
@@ -54,7 +46,7 @@ export default async function SupportPage({
                 letterSpacing="0.2px"
                 textAlign={{ base: "center", md: "left" }}
               >
-                Categories
+                {t("support.category", "Category")}
               </Heading>
               <Sidebar />
             </Box>
@@ -73,7 +65,7 @@ export default async function SupportPage({
                 ) : (
                   <Box py={10} textAlign="center">
                     <Heading size="sm" color="gray.500">
-                      No support articles found.
+                      {t("support.no-articles", "No support articles found.")}
                     </Heading>
                   </Box>
                 )}

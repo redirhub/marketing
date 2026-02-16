@@ -1,5 +1,5 @@
 import { Metadata } from "next";
-import initTranslations from "@/lib/i18n";
+import { getT } from "@/lib/i18n";
 import { getAppName } from "@/lib/utils/constants";
 import BookADemo from "@/components/enterprise/BookADemo";
 import StandsOut from "@/components/enterprise/StandsOut";
@@ -11,17 +11,14 @@ export async function generateMetadata({
   params: Promise<{ locale: string }>;
 }): Promise<Metadata> {
   const { locale } = await params;
-  const { resources } = await initTranslations(locale, ["common"]);
-  const t = (key: string, fallback: string) => {
-    const translation = resources?.[locale]?.common?.[key];
-    return translation || fallback;
-  };
+  const t = await getT();
 
   return {
-    title: `${t("meta.enterprise.title", "Enterprise")} - ${getAppName()}`,
+    title: t("enterprise.title", "Enterprise Solutions - {{n}}", { n: getAppName() }),
     description: t(
-      "meta.enterprise.description",
-      "Simple, transparent enterprise for RedirHub"
+      "enterprise.description",
+      "Enterprise redirect management with dedicated support, custom SLAs, and advanced security. Scale your business with {{n}}.",
+      { n: getAppName() }
     ),
   };
 }

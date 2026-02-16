@@ -1,1 +1,20 @@
-[]
+{
+  "support": {
+    "category": "Category",
+    "category-description": "Browse {{category}} articles and guides for {{n}}.",
+    "description": "Find answers, guides, and tutorials for {{n}}. Get help with redirects, analytics, and troubleshooting.",
+    "title": "Support - {{n}}"
+  },
+  "enterprise": {
+    "description": "Enterprise redirect management with dedicated support, custom SLAs, and advanced security. Scale your business with {{n}}.",
+    "title": "Enterprise Solutions - {{n}}"
+  },
+  "home": {
+    "description": "Enterprise-grade URL redirect service. Manage redirects, track analytics, and scale globally with {{n}}. Trusted by businesses worldwide.",
+    "title": "{{n}} - Fast & Secure URL Redirect Management"
+  },
+  "pricing": {
+    "description": "Transparent pricing plans for {{n}}. From startups to enterprise. No hidden fees, cancel anytime.",
+    "title": "Pricing - {{n}}"
+  }
+}

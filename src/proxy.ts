@@ -2,14 +2,18 @@ import { NextRequest, NextResponse } from 'next/server';
 
 const locales = ['en', 'de', 'es', 'fr', 'it', 'pt', 'ja', 'zh', 'ko'];
 const defaultLocale = 'en';
+const headerName = 'x-locale';
 
 export function proxy(request: NextRequest) {
   const pathname = request.nextUrl.pathname;
 
-  // Check if pathname already has a locale
-  const pathnameHasLocale = locales.some(
+  // Detect locale from pathname
+  const detectedLocale = locales.find(
     (locale) => pathname.startsWith(`/${locale}/`) || pathname === `/${locale}`
   );
+
+  // Check if pathname already has a locale
+  const pathnameHasLocale = !!detectedLocale;
 
   if (pathnameHasLocale) {
     // If it's the default locale, redirect to URL without locale
@@ -26,6 +30,8 @@ export function proxy(request: NextRequest) {
     }
     const response = NextResponse.next();
     response.headers.set('x-pathname', pathname);
+    // Set locale in header for server components to access
+    response.headers.set(headerName, detectedLocale!);
     return response;
   }
 
@@ -34,6 +40,8 @@ export function proxy(request: NextRequest) {
   url.search = request.nextUrl.search;
   const response = NextResponse.rewrite(url);
   response.headers.set('x-pathname', pathname);
+  // Set default locale in header for server components to access
+  response.headers.set(headerName, defaultLocale);
   return response;
 }
 

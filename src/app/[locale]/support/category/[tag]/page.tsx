@@ -1,5 +1,5 @@
 import { Metadata } from "next";
-import initTranslations from "@/lib/i18n";
+import { getT } from "@/lib/i18n";
 import { getAppName } from "@/lib/utils/constants";
 import SupportBanner from "@/components/share/banners/support/SupportBanner";
 import { Box, Flex, Heading, VStack } from "@chakra-ui/react";
@@ -22,11 +22,7 @@ export async function generateMetadata({
   params,
 }: CategoryPageProps): Promise<Metadata> {
   const { locale, tag } = await params;
-  const { resources } = await initTranslations(locale, ["common"]);
-  const t = (key: string, fallback: string) => {
-    const translation = resources?.[locale]?.common?.[key];
-    return translation || fallback;
-  };
+  const t = await getT();
 
   const decodedTag = denormalizeTag(tag);
   const categoryName = formatTagForDisplay(decodedTag);
@@ -34,10 +30,11 @@ export async function generateMetadata({
   const hreflangAlternates = buildStaticHreflangAlternates(allLanguages, `/support/category/${tag}`);
 
   return {
-    title: `${categoryName} - ${t("meta.support.title", "Support")} - ${getAppName()}`,
+    title: `${categoryName} - ${t("support.title", "Support - {{n}}", { n: getAppName() })}`,
     description: t(
-      "meta.support.description",
-      "Simple, transparent enterprise for RedirHub"
+      "support.category-description",
+      "Browse {{category}} articles and guides for {{n}}.",
+      { category: categoryName.toLowerCase(), n: getAppName() }
     ),
     alternates: {
       canonical: canonicalUrl,

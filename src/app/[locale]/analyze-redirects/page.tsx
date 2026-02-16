@@ -1,6 +1,6 @@
 import { Metadata } from "next";
 import { Box } from "@chakra-ui/react";
-import initTranslations from "@/lib/i18n";
+import { getT } from "@/lib/i18n";
 import { getAppName } from "@/lib/utils/constants";
 import FeatureBanner from "@/components/share/banners/features/FeatureBanner";
 import TestimonialsSlider from "@/components/home/TestimonialsSlider";
@@ -14,11 +14,7 @@ export async function generateMetadata({
   params: Promise<{ locale: string }>;
 }): Promise<Metadata> {
   const { locale } = await params;
-  const { resources } = await initTranslations(locale, ["common"]);
-  const t = (key: string, fallback: string) => {
-    const translation = resources?.[locale]?.common?.[key];
-    return translation || fallback;
-  };
+  const t = await getT();
 
   return {
     title: `${t("meta.Analyze-Redirects.title", "Analyze redirects")} - ${getAppName()}`,

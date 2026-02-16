@@ -1,5 +1,5 @@
 import { Metadata } from "next";
-import initTranslations from "@/lib/i18n";
+import { getT } from "@/lib/i18n";
 import { getAppName } from "@/lib/utils/constants";
 import FeatureBanner from "@/components/share/banners/features/FeatureBanner";
 import FAQSection from "@/components/home/FAQSection";
@@ -13,11 +13,7 @@ export async function generateMetadata({
   params: Promise<{ locale: string }>;
 }): Promise<Metadata> {
   const { locale } = await params;
-  const { resources } = await initTranslations(locale, ["common"]);
-  const t = (key: string, fallback: string) => {
-    const translation = resources?.[locale]?.common?.[key];
-    return translation || fallback;
-  };
+  const t = await getT();
 
   return {
     title: `${t("meta-website-migrations.title", "Website Migrations")} - ${getAppName()}`,

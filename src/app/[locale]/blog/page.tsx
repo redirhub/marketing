@@ -1,5 +1,5 @@
 import { Metadata } from "next";
-import initTranslations from "@/lib/i18n";
+import { getT } from "@/lib/i18n";
 import { getAppName } from "@/lib/utils/constants";
 import BlogList from "@/components/blogs/BlogList";
 import BlogBanner from "@/components/share/banners/blog/BlogBanner";
@@ -17,11 +17,7 @@ export async function generateMetadata({
   const { page } = await searchParams;
   const currentPage = Number(page) || 1;
 
-  const { resources } = await initTranslations(locale, ["common"]);
-  const t = (key: string, fallback: string) => {
-    const translation = resources?.[locale]?.common?.[key];
-    return translation || fallback;
-  };
+  const t = await getT();
 
   // Generate canonical URL with pagination support
   const basePath = "/blog";
@@ -41,8 +37,8 @@ export async function generateMetadata({
   });
 
   return {
-    title: `${t("meta.blog.title", "Blog")} - ${getAppName()}`,
-    description: t("meta.blog.description", "Latest articles and insights from our blog"),
+    title: t("blog.title", "Blog - {{n}}", { n: getAppName() }),
+    description: t("blog.description", "Latest guides, tutorials, and insights on URL redirects, SEO best practices, and web performance optimization."),
     alternates: {
       canonical: canonicalUrl,
       languages,
