@@ -199,11 +199,16 @@ export default function Footer({ legalLinks }: FooterProps) {
                 </Link>
               </Flex>
 
-              <Flex gap={6}>
+              <Flex gap={6} my={4}>
                 {socialLinks.map((social) => (
+                  <Link
+                    key={social.label}
+                    href={social.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
                   <Icon
                     as={social.icon}
-                    key={social.label}
                     boxSize={6}
                     color="#475467"
                     cursor="pointer"
@@ -213,6 +218,7 @@ export default function Footer({ legalLinks }: FooterProps) {
                       transform: "translateY(-2px)",
                     }}
                   />
+                  </Link>
                 ))}
               </Flex>
 

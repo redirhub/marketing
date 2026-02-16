@@ -3,6 +3,7 @@
 import { Box, Heading, Link } from "@chakra-ui/react";
 import { useEffect, useState, useRef } from "react";
 import InlineCTA from "../sections/InlineCTA";
+import { useTranslation } from "react-i18next";
 
 interface Heading {
   text: string;
@@ -15,6 +16,7 @@ interface TableOfContentsProps {
 }
 
 export default function TableOfContents({ content }: TableOfContentsProps) {
+  const { t } = useTranslation();
   const [headings, setHeadings] = useState<Heading[]>([]);
   const [activeId, setActiveId] = useState("");
   const observerRef = useRef<IntersectionObserver | null>(null);
@@ -113,7 +115,7 @@ export default function TableOfContents({ content }: TableOfContentsProps) {
             color="gray.darkGray"
             mb={4}
           >
-            Table of Contents
+            {t("nav.toc-title", "Table of Contents")}
           </Heading>
 
           <Box display="flex" flexDirection="column" gap={2}>
