@@ -12,7 +12,8 @@ import {
 import { useTranslation } from "react-i18next";
 import Link from "next/link";
 import { useParams, usePathname } from "next/navigation";
-import { getAppName } from "@/lib/utils/constants";
+import { getAppName, SOCIAL_HANDLE, URL_API_DEV } from "@/lib/utils/constants";
+import { useLocalePath } from "@/lib/hooks/useLocalePath";
 import { FaYoutube, FaXTwitter, FaFacebook, FaLinkedin } from "react-icons/fa6";
 import styles from "./Footer.module.css";
 import Image from "next/image";
@@ -31,6 +32,7 @@ export default function Footer({ legalLinks }: FooterProps) {
   const params = useParams();
   const pathname = usePathname();
   const locale = (params?.locale as string) || "en";
+  const localePath = useLocalePath();
 
   const tabRoutes = [
     "/create-redirects",
@@ -50,28 +52,21 @@ export default function Footer({ legalLinks }: FooterProps) {
     tabRoutes.includes(pathWithoutLocale) ||
     pathWithoutLocale.startsWith("/support/");
 
-  const getLocalePath = (path: string) => {
-    if (locale === "en") {
-      return path;
-    }
-    return `/${locale}${path}`;
-  };
-
   const footerLinks = {
     company: [
       {
         label: t(`nav.support`, "Support"),
-        href: getLocalePath("/support"),
+        href: localePath("/support"),
       },
       {
         label: t(`nav.pricing`, "Pricing"),
-        href: getLocalePath("/pricing"),
+        href: localePath("/pricing"),
       },
       {
         label: t(`nav.request-demo`, "Request a demo"),
-        href: getLocalePath("/enterprise"),
+        href: localePath("/enterprise"),
       },
-      { label: t(`nav.blog`, "Blog"), href: getLocalePath("/blog") },
+      { label: t(`nav.blog`, "Blog"), href: localePath("/blog") },
       {
         label: t(`nav.affiliate-program`, "Affiliate Program"),
         href: "https://redirhub.getrewardful.com/signup",
@@ -86,26 +81,26 @@ export default function Footer({ legalLinks }: FooterProps) {
       },
       {
         label: t(`nav.changelog`, "Changelog"),
-        href: getLocalePath("/changelog"),
+        href: localePath("/changelog"),
       },
       {
         label: t(`nav.api-documentation`, "API Documentation"),
-        href: "https://dev.redirhub.com",
+        href: URL_API_DEV,
         target: "blank",
       },
     ],
     products: [
       {
         label: t(`nav.free-redirect-service`, "Free Redirect Service"),
-        href: getLocalePath("/free-redirect-service"),
+        href: localePath("/free-redirect-service"),
       },
       {
         label: t(`nav.url-redirect-service`, "URL Redirect Service"),
-        href: getLocalePath("/url-redirect-service"),
+        href: localePath("/url-redirect-service"),
       },
       {
         label: t(`nav.301-redirect-service`, "301 Redirect Service"),
-        href: getLocalePath("/301-redirect-service"),
+        href: localePath("/301-redirect-service"),
       },
       {
         label: t(`nav.redirect-checker`, "Redirect Checker"),
@@ -138,10 +133,10 @@ export default function Footer({ legalLinks }: FooterProps) {
   };
 
   const socialLinks = [
-    { icon: FaYoutube, href: "https://youtube.com", label: "YouTube" },
-    { icon: FaXTwitter, href: "https://twitter.com", label: "X (Twitter)" },
-    { icon: FaFacebook, href: "https://facebook.com", label: "Facebook" },
-    { icon: FaLinkedin, href: "https://linkedin.com", label: "LinkedIn" },
+    { icon: FaYoutube, href: "https://youtube.com/@" + SOCIAL_HANDLE, label: "YouTube" },
+    { icon: FaXTwitter, href: "https://twitter.com/" + SOCIAL_HANDLE, label: "X (Twitter)" },
+    { icon: FaFacebook, href: "https://facebook.com/" + SOCIAL_HANDLE, label: "Facebook" },
+    { icon: FaLinkedin, href: "https://linkedin.com/" + SOCIAL_HANDLE, label: "LinkedIn" },
   ];
 
   return (
@@ -192,7 +187,7 @@ export default function Footer({ legalLinks }: FooterProps) {
               }}
             >
               <Flex align="center" gap={2} mb={2}>
-                <Link href={getLocalePath("/")}>
+                <Link href={localePath("/")}>
                   <Image
                     src="/assets/images/logo.png"
                     alt={getAppName()}

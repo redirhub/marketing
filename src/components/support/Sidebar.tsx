@@ -4,17 +4,19 @@ import Link from "next/link";
 import { VStack, Box, Text, Icon } from "@chakra-ui/react";
 import { usePathname } from "next/navigation";
 import { useTranslation } from "react-i18next";
+import { useLocalePath } from "@/lib/hooks/useLocalePath";
 
 export default function Sidebar() {
   const pathname = usePathname();
   const { t } = useTranslation();
+  const localePath = useLocalePath();
 
   const categories = [
-    { name: t("support.cat-all", "All"), path: "/support", tag: null },
-    { name: t("support.cat-faq", "FAQ"), path: "/support/category/faq", tag: "FAQ" },
-    { name: t("support.cat-feature", "Feature"), path: "/support/category/feature", tag: "Feature" },
-    { name: t("support.cat-guide", "Guide"), path: "/support/category/guide", tag: "Guide" },
-    { name: t("support.cat-walkthroughs", "Walkthroughs"), path: "/support/category/walkthroughs", tag: "Walkthroughs" },
+    { name: t("support.cat-all", "All"), path: localePath("/support"), tag: null },
+    { name: t("support.cat-faq", "FAQ"), path: localePath("/support/category/faq"), tag: "FAQ" },
+    { name: t("support.cat-feature", "Feature"), path: localePath("/support/category/feature"), tag: "Feature" },
+    { name: t("support.cat-guide", "Guide"), path: localePath("/support/category/guide"), tag: "Guide" },
+    { name: t("support.cat-walkthroughs", "Walkthroughs"), path: localePath("/support/category/walkthroughs"), tag: "Walkthroughs" },
   ];
 
   return (

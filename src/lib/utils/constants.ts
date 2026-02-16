@@ -13,3 +13,6 @@ export const getDashboardBase = () =>
 //   process.env.SITE_URL || "https://marketing-mpiebw5fx-redirhub.vercel.app/";
 export const getBaseUrl = () =>
   "https://marketing-mpiebw5fx-redirhub.vercel.app/";
+
+export const SOCIAL_HANDLE = process.env.NEXT_PUBLIC_SOCIAL_HANDLE || "redirhub";
+export const URL_API_DEV = process.env.NEXT_PUBLIC_URL_API_DEV || "https://dev.redirhub.com";

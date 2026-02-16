@@ -5,7 +5,8 @@ import { Box, Container, Flex } from "@chakra-ui/react";
 import { useTranslation } from "react-i18next";
 import Link from "next/link";
 import { useParams, usePathname } from "next/navigation";
-import { getAppName, getDashboardBase } from "@/lib/utils/constants";
+import { getAppName, getDashboardBase, URL_API_DEV } from "@/lib/utils/constants";
+import { useLocalePath } from "@/lib/hooks/useLocalePath";
 import MobileMenu from "./MobileMenu";
 import { FiRefreshCw, FiUsers } from "react-icons/fi";
 import { useState, useEffect } from "react";
@@ -20,6 +21,7 @@ export default function Header({ mode = "dark" }: HeaderProps) {
   const params = useParams();
   const pathname = usePathname();
   const locale = (params?.locale as string) || "en";
+  const localePath = useLocalePath();
   const [isScrolled, setIsScrolled] = useState(false);
   const [isDark, setIsDark] = useState(mode === "dark");
   const [hasScrolled, setHasScrolled] = useState(false);
@@ -35,13 +37,6 @@ export default function Header({ mode = "dark" }: HeaderProps) {
     return () => window.removeEventListener("scroll", handleScroll);
   }, [mode, pathname, locale]);
 
-  const getLocalePath = (path: string) => {
-    if (locale === "en") {
-      return path;
-    }
-    return `/${locale}${path}`;
-  };
-
   interface NavItem {
     label: string;
     href?: string;
@@ -54,12 +49,14 @@ export default function Header({ mode = "dark" }: HeaderProps) {
           description?: string;
           icon: string | React.ElementType;
           href: string;
+          target?: string;
         }[];
       }[];
       footer?: {
         label: string;
         icon: string | React.ElementType;
         href: string;
+        target?: string;
       }[];
     };
   }
@@ -70,7 +67,7 @@ export default function Header({ mode = "dark" }: HeaderProps) {
       megaMenu: {
         columns: [
           {
-            header: "CREATE",
+            header: t(`nav.features-create`, "Create"),
             items: [
               {
                 label: t(`nav.features-create-redirects`, "Create redirects"),
@@ -79,7 +76,7 @@ export default function Header({ mode = "dark" }: HeaderProps) {
                   "Create and deploy all your redirects quickly and easily"
                 ),
                 icon: "/assets/images/dropdown-icons/switch-horizontal.svg",
-                href: getLocalePath("/create-redirects"),
+                href: localePath("/create-redirects"),
               },
               {
                 label: t(`nav.features-manage-redirects`, "Manage redirects"),
@@ -88,7 +85,7 @@ export default function Header({ mode = "dark" }: HeaderProps) {
                   "Manage all your redirects in one centralized platform"
                 ),
                 icon: "/assets/images/dropdown-icons/toggle-right.svg",
-                href: getLocalePath("/manage-redirects"),
+                href: localePath("/manage-redirects"),
               },
               {
                 label: t(`nav.features-analyze-redirects`, "Analyse redirects"), // Note UK spelling in screenshot
@@ -97,12 +94,12 @@ export default function Header({ mode = "dark" }: HeaderProps) {
                   "Gain powerful insights from your redirect traffic"
                 ),
                 icon: "/assets/images/dropdown-icons/line-chart-up.svg",
-                href: getLocalePath("/analyze-redirects"),
+                href: localePath("/analyze-redirects"),
               },
             ],
           },
           {
-            header: "COLLABORATE",
+            header: t(`nav.features-collaborate`, "Collaborate"),
             items: [
               {
                 label: t(`nav.features-team-management`, "Team Management"),
@@ -111,7 +108,7 @@ export default function Header({ mode = "dark" }: HeaderProps) {
                   "Collaborate securely across your organization"
                 ),
                 icon: FiUsers,
-                href: getLocalePath("/team-management"),
+                href: localePath("/team-management"),
               },
               {
                 label: t(`nav.features-global-scale`, "Global Scale"),
@@ -120,7 +117,7 @@ export default function Header({ mode = "dark" }: HeaderProps) {
                   "Deliver seamless experiences across websites and domains"
                 ),
                 icon: "/assets/images/dropdown-icons/globe.svg",
-                href: getLocalePath("/global-scale"),
+                href: localePath("/global-scale"),
               },
               {
                 label: t(`nav.features-security-privacy`, "Security & Privacy"),
@@ -129,7 +126,7 @@ export default function Header({ mode = "dark" }: HeaderProps) {
                   "Keep all your audiences and web properties safe"
                 ),
                 icon: "/assets/images/dropdown-icons/shield-tick.svg",
-                href: getLocalePath("/security"),
+                href: localePath("/security"),
               },
             ],
           },
@@ -138,12 +135,14 @@ export default function Header({ mode = "dark" }: HeaderProps) {
           {
             label: t(`nav.features-dev-resources`, "Dev resources"),
             icon: "/assets/images/dropdown-icons/code.svg",
-            href: getLocalePath(""),
+            href: URL_API_DEV,
+            target: "blank",
           },
           {
             label: t(`nav.features-api-access`, "API access"),
             icon: "/assets/images/dropdown-icons/file-code.svg",
-            href: getLocalePath(""),
+            href: URL_API_DEV,
+            target: "blank",
           },
         ],
       },
@@ -165,7 +164,7 @@ export default function Header({ mode = "dark" }: HeaderProps) {
                   "Seamless migration while preserving SEO"
                 ),
                 icon: "/assets/images/dropdown-icons/switch-horizontal.svg",
-                href: getLocalePath("/solutions/website-migrations"),
+                href: localePath("/solutions/website-migrations"),
               },
               {
                 label: t(`nav.features-domain-parking`, "Domain Parking"),
@@ -174,7 +173,7 @@ export default function Header({ mode = "dark" }: HeaderProps) {
                   "Centralized redirects and brand defense"
                 ),
                 icon: "/assets/images/dropdown-icons/server.svg",
-                href: getLocalePath("/solutions/domain-parking"),
+                href: localePath("/solutions/domain-parking"),
               },
             ],
           },
@@ -191,7 +190,7 @@ export default function Header({ mode = "dark" }: HeaderProps) {
                   "Streamlined link management and A/B testing"
                 ),
                 icon: "/assets/images/dropdown-icons/announcement.svg",
-                href: getLocalePath("/solutions/marketing-campaigns"),
+                href: localePath("/solutions/marketing-campaigns"),
               },
               {
                 label: t(
@@ -203,7 +202,7 @@ export default function Header({ mode = "dark" }: HeaderProps) {
                   "Global edge network with guaranteed uptime"
                 ),
                 icon: "/assets/images/dropdown-icons/building.svg",
-                href: getLocalePath("/solutions/scalable-enterprise-solutions"),
+                href: localePath("/solutions/scalable-enterprise-solutions"),
               },
             ],
           },
@@ -212,21 +211,21 @@ export default function Header({ mode = "dark" }: HeaderProps) {
           {
             label: t(`nav.features-whats-new`, "What's new"),
             icon: FiRefreshCw,
-            href: getLocalePath(""),
+            href: localePath("/changelog"),
           },
         ],
       },
     },
-    { href: getLocalePath("/pricing"), label: t(`nav.pricing`, "Pricing") },
-    { href: getLocalePath("/support"), label: t(`nav.support`, "Support") },
+    { href: localePath("/pricing"), label: t(`nav.pricing`, "Pricing") },
+    { href: localePath("/support"), label: t(`nav.support`, "Support") },
     {
-      href: getLocalePath("/enterprise"),
+      href: localePath("/enterprise"),
       label: t(`nav.enterprise`, "Enterprise"),
     },
   ];
   const isActive = (href: string | undefined) => {
     if (!href) return false;
-    return pathname === getLocalePath(href);
+    return pathname === localePath(href);
   };
   const navActiveStyles = {
     backgroundColor: !isDark
@@ -255,7 +254,7 @@ export default function Header({ mode = "dark" }: HeaderProps) {
     >
       <Container maxW="7xl" mx="auto">
         <Flex alignItems="center" justify="space-between">
-          <Link href={getLocalePath("/")}>
+          <Link href={localePath("/")}>
             <Box>
               <img
                 src={

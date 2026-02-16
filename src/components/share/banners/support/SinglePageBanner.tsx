@@ -2,6 +2,7 @@
 
 import { Box, Container, Heading, Text, Flex } from "@chakra-ui/react";
 import { useTranslation } from "react-i18next";
+import { useLocalePath } from "@/lib/hooks/useLocalePath";
 import styles from "../blog/BlogBanner.module.css";
 import { FaArrowLeftLong } from "react-icons/fa6";
 import NextLink from "next/link";
@@ -16,6 +17,7 @@ export default function SinglePageBanner({
   category,
 }: SinglePageBannerProps) {
   const { t } = useTranslation();
+  const localePath = useLocalePath();
 
   return (
     <>
@@ -30,7 +32,7 @@ export default function SinglePageBanner({
             mt={5}
           >
             <NextLink
-              href="/support"
+              href={localePath("/support")}
               passHref
               style={{ textDecoration: "none" }}
             >

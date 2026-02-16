@@ -4,7 +4,7 @@ import React from "react";
 
 interface LinkItem {
   label: string;
-  href: string;
+  href?: string;
 }
 
 interface FooterLinkColumnProps {

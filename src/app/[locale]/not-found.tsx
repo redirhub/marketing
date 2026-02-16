@@ -4,19 +4,14 @@ import { Box, Container, Flex, Heading, Text, Button } from "@chakra-ui/react";
 import Link from "next/link";
 import { useParams } from "next/navigation";
 import { useTranslation } from "react-i18next";
+import { useLocalePath } from "@/lib/hooks/useLocalePath";
 import styles from "./not-found.module.css";
 
 export default function NotFound() {
   const params = useParams();
   const locale = (params?.locale as string) || "en";
   const { t } = useTranslation("common");
-
-  const getLocalePath = (path: string) => {
-    if (locale === "en") {
-      return path;
-    }
-    return `/${locale}${path}`;
-  };
+  const localePath = useLocalePath();
 
   return (
     <>
@@ -82,7 +77,7 @@ export default function NotFound() {
               direction={{ base: "column", sm: "row" }}
               w={{ base: "100%", sm: "auto" }}
             >
-              <Link href={getLocalePath("/")}>
+              <Link href={localePath("/")}>
                 <Button
                   size="lg"
                   bg="#E49426"
@@ -100,7 +95,7 @@ export default function NotFound() {
                   {t("common.backHome", "Back to Home")}
                 </Button>
               </Link>
-              <Link href={getLocalePath("/support")}>
+              <Link href={localePath("/support")}>
                 <Button
                   size="lg"
                   variant="outline"
@@ -132,7 +127,7 @@ export default function NotFound() {
                 justify="center"
                 fontSize="0.95rem"
               >
-                <Link href={getLocalePath("/features")}>
+                <Link href={localePath("/features")}>
                   <Text
                     color="#4299e1"
                     _hover={{ color: "#E49426", textDecoration: "underline" }}
@@ -141,7 +136,7 @@ export default function NotFound() {
                     {t("title.features", "Features")}
                   </Text>
                 </Link>
-                <Link href={getLocalePath("/pricing")}>
+                <Link href={localePath("/pricing")}>
                   <Text
                     color="#4299e1"
                     _hover={{ color: "#E49426", textDecoration: "underline" }}
@@ -150,7 +145,7 @@ export default function NotFound() {
                     {t("title.pricing", "Pricing")}
                   </Text>
                 </Link>
-                <Link href={getLocalePath("/blog")}>
+                <Link href={localePath("/blog")}>
                   <Text
                     color="#4299e1"
                     _hover={{ color: "#E49426", textDecoration: "underline" }}

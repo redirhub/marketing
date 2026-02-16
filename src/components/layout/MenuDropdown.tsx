@@ -119,6 +119,7 @@ export default function MenuDropdown({
                           <Link
                             key={i}
                             href={item.href}
+                            target={item.target === "blank" ? "_blank" : undefined}
                             onClick={() => setIsOpen(false)}
                             style={{ textDecoration: "none", outline: "none" }}
                           >
