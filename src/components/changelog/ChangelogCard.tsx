@@ -2,7 +2,8 @@
 
 import { Box, Heading, Text } from "@chakra-ui/react";
 import NextLink from "next/link";
-import { ChangelogEntry, formatDate } from "@/lib/data/changelog";
+import { formatDate } from "@/lib/services/changelog";
+import { ChangelogEntry } from "@/types/sanity";
 
 interface ChangelogCardProps {
   entry: ChangelogEntry;
@@ -10,7 +11,7 @@ interface ChangelogCardProps {
 }
 
 export const ChangelogCard = ({ entry, locale = "en" }: ChangelogCardProps) => {
-  const href = locale === "en" ? `/changelog/${entry.slug}` : `/${locale}/changelog/${entry.slug}`;
+  const href = locale === "en" ? `/changelog/${entry.slug.current}` : `/${locale}/changelog/${entry.slug.current}`;
 
   return (
     <NextLink href={href} style={{ textDecoration: "none" }}>
@@ -34,7 +35,7 @@ export const ChangelogCard = ({ entry, locale = "en" }: ChangelogCardProps) => {
           color="gray.500"
           mb={3}
         >
-          {formatDate(entry.date)}
+          {formatDate(entry.publishedAt)}
         </Text>
 
         {/* Title */}
