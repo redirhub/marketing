@@ -60,72 +60,72 @@ export default function Footer({ legalLinks }: FooterProps) {
   const footerLinks = {
     company: [
       {
-        label: t(`footer.support`, "Support"),
+        label: t(`nav.support`, "Support"),
         href: getLocalePath("/support"),
       },
       {
-        label: t(`footer.pricing`, "Pricing"),
+        label: t(`nav.pricing`, "Pricing"),
         href: getLocalePath("/pricing"),
       },
       {
-        label: t(`footer.demo`, "Request a demo"),
+        label: t(`nav.request-demo`, "Request a demo"),
         href: getLocalePath("/enterprise"),
       },
-      { label: t(`footer.blog`, "Blog"), href: getLocalePath("/blog") },
+      { label: t(`nav.blog`, "Blog"), href: getLocalePath("/blog") },
       {
-        label: t(`footer.affiliate-program`, "Affiliate Program"),
+        label: t(`nav.affiliate-program`, "Affiliate Program"),
         href: "https://redirhub.getrewardful.com/signup",
         target: "blank",
       },
     ],
     resources: [
       {
-        label: t(`footer.status`, "System Status"),
+        label: t(`nav.system-status`, "System Status"),
         href: "https://redirhub.statuspage.io/",
         target: "blank",
       },
       {
-        label: t(`footer.changelog`, "Changelog"),
+        label: t(`nav.changelog`, "Changelog"),
         href: "https://headwayapp.co/redirhub-changelog",
         target: "blank",
       },
       {
-        label: t(`footer.api`, "API Documentation"),
+        label: t(`nav.api-documentation`, "API Documentation"),
         href: "https://dev.redirhub.com",
         target: "blank",
       },
     ],
     products: [
       {
-        label: t(`footer.free`, "Free Redirect Service"),
+        label: t(`nav.free-redirect-service`, "Free Redirect Service"),
         href: getLocalePath("/free-redirect-service"),
       },
       {
-        label: t(`footer.url`, "URL Redirect Service"),
+        label: t(`nav.url-redirect-service`, "URL Redirect Service"),
         href: getLocalePath("/url-redirect-service"),
       },
       {
-        label: t(`footer.301`, "301 Redirect Service"),
+        label: t(`nav.301-redirect-service`, "301 Redirect Service"),
         href: getLocalePath("/301-redirect-service"),
       },
       {
-        label: t(`footer.checker`, "Redirect Checker"),
+        label: t(`nav.redirect-checker`, "Redirect Checker"),
         href: "https://findredirect.com/",
         target: "blank",
       },
       {
-        label: t(`footer.expander`, "Short URL expander"),
+        label: t(`nav.url-expander`, "Short URL expander"),
         href: "https://findredirect.com/expander",
         target: "blank",
       },
     ],
     contact: [
       {
-        label: t(`footer.login`, "Login"),
+        label: t(`nav.login`, "Login"),
         href: "https://dash.redirhub.com/login?redirect=/",
       },
       {
-        label: t(`footer.start`, "Start for Free"),
+        label: t(`nav.start-free`, "Start for Free"),
         href: "https://dash.redirhub.com/register",
       },
       {

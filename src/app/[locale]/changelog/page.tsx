@@ -5,13 +5,15 @@ import { allLanguages } from "@/sanity/config/i18n";
 import ChangelogBanner from "@/components/changelog/ChangelogBanner";
 import InfiniteScrollChangelog from "@/components/changelog/InfiniteScrollChangelog";
 import { fetchChangelogEntries } from "@/lib/services/changelog";
+import { getT } from "@/lib/i18n";
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
   const { locale } = await params;
+  const t = await getT();
 
   return {
-    title: `Changelog - ${getAppName()}`,
-    description: "Stay updated with the latest features, improvements, and fixes to RedirHub",
+    title: t("changelog.title", "Changelog - {{n}}", { n: getAppName() }),
+    description: t("changelog.description", "Stay updated with the latest features, improvements, and fixes to {{n}}", { n: getAppName() }),
     alternates: {
       canonical: buildCanonicalUrl(locale, '/changelog'),
       ...buildStaticHreflangAlternates(allLanguages, '/changelog'),

@@ -1,6 +1,7 @@
 "use client";
 
 import { Box, Container, Heading, Text, Flex } from "@chakra-ui/react";
+import { useTranslation } from "react-i18next";
 import styles from "../share/banners/blog/BlogBanner.module.css";
 import { FaArrowLeftLong } from "react-icons/fa6";
 import NextLink from "next/link";
@@ -16,6 +17,7 @@ export default function ChangelogDetailBanner({
   date,
   backHref,
 }: ChangelogDetailBannerProps) {
+  const { t } = useTranslation();
   return (
     <Box pb={{ base: 14, md: 10 }} pt={24} className={styles.container}>
       <Container maxW="7xl" mx="auto" px={{ base: 2, md: 2, lg: 0 }}>
@@ -46,7 +48,7 @@ export default function ChangelogDetailBanner({
               }}
             >
               <FaArrowLeftLong />
-              <Text as="span">Back to Changelog</Text>
+              <Text as="span">{t("changelog.back-to-changelog", "Back to Changelog")}</Text>
             </Flex>
           </NextLink>
 

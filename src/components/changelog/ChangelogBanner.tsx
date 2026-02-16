@@ -1,9 +1,12 @@
 "use client";
 
 import { Box, Container, Flex, Heading, Text } from "@chakra-ui/react";
+import { useTranslation } from "react-i18next";
+import { getAppName } from "@/lib/utils/constants";
 import styles from "../share/banners/blog/BlogBanner.module.css";
 
 const ChangelogBanner = () => {
+  const { t } = useTranslation();
   return (
     <Box pt={24} pb={{ base: 14, md: 10 }} className={styles.container}>
       <Container maxW="7xl" mx="auto" px={{ base: 2, md: 2, lg: 0 }}>
@@ -20,7 +23,7 @@ const ChangelogBanner = () => {
             maxW={{ base: "full", md: "4xl" }}
             color="#fff"
           >
-            Changelog
+            {t("changelog.banner-title", "Changelog")}
           </Heading>
           <Text
             fontSize={{ base: "1rem", md: "1.15rem" }}
@@ -31,7 +34,7 @@ const ChangelogBanner = () => {
             mt={{ base: 0, md: 4 }}
             textAlign="center"
           >
-            Latest updates and improvements to RedirHub
+            {t("changelog.banner-description", "Latest updates and improvements to {{n}}", { n: getAppName() })}
           </Text>
         </Flex>
       </Container>

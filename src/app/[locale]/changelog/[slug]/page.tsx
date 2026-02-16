@@ -8,6 +8,7 @@ import { buildCanonicalUrl, buildHreflangAlternates } from "@/lib/utils/seo";
 import { getClient } from "@/lib/preview";
 import { portableTextComponents } from "@/components/blog/PortableTextComponents";
 import ChangelogDetailBanner from "@/components/changelog/ChangelogDetailBanner";
+import { getT } from "@/lib/i18n";
 
 interface ChangelogDetailPageProps {
   params: Promise<{
@@ -26,10 +27,11 @@ export async function generateMetadata({
   const { locale, slug } = await params;
   const client = getClient(await searchParams);
   const entry = await fetchChangelogBySlug(slug, locale, client);
+  const t = await getT();
 
   if (!entry) {
     return {
-      title: "Changelog Not Found",
+      title: t("changelog.not-found", "Changelog Not Found"),
     };
   }
 
@@ -43,7 +45,7 @@ export async function generateMetadata({
     : {};
 
   return {
-    title: `${entry.title} - Changelog - ${getAppName()}`,
+    title: t("changelog.detail-title", "{{title}} - Changelog - {{n}}", { title: entry.title, n: getAppName() }),
     description: entry.description,
     alternates: {
       canonical: canonicalUrl,

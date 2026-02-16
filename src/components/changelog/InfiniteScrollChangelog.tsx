@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useCallback, useRef } from "react";
 import { Box, Container, Flex, Heading, Text, Spinner } from "@chakra-ui/react";
+import { useTranslation } from "react-i18next";
 import NextLink from "next/link";
 import { formatDate } from "@/lib/services/changelog";
 import type { ChangelogEntry } from "@/types/sanity";
@@ -17,6 +18,7 @@ export default function InfiniteScrollChangelog({
   initialCursor,
   locale,
 }: InfiniteScrollChangelogProps) {
+  const { t } = useTranslation();
   const [entries, setEntries] = useState<ChangelogEntry[]>(initialEntries);
   const [cursor, setCursor] = useState<string | null>(initialCursor);
   const [loading, setLoading] = useState(false);
@@ -141,7 +143,7 @@ export default function InfiniteScrollChangelog({
           {loading && <Spinner size="lg" color="primary.600" />}
           {!hasMore && entries.length > 0 && (
             <Text color="gray.500" fontSize="sm">
-              No more updates
+              {t("changelog.no-more-updates", "No more updates")}
             </Text>
           )}
         </Box>
