@@ -76,6 +76,8 @@
     "home-title": "{{n}} - Fast & Secure URL Redirect Management",
     "learn-more": "Learn More",
     "login": "Login",
+    "pagination-next": "Next",
+    "pagination-previous": "Previous",
     "pricing": "Pricing",
     "pricing-banner-main": "That Scales With Your Needs",
     "pricing-banner-subtitle": "Choose the plan that fits your needs and scale as you grow",
@@ -253,6 +255,13 @@
     "no-more-updates": "No more updates",
     "title": "Changelog - {{n}}"
   },
+  "blog": {
+    "banner-subtitle": "Gain Industry Insights",
+    "banner-title": "Read our blog today",
+    "description": "Latest guides, tutorials, and insights on URL redirects, SEO best practices, and web performance optimization.",
+    "search-placeholder": "Search",
+    "title": "Blog - {{n}}"
+  },
   "enterprise": {
     "banner-subtitle": "Organize a demo or get help purchasing the product",
     "banner-title": "Reach Out to {{n}}",
@@ -283,10 +292,6 @@
     "stat-uptime-desc": "Uptime guarantee, ensuring consistent access, dependable performance for all users",
     "stat-uptime-title": "Uptime",
     "title": "Enterprise Solutions - {{n}}"
-  },
-  "blog": {
-    "description": "Latest guides, tutorials, and insights on URL redirects, SEO best practices, and web performance optimization.",
-    "title": "Blog - {{n}}"
   },
   "pricing": {
     "description": "Transparent pricing plans for {{n}}. From startups to enterprise. No hidden fees, cancel anytime.",

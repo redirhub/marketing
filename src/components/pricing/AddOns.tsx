@@ -3,6 +3,7 @@
 import { Box, Heading, Text, SimpleGrid, Flex, Stack } from "@chakra-ui/react";
 import Image from "next/image";
 import { addOnsData } from "./pricingData";
+import { useTranslation } from "react-i18next";
 
 interface AddOnsProps {
     isAnnually: boolean;
@@ -10,14 +11,15 @@ interface AddOnsProps {
 
 
 export default function AddOns({ isAnnually }: AddOnsProps) {
+    const { t } = useTranslation();
     return (
         <Box w="full" mt={12} border={'1px solid'} borderColor={'gray.borderLight'} borderRadius="24px" p={6}>
             <Stack gap={1} mb={6}>
                 <Heading as="h3" fontSize="xl" fontWeight="600" color="gray.darkGray">
-                    Pro Add-Ons
+                    {t("pricing.addons-title", "Pro Add-Ons")}
                 </Heading>
                 <Text fontSize="16px" fontWeight="400" color="gray.blueGray">
-                    Enhance your Pro plan with powerful features
+                    {t("pricing.addons-subtitle", "Enhance your Pro plan with powerful features")}
                 </Text>
             </Stack>
 
@@ -58,7 +60,7 @@ export default function AddOns({ isAnnually }: AddOnsProps) {
                                     </Text>
                                 </Text>
                                 <Text fontSize="14px" fontWeight="500" color="gray.500">
-                                    /mo
+                                    {t("pricing.per-month", "/mo")}
                                 </Text>
                             </Flex>
                         </Flex>
