@@ -57,7 +57,7 @@ export const TRANSLATABLE_FIELDS: Record<string, string[]> = {
   faqSet: ['title', 'faqs'],
   changelog: ['title', 'description', 'content'],
   landingPage: ['title', 'content'], // Can be expanded as needed
-  testimonial: ['quote', 'role', 'company'], // author name, avatar, order preserved
+  testimonial: ['quote', 'role'], // author name, avatar, order preserved
 }
 
 interface AnyDocument {
