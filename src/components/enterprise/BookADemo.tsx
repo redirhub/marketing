@@ -1,6 +1,9 @@
 import { Box, Container, Heading } from "@chakra-ui/react";
+import { getT } from "@/lib/i18n";
+import { APP_NAME } from "@/lib/utils/constants";
 
 const BookADemo = async () => {
+  const t = await getT();
   const typeformUrl =
     "https://form.typeform.com/to/b8G7n6nh?typeform-embed-id=061521929204578885&typeform-embed=embed-widget&typeform-source=managed-builder.redirhub.com&typeform-medium=snippet&typeform-medium-version=next&embed-opacity=100&typeform-embed-handles-redirect=1&typeform-embed-no-heading=true";
   return (
@@ -16,7 +19,7 @@ const BookADemo = async () => {
             lineHeight={{base: '40px', md: 'auto'}}
             mb={{ base: 6, md: 12 }}
           >
-            Book a demo with RedirHub
+            {t("enterprise.book-demo", "Book a demo with {{n}}", { n: APP_NAME })}
           </Heading>
           <Box
             w="100%"

@@ -19,12 +19,14 @@ export async function generateMetadata({
 }
 
 export default async function PricingPage() {
+  const t = await getT();
+
   return (
     <>
       <PricingBanner
-        title="Pricing"
-        mainTitle="That Scales With Your Needs"
-        subtitle="Choose the plan that fits your needs and scale as you grow"
+        title={t("nav.pricing-banner-title", "Pricing")}
+        mainTitle={t("nav.pricing-banner-main", "That Scales With Your Needs")}
+        subtitle={t("nav.pricing-banner-subtitle", "Choose the plan that fits your needs and scale as you grow")}
       />
       <InteractivePricing />
     </>
