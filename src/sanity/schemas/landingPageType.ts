@@ -148,6 +148,22 @@ export const landingPageType = defineType({
             ],
           },
         },
+        {
+          name: 'bannerStyle',
+          type: 'string',
+          title: 'Banner Style',
+          description: 'Background gradient variant for the hero banner',
+          options: {
+            list: [
+              { title: 'Default (Blue → Teal)', value: 'default' },
+              { title: 'Purple (Indigo → Violet)', value: 'purple' },
+              { title: 'Teal (Dark Teal → Teal)', value: 'teal' },
+              { title: 'Dark (Navy)', value: 'dark' },
+            ],
+            layout: 'radio',
+          },
+          initialValue: 'default',
+        },
       ],
       validation: (rule) => rule.required(),
     }),
@@ -174,6 +190,73 @@ export const landingPageType = defineType({
               title: 'Caption',
             },
           ],
+        },
+        {
+          type: 'object',
+          name: 'featureSplitBlock',
+          title: 'Feature Split Section',
+          fields: [
+            {
+              name: 'mainTitle',
+              type: 'string',
+              title: 'Section Title',
+              validation: (rule) => rule.required(),
+            },
+            {
+              name: 'subTitle',
+              type: 'text',
+              title: 'Section Subtitle',
+              rows: 3,
+            },
+            {
+              name: 'reverseOrder',
+              type: 'boolean',
+              title: 'Image on Left',
+              description: 'Place the image on the left side instead of the right',
+              initialValue: false,
+            },
+            {
+              name: 'removePaddingBottom',
+              type: 'boolean',
+              title: 'Remove Bottom Padding',
+              initialValue: false,
+            },
+            {
+              name: 'image',
+              type: 'image',
+              title: 'Section Image',
+              options: { hotspot: true },
+              fields: [
+                {
+                  name: 'alt',
+                  type: 'string',
+                  title: 'Alt Text',
+                },
+              ],
+            },
+            {
+              name: 'imageBorderRadius',
+              type: 'string',
+              title: 'Image Border Radius',
+              description: 'e.g. "0px 15px 0px 0px"',
+            },
+            {
+              name: 'features',
+              type: 'array',
+              title: 'Feature Items',
+              description: 'Use **bold text** for emphasis, e.g. "**UTM Builder:** Automatically append UTM parameters..."',
+              of: [{ type: 'string' }],
+            },
+          ],
+          preview: {
+            select: { title: 'mainTitle', subtitle: 'subTitle' },
+            prepare({ title, subtitle }: { title?: string; subtitle?: string }) {
+              return {
+                title: `↔ ${title ?? 'Feature Split Section'}`,
+                subtitle: subtitle?.substring(0, 80),
+              }
+            },
+          },
         },
       ],
       validation: (rule) => rule.required(),

@@ -3,6 +3,7 @@ import { Box, Heading, Text, Code, Image as ChakraImage } from '@chakra-ui/react
 import { urlFor } from '@/sanity/lib/image'
 import { GoCheckCircle } from 'react-icons/go'
 import InlineCTA from '../sections/InlineCTA'
+import FeatureSplitSection from '@/components/share/features/FeatureSplitSection'
 
 export const portableTextComponents = (): PortableTextComponents => {
 let currentHeadingIndex = -1
@@ -180,6 +181,29 @@ return {
           title={value?.title}
           text={value?.text}
           url={value?.url}
+        />
+      )
+    },
+    featureSplitBlock: ({ value }) => {
+      const imageSrc = value?.image?.asset
+        ? urlFor(value.image).width(960).url()
+        : ''
+      const imageAlt = value?.image?.alt || value?.mainTitle || ''
+      const features = (value?.features ?? []).map((item: string) => ({
+        heading: '',
+        description: item,
+      }))
+
+      return (
+        <FeatureSplitSection
+          mainTitle={value?.mainTitle ?? ''}
+          subTitle={value?.subTitle ?? ''}
+          features={features}
+          imageSrc={imageSrc}
+          imageAlt={imageAlt}
+          reverseOrder={value?.reverseOrder ?? false}
+          imageBorderRadius={value?.imageBorderRadius ?? ''}
+          removePaddingBottom={value?.removePaddingBottom ?? false}
         />
       )
     },

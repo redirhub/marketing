@@ -21,13 +21,21 @@ interface LandingPageBannerProps {
   hero: HeroSection;
 }
 
+const bannerGradients: Record<string, string> = {
+  default: 'linear-gradient(163deg, #1c6db6 0%, #20a795 86%)',
+  purple:  'linear-gradient(163deg, #3d2b9e 0%, #7c4dbb 86%)',
+  teal:    'linear-gradient(163deg, #0a6b61 0%, #0d9a8a 86%)',
+  dark:    'linear-gradient(163deg, #0f1923 0%, #1b3a5c 86%)',
+}
+
 export default function LandingPageBanner({ hero }: LandingPageBannerProps) {
   const heroImageUrl = hero.heroImage ? urlFor(hero.heroImage).width(1920).height(600).url() : null;
   const showRedirectWidget = hero.heroSections?.includes('redirect');
   const showCustomerLogos = hero.heroSections?.includes('customerLogos');
+  const gradient = bannerGradients[hero.bannerStyle ?? 'default'] ?? bannerGradients.default;
 
   return (
-    <Box pt={28} pb={showRedirectWidget || showCustomerLogos || heroImageUrl ? 0 : 12} className={styles.heroContainer}>
+    <Box pt={28} pb={showRedirectWidget || showCustomerLogos || heroImageUrl ? 0 : 12} className={styles.heroContainer} style={{ backgroundImage: gradient }}>
       <Container maxW="7xl" mx="auto" px={{ base: 2, md: 2, lg: 0 }}>
         <Flex direction="column" align="center" textAlign="center" gap={2}>
           <Heading

@@ -97,7 +97,7 @@ export interface PortableTextImage {
 }
 
 export type PortableTextContent = Array<
-  PortableTextBlock | PortableTextImage
+  PortableTextBlock | PortableTextImage | FeatureSplitBlock
 >
 
 export interface Post {
@@ -225,6 +225,19 @@ export interface HeroSection {
   ctaPrimary?: CTAButton
   heroImage?: SanityImageAsset
   heroSections?: Array<'redirect' | 'customerLogos'>
+  bannerStyle?: 'default' | 'purple' | 'teal' | 'dark'
+}
+
+export interface FeatureSplitBlock {
+  _type: 'featureSplitBlock'
+  _key: string
+  mainTitle: string
+  subTitle?: string
+  reverseOrder?: boolean
+  removePaddingBottom?: boolean
+  image?: SanityImageAsset
+  imageBorderRadius?: string
+  features?: string[]
 }
 
 export interface FeatureItem {
