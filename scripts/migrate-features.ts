@@ -314,7 +314,6 @@ function buildRichContent(blocks: typeof featurePages[0]['blocks']) {
     mainTitle: block.mainTitle,
     subTitle: block.subTitle,
     reverseOrder: block.reverseOrder,
-      : {}),
     features: block.features,
   }))
 }
