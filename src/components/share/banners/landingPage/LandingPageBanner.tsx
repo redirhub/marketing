@@ -85,8 +85,6 @@ export default function LandingPageBanner({ hero }: LandingPageBannerProps) {
                   borderRadius="8px"
                   _hover={{
                     bg: "brand.600",
-                    transform: "translateY(-2px)",
-                    boxShadow: "lg",
                   }}
                   _active={{
                     bg: "brand.700",
