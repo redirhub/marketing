@@ -5,7 +5,7 @@ import { buildCanonicalUrl, buildStaticHreflangAlternates, buildSocialCards } fr
 import { allLanguages } from "@/sanity/config/i18n";
 import BookADemo from "@/components/enterprise/BookADemo";
 import StandsOut from "@/components/enterprise/StandsOut";
-import EnterpriseBanner from "@/components/share/banners/enterprise/EnterpriseBanner";
+import LandingPageBanner from "@/components/share/banners/landingPage/LandingPageBanner";
 
 export async function generateMetadata({
   params,
@@ -36,10 +36,19 @@ export async function generateMetadata({
   };
 }
 
-export default function PricingPage() {
+export default async function PricingPage() {
+  const t = await getT();
+
+  const hero = {
+    headline: t("enterprise.banner-title", "Reach Out to {{n}}", { n: APP_NAME }),
+    subheadline: t("enterprise.banner-subtitle", "Organize a demo or get help purchasing the product"),
+    bannerStyle: "dark" as const,
+    heroSections: ["customerLogos"] as Array<"redirect" | "customerLogos">,
+  };
+
   return (
     <>
-      <EnterpriseBanner />
+      <LandingPageBanner hero={hero} />
       <BookADemo />
       <StandsOut />
     </>
