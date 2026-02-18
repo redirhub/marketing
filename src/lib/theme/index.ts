@@ -22,7 +22,7 @@ const customConfig = {
         brand: {
           solid: { value: '{colors.brand.500}' },
           contrast: { value: 'white' },
-          hover: { value: '{colors.brand.700}' },
+          hover: { value: '{colors.brand.600}' },
           active: { value: '{colors.brand.800}' },
           focus: { value: '{colors.brand.600}' },
         },
