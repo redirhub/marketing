@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "npm run generate-locales && next build",
+    "build": "npm run generate-locales && chakra typegen ./src/lib/theme/index.ts && next build",
     "start": "next start",
     "lint": "eslint",
     "generate-locales": "node scripts/generate-locales.js",
