@@ -127,6 +127,12 @@ export const landingPageType = defineType({
           ],
         },
         {
+          name: 'ctaNote',
+          type: 'string',
+          title: 'CTA Note',
+          description: 'Small text below the CTA button, e.g. "*No Credit Card Needed. Cancel Anytime."',
+        },
+        {
           name: 'heroImage',
           type: 'image',
           title: 'Hero Image',

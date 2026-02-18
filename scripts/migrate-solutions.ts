@@ -261,6 +261,9 @@ interface SolutionPage {
   bannerStyle: 'default' | 'purple' | 'teal' | 'dark'
   blocks: FeatureBlock[]
   faqs: FAQItem[]
+  ctaPrimaryLabel: string
+  ctaPrimaryUrl: string
+  ctaNote: string
 }
 
 const solutionPages: SolutionPage[] = [
@@ -273,6 +276,9 @@ const solutionPages: SolutionPage[] = [
     heroSubheadline:
       'With RedirHub, you get instant redirects, global infrastructure, and the capacity to handle millions of hits per day. We provide the speed, flexibility, and control your business needs at a fraction of the cost.',
     bannerStyle: 'default',
+    ctaPrimaryLabel: 'Get Started For Free',
+    ctaPrimaryUrl: 'https://dash.redirhub.com/register',
+    ctaNote: '*No Credit Card Needed. Cancel Anytime.',
     blocks: domainParkingBlocks,
     faqs: [
       {
@@ -311,6 +317,9 @@ const solutionPages: SolutionPage[] = [
     heroSubheadline:
       'Amplify your campaign reach with streamlined link management, data-driven A/B testing, and real-time insights.',
     bannerStyle: 'default',
+    ctaPrimaryLabel: 'Get Started For Free',
+    ctaPrimaryUrl: 'https://dash.redirhub.com/register',
+    ctaNote: '*No Credit Card Needed. Cancel Anytime.',
     blocks: marketingCampaignsBlocks,
     faqs: [
       {
@@ -354,6 +363,9 @@ const solutionPages: SolutionPage[] = [
     heroSubheadline:
       'Transform your website migration into a seamless process while preserving SEO and user experience.',
     bannerStyle: 'default',
+    ctaPrimaryLabel: 'Get Started For Free',
+    ctaPrimaryUrl: 'https://dash.redirhub.com/register',
+    ctaNote: '*No Credit Card Needed. Cancel Anytime.',
     blocks: websiteMigrationsBlocks,
     faqs: [
       {
@@ -392,6 +404,9 @@ const solutionPages: SolutionPage[] = [
     heroSubheadline:
       'Empower your enterprise with fast, automated redirects on a global edge network—guaranteed uptime and seamless scalability.',
     bannerStyle: 'dark',
+    ctaPrimaryLabel: 'Get Started For Free',
+    ctaPrimaryUrl: 'https://dash.redirhub.com/register',
+    ctaNote: '*No Credit Card Needed. Cancel Anytime.',
     blocks: enterpriseSolutionsBlocks,
     faqs: [
       {
@@ -442,15 +457,10 @@ async function migrateSolutions() {
   console.log('🚀 Starting solution pages migration...\n')
 
   for (const page of solutionPages) {
-    const existing = await writeClient.fetch(
+    const existingId = await writeClient.fetch(
       `*[_type == "landingPage" && slug.current == $slug && locale == "en"][0]._id`,
       { slug: page.slug }
     )
-
-    if (existing) {
-      console.log(`⏭️  Skipping: "${page.title}" — already exists (${existing})`)
-      continue
-    }
 
     const doc = {
       _type: 'landingPage',
@@ -463,6 +473,11 @@ async function migrateSolutions() {
       hero: {
         headline: page.heroHeadline,
         subheadline: page.heroSubheadline,
+        ctaPrimary: {
+          label: page.ctaPrimaryLabel,
+          url: page.ctaPrimaryUrl,
+        },
+        ctaNote: page.ctaNote,
         bannerStyle: page.bannerStyle,
         heroSections: [],
       },
@@ -481,9 +496,15 @@ async function migrateSolutions() {
       needsTranslation: true,
     }
 
-    console.log(`📝 Creating: "${page.title}" → /${page.slug}`)
-    const result = await writeClient.create(doc)
-    console.log(`✅ Created: ${result._id}\n`)
+    let result
+    if (existingId) {
+      console.log(`🔄 Updating: "${page.title}" → /${page.slug} (${existingId})`)
+      result = await writeClient.createOrReplace({ ...doc, _id: existingId })
+    } else {
+      console.log(`📝 Creating: "${page.title}" → /${page.slug}`)
+      result = await writeClient.create(doc)
+    }
+    console.log(`✅ ${existingId ? 'Updated' : 'Created'}: ${result._id}\n`)
   }
 
   console.log('✨ Migration complete!\n')

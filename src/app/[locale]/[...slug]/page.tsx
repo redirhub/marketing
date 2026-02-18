@@ -44,7 +44,7 @@ export async function generateMetadata({
     : {}
 
   return {
-    title: page.meta?.metaTitle || `${page.title} - ${APP_NAME}`,
+    title: `${page.meta?.metaTitle || page.title} - ${APP_NAME}`,
     description: page.meta?.metaDescription || page.hero.subheadline || `${page.title}`,
     alternates: {
       canonical: canonicalUrl,

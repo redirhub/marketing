@@ -5,6 +5,13 @@ export interface SanityImageAsset {
   asset: {
     _ref: string
     _type: 'reference'
+    metadata?: {
+      dimensions?: {
+        width: number
+        height: number
+        aspectRatio: number
+      }
+    }
   }
   alt?: string
   caption?: string
@@ -223,6 +230,7 @@ export interface HeroSection {
   headline: string
   subheadline?: string
   ctaPrimary?: CTAButton
+  ctaNote?: string
   heroImage?: SanityImageAsset
   heroSections?: Array<'redirect' | 'customerLogos'>
   bannerStyle?: 'default' | 'purple' | 'teal' | 'dark'

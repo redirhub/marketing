@@ -41,7 +41,23 @@ export async function fetchLandingPageBySlug(
     title,
     slug,
     meta,
-    hero,
+    hero {
+      ...,
+      heroImage {
+        ...,
+        asset-> {
+          _ref,
+          _type,
+          metadata {
+            dimensions {
+              width,
+              height,
+              aspectRatio
+            }
+          }
+        }
+      }
+    },
     richContent,
     faqs,
     sections,
