@@ -8,7 +8,7 @@ import { getClient } from '@/lib/preview'
 import LandingPageBanner from "@/components/share/banners/landingPage/LandingPageBanner";
 import TableOfContents from "@/components/blog/TableOfContents";
 import { TestimonialsSection, BlogSection, FAQSection } from "@/components/sections";
-import { buildCanonicalUrl, buildHreflangAlternates, generateFAQSchema } from '@/lib/utils/seo'
+import { buildCanonicalUrl, buildHreflangAlternates, buildSocialCards, generateFAQSchema } from '@/lib/utils/seo'
 import { APP_NAME } from "@/lib/utils/constants";
 
 interface PageProps {
@@ -50,6 +50,10 @@ export async function generateMetadata({
       canonical: canonicalUrl,
       ...hreflangAlternates,
     },
+    ...buildSocialCards({
+      title,
+      description,
+    }),
   };
 }
 
