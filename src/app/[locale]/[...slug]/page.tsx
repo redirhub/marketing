@@ -14,7 +14,7 @@ import { APP_NAME } from "@/lib/utils/constants";
 interface PageProps {
   params: Promise<{
     locale: string
-    slug: string
+    slug: string[]
   }>;
   searchParams: Promise<{
     version?: string
@@ -26,20 +26,19 @@ export async function generateMetadata({
   searchParams,
 }: PageProps): Promise<Metadata> {
   const { locale, slug } = await params;
+  const slugPath = slug.join('/');
   const searchParamsObj = await searchParams;
   const client = getClient(searchParamsObj);
   const isPreview = searchParamsObj?.version === 'drafts';
 
-  const page = await fetchLandingPageBySlug(slug, locale, client, isPreview);
+  const page = await fetchLandingPageBySlug(slugPath, locale, client, isPreview);
   if (!page) {
     return { title: "Page Not Found" };
   }
 
-  // Generate canonical URL
-  const canonicalUrl = buildCanonicalUrl(locale, `/${slug}`)
+  const canonicalUrl = buildCanonicalUrl(locale, `/${slugPath}`)
 
-  // Fetch translations for hreflang alternates
-  const translations = await fetchLandingPageTranslations(slug, client, isPreview)
+  const translations = await fetchLandingPageTranslations(slugPath, client, isPreview)
   const hreflangAlternates = translations.length > 0
     ? buildHreflangAlternates(translations, '')
     : {}
@@ -56,33 +55,30 @@ export async function generateMetadata({
 
 export default async function LandingPage({ params, searchParams }: PageProps) {
   const { locale, slug } = await params;
+  const slugPath = slug.join('/');
   const searchParamsObj = await searchParams;
   const client = getClient(searchParamsObj);
   const isPreview = searchParamsObj?.version === 'drafts';
 
-  const page = await fetchLandingPageBySlug(slug, locale, client, isPreview);
+  const page = await fetchLandingPageBySlug(slugPath, locale, client, isPreview);
   if (!page) {
     notFound();
   }
 
-  // Transform FAQs to match FAQAccordion format
   const faqData = page.faqs?.map((faq, index) => ({
     value: `faq-${index}`,
     question: faq.question,
     answer: faq.answer,
   })) || [];
 
-  // Generate FAQ Schema.org JSON-LD
   const faqSchema = generateFAQSchema(page.faqs);
 
-  // Check which optional sections should be shown
   const showTableOfContents = page.sections?.includes('contentTable');
   const showTestimonials = page.sections?.includes('testimonials');
   const showBlogInsight = page.sections?.includes('blogInsight');
 
   return (
     <Box bg="white">
-      {/* FAQ Schema.org JSON-LD */}
       {faqSchema && (
         <script
           type="application/ld+json"
@@ -90,10 +86,8 @@ export default async function LandingPage({ params, searchParams }: PageProps) {
         />
       )}
 
-      {/* Hero Section */}
       <LandingPageBanner hero={page.hero} />
 
-      {/* Rich Content Section */}
       <Container maxW="7xl" mx="auto" px={{ base: 3, md: 4, lg: 6 }} mt={12}>
         <Box
           display="grid"
@@ -104,7 +98,6 @@ export default async function LandingPage({ params, searchParams }: PageProps) {
           }
           gap={8}
         >
-          {/* Main Content Column */}
           <Box minW="0">
             <Box
               bg="white"
@@ -123,7 +116,6 @@ export default async function LandingPage({ params, searchParams }: PageProps) {
             </Box>
           </Box>
 
-          {/* Table of Contents - Desktop Only */}
           {showTableOfContents && (
             <Box display={{ base: 'none', xl: 'block' }}>
               <TableOfContents content={page.richContent || []} />
@@ -132,19 +124,16 @@ export default async function LandingPage({ params, searchParams }: PageProps) {
         </Box>
       </Container>
 
-      {/* Testimonials Section */}
       {showTestimonials && (
-       <Box px={{ base: 3, md: 4, lg: 6 }}>
-         <TestimonialsSection marginTop={12} marginBottom={24} />
-       </Box>
+        <Box px={{ base: 3, md: 4, lg: 6 }}>
+          <TestimonialsSection marginTop={12} marginBottom={24} />
+        </Box>
       )}
 
-      {/* Blog Insight Section */}
       {showBlogInsight && (
         <BlogSection locale={locale} title="Latest Insights from Our Blog" />
       )}
 
-      {/* FAQs Section */}
       {faqData.length > 0 && (
         <FAQSection faqData={faqData} title="Frequently asked questions" />
       )}
