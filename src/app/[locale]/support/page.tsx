@@ -27,6 +27,7 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
     ...buildSocialCards({
       title,
       description,
+      type: "website",
     }),
   };
 }

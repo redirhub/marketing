@@ -10,6 +10,7 @@ import TableOfContents from "@/components/blog/TableOfContents";
 import { TestimonialsSection, BlogSection, FAQSection } from "@/components/sections";
 import { buildCanonicalUrl, buildHreflangAlternates, buildSocialCards, generateFAQSchema } from '@/lib/utils/seo'
 import { APP_NAME } from "@/lib/utils/constants";
+import { urlFor } from '@/sanity/lib/image';
 
 interface PageProps {
   params: Promise<{
@@ -43,9 +44,13 @@ export async function generateMetadata({
     ? buildHreflangAlternates(translations, '')
     : {}
 
+  const title = `${page.meta?.metaTitle || page.title} - ${APP_NAME}`;
+  const description = page.meta?.metaDescription || page.hero.subheadline || `${page.title}`;
+  const image = page.meta?.ogImage ? urlFor(page.meta.ogImage).width(1200).height(630).url() : undefined;
+
   return {
-    title: `${page.meta?.metaTitle || page.title} - ${APP_NAME}`,
-    description: page.meta?.metaDescription || page.hero.subheadline || `${page.title}`,
+    title,
+    description,
     alternates: {
       canonical: canonicalUrl,
       ...hreflangAlternates,
@@ -53,6 +58,8 @@ export async function generateMetadata({
     ...buildSocialCards({
       title,
       description,
+      image,
+      type: 'article',
     }),
   };
 }

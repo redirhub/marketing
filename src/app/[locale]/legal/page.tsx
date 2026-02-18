@@ -28,6 +28,7 @@ export async function generateMetadata({
     ...buildSocialCards({
       title,
       description,
+      type: 'website',
     }),
   };
 }
