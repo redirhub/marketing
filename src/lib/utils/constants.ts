@@ -6,4 +6,5 @@ export const URL_OG_IMAGE = process.env.NEXT_PUBLIC_URL_OG_IMAGE || "https://ik.
 export const URL_DASHBOARD = process.env.NEXT_PUBLIC_DASHBOARD_BASE || "https://dash.redirhub.com";
 export const URL_DASHBOARD_LOGIN =  URL_DASHBOARD + "/login";
 export const URL_DASHBOARD_REGISTER = URL_DASHBOARD + "/register";
+export const FERNAND_APP_ID = process.env.NEXT_PUBLIC_FERNAND_APP_ID || "redirhhub";
 

@@ -7,6 +7,7 @@ import TranslationsProvider from "@/components/TranslationsProvider";
 import ThemeHeader from "@/components/ThemeHeader";
 import Footer from "@/components/layout/Footer";
 import NProgressBar from "@/components/NProgressBar";
+import FernandWidget from "@/components/FernandWidget";
 import initTranslations from "@/lib/i18n";
 import { i18nConfig } from "@/lib/i18n";
 import { fetchFooterLegalPages } from "@/lib/services/legal";
@@ -82,6 +83,7 @@ export default async function RootLayout({
               {children}
             </main>
             {!hideHeaderAndFooter && <Footer legalLinks={legalLinks} />}
+            <FernandWidget />
           </TranslationsProvider>
         </Provider>
       </div>
