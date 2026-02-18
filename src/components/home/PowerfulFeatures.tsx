@@ -9,7 +9,7 @@ import {
   Button,
   Stack,
 } from "@chakra-ui/react";
-import Image from "next/image";
+import FrameImage from "../share/features/FrameImage";
 import { useTranslation } from "react-i18next";
 import { GoCheckCircle } from "react-icons/go";
 import Link from "next/link";
@@ -199,17 +199,7 @@ const FeatureContent: React.FC<FeatureContentProps> = ({ data }) => {
           order={{ base: -1, md: -1, lg: 2 }}
           mb={{ base: 2, md: 2, lg: 0 }}
         >
-          <Image
-            src={imageSrc}
-            alt={imageAlt}
-            width={640}
-            height={420}
-            style={{
-              width: "100%",
-              height: "auto",
-            }}
-            priority={key === "tab1"}
-          />
+          <FrameImage src={imageSrc} alt={imageAlt} />
         </Box>
       </SimpleGrid>
     </Box>

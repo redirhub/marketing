@@ -8,7 +8,7 @@ import {
   Button,
   Stack,
 } from "@chakra-ui/react";
-import Image from "next/image";
+import FrameImage from "../share/features/FrameImage";
 import { useTranslation } from "react-i18next";
 import Link from "next/link";
 import { GoCheckCircle } from "react-icons/go";
@@ -187,15 +187,9 @@ export default function APIDocumentation() {
               justifyContent="center"
               order={{ base: -1, md: -1, lg: 2 }}
             >
-              <Image
-                src={"/assets/images/api-documentation.jpeg"}
+              <FrameImage
+                src="/assets/images/api-documentation.jpeg"
                 alt="Redirect feature preview"
-                width={640}
-                height={420}
-                style={{
-                  width: "100%",
-                  height: "auto",
-                }}
               />
             </Box>
           </SimpleGrid>
