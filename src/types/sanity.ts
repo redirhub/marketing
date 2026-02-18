@@ -102,7 +102,7 @@ export interface PortableTextImage {
 }
 
 export type PortableTextContent = Array<
-  PortableTextBlock | PortableTextImage | FeatureSplitBlock
+  PortableTextBlock | PortableTextImage | FeatureBlock
 >
 
 export interface Post {
@@ -234,8 +234,8 @@ export interface HeroSection {
   bannerStyle?: 'default' | 'purple' | 'teal' | 'dark'
 }
 
-export interface FeatureSplitBlock {
-  _type: 'featureSplitBlock'
+export interface FeatureBlock {
+  _type: 'feature'
   _key: string
   mainTitle: string
   subTitle?: string

@@ -309,7 +309,7 @@ const featurePages = [
 
 function buildRichContent(blocks: typeof featurePages[0]['blocks']) {
   return blocks.map((block, i) => ({
-    _type: 'featureSplitBlock',
+    _type: 'feature',
     _key: `block-${i}`,
     mainTitle: block.mainTitle,
     subTitle: block.subTitle,

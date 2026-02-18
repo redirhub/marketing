@@ -199,7 +199,7 @@ export const landingPageType = defineType({
         },
         {
           type: 'object',
-          name: 'featureSplitBlock',
+          name: 'feature',
           title: 'Feature Split Section',
           fields: [
             {

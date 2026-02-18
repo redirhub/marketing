@@ -2,7 +2,7 @@
  * Migration Script: Migrate Hardcoded Solution Pages to Sanity CMS
  *
  * Converts the 4 static solution page files into landingPage CMS documents
- * with featureSplitBlock entries inside content.
+ * with feature entries inside content.
  *
  * Run with: npx tsx scripts/migrate-solutions.ts
  *
@@ -417,7 +417,7 @@ const solutionPages: SolutionPage[] = [
 
 function buildRichContent(blocks: FeatureBlock[]) {
   return blocks.map((block, i) => ({
-    _type: 'featureSplitBlock',
+    _type: 'feature',
     _key: `block-${i}`,
     mainTitle: block.mainTitle,
     subTitle: block.subTitle,

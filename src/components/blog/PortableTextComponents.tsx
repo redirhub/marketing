@@ -184,7 +184,7 @@ return {
         />
       )
     },
-    featureSplitBlock: ({ value }) => {
+    feature: ({ value }) => {
       const imageSrc = value?.image?.asset
         ? urlFor(value.image).width(960).url()
         : ''
