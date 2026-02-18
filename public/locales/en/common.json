@@ -1,48 +1,27 @@
 {
-  "footer": {
-    "301": "301 Redirect Service",
-    "affiliate-program": "Affiliate Program",
-    "api": "API Documentation",
-    "blog": "Blog",
-    "changelog": "Changelog",
-    "checker": "Redirect Checker",
-    "demo": "Request a demo",
-    "expander": "Short URL expander",
-    "free": "Free Redirect Service",
-    "login": "Login",
-    "pricing": "Pricing",
-    "start": "Start for Free",
-    "status": "System Status",
-    "support": "Support",
-    "url": "URL Redirect Service"
-  },
   "nav": {
-    "301": "301 Redirect Service",
     "301-redirect-service": "301 Redirect Service",
     "affiliate-program": "Affiliate Program",
     "analyze-redirects-description": "Simple, transparent enterprise for RedirHub",
     "analyze-redirects-title": "Team management",
-    "api": "API Documentation",
     "api-documentation": "API Documentation",
     "blog": "Blog",
     "blog-description": "Latest guides, tutorials, and insights on URL redirects, SEO best practices, and web performance optimization.",
     "blog-title": "Blog - {{n}}",
+    "by-author": "by {{author}}",
     "changelog": "Changelog",
     "changelog-description": "Stay updated with the latest features, improvements, and fixes to {{n}}",
     "changelog-detail-title": "{{title}} - Changelog - {{n}}",
     "changelog-title": "Changelog - {{n}}",
-    "checker": "Redirect Checker",
     "company": "Company",
     "contact": "Contact",
     "contact-abuse": "Report Abuse / abuse[@]redirhub.com",
     "contact-business": "Business Email / service[@]redirhub.com",
     "create-redirects-description": "Simple, transparent enterprise for RedirHub",
-    "demo": "Request a demo",
     "domain-parking-description": "Simple, transparent enterprise for RedirHub",
     "enterprise": "Enterprise",
     "enterprise-description": "Enterprise redirect management with dedicated support, custom SLAs, and advanced security. Scale your business with {{n}}.",
     "enterprise-title": "Enterprise Solutions - {{n}}",
-    "expander": "Short URL expander",
     "features": "Features",
     "features-analyze-description": "Gain powerful insights from your redirect traffic",
     "features-analyze-redirects": "Analyse redirects",
@@ -51,6 +30,7 @@
     "features-create": "Create",
     "features-create-description": "Create and deploy all your redirects quickly and easily",
     "features-create-redirects": "Create redirects",
+    "features-description": "Explore RedirHub features for managing redirects and short URLs",
     "features-dev-resources": "Dev resources",
     "features-domain-parking": "Domain Parking",
     "features-enterprise-description": "Global edge network with guaranteed uptime",
@@ -72,12 +52,11 @@
     "footer-cta-button": "Get Started For Free",
     "footer-cta-text": "Experience the power of rapid, secure redirects and effortless management. {{n}} speeds up your workflow while keeping your domain safe.",
     "footer-cta-title": "Redirect 5x Faster with Built-in Security",
-    "free": "Free Redirect Service",
     "free-redirect-service": "Free Redirect Service",
-    "get-started": "Start for Free",
+    "get-started": "Get Started For Free",
     "getStarted": "Sign Up",
     "global-scale-description": "Simple, transparent enterprise for RedirHub",
-    "global-scale-title": "Security & privacy",
+    "global-scale-title": "Global scale",
     "home-description": "Enterprise-grade URL redirect service. Manage redirects, track analytics, and scale globally with {{n}}. Trusted by businesses worldwide.",
     "home-title": "{{n}} - Fast & Secure URL Redirect Management",
     "learn-more": "Learn More",
@@ -97,11 +76,9 @@
     "redirect-checker": "Redirect Checker",
     "request-demo": "Request a demo",
     "resources": "Resources",
+    "setup-redirect": "Setting Up Your First URL Redirect",
     "solutions": "Solutions",
-    "start": "Start for Free",
-    "start-for-free": "Start for Free",
     "start-free": "Start for Free",
-    "status": "System Status",
     "support": "Support",
     "support-article-description": "Learn how to {{title}} with {{n}}.",
     "support-category-description": "Browse {{category}} articles and guides for {{n}}.",
@@ -109,7 +86,6 @@
     "support-title": "Support - {{n}}",
     "system-status": "System Status",
     "toc-title": "Table of Contents",
-    "url": "URL Redirect Service",
     "url-expander": "Short URL expander",
     "url-redirect-service": "URL Redirect Service",
     "website-migrations-description": "Simple, transparent enterprise for RedirHub",
@@ -117,6 +93,7 @@
     "widget-btn-create-redirect": "Create Redirect - it's FREE",
     "widget-btn-shorten-url": "Shorten URL - it's FREE",
     "widget-connect-domain": "Connect your domain",
+    "widget-error-redirect-fields": "Please fill both Redirect URL fields.",
     "widget-label-long-url": "Long URL",
     "widget-label-redirect-from": "Redirect from",
     "widget-label-redirect-to": "Redirect to",
@@ -143,16 +120,12 @@
     "addons-title": "Pro Add-Ons",
     "billing-annually": "Annually",
     "billing-monthly": "Monthly",
-    "description": "Transparent pricing plans for {{n}}. From startups to enterprise. No hidden fees, cancel anytime.",
-    "from-label": "from",
-    "hostname-question": "How many hostnames do you need?",
     "per-month": "/mo",
     "recommended-badge": "Recommended",
     "save-badge": "Save 20%",
     "tab-monitor": "Monitor",
     "tab-redirects": "Redirects",
-    "tab-shorten": "Shorten URL",
-    "title": "Pricing - {{n}}"
+    "tab-shorten": "Shorten URL"
   },
   "home": {
     "api-auth": "Authentication Made Simple:",
@@ -160,8 +133,6 @@
     "api-desc": "Unleash the full potential of RedirHub with our detailed API documentation. Designed to support developers at every stage, the documentation provides clear and concise guidance to integrate, automate, and optimize your redirect management workflows seamlessly.",
     "api-error": "Error Handling & Troubleshooting:",
     "api-error-desc": "Quickly identify and resolve issues with detailed error codes and explanations.",
-    "api-get-started": "Get Started For Free",
-    "api-learn-more": "Learn More",
     "api-pagination": "Pagination & Rate Limits:",
     "api-pagination-desc": "Efficiently manage large datasets and ensure smooth API interactions with structured guidelines.",
     "api-reference": "Robust Reference Material:",
@@ -180,7 +151,6 @@
     "choose-us-https-subtitle": "Automatically secure all your redirects with HTTPS for a better user experience and SEO.",
     "choose-us-https-title": "HTTPS everywhere",
     "choose-us-title": "Why should you choose us?",
-    "description": "Enterprise-grade URL redirect service. Manage redirects, track analytics, and scale globally with {{n}}. Trusted by businesses worldwide.",
     "faq-title": "Frequently asked questions",
     "features-advanced-custom": "Customizable Redirects:",
     "features-advanced-custom-desc": "Configure 301, 302, and other HTTP codes effortlessly.",
@@ -221,29 +191,17 @@
     "features-team-tab": "Team Collaboration",
     "features-team-title": "Boost Productivity with Team Collaboration",
     "features-title": "Discover RedirHub's Powerful Features",
-    "footer-cta-button": "Get Started For Free",
-    "footer-cta-text": "Experience the power of rapid, secure redirects and effortless management. {{n}} speeds up your workflow while keeping your domain safe.",
-    "footer-cta-title": "Redirect 5x Faster with Built-in Security",
     "hero-badge": "✨ 1M+ domains redirected daily",
     "hero-subtitle": "Forward your domains instantly and manage all redirects from a real-time dashboard. Enhance your SEO with 301/302 redirects and secure every link with HTTPS.",
     "hero-title": "Your domains.",
     "hero-title2": "redirected. Instantly.",
     "hero-underline-text": "Globally",
-    "inactivity-badge": "Wait a second...",
-    "inactivity-cta": "Try {{n}} For Free",
-    "inactivity-feature-1": "Use the free plan as long as you need",
-    "inactivity-feature-2": "No credit card needed",
-    "inactivity-feature-3": "Multiple upgrade options when you're ready",
-    "inactivity-subtitle": "Take {{n}} for a spin. It's 100% free - no commitment, no risk and no pressure.",
-    "inactivity-title": "Want to try {{n}} for free?",
-    "inactivity-trust": "See why thousands of people trust {{n}} with their redirects, links management and analytics.",
     "inline-cta-button": "Get Started Free",
     "inline-cta-text": "Get redirects in under 100 ms – with automatic HTTPS, analytics, and zero configuration.",
     "inline-cta-title": "Start Making 5x Faster Redirects with {{n}}",
     "mins-read": "{{minutes}} mins read",
     "testimonials-brand": "RedirHub",
     "testimonials-title": "Why Our Customers Love",
-    "title": "{{n}} - Fast & Secure URL Redirect Management",
     "why-hostnames": "Hostnames",
     "why-hostnames-desc": "Hostnames actively managed, providing robust answer for businesses",
     "why-locations": "Locations",
@@ -253,15 +211,18 @@
     "why-rapid-requests": "Rapid requests",
     "why-rapid-requests-desc": "Redirects handled in the last 24 hours, showcasing our platform's scale and reliability",
     "why-speed-report": "View real-time speed report",
-    "why-ssl": "SSL",
     "why-ssl-desc": "SSL certificates issued in past 60 days, enhancing data security for users",
     "why-stands-out-title": "Why RedirHub Stands Out",
     "why-uptime": "Uptime",
     "why-uptime-desc": "Uptime guarantee, ensuring consistent access, dependable performance for all users"
   },
+  "changelog": {
+    "back-to-changelog": "Back to Changelog",
+    "banner-description": "Latest updates and improvements to {{n}}",
+    "banner-title": "Changelog",
+    "no-more-updates": "No more updates"
+  },
   "support": {
-    "article-description": "Learn how to {{title}} with {{n}}.",
-    "back-to-support": "Back to Support",
     "banner-description": "Explore our resources for expert articles, guides, and tutorials to help you make the most of {{n}}. Find tips, best practices, and troubleshooting advice to optimize your URL management.",
     "banner-title": "{{n}} Support",
     "cat-all": "All",
@@ -271,31 +232,12 @@
     "cat-walkthroughs": "Walkthroughs",
     "categories": "Categories",
     "category": "Category",
-    "category-description": "Browse {{category}} articles and guides for {{n}}.",
-    "description": "Find answers, guides, and tutorials for {{n}}. Get help with redirects, analytics, and troubleshooting.",
-    "no-articles-category": "No support articles found in this category.",
-    "title": "Support - {{n}}"
-  },
-  "changelog": {
-    "back-to-changelog": "Back to Changelog",
-    "banner-description": "Latest updates and improvements to {{n}}",
-    "banner-title": "Changelog",
-    "description": "Stay updated with the latest features, improvements, and fixes to {{n}}",
-    "no-more-updates": "No more updates",
-    "title": "Changelog - {{n}}"
-  },
-  "blog": {
-    "banner-subtitle": "Gain Industry Insights",
-    "banner-title": "Read our blog today",
-    "description": "Latest guides, tutorials, and insights on URL redirects, SEO best practices, and web performance optimization.",
-    "search-placeholder": "Search",
-    "title": "Blog - {{n}}"
+    "no-articles-category": "No support articles found in this category."
   },
   "enterprise": {
     "banner-subtitle": "Organize a demo or get help purchasing the product",
     "banner-title": "Reach Out to {{n}}",
     "book-demo": "Book a demo with {{n}}",
-    "description": "Enterprise redirect management with dedicated support, custom SLAs, and advanced security. Scale your business with {{n}}.",
     "stands-out-stands": "Stands Out",
     "stands-out-why": "Why",
     "stat-2fa-desc": "An extra guard on your account that ensures only authorized users access your dashboard.",
@@ -319,22 +261,33 @@
     "stat-team-title": "Members",
     "stat-team-value": "Team",
     "stat-uptime-desc": "Uptime guarantee, ensuring consistent access, dependable performance for all users",
-    "stat-uptime-title": "Uptime",
-    "title": "Enterprise Solutions - {{n}}"
+    "stat-uptime-title": "Uptime"
+  },
+  "blog": {
+    "banner-subtitle": "Gain Industry Insights",
+    "banner-title": "Read our blog today",
+    "search-placeholder": "Search"
   },
   "title": {
-    "features": "Features"
+    "blog": "Blog",
+    "features": "Features",
+    "pricing": "Pricing"
   },
-  "meta-create-redirects": {
-    "title": "Create redirects"
+  "rate": {
+    "changeRating": "Change Rating",
+    "subtitle": "Your feedback helps us improve {{n}}",
+    "title": "How do you rate our product?"
   },
   "meta-domain-parking": {
-    "title": "Domain Parking"
+    "title": "Scalable Enterprise Solutions"
   },
   "meta-marketing-campaigns": {
     "title": "Marketing Campaigns"
   },
   "meta-website-migrations": {
     "title": "Website Migrations"
+  },
+  "meta-create-redirects": {
+    "title": "Create redirects"
   }
 }
