@@ -29,7 +29,7 @@ const bannerGradients: Record<string, string> = {
 }
 
 export default function LandingPageBanner({ hero }: LandingPageBannerProps) {
-  const aspectRatio = hero.heroImage?.asset?.metadata?.dimensions?.aspectRatio;
+  const aspectRatio = hero.heroImage?.dimensions?.aspectRatio;
   const imageHeight = aspectRatio ? Math.round(1920 / aspectRatio) : 600;
   const heroImageUrl = hero.heroImage
     ? urlFor(hero.heroImage).width(1920).url()
