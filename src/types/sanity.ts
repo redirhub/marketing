@@ -5,13 +5,11 @@ export interface SanityImageAsset {
   asset: {
     _ref: string
     _type: 'reference'
-    metadata?: {
-      dimensions?: {
-        width: number
-        height: number
-        aspectRatio: number
-      }
-    }
+  }
+  dimensions?: {
+    width: number
+    height: number
+    aspectRatio: number
   }
   alt?: string
   caption?: string

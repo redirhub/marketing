@@ -45,17 +45,7 @@ export async function fetchLandingPageBySlug(
       ...,
       heroImage {
         ...,
-        asset-> {
-          _ref,
-          _type,
-          metadata {
-            dimensions {
-              width,
-              height,
-              aspectRatio
-            }
-          }
-        }
+        "dimensions": asset->metadata.dimensions
       }
     },
     richContent,
