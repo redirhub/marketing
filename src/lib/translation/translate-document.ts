@@ -68,7 +68,14 @@ interface AnyDocument {
   [key: string]: any
 }
 
-async function translateText(text: string, targetLocale: string): Promise<string> {
+/**
+ * Translates a batch of text strings in a single OpenAI call.
+ * Keys are preserved so results can be mapped back to original positions.
+ */
+async function translateBlocks(
+  texts: Record<string, string>,
+  targetLocale: string
+): Promise<Record<string, string>> {
   const targetLanguage = LOCALE_NAMES[targetLocale]
   const openai = getOpenAIClient()
 
@@ -77,17 +84,18 @@ async function translateText(text: string, targetLocale: string): Promise<string
     messages: [
       {
         role: 'system',
-        content: `You are a professional translator. Translate the following text to ${targetLanguage}. Maintain the tone, style, and formatting. Only return the translated text without any explanations.`,
+        content: `You are a professional translator. Translate the text values in the following JSON object to ${targetLanguage}. Return ONLY a valid JSON object with the same keys and translated values. Preserve formatting and do not add explanations.`,
       },
       {
         role: 'user',
-        content: text,
+        content: JSON.stringify(texts),
       },
     ],
     temperature: 0.3,
+    response_format: { type: 'json_object' },
   })
 
-  return response.choices[0].message.content?.trim() || text
+  return JSON.parse(response.choices[0].message.content || '{}')
 }
 
 /**
@@ -144,44 +152,61 @@ async function translateMetadata(
   return translatedFields
 }
 
+const PORTABLE_TEXT_BATCH_SIZE = 10
+
 async function translatePortableText(
   content: any[],
   targetLocale: string
 ): Promise<any[]> {
   if (!content || !Array.isArray(content)) return content
 
-  // Translate all text blocks in parallel for speed
-  const translatedBlocks = await Promise.all(
-    content.map(async (block) => {
-      if (block._type === 'block' && block.children) {
-        const textToTranslate = block.children
-          .filter((child: any) => child._type === 'span' && child.text)
-          .map((child: any) => child.text)
-          .join(' ')
+  // Collect translatable blocks with their original index
+  const translatableItems: { index: number; text: string }[] = []
+  for (let i = 0; i < content.length; i++) {
+    const block = content[i]
+    if (block._type === 'block' && block.children) {
+      const text = block.children
+        .filter((child: any) => child._type === 'span' && child.text)
+        .map((child: any) => child.text)
+        .join(' ')
+      if (text.trim()) translatableItems.push({ index: i, text })
+    }
+  }
 
-        if (textToTranslate.trim()) {
-          const translatedText = await translateText(
-            textToTranslate,
-            targetLocale
-          )
+  if (translatableItems.length === 0) return content
 
-          return {
-            ...block,
-            children: [
-              {
-                _type: 'span',
-                text: translatedText,
-                marks: [],
-              },
-            ],
-          }
-        }
-      }
-      return block
+  // Split into chunks of PORTABLE_TEXT_BATCH_SIZE and translate all chunks in parallel
+  const chunks: typeof translatableItems[] = []
+  for (let i = 0; i < translatableItems.length; i += PORTABLE_TEXT_BATCH_SIZE) {
+    chunks.push(translatableItems.slice(i, i + PORTABLE_TEXT_BATCH_SIZE))
+  }
+
+  const chunkResults = await Promise.all(
+    chunks.map((chunk) => {
+      const texts: Record<string, string> = {}
+      for (const item of chunk) texts[String(item.index)] = item.text
+      return translateBlocks(texts, targetLocale)
     })
   )
 
-  return translatedBlocks
+  // Merge all chunk results into a single index→translation map
+  const translatedMap: Record<number, string> = {}
+  for (const result of chunkResults) {
+    for (const [key, value] of Object.entries(result)) {
+      translatedMap[Number(key)] = value
+    }
+  }
+
+  // Rebuild blocks, substituting translations where available
+  return content.map((block, i) => {
+    if (translatedMap[i] !== undefined) {
+      return {
+        ...block,
+        children: [{ _type: 'span', text: translatedMap[i], marks: [] }],
+      }
+    }
+    return block
+  })
 }
 
 /**
