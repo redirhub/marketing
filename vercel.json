@@ -2,7 +2,7 @@
   "crons": [
     {
       "path": "/api/sanity/process-translations",
-      "schedule": "*/30 * * * *"
+      "schedule": "*/30 * 1 * *"
     }
   ]
 }
