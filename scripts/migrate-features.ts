@@ -168,6 +168,28 @@ const featurePages = [
         ]),
       },
     ],
+    faqs: [
+      {
+        question: 'How do I find and fix a broken redirect?',
+        answer: 'Search for the redirect by source URL or destination in the dashboard. If the destination is returning errors, the health check indicator will flag it. Update the destination URL directly in the dashboard — the change goes live globally within seconds. Setting a fallback destination ensures traffic is never sent to a dead page while you investigate.',
+      },
+      {
+        question: 'What happens if a redirect destination goes down?',
+        answer: 'If a destination URL returns an error or goes offline, the redirect will continue forwarding traffic to that broken URL unless a fallback is configured. RedirHub\'s destination health checks monitor your redirect destinations automatically and alert you when one fails, so you can update or redirect to a fallback before users are affected.',
+      },
+      {
+        question: 'How do I disable a redirect without deleting it?',
+        answer: 'You can enable or disable any redirect with a single click from the dashboard — the redirect rule is preserved but stops forwarding traffic immediately. This is useful for pausing seasonal campaigns, maintenance windows, or rolling back a change without losing the configuration.',
+      },
+      {
+        question: 'How do I organize redirects across multiple domains?',
+        answer: 'Use tags to group redirects by domain, campaign, or project — then filter your dashboard view to just that group. For team access, domain-level permissions mean each team member or client only sees the redirects relevant to their domain, keeping large multi-domain accounts manageable.',
+      },
+      {
+        question: 'How do I bulk edit redirects?',
+        answer: 'Select multiple redirects using the bulk selection tool, then apply a mass action — enable, disable, retag, or delete — across all selected items at once. For destination updates at scale, export your redirect list to CSV, edit the relevant fields, and re-import the updated file.',
+      },
+    ],
   },
   {
     title: 'Analyze Redirects',
@@ -219,6 +241,28 @@ const featurePages = [
         ]),
       },
     ],
+    faqs: [
+      {
+        question: 'How do I track how many clicks a redirect gets?',
+        answer: 'Every redirect in RedirHub has a built-in analytics view showing total clicks, unique visitors, and hourly distribution. Open any redirect from the dashboard to see its full traffic history. For aggregate views across all redirects, the main analytics dashboard shows performance across your entire account.',
+      },
+      {
+        question: 'Can I see where redirect traffic is coming from?',
+        answer: 'Yes. Each redirect tracks geographic data at country and city level, plus device type and browser breakdown. This tells you whether your traffic is coming from mobile or desktop, which regions are most active, and how your audience is distributed — without needing a separate analytics tool.',
+      },
+      {
+        question: 'How do I get redirect performance reports automatically?',
+        answer: 'RedirHub sends weekly and monthly performance summaries by email — covering click totals, traffic trends, and top-performing redirects. These reports arrive automatically with no setup required. For custom reporting, raw log data can be exported in CSV format or piped to your own analytics infrastructure.',
+      },
+      {
+        question: 'What data does redirect analytics track?',
+        answer: 'RedirHub tracks total clicks, unique visitors, QR code scans, geographic location (country and city), device type, browser, and recent activity timestamps for every redirect. All data is available in real time — updates appear as hits arrive, not on a delay.',
+      },
+      {
+        question: 'How do I track QR code scans separately from URL clicks?',
+        answer: 'When a QR code is enabled for a redirect, scans are counted separately from direct URL clicks in the analytics view. This lets you measure the performance of offline campaign assets — print, packaging, signage — independently from your digital traffic without creating separate redirects.',
+      },
+    ],
   },
   {
     title: 'Team Management',
@@ -258,6 +302,28 @@ const featurePages = [
           { heading: 'Centralized oversight', description: 'One account to manage everything — delegate to teams while keeping full visibility at the top level.' },
           { heading: 'Instant access revocation', description: 'Remove a team member\'s access immediately when needed — their changes remain, their access does not.' },
         ]),
+      },
+    ],
+    faqs: [
+      {
+        question: 'How do I give team members access to redirect management?',
+        answer: 'Invite team members by email from the team settings in your RedirHub account. Each person gets their own login — no shared credentials. You assign a role during the invite that determines what they can see and change, from full admin access down to view-only.',
+      },
+      {
+        question: 'Can different team members have different permission levels?',
+        answer: 'Yes. Role-based permissions let you assign different access levels to different team members — for example, a developer with full admin access and a marketer with the ability to create and edit redirects but not delete domains. Permissions can be updated at any time from the team settings.',
+      },
+      {
+        question: 'How do I let marketing update redirects without developer access?',
+        answer: 'Assign marketers a role that allows them to create and edit redirects in the dashboard without access to domain configuration or team settings. This lets them launch and update campaign links independently — no ticket to IT, no waiting for a developer — while keeping infrastructure-level settings protected.',
+      },
+      {
+        question: 'Does redirect management support SSO login?',
+        answer: 'Yes. RedirHub supports SSO (Single Sign-On), allowing your team to log in through your organization\'s identity provider. This centralizes access management — when a team member is offboarded in your identity system, their RedirHub access is revoked automatically.',
+      },
+      {
+        question: 'How do I remove a team member\'s access immediately?',
+        answer: 'Remove a team member from the team settings in your account — their access is revoked instantly. Any redirects or configurations they created remain in place. This is important for offboarding — access is cut off without any disruption to live redirects.',
       },
     ],
   },
@@ -311,6 +377,28 @@ const featurePages = [
         ]),
       },
     ],
+    faqs: [
+      {
+        question: 'How does redirect latency affect SEO and conversions?',
+        answer: 'Redirect latency adds to a page\'s total load time — even a few hundred milliseconds increases bounce rates and signals slower performance to search engines. Google\'s Core Web Vitals measure load speed, and a slow redirect hop contributes negatively. Edge-based redirects resolve in sub-100ms because the request is handled by the nearest server to the user, rather than routing back to a central origin.',
+      },
+      {
+        question: 'What is an edge network and why does it matter for redirects?',
+        answer: 'An edge network is a system of distributed servers positioned close to users around the world. Instead of every redirect request travelling to a central server, it is handled by the nearest edge node — dramatically reducing latency. For redirects, this means users anywhere in the world experience near-instant forwarding rather than waiting for a round trip to a distant server.',
+      },
+      {
+        question: 'Can a redirect service handle millions of requests per day?',
+        answer: 'Yes. RedirHub\'s infrastructure auto-scales to absorb traffic spikes automatically — there is no manual capacity planning required. The edge network distributes load across global nodes, so high-traffic events such as campaign launches or viral traffic spikes do not degrade redirect performance.',
+      },
+      {
+        question: 'What uptime does a redirect service guarantee?',
+        answer: 'RedirHub maintains 99.99% uptime across its global edge network, backed by redundant infrastructure and automatic failover between nodes. If a node becomes unavailable, traffic is rerouted instantly — users experience no downtime.',
+      },
+      {
+        question: 'How do I redirect domains for users in different countries?',
+        answer: 'Redirect rules in RedirHub apply globally — all users, regardless of location, are forwarded by the nearest edge node. For international domain portfolios, wildcard domain redirects can point an entire domain or subdomain to a destination in one rule. IDN (International Domain Name) support ensures non-Latin domain names are handled correctly without encoding issues.',
+      },
+    ],
   },
   {
     title: 'Security & Privacy',
@@ -352,6 +440,28 @@ const featurePages = [
         ]),
       },
     ],
+    faqs: [
+      {
+        question: 'Why does my redirect show a "Not Secure" warning?',
+        answer: 'A "Not Secure" warning appears when a redirect is served over HTTP instead of HTTPS. This happens when the domain has no SSL certificate configured, or when a redirect forces traffic through an insecure hop before reaching the destination. RedirHub provisions SSL certificates automatically for every domain — HTTP visitors are silently upgraded to HTTPS so browsers never show a security warning.',
+      },
+      {
+        question: 'How do I force HTTPS on all my redirects?',
+        answer: 'In RedirHub, HTTPS is enforced automatically — every redirect is served over a secure connection by default. HTTP requests are upgraded to HTTPS before forwarding, and wildcard SSL certificates cover all subdomains of a domain. No manual configuration is needed, and certificates renew automatically before expiry.',
+      },
+      {
+        question: 'What is the difference between HTTP and HTTPS redirects for SEO?',
+        answer: 'HTTPS redirects are strongly preferred for SEO. Google uses HTTPS as a ranking signal and marks HTTP pages as "Not Secure" in Chrome — which reduces click-through rates. When a redirect chain includes an HTTP hop, the trust signal passed between URLs is weakened. Serving all redirects over HTTPS ensures the full link equity is preserved and users see no security warnings.',
+      },
+      {
+        question: 'How do I stop bots from abusing my redirects?',
+        answer: 'Bot protection in RedirHub filters traffic at the edge — blocking malicious crawlers and scrapers before they consume your request quota or skew your analytics. Legitimate search engine bots such as Googlebot are allowed through to ensure your redirects remain crawlable. Security plugins can be configured per redirect for additional control on high-value destinations.',
+      },
+      {
+        question: 'Is redirect traffic data stored securely?',
+        answer: 'Yes. Redirect traffic data is processed and stored in US and EU regions. Access to your account data is protected by role-based permissions — only authorized team members can view analytics or configuration. All platform access is individual and traceable, with no shared credentials.',
+      },
+    ],
   },
 ]
 
@@ -377,16 +487,25 @@ async function migrateFeatures() {
       { slug: page.slug }
     )
 
-    // Pull FAQs from existing faqSet document in Sanity
-    const existingFAQs = await fetchExistingFAQs(page.slug)
-    const faqs = existingFAQs.map((faq, i) => ({
-      _key: faq._key || `faq-${i}`,
-      question: faq.question,
-      answer: faq.answer,
-    }))
-
-    if (faqs.length > 0) {
-      console.log(`  📋 Found ${faqs.length} FAQs from faqSet for "${page.title}"`)
+    // Use inline FAQs when defined; fall back to existing faqSet in Sanity
+    let faqs: Array<{ _key: string; question: string; answer: string }>
+    if (page.faqs && page.faqs.length > 0) {
+      faqs = page.faqs.map((faq, i) => ({
+        _key: `faq-${i}`,
+        question: faq.question,
+        answer: faq.answer,
+      }))
+      console.log(`  📋 Using ${faqs.length} inline FAQs for "${page.title}"`)
+    } else {
+      const existingFAQs = await fetchExistingFAQs(page.slug)
+      faqs = existingFAQs.map((faq, i) => ({
+        _key: faq._key || `faq-${i}`,
+        question: faq.question,
+        answer: faq.answer,
+      }))
+      if (faqs.length > 0) {
+        console.log(`  📋 Found ${faqs.length} FAQs from faqSet for "${page.title}"`)
+      }
     }
 
     const doc = {
