@@ -5,6 +5,13 @@ export interface SanityImageAsset {
   asset: {
     _ref: string
     _type: 'reference'
+    metadata?: {
+      dimensions?: {
+        width: number
+        height: number
+        aspectRatio: number
+      }
+    }
   }
   alt?: string
   caption?: string
@@ -97,7 +104,7 @@ export interface PortableTextImage {
 }
 
 export type PortableTextContent = Array<
-  PortableTextBlock | PortableTextImage
+  PortableTextBlock | PortableTextImage | FeatureSplitBlock
 >
 
 export interface Post {
@@ -223,8 +230,22 @@ export interface HeroSection {
   headline: string
   subheadline?: string
   ctaPrimary?: CTAButton
+  ctaNote?: string
   heroImage?: SanityImageAsset
   heroSections?: Array<'redirect' | 'customerLogos'>
+  bannerStyle?: 'default' | 'purple' | 'teal' | 'dark'
+}
+
+export interface FeatureSplitBlock {
+  _type: 'featureSplitBlock'
+  _key: string
+  mainTitle: string
+  subTitle?: string
+  reverseOrder?: boolean
+  removePaddingBottom?: boolean
+  image?: SanityImageAsset
+  imageBorderRadius?: string
+  features?: string[]
 }
 
 export interface FeatureItem {
