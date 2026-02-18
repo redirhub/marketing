@@ -94,6 +94,16 @@ const featurePages = [
           { heading: 'Custom certificates', description: 'Upload your own SSL certificate for compliance or enterprise requirements.' },
         ]),
       },
+      {
+        mainTitle: 'Turn Any Redirect into a QR Code',
+        subTitle: 'Every redirect you create can generate a branded QR code — change the destination anytime without reprinting, and track scans alongside your URL analytics.',
+        reverseOrder: true,
+        features: toFeatureStrings([
+          { heading: 'Dynamic QR codes', description: 'The printed code never changes — update the destination URL behind it at any time from the dashboard.' },
+          { heading: 'Custom branding', description: 'Add your logo and brand colours to every QR code — consistent identity across print and digital assets.' },
+          { heading: 'Scan tracking', description: 'Monitor scan count, location, and device breakdown separately from URL click-throughs — useful for offline campaigns and print assets.' },
+        ]),
+      },
     ],
     faqs: [
       {

@@ -37,6 +37,7 @@ interface FeatureItem {
   imageSrc: string;
   imageAlt: string;
   features: FeatureDetail[];
+  learnMoreHref?: string;
   hideLeanMore?: boolean;
 }
 interface FeatureContentProps {
@@ -105,6 +106,7 @@ const FeatureContent: React.FC<FeatureContentProps> = ({ data }) => {
     imageSrc,
     imageAlt,
     key,
+    learnMoreHref = "#",
     hideLeanMore = false,
   } = data;
 
@@ -156,11 +158,11 @@ const FeatureContent: React.FC<FeatureContentProps> = ({ data }) => {
             mt={8}
           >
             <ActionButton
-              label={!hideLeanMore ? t("home.features-get-started", "Get Started For Free") : t("home.features-learn-more", "Learn More")}
+              label={t("home.features-get-started", "Get Started For Free")}
               isPrimary
               href={URL_DASHBOARD_REGISTER}
             />
-            {!hideLeanMore && <ActionButton label={t("home.features-learn-more", "Learn More")} />}
+            {!hideLeanMore && <ActionButton label={t("nav.learn-more", "Learn More")} href={learnMoreHref} />}
           </Stack>
         </Box>
 
@@ -199,6 +201,7 @@ export default function PowerfulFeatures({ testimonials }: PowerfulFeaturesProps
       ),
       imageSrc: "/assets/images/powerful-features/quick-dns-Setup.png",
       imageAlt: "DNS Configuration dashboard preview",
+      learnMoreHref: "/create-redirects",
       features: [
         {
           heading: t("home.features-dns-fast", "Fast and Intuitive Setup:"),
@@ -230,6 +233,7 @@ export default function PowerfulFeatures({ testimonials }: PowerfulFeaturesProps
       ),
       imageSrc: "/assets/images/powerful-features/qr-code.png",
       imageAlt: "QR Code generation preview",
+      learnMoreHref: "/create-redirects",
       features: [
         {
           heading: t("home.features-qr-dynamic", "Dynamic QR Codes:"),
@@ -247,7 +251,6 @@ export default function PowerfulFeatures({ testimonials }: PowerfulFeaturesProps
           ),
         },
       ],
-      hideLeanMore: true,
     },
     {
       key: "tab3",
@@ -257,8 +260,9 @@ export default function PowerfulFeatures({ testimonials }: PowerfulFeaturesProps
         "home.features-team-desc",
         "Manage your redirects more efficiently by enabling your team to work together seamlessly on RedirHub."
       ),
-      imageSrc: "/assets/images/powerful-features/team-Collaboration.jpeg",
+      imageSrc: "/assets/images/powerful-features/team-collaboration.jpg",
       imageAlt: "Team collaboration dashboard preview",
+      learnMoreHref: "/team-management",
       features: [
         {
           heading: t("home.features-team-roles", "User Roles and Permissions:"),
@@ -276,7 +280,6 @@ export default function PowerfulFeatures({ testimonials }: PowerfulFeaturesProps
           description: t("home.features-team-logs-desc", "Keep track of changes made by team members."),
         },
       ],
-      hideLeanMore: true,
     },
     {
       key: "tab4",
@@ -288,6 +291,7 @@ export default function PowerfulFeatures({ testimonials }: PowerfulFeaturesProps
       ),
       imageSrc: "/assets/images/powerful-features/redirect.jpeg",
       imageAlt: "Redirect settings preview",
+      learnMoreHref: "/create-redirects",
       features: [
         {
           heading: t("home.features-advanced-custom", "Customizable Redirects:"),
@@ -305,7 +309,6 @@ export default function PowerfulFeatures({ testimonials }: PowerfulFeaturesProps
           description: t("home.features-advanced-realtime-desc", "Make changes instantly without downtime."),
         },
       ],
-      hideLeanMore: true,
     },
   ];
   return (
