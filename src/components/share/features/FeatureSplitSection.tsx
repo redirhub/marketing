@@ -7,8 +7,8 @@ import {
   SimpleGrid,
   Button,
   Stack,
-  Image as ChakraImage,
 } from "@chakra-ui/react";
+import FrameImage from "./FrameImage";
 import Link from "next/link";
 import { GoCheckCircle } from "react-icons/go";
 import { URL_DASHBOARD_REGISTER } from "@/lib/utils/constants";
@@ -239,7 +239,7 @@ export default function FeatureSplitSection({
                 direction={{ base: "column", sm: "row" }}
                 gap={4}
                 align="center"
-                mt={8}
+                my={8}
               >
                 <ActionButton
                   label="Get Started For Free"
@@ -255,16 +255,7 @@ export default function FeatureSplitSection({
               order={{ base: -1, lg: imageOrder }}
               mr={!reverseOrder ? { base: 0, lg: "-32px" } : 0}
             >
-              <ChakraImage
-                src={imageSrc}
-                alt={imageAlt}
-                w="100%"
-                h={{ base: "auto", md: imageWidth }}
-                objectFit={"cover"}
-                objectPosition="top left"
-                display="block"
-                loading="lazy"
-              />
+              <FrameImage src={imageSrc} alt={imageAlt} />
             </Box>
           </SimpleGrid>
         </Box>
