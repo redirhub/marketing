@@ -12,7 +12,7 @@ import FrameImage from "../share/features/FrameImage";
 import { useTranslation } from "react-i18next";
 import Link from "next/link";
 import { GoCheckCircle } from "react-icons/go";
-import { APP_NAME, URL_DASHBOARD_REGISTER } from "@/lib/utils/constants";
+import { APP_NAME, URL_API_DEV, URL_DASHBOARD_REGISTER } from "@/lib/utils/constants";
 
 interface FeatureListItemProps {
   heading: string;
@@ -53,11 +53,12 @@ const ActionButton: React.FC<
   React.ComponentProps<typeof Button> & {
     label: string;
     isPrimary?: boolean;
+    newWindow?: boolean;
     href?: string;
   }
-> = ({ label, isPrimary = false, href = "#", ...rest }) => {
+> = ({ label, isPrimary = false, newWindow = false, href = "#", ...rest }) => {
   return (
-    <Link href={href} target={isPrimary ? "_blank" : undefined}>
+    <Link href={href} target={newWindow ? "_blank" : undefined}>
       <Button
         variant={isPrimary ? "primary" : "secondary"}
         px="24px"
@@ -92,7 +93,7 @@ export default function APIDocumentation() {
           letterSpacing="0.4px"
           mb={{ base: 4, md: 8, lg: 16 }}
         >
-          {t("home.api-title", "Explore {{n}}'s API Documentation", { n: APP_NAME })}
+          {t("home.api-titleline", "Automate redirect management with the {{n}} API", { n: APP_NAME })}
         </Heading>
       </Box>
 
@@ -119,28 +120,28 @@ export default function APIDocumentation() {
                 letterSpacing={"0.2px"}
                 lineHeight={"1.7rem"}
               >
-                {t("home.api-desc", "Unleash the full potential of RedirHub with our detailed API documentation. Designed to support developers at every stage, the documentation provides clear and concise guidance to integrate, automate, and optimize your redirect management workflows seamlessly.")}
+                {t("home.api-subline", "A REST API for creating, updating, and monitoring redirects from your own tools and deployment pipelines — everything available in the dashboard is available via API. No manual steps, no dashboard dependency.")}
               </Text>
               <Box as="ul" pl={0} color="#667085" display="grid" rowGap={3}>
                 <FeatureListItem
-                  heading={t("home.api-auth", "Authentication Made Simple:")}
-                  description={t("home.api-auth-desc", "Learn how to securely generate and use API keys for safe and reliable requests.")}
+                  heading={t("home.api-auth", "API key authentication:")}
+                  description={t("home.api-auth-desc", "Generate keys from the dashboard, add them to your Authorization header — revoke instantly if compromised.")}
                 />
                 <FeatureListItem
-                  heading={t("home.api-error", "Error Handling & Troubleshooting:")}
-                  description={t("home.api-error-desc", "Quickly identify and resolve issues with detailed error codes and explanations.")}
+                  heading={t("home.api-crud", "Full CRUD on every redirect:")}
+                  description={t("home.api-crud-desc", "Create, update, enable, disable, and delete redirects programmatically — the same operations available in the dashboard.")}
                 />
                 <FeatureListItem
-                  heading={t("home.api-pagination", "Pagination & Rate Limits:")}
-                  description={t("home.api-pagination-desc", "Efficiently manage large datasets and ensure smooth API interactions with structured guidelines.")}
+                  heading={t("home.api-errors", "Specific error codes:")}
+                  description={t("home.api-errors-desc", "Every failed request returns a machine-readable error code and a clear message — no guessing what went wrong or how to fix it.")}
                 />
                 <FeatureListItem
-                  heading={t("home.api-reference", "Robust Reference Material:")}
-                  description={t("home.api-reference-desc", "Access a comprehensive API reference with examples to kickstart your implementation.")}
+                  heading={t("home.api-pagination", "Pagination & rate limits:")}
+                  description={t("home.api-pagination-desc", "Structured pagination for large redirect inventories — documented limits so your integration never breaks unexpectedly.")}
                 />
                 <FeatureListItem
-                  heading={t("home.api-scalable", "Scalable Solutions:")}
-                  description={t("home.api-scalable-desc", "Leverage advanced features to automate workflows and scale your redirect management effortlessly.")}
+                  heading={t("home.api-examples", "Code examples on every endpoint:")}
+                  description={t("home.api-examples-desc", "Every endpoint documented with parameters, response shapes, and working samples — copy, paste, integrate.")}
                 />
               </Box>
               <Stack
@@ -154,8 +155,8 @@ export default function APIDocumentation() {
                   isPrimary
                   href={URL_DASHBOARD_REGISTER}
                 />
-                <ActionButton label={t("nav.learn-more", "Learn More")} />
-              </Stack>
+                <ActionButton label={t("nav.learn-more", "Learn More")} href={URL_API_DEV} newWindow />
+              </Stack> 
             </Box>
 
             <Box
@@ -168,7 +169,7 @@ export default function APIDocumentation() {
             >
               <FrameImage
                 src="/assets/images/api-documentation.jpeg"
-                alt="Redirect feature preview"
+                alt="RedirHub REST API documentation — automate redirect management from your deployment pipeline"
               />
             </Box>
           </SimpleGrid>

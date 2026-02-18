@@ -47,7 +47,7 @@ export default function ChooseUs() {
             subtitle={t("home.choose-us-easy-subtitle", "Simplify your setup with easy DNS configuration, nameservers, API integration and multi-user support.")}
             buttonTitle={t("home.choose-us-easy-button", "Explore Links Management")}
             buttonLink={localePath("/create-redirects")}
-            imageSrc="/assets/images/why-us-2.png"
+            imageSrc="/assets/images/powerful-features/quick-dns-Setup.png"
           />
         </SimpleGrid>
 

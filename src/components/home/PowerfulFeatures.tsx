@@ -29,6 +29,7 @@ interface FeatureDetail {
   heading: string;
   description: string;
 }
+
 interface FeatureItem {
   key: string;
   tabLabel: string;
@@ -37,16 +38,14 @@ interface FeatureItem {
   imageSrc: string;
   imageAlt: string;
   features: FeatureDetail[];
-  learnMoreHref?: string;
-  hideLeanMore?: boolean;
+  learnMoreHref: string;
 }
+
 interface FeatureContentProps {
   data: FeatureItem;
 }
-const FeatureListItem: React.FC<FeatureDetail> = ({
-  heading,
-  description,
-}) => (
+
+const FeatureListItem: React.FC<FeatureDetail> = ({ heading, description }) => (
   <Box as="li" display="flex" gap={2} listStyleType="none">
     <Box
       flexShrink={0}
@@ -60,7 +59,6 @@ const FeatureListItem: React.FC<FeatureDetail> = ({
       <Text as="span" fontSize="1rem" fontWeight="700" color="gray.800">
         {heading}
       </Text>
-
       <Text
         as="span"
         fontSize="1rem"
@@ -81,34 +79,24 @@ const ActionButton: React.FC<
     isPrimary?: boolean;
     href?: string;
   }
-> = ({ label, isPrimary = false, href = "#", ...rest }) => {
-  return (
-    <Link href={href} target={isPrimary ? "_blank" : undefined}>
-      <Button
-        variant={isPrimary ? "primary" : "secondary"}
-        px="24px"
-        py="12px"
-        fontSize="1rem"
-        w={{ base: "full", sm: "auto" }}
-        {...rest}
-      >
-        {label}
-      </Button>
-    </Link>
-  );
-};
+> = ({ label, isPrimary = false, href = "#", ...rest }) => (
+  <Link href={href} target={isPrimary ? "_blank" : undefined}>
+    <Button
+      variant={isPrimary ? "primary" : "secondary"}
+      px="24px"
+      py="12px"
+      fontSize="1rem"
+      w={{ base: "full", sm: "auto" }}
+      {...rest}
+    >
+      {label}
+    </Button>
+  </Link>
+);
+
 const FeatureContent: React.FC<FeatureContentProps> = ({ data }) => {
   const { t } = useTranslation();
-  const {
-    title,
-    description,
-    features,
-    imageSrc,
-    imageAlt,
-    key,
-    learnMoreHref = "#",
-    hideLeanMore = false,
-  } = data;
+  const { title, description, features, imageSrc, imageAlt, learnMoreHref } = data;
 
   return (
     <Box
@@ -125,24 +113,18 @@ const FeatureContent: React.FC<FeatureContentProps> = ({ data }) => {
       <SimpleGrid columns={{ base: 1, md: 1, lg: 2 }} gap={8}>
         <Box textAlign="left" order={{ base: 1, md: 1, lg: 1 }}>
           <Heading
-            as={"h2"}
+            as="h3"
             fontSize={{ base: "1.2rem", md: "1.5rem", lg: "1.8rem" }}
             color="gray.900"
-            mb={6}
+            mb={4}
             fontWeight={600}
           >
             {title}
           </Heading>
-          <Text
-            color="gray.700"
-            mb={4}
-            fontSize={"14px"}
-            letterSpacing={"0.2px"}
-          >
+          <Text color="gray.700" mb={4} fontSize={"15px"} letterSpacing={"0.2px"}>
             {description}
           </Text>
           <Box as="ul" pl={0} display="grid" rowGap={3}>
-            {/* Using the reusable FeatureListItem */}
             {features.map((feature, index) => (
               <FeatureListItem
                 key={index}
@@ -162,11 +144,13 @@ const FeatureContent: React.FC<FeatureContentProps> = ({ data }) => {
               isPrimary
               href={URL_DASHBOARD_REGISTER}
             />
-            {!hideLeanMore && <ActionButton label={t("nav.learn-more", "Learn More")} href={learnMoreHref} />}
+            <ActionButton
+              label={t("nav.learn-more", "Learn More")}
+              href={learnMoreHref}
+            />
           </Stack>
         </Box>
 
-        {/* Right Side: Image */}
         <Box
           w="100%"
           h="100%"
@@ -193,124 +177,146 @@ export default function PowerfulFeatures({ testimonials }: PowerfulFeaturesProps
   const featuresData: FeatureItem[] = [
     {
       key: "tab1",
-      tabLabel: t("home.features-dns-tab", "Quick DNS Setup"),
-      title: t("home.features-dns-title", "Effortless DNS Configuration"),
+      tabLabel: t("home.features-create-tab", "Create Redirects"),
+      title: t("home.features-create-title", "Live Worldwide the Moment You Save"),
       description: t(
-        "home.features-dns-desc",
-        "Simplify DNS setup with RedirHub's streamlined tools. Configure DNS records quickly and ensure your redirects work seamlessly without technical hurdles."
+        "home.features-create-desc",
+        "Set up any redirect in seconds — from a single page forward to an entire wildcard domain. No config files, no tickets to IT, no deployment pipeline."
       ),
-      imageSrc: "/assets/images/powerful-features/quick-dns-Setup.png",
-      imageAlt: "DNS Configuration dashboard preview",
+      imageSrc: "/assets/images/powerful-features/redirect.jpeg",
+      imageAlt: "Create redirects dashboard — 301, 302, and wildcard redirect setup",
       learnMoreHref: "/create-redirects",
       features: [
         {
-          heading: t("home.features-dns-fast", "Fast and Intuitive Setup:"),
+          heading: t("home.features-create-types", "301, 302, 307, 308:"),
           description: t(
-            "home.features-dns-fast-desc",
-            "No more complex configurations—get your DNS set up in minutes."
+            "home.features-create-types-desc",
+            "Pick the right redirect type for every use case — permanent migrations, temporary campaigns, or method-preserving forwards."
           ),
         },
         {
-          heading: t("home.features-dns-guides", "Comprehensive Guides:"),
-          description: t("home.features-dns-guides-desc", "Step-by-step instructions for every configuration."),
+          heading: t("home.features-create-wildcard", "Wildcard domains:"),
+          description: t(
+            "home.features-create-wildcard-desc",
+            "Point an entire domain or subdomain to a new destination with one rule — *.brand.com covered in seconds."
+          ),
         },
         {
-          heading: t("home.features-dns-support", "Reliable Support:"),
+          heading: t("home.features-create-csv", "Bulk CSV import:"),
           description: t(
-            "home.features-dns-support-desc",
-            "Our team is ready to assist with any DNS-related queries."
+            "home.features-create-csv-desc",
+            "Upload hundreds of redirects in one file — preview before publishing, live in one click."
           ),
         },
       ],
     },
     {
       key: "tab2",
-      tabLabel: t("home.features-qr-tab", "QR Code"),
-      title: t("home.features-qr-title", "Seamless QR Code Integration"),
+      tabLabel: t("home.features-manage-tab", "Manage Redirects"),
+      title: t("home.features-manage-title", "Find, Edit, and Monitor Any Redirect Instantly"),
       description: t(
-        "home.features-qr-desc",
-        "RedirHub lets you generate custom QR codes tied to your redirects, making it easier for users to access your content on the go."
+        "home.features-manage-desc",
+        "Search your entire redirect inventory, update destinations without a deployment, and catch broken links before your users do."
       ),
-      imageSrc: "/assets/images/powerful-features/qr-code.png",
-      imageAlt: "QR Code generation preview",
-      learnMoreHref: "/create-redirects",
+      imageSrc: "/assets/images/powerful-features/filter-redirects.jpg",
+      imageAlt: "Redirect management dashboard — search, filter, and bulk edit redirects",
+      learnMoreHref: "/manage-redirects",
       features: [
         {
-          heading: t("home.features-qr-dynamic", "Dynamic QR Codes:"),
-          description: t("home.features-qr-dynamic-desc", "Update destination URLs without reprinting the code."),
-        },
-        {
-          heading: t("home.features-qr-branding", "Custom Branding:"),
-          description: t("home.features-qr-branding-desc", "Add your logo and brand colors to every QR code."),
-        },
-        {
-          heading: t("home.features-qr-track", "Track Scans:"),
+          heading: t("home.features-manage-search", "Global search & filters:"),
           description: t(
-            "home.features-qr-track-desc",
-            "Monitor engagement metrics like scan count and locations."
+            "home.features-manage-search-desc",
+            "Find any redirect by source, destination, tag, or domain — across your whole account."
+          ),
+        },
+        {
+          heading: t("home.features-manage-health", "Destination health checks:"),
+          description: t(
+            "home.features-manage-health-desc",
+            "Automated alerts when a destination URL goes down — with fallback support to catch traffic automatically."
+          ),
+        },
+        {
+          heading: t("home.features-manage-bulk", "Bulk operations:"),
+          description: t(
+            "home.features-manage-bulk-desc",
+            "Enable, disable, retag, or update destinations across multiple redirects in one action."
           ),
         },
       ],
     },
     {
       key: "tab3",
-      tabLabel: t("home.features-team-tab", "Team Collaboration"),
-      title: t("home.features-team-title", "Boost Productivity with Team Collaboration"),
+      tabLabel: t("home.features-team-tab", "Team Access"),
+      title: t("home.features-team-title", "Marketers Move Fast. Infrastructure Stays Protected."),
       description: t(
         "home.features-team-desc",
-        "Manage your redirects more efficiently by enabling your team to work together seamlessly on RedirHub."
+        "Assign each team member exactly the access they need — full admin, edit-only, or view-only — down to the domain level."
       ),
       imageSrc: "/assets/images/powerful-features/team-collaboration.jpg",
-      imageAlt: "Team collaboration dashboard preview",
+      imageAlt: "Team access controls — role-based permissions for redirect management",
       learnMoreHref: "/team-management",
       features: [
         {
-          heading: t("home.features-team-roles", "User Roles and Permissions:"),
-          description: t("home.features-team-roles-desc", "Assign roles to team members for secure collaboration."),
-        },
-        {
-          heading: t("home.features-team-shared", "Shared Projects:"),
+          heading: t("home.features-team-roles", "Role-based permissions:"),
           description: t(
-            "home.features-team-shared-desc",
-            "Organize redirects into shared folders for team visibility."
+            "home.features-team-roles-desc",
+            "Define what each person can see and change — no shared credentials, no over-permissioning."
           ),
         },
         {
-          heading: t("home.features-team-logs", "Activity Logs:"),
-          description: t("home.features-team-logs-desc", "Keep track of changes made by team members."),
+          heading: t("home.features-team-domains", "Domain-level control:"),
+          description: t(
+            "home.features-team-domains-desc",
+            "Restrict access per domain — a team managing one brand has no visibility into another."
+          ),
+        },
+        {
+          heading: t("home.features-team-revoke", "Instant revocation:"),
+          description: t(
+            "home.features-team-revoke-desc",
+            "Remove a team member's access immediately — their changes remain, their access doesn't."
+          ),
         },
       ],
     },
     {
       key: "tab4",
-      tabLabel: t("home.features-advanced-tab", "Advanced Redirects"),
-      title: t("home.features-advanced-title", "Advanced Redirect Options with Custom Codes"),
+      tabLabel: t("home.features-qr-tab", "QR Codes"),
+      title: t("home.features-qr-title", "Change the Destination Without Reprinting"),
       description: t(
-        "home.features-advanced-desc",
-        "Harness the full power of HTTP status codes to handle a variety of redirect scenarios, from temporary redirects to permanent migrations."
+        "home.features-qr-desc",
+        "Every QR code is a redirect. Update where it points anytime from the dashboard — the printed code stays the same."
       ),
-      imageSrc: "/assets/images/powerful-features/redirect.jpeg",
-      imageAlt: "Redirect settings preview",
+      imageSrc: "/assets/images/powerful-features/qr-code.png",
+      imageAlt: "Dynamic QR code tied to a redirect — update destination without reprinting",
       learnMoreHref: "/create-redirects",
       features: [
         {
-          heading: t("home.features-advanced-custom", "Customizable Redirects:"),
-          description: t("home.features-advanced-custom-desc", "Configure 301, 302, and other HTTP codes effortlessly."),
-        },
-        {
-          heading: t("home.features-advanced-seo", "SEO-Friendly:"),
+          heading: t("home.features-qr-dynamic", "Dynamic codes:"),
           description: t(
-            "home.features-advanced-seo-desc",
-            "Optimize search engine visibility with proper redirect handling."
+            "home.features-qr-dynamic-desc",
+            "Update the destination URL behind any QR code at any time — no reprint, no reissue."
           ),
         },
         {
-          heading: t("home.features-advanced-realtime", "Real-Time Updates:"),
-          description: t("home.features-advanced-realtime-desc", "Make changes instantly without downtime."),
+          heading: t("home.features-qr-branding", "Custom branding:"),
+          description: t(
+            "home.features-qr-branding-desc",
+            "Embed your logo and match your brand colours — print-ready in PNG or SVG."
+          ),
+        },
+        {
+          heading: t("home.features-qr-track", "Scan tracking:"),
+          description: t(
+            "home.features-qr-track-desc",
+            "Monitor scan count, location, and device data — separate from URL click-throughs."
+          ),
         },
       ],
     },
   ];
+
   return (
     <Box
       w="100%"
@@ -321,7 +327,7 @@ export default function PowerfulFeatures({ testimonials }: PowerfulFeaturesProps
     >
       <Box w="100%" maxW="7xl" mx="auto" textAlign="center">
         <Heading
-          as={"p"}
+          as="h2"
           fontSize={{ base: "1.5rem", md: "2rem", lg: "3rem" }}
           fontWeight={500}
           color="gray.700"
@@ -329,7 +335,7 @@ export default function PowerfulFeatures({ testimonials }: PowerfulFeaturesProps
           letterSpacing="0.4px"
           mb={{ base: 8, md: 16 }}
         >
-          {t("home.features-title", "Discover RedirHub's Powerful Features")}
+          {t("home.features-title", "Everything you need to manage URL redirects")}
         </Heading>
       </Box>
 
