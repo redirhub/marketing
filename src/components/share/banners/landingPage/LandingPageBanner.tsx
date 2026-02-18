@@ -76,21 +76,10 @@ export default function LandingPageBanner({ hero }: LandingPageBannerProps) {
             <VStack gap={2} textAlign="center" mb="10px">
               <Link href={hero.ctaPrimary.url} target={hero.ctaPrimary.url.startsWith('http') ? "_blank" : "_self"}>
                 <Button
-                  bg="brand.500"
-                  color="white"
+                  variant="primary"
                   px="24px"
                   py="12px"
                   fontSize="1rem"
-                  fontWeight="semibold"
-                  borderRadius="8px"
-                  _hover={{
-                    bg: "brand.600",
-                  }}
-                  _active={{
-                    bg: "brand.700",
-                    transform: "translateY(0)",
-                  }}
-                  transition="all 0.2s"
                 >
                   {hero.ctaPrimary.label}
                 </Button>

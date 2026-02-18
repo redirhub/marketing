@@ -1,9 +1,46 @@
-import { createSystem, defaultConfig } from '@chakra-ui/react';
+import { createSystem, defaultConfig, defineRecipe } from '@chakra-ui/react';
 import colors from './colors';
 import typography from './typography';
 
+const buttonRecipe = defineRecipe({
+  variants: {
+    variant: {
+      primary: {
+        bg: 'brand.solid',
+        color: 'white',
+        borderRadius: '12px',
+        fontWeight: '600',
+        transition: 'all 0.2s',
+        _hover: {
+          bg: 'brand.hover',
+        },
+        _active: {
+          bg: 'brand.active',
+        },
+      },
+      secondary: {
+        bg: 'white',
+        color: 'primary.fg',
+        border: '1px solid',
+        borderColor: 'gray.100',
+        borderRadius: '12px',
+        transition: 'all 0.2s',
+        _hover: {
+          bg: 'gray.100',
+        },
+        _active: {
+          transform: 'translateY(0)',
+        },
+      },
+    },
+  },
+});
+
 const customConfig = {
   theme: {
+    recipes: {
+      button: buttonRecipe,
+    },
     tokens: {
       colors,
       fonts: typography.fonts,

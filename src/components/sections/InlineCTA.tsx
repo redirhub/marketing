@@ -76,15 +76,11 @@ const InlineCTA = ({
                     as={Link}
                     // @ts-expect-error
                     href={ctaUrl}
+                    variant="primary"
                     size="lg"
-                    bg="brand.500"
-                    color="white"
                     fontSize="md"
-                    fontWeight="medium"
                     px={'18px'}
-                    borderRadius={'12px'}
                     h="56px"
-                    _hover={{ bg: '#E04B00' }}
                     rightIcon={<HiArrowRight />}
                     mt={4}
                 >

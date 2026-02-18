@@ -34,25 +34,11 @@ export const FooterCtaHeader: React.FC = ({}) => {
       </VStack>
       <Link href={URL_DASHBOARD_REGISTER} target={"_blank"}>
        <Button
-          bg="brand.500"
-          color="white"
-          borderColor="brand.500"
+          variant="primary"
           px="24px"
           py="14px"
           minH={'48px'}
           fontSize="1rem"
-          fontWeight="semibold"
-          borderRadius="8px"
-          transition="all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1)"
-          _hover={{
-            borderColor: "brand.600",
-            color: "white",
-            transform: "translateY(-2px)",
-            boxShadow: "0 10px 20px rgba(95, 82, 63, 0.27)",
-          }}
-          _active={{
-            transform: "translateY(0)",
-          }}
         >
           {t("nav.footer-cta-button", "Get Started For Free")}
         </Button>

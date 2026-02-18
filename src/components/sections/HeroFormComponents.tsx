@@ -66,29 +66,18 @@ export const PrimaryActionButton: React.FC<PrimaryActionButtonProps> = ({
   subtext,
   ...rest
 }) => {
-  const buttonStyles = {
-    bg: "brand.solid",
-    borderRadius: "12px",
-    h: "56px",
-    px: { base: 4, md: 8 },
-    fontSize: "16px",
-    fontWeight: "600",
-    fontFamily: "'Inter', sans-serif",
-    fontStyle: "normal",
-    color: "white",
-    w: "full",
-    _hover: {
-      bg: "brand.hover",
-    },
-    _active: {
-      bg: "brand.active",
-    },
-  };
   return (
     <FormControl>
       <FormLabel opacity={0} mb={2} pointerEvents="none" display={{ base: "none", md: "block" }}>Spacer</FormLabel>
       <Stack gap={2} w="full" align={{ base: "center", md: "center" }}>
-        <Button {...buttonStyles} {...rest}>
+        <Button
+          variant="primary"
+          h="56px"
+          px={{ base: 4, md: 8 }}
+          fontSize="16px"
+          w="full"
+          {...rest}
+        >
           <HStack gap={2}>
             <Text>{label}</Text>
             <Icon as={FiArrowRight} />

@@ -56,35 +56,14 @@ const ActionButton: React.FC<
     href?: string;
   }
 > = ({ label, isPrimary = false, href = "#", ...rest }) => {
-  const primaryStyles = {
-    bg: "brand.500",
-    color: "white",
-    _hover: { bg: "brand.600", transform: "translateY(-2px)", boxShadow: "0 10px 20px rgba(95, 82, 63, 0.27)", },
-  };
-  const secondaryStyles = {
-    bg: "#fff",
-    color: "#16538A",
-    border: "1px solid #222B271A",
-    _hover: {
-      bg: "#16538A",
-      color: "#fff",
-      transform: "translateY(-2px)",
-      boxShadow: "lg",
-    },
-  };
-
   return (
     <Link href={href} target={isPrimary ? "_blank" : undefined}>
       <Button
+        variant={isPrimary ? "primary" : "secondary"}
         px="24px"
         py="12px"
         fontSize="1rem"
-        fontWeight="normal"
-        borderRadius="8px"
-        transition="all 0.2s"
-        _active={{ transform: "translateY(0)" }}
         w={{ base: "full", sm: "auto" }}
-        {...(isPrimary ? primaryStyles : secondaryStyles)}
         {...rest}
       >
         {label}
