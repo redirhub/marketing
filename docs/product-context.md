@@ -116,7 +116,7 @@ Core Features
 • Multiple destinations
 • Change target any time
 • Tagging
-• Wildcard domains
+• Wildcard domains (domain and subdomain level only — e.g., *.domain.com → destination; NOT path-level wildcards like /blog/*)
 • Wildcard certificates
 • CNAME support
 • Nameservers
@@ -288,3 +288,18 @@ Legal pages are not to be rewritten (unless prompted with explicit instructions)
     • Overly casual tone
     • Overly technical tone
     • Improperly modifying legal content
+
+14. Feature Boundaries & Clarifications (Critical — Do Not Override)
+
+    Wildcard support:
+    • Wildcards work at domain/subdomain level only (e.g., *.domain.com)
+    • There is NO path-level wildcard support (e.g., /blog/* → /articles/* is NOT supported)
+    • DO NOT use path wildcard examples in any copy or feature descriptions
+
+    Regex:
+    • RedirHub does NOT support regular expressions / regex for redirect rules
+    • Never mention "regex", "regular expressions", or "pattern matching" as a feature
+
+    Page-to-page redirects:
+    • RedirHub supports individual page-to-page redirect rules (specific source URL → specific destination URL)
+    • This is distinct from wildcard/pattern matching — it is exact URL mapping
