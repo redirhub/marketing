@@ -95,6 +95,28 @@ const featurePages = [
         ]),
       },
     ],
+    faqs: [
+      {
+        question: 'What is the difference between a 301 and 302 redirect?',
+        answer: 'A 301 is a permanent redirect — it tells search engines the page has moved for good, passing link equity to the new URL. A 302 is a temporary redirect — search engines keep the original URL indexed and do not transfer link equity. Use 301 for migrations and permanent URL changes. Use 302 for short-term redirects such as maintenance pages or split tests.',
+      },
+      {
+        question: 'How do I set up a wildcard domain redirect?',
+        answer: 'A wildcard domain redirect routes all traffic from an entire domain or subdomain to a single destination using one rule — for example, pointing every variation of an old brand domain to your main site. In RedirHub, you add the domain with a wildcard record and set the destination URL. Automatic SSL covers all subdomains from the same rule.',
+      },
+      {
+        question: 'How do I bulk upload redirects from a CSV file?',
+        answer: 'Prepare a CSV file with columns for source URL, destination URL, and redirect type. Upload it through the RedirHub dashboard and preview all entries before publishing. Broken or malformed destination URLs are flagged during the import review so you can fix mapping errors before any redirect goes live.',
+      },
+      {
+        question: 'What are UTM parameters and how do I add them to a redirect?',
+        answer: 'UTM parameters are tags appended to a destination URL that tell analytics tools where a visitor came from — source, medium, campaign, term, and content. Instead of pasting them manually into every URL, RedirHub\'s UTM builder lets you configure them once per redirect and applies them automatically to every hit, preventing them from being stripped mid-redirect.',
+      },
+      {
+        question: 'How do I redirect a domain without losing SEO?',
+        answer: 'Use a 301 permanent redirect from the old domain to the new one. This signals to search engines that the content has moved permanently and passes link equity to the destination. Ensure the redirect is served over HTTPS — an insecure hop breaks the trust signal chain. Avoid redirect chains by pointing directly to the final destination URL.',
+      },
+    ],
   },
   {
     title: 'Manage Redirects',

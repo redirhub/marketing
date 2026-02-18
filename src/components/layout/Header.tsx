@@ -365,6 +365,7 @@ export default function Header({ mode = "dark" }: HeaderProps) {
                 fontFamily="Inter"
                 cursor="pointer"
                 _hover={{ bg: "brand.hover" }}
+                transition="all 0.2s"
               >
                 {t(`nav.get-started`, "Start for Free")}
               </Box>
