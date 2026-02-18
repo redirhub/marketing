@@ -362,7 +362,7 @@ export interface LandingPage {
   }
   meta?: LandingPageMeta
   hero: HeroSection
-  richContent: PortableTextContent
+  content: PortableTextContent
   faqs: FAQItem[]
   sections?: Array<'contentTable' | 'testimonials' | 'blogInsight'>
   footerType: 'default' | 'with-widgets'

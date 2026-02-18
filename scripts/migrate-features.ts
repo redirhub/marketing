@@ -389,7 +389,7 @@ async function migrateFeatures() {
         bannerStyle: page.bannerStyle,
         heroSections: [],
       },
-      richContent: buildRichContent(page.blocks),
+      content: buildRichContent(page.blocks),
       faqs,
       sections: ['testimonials'],
       footerType: 'with-widgets',

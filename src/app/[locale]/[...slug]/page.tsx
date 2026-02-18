@@ -105,10 +105,10 @@ export default async function LandingPage({ params, searchParams }: PageProps) {
               borderRadius="2xl"
               borderColor="gray.100"
             >
-              {page.richContent && (
+              {page.content && (
                 <Box fontSize="lg" lineHeight="1.8" color="#344054">
                   <PortableText
-                    value={page.richContent}
+                    value={page.content}
                     components={portableTextComponents()}
                   />
                 </Box>
@@ -118,7 +118,7 @@ export default async function LandingPage({ params, searchParams }: PageProps) {
 
           {showTableOfContents && (
             <Box display={{ base: 'none', xl: 'block' }}>
-              <TableOfContents content={page.richContent || []} />
+              <TableOfContents content={page.content || []} />
             </Box>
           )}
         </Box>

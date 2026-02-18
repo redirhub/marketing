@@ -39,7 +39,7 @@ Each landing page JSON file includes:
 - **slug** - URL slug
 - **meta** - SEO metadata (metaTitle, metaDescription, ogImage)
 - **hero** - Hero section with headline, subheadline, CTA, image, and heroSections array
-- **richContent** - Rich text content using Portable Text format
+- **content** - Rich text content using Portable Text format
 - **faqs** - Array of FAQ items
 - **sections** - Optional page sections array (contentTable, testimonials, blogInsight)
 - **footerType** - Footer style (default, with-widgets)

@@ -174,7 +174,7 @@ export const landingPageType = defineType({
       validation: (rule) => rule.required(),
     }),
     defineField({
-      name: 'richContent',
+      name: 'content',
       title: 'Rich Content',
       type: 'array',
       description: 'Main content for the page',

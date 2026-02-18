@@ -48,7 +48,7 @@ export async function fetchLandingPageBySlug(
         "dimensions": asset->metadata.dimensions
       }
     },
-    richContent,
+    content,
     faqs,
     sections,
     footerType,

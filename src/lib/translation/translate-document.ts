@@ -56,7 +56,7 @@ export const TRANSLATABLE_FIELDS: Record<string, string[]> = {
   legal: ['title', 'content'],
   faqSet: ['title', 'faqs'],
   changelog: ['title', 'description', 'content'],
-  landingPage: ['title', 'content'], // Can be expanded as needed
+  landingPage: ['title', 'meta', 'hero', 'faqs', 'content'],
   testimonial: ['quote', 'role'], // author name, avatar, order preserved
 }
 
@@ -120,7 +120,14 @@ async function translateMetadata(
     messages: [
       {
         role: 'system',
-        content: `You are a professional translator. Translate the following document metadata to ${targetLanguage}. Maintain the tone, style, and context. Return ONLY a valid JSON object with the same structure, containing the translations. Preserve all _key, _type, and _ref fields exactly as they are. Do not add any explanations or markdown formatting.`,
+        content: `You are a professional translator. Translate the following document metadata to ${targetLanguage}. Maintain the tone, style, and context. Return ONLY a valid JSON object with the same structure. Rules:
+- Translate only natural language text (titles, descriptions, headlines, labels, questions, answers, notes)
+- Preserve ALL _key, _type, and _ref fields exactly as they are
+- Preserve URLs (starting with http/https or /) exactly as they are
+- Preserve slug values, code identifiers, and enum strings (e.g. "default", "redirect", "customerLogos", "with-widgets") exactly as they are
+- Preserve image and file reference objects (objects containing _type: "image" or asset._ref) exactly as they are
+- Preserve boolean values and numbers exactly as they are
+Do not add any explanations or markdown formatting.`,
       },
       {
         role: 'user',
@@ -154,14 +161,83 @@ async function translateMetadata(
 
 const PORTABLE_TEXT_BATCH_SIZE = 10
 
+/**
+ * Returns true for natural language text that should be translated.
+ * Filters out URLs, CSS values, single-word identifiers, enum strings, etc.
+ * Requires at least 2 words with 3+ alphabetic characters.
+ */
+function isTranslatableString(s: string): boolean {
+  if (!s?.trim()) return false
+  if (/^https?:\/\/|^\/[\w/-]/.test(s)) return false // URLs / paths
+  const words = s.match(/[a-zA-Z]{3,}/g) || []
+  return words.length >= 2
+}
+
+/**
+ * Recursively extracts all translatable string values from any value into a flat
+ * key→string map. Skips Sanity image/file/reference objects and internal fields.
+ */
+function extractTranslatableStrings(
+  value: any,
+  prefix: string,
+  result: Record<string, string>
+): void {
+  if (typeof value === 'string') {
+    if (isTranslatableString(value)) result[prefix] = value
+    return
+  }
+  if (Array.isArray(value)) {
+    value.forEach((item, i) => extractTranslatableStrings(item, `${prefix}_${i}`, result))
+    return
+  }
+  if (value && typeof value === 'object') {
+    if (value._type === 'image' || value._type === 'file' || value._ref) return
+    for (const [key, val] of Object.entries(value)) {
+      if (['_key', '_type', '_ref', '_id', '_rev'].includes(key)) continue
+      extractTranslatableStrings(val, `${prefix}_${key}`, result)
+    }
+  }
+}
+
+/**
+ * Recursively applies translated strings back onto a value using the same key scheme
+ * as extractTranslatableStrings. Non-translated values are preserved as-is.
+ */
+function applyTranslatedStrings(
+  value: any,
+  prefix: string,
+  translatedMap: Record<string, string>
+): any {
+  if (typeof value === 'string') {
+    return translatedMap[prefix] ?? value
+  }
+  if (Array.isArray(value)) {
+    return value.map((item, i) => applyTranslatedStrings(item, `${prefix}_${i}`, translatedMap))
+  }
+  if (value && typeof value === 'object') {
+    if (value._type === 'image' || value._type === 'file' || value._ref) return value
+    const out: any = {}
+    for (const [key, val] of Object.entries(value)) {
+      out[key] = ['_key', '_type', '_ref', '_id', '_rev'].includes(key)
+        ? val
+        : applyTranslatedStrings(val, `${prefix}_${key}`, translatedMap)
+    }
+    return out
+  }
+  return value
+}
+
 async function translatePortableText(
   content: any[],
   targetLocale: string
 ): Promise<any[]> {
   if (!content || !Array.isArray(content)) return content
 
-  // Collect translatable blocks with their original index
-  const translatableItems: { index: number; text: string }[] = []
+  // Collect all translatable text with unique string keys.
+  // Standard 'block' items: spans are joined and keyed as b_{i}.
+  // All other non-image block types: walked recursively to extract text fields.
+  const texts: Record<string, string> = {}
+
   for (let i = 0; i < content.length; i++) {
     const block = content[i]
     if (block._type === 'block' && block.children) {
@@ -169,41 +245,40 @@ async function translatePortableText(
         .filter((child: any) => child._type === 'span' && child.text)
         .map((child: any) => child.text)
         .join(' ')
-      if (text.trim()) translatableItems.push({ index: i, text })
+      if (text.trim()) texts[`b_${i}`] = text
+    } else if (block._type !== 'image') {
+      extractTranslatableStrings(block, `obj_${i}`, texts)
     }
   }
 
-  if (translatableItems.length === 0) return content
+  if (Object.keys(texts).length === 0) return content
 
-  // Split into chunks of PORTABLE_TEXT_BATCH_SIZE and translate all chunks in parallel
-  const chunks: typeof translatableItems[] = []
-  for (let i = 0; i < translatableItems.length; i += PORTABLE_TEXT_BATCH_SIZE) {
-    chunks.push(translatableItems.slice(i, i + PORTABLE_TEXT_BATCH_SIZE))
+  // Split into chunks and translate all chunks in parallel
+  const entries = Object.entries(texts)
+  const chunks: Record<string, string>[] = []
+  for (let i = 0; i < entries.length; i += PORTABLE_TEXT_BATCH_SIZE) {
+    chunks.push(Object.fromEntries(entries.slice(i, i + PORTABLE_TEXT_BATCH_SIZE)))
   }
 
   const chunkResults = await Promise.all(
-    chunks.map((chunk) => {
-      const texts: Record<string, string> = {}
-      for (const item of chunk) texts[String(item.index)] = item.text
-      return translateBlocks(texts, targetLocale)
-    })
+    chunks.map((chunk) => translateBlocks(chunk, targetLocale))
   )
 
-  // Merge all chunk results into a single index→translation map
-  const translatedMap: Record<number, string> = {}
+  const translatedMap: Record<string, string> = {}
   for (const result of chunkResults) {
-    for (const [key, value] of Object.entries(result)) {
-      translatedMap[Number(key)] = value
-    }
+    Object.assign(translatedMap, result)
   }
 
-  // Rebuild blocks, substituting translations where available
+  // Rebuild content, substituting translations where available
   return content.map((block, i) => {
-    if (translatedMap[i] !== undefined) {
+    if (block._type === 'block' && translatedMap[`b_${i}`] !== undefined) {
       return {
         ...block,
-        children: [{ _type: 'span', text: translatedMap[i], marks: [] }],
+        children: [{ _type: 'span', text: translatedMap[`b_${i}`], marks: [] }],
       }
+    }
+    if (block._type !== 'image') {
+      return applyTranslatedStrings(block, `obj_${i}`, translatedMap)
     }
     return block
   })

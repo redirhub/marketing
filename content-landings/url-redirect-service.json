@@ -16,7 +16,7 @@
     },
     "heroSections": ["redirect", "customerLogos"]
   },
-  "richContent": [
+  "content": [
     {
       "_type": "block",
       "style": "h2",

@@ -53,7 +53,7 @@ function transformToSanityDocument(data: any): any {
       ...data.hero,
       heroSections: data.hero.heroSections || [],
     },
-    richContent: processContent(data.richContent),
+    content: processContent(data.content),
     faqs: data.faqs.map((faq: any) => ({
       ...faq,
       _key: genKey(),
