@@ -221,13 +221,7 @@ export const landingPageType = defineType({
               description: 'Place the image on the left side instead of the right',
               initialValue: false,
             },
-            {
-              name: 'removePaddingBottom',
-              type: 'boolean',
-              title: 'Remove Bottom Padding',
-              initialValue: false,
-            },
-            {
+{
               name: 'image',
               type: 'image',
               title: 'Section Image',
@@ -240,12 +234,7 @@ export const landingPageType = defineType({
                 },
               ],
             },
-            {
-              name: 'imageBorderRadius',
-              type: 'string',
-              title: 'Image Border Radius',
-              description: 'e.g. "0px 15px 0px 0px"',
-            },
+
             {
               name: 'features',
               type: 'array',

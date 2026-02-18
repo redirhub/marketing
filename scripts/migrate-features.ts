@@ -47,7 +47,6 @@ const featurePages = [
         mainTitle: 'Create Individual Redirects',
         subTitle: 'Set up redirects with our easy-to-use interface. Configure source URLs, destination paths, and redirect types in seconds',
         reverseOrder: false,
-        removePaddingBottom: false,
         features: toFeatureStrings([
           { heading: 'Quick Setup:', description: 'Create redirects in seconds with our streamlined interface and instant validation' },
           { heading: 'Flexible Redirect Types:', description: 'Choose between 301 permanent redirects and 302 temporary redirects based on your needs' },
@@ -58,7 +57,6 @@ const featurePages = [
         mainTitle: 'URL Path Customization',
         subTitle: 'Create powerful redirect rules using pattern matching and regular expressions.',
         reverseOrder: true,
-        removePaddingBottom: false,
         features: toFeatureStrings([
           { heading: 'Forwarded Options:', description: 'Choose which parts of the URL to forward to the destination, including path forwarding (a.com/one/two → b.com/one/two) and query forwarding (a.com/?one=two → b.com/?one=two).' },
           { heading: 'UTM Builder:', description: 'Automatically append UTM parameters (source, medium, campaign, term, content) to your destination URL on every redirect.' },
@@ -71,7 +69,6 @@ const featurePages = [
         mainTitle: 'Bulk Import & Export',
         subTitle: 'Manage multiple redirects efficiently with our bulk operation tools',
         reverseOrder: false,
-        removePaddingBottom: false,
         features: toFeatureStrings([
           { heading: 'CSV Import:', description: 'Upload CSV files to create multiple redirects in one operation.' },
           { heading: 'Batch Processing:', description: 'Edit, update, or delete multiple redirects simultaneously.' },
@@ -82,7 +79,6 @@ const featurePages = [
         mainTitle: 'Bot Protection & Monitoring',
         subTitle: 'Configure advanced security measures and link monitoring for your redirects',
         reverseOrder: true,
-        removePaddingBottom: false,
         features: toFeatureStrings([
           { heading: 'URL Monitoring:', description: 'Stay ahead of broken links with automated checks, notifications, and fallback options for broken destinations.' },
           { heading: 'Bot Security:', description: 'Control bot access with multiple protection layers including crawler blocking and JavaScript challenges.' },
@@ -94,7 +90,6 @@ const featurePages = [
         mainTitle: 'Domain Configuration',
         subTitle: 'Manage redirect settings across multiple domains and subdomains',
         reverseOrder: false,
-        removePaddingBottom: true,
         features: toFeatureStrings([
           { heading: 'Multi-domain Support:', description: 'Create and manage redirects across all your domains from one interface.' },
           { heading: 'Custom Rules:', description: 'Set domain-specific redirect rules and default behaviors.' },
@@ -116,8 +111,6 @@ const featurePages = [
         mainTitle: 'Search and Filter',
         subTitle: 'Access and organize your redirects with powerful search capabilities.',
         reverseOrder: false,
-        removePaddingBottom: false,
-        imageBorderRadius: '12px 0px 0px 0px',
         features: toFeatureStrings([
           { heading: 'Global Search:', description: 'Find any redirect instantly with comprehensive search across URLs, tags, and descriptions' },
           { heading: 'Smart Filters:', description: 'Filter redirects by status, type, creation date, or performance metrics' },
@@ -128,8 +121,6 @@ const featurePages = [
         mainTitle: 'Status Management',
         subTitle: 'Keep your redirects organized and up to date.',
         reverseOrder: true,
-        removePaddingBottom: false,
-        imageBorderRadius: '0px 15px 0px 0px',
         features: toFeatureStrings([
           { heading: 'Path Parameters:', description: 'Maintain URL parameters and path structures in your redirects automatically' },
           { heading: 'Quick Actions:', description: 'Enable, disable, or pause redirects with a single click' },
@@ -140,8 +131,6 @@ const featurePages = [
         mainTitle: 'Bulk Operations',
         subTitle: 'Efficiently manage multiple redirects at once.',
         reverseOrder: false,
-        removePaddingBottom: false,
-        imageBorderRadius: '12px 0px 0px 0px',
         features: toFeatureStrings([
           { heading: 'Batch Updates:', description: 'Modify multiple redirects simultaneously with bulk edit capabilities' },
           { heading: 'Mass Actions:', description: 'Apply actions like enable/disable, delete, or tag to multiple redirects at once' },
@@ -152,8 +141,6 @@ const featurePages = [
         mainTitle: 'Performance Tracking',
         subTitle: 'Monitor and optimize your redirect performance.',
         reverseOrder: true,
-        removePaddingBottom: true,
-        imageBorderRadius: '0px 15px 0px 0px',
         features: toFeatureStrings([
           { heading: 'Usage Statistics:', description: 'Track redirect usage patterns and response times' },
           { heading: 'Error Monitoring:', description: 'Identify and troubleshoot failed redirects quickly' },
@@ -175,7 +162,6 @@ const featurePages = [
         mainTitle: 'Traffic Overview',
         subTitle: 'Get detailed insights into your redirect performance.',
         reverseOrder: false,
-        removePaddingBottom: false,
         features: toFeatureStrings([
           { heading: 'Total Clicks:', description: 'Track the total number of redirect clicks and view hourly distribution' },
           { heading: 'Unique Visitors:', description: 'Monitor unique visitors accessing your redirects' },
@@ -186,8 +172,6 @@ const featurePages = [
         mainTitle: 'Visit Details',
         subTitle: 'Monitor detailed information about each redirect access.',
         reverseOrder: true,
-        removePaddingBottom: false,
-        imageBorderRadius: '0px 15px 0px 0px',
         features: toFeatureStrings([
           { heading: 'Recent Activity:', description: 'View real-time log of recent visits with timestamp and location' },
           { heading: 'Device Info:', description: 'See which devices and browsers are accessing your redirects' },
@@ -198,7 +182,6 @@ const featurePages = [
         mainTitle: 'Technical Analysis',
         subTitle: 'Understand the technical aspects of your redirects.',
         reverseOrder: false,
-        removePaddingBottom: true,
         features: toFeatureStrings([
           { heading: 'Protocol Stats:', description: 'Monitor HTTP vs HTTPS usage across your redirects' },
           { heading: 'Browser Analytics:', description: 'Track which browsers and versions access your redirects' },
@@ -220,7 +203,6 @@ const featurePages = [
         mainTitle: 'Access Control',
         subTitle: 'Manage team permissions effectively.',
         reverseOrder: false,
-        removePaddingBottom: false,
         features: toFeatureStrings([
           { heading: 'Role Assignment:', description: 'Create and assign custom roles with specific permissions' },
           { heading: 'User Groups:', description: 'Organize team members into groups for easier permission management' },
@@ -231,8 +213,6 @@ const featurePages = [
         mainTitle: 'Workspace Organization',
         subTitle: 'Keep your team\'s work structured and efficient.',
         reverseOrder: true,
-        removePaddingBottom: true,
-        imageBorderRadius: '0px 15px 0px 0px',
         features: toFeatureStrings([
           { heading: 'Shared Workspaces:', description: 'Create dedicated spaces for different teams or projects' },
           { heading: 'Resource Sharing:', description: 'Share redirect configurations and templates across teams' },
@@ -254,7 +234,6 @@ const featurePages = [
         mainTitle: 'Global CDN',
         subTitle: 'Scale your redirects worldwide with confidence.',
         reverseOrder: false,
-        removePaddingBottom: false,
         features: toFeatureStrings([
           { heading: 'Edge Network:', description: 'Serve redirects from locations closest to your users for minimal latency' },
           { heading: 'Auto-Scaling:', description: 'Handle traffic spikes effortlessly with dynamic capacity adjustment' },
@@ -265,8 +244,6 @@ const featurePages = [
         mainTitle: 'Performance Optimization',
         subTitle: 'Ensure fast and reliable redirects everywhere.',
         reverseOrder: true,
-        removePaddingBottom: false,
-        imageBorderRadius: '0px 15px 0px 0px',
         features: toFeatureStrings([
           { heading: 'Smart Routing:', description: 'Automatically route requests through the fastest available path' },
           { heading: 'Load Balancing:', description: 'Distribute traffic evenly across our global infrastructure' },
@@ -277,7 +254,6 @@ const featurePages = [
         mainTitle: 'Enterprise Infrastructure',
         subTitle: 'Built for business-critical operations.',
         reverseOrder: false,
-        removePaddingBottom: true,
         features: toFeatureStrings([
           { heading: 'DDoS Protection:', description: 'Advanced protection against distributed denial of service attacks' },
           { heading: 'Failover:', description: 'Automatic failover to ensure your redirects stay online' },
@@ -299,7 +275,6 @@ const featurePages = [
         mainTitle: 'User Access Protection',
         subTitle: 'Secure your redirects against unauthorized access.',
         reverseOrder: false,
-        removePaddingBottom: false,
         features: toFeatureStrings([
           { heading: 'Bot Protection:', description: 'Block malicious bots while allowing legitimate crawlers with advanced detection' },
           { heading: 'Rate Limiting:', description: 'Prevent abuse with customizable rate limits and throttling controls' },
@@ -310,7 +285,6 @@ const featurePages = [
         mainTitle: 'SSL Management',
         subTitle: 'Ensure secure connections across all redirects.',
         reverseOrder: true,
-        removePaddingBottom: false,
         features: toFeatureStrings([
           { heading: 'Auto SSL:', description: 'Automatic SSL certificate provisioning and renewal for all domains' },
           { heading: 'HTTPS Enforcement:', description: 'Force secure connections with automatic HTTP to HTTPS upgrades' },
@@ -321,7 +295,6 @@ const featurePages = [
         mainTitle: 'Data Protection',
         subTitle: 'Keep your redirect data secure and compliant.',
         reverseOrder: false,
-        removePaddingBottom: true,
         features: toFeatureStrings([
           { heading: 'Encryption:', description: 'End-to-end encryption for all redirect configurations and analytics' },
           { heading: 'Access Logs:', description: 'Detailed audit trails of all security-related events and changes' },
@@ -341,9 +314,6 @@ function buildRichContent(blocks: typeof featurePages[0]['blocks']) {
     mainTitle: block.mainTitle,
     subTitle: block.subTitle,
     reverseOrder: block.reverseOrder,
-    removePaddingBottom: block.removePaddingBottom,
-    ...('imageBorderRadius' in block && block.imageBorderRadius
-      ? { imageBorderRadius: block.imageBorderRadius }
       : {}),
     features: block.features,
   }))

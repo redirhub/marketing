@@ -240,9 +240,9 @@ export interface FeatureSplitBlock {
   mainTitle: string
   subTitle?: string
   reverseOrder?: boolean
-  removePaddingBottom?: boolean
+
   image?: SanityImageAsset
-  imageBorderRadius?: string
+
   features?: string[]
 }
 

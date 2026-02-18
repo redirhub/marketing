@@ -30,7 +30,6 @@ const domainParkingBlocks = [
     subTitle:
       'RedirHub is built to handle portfolios of virtually any size – from a few dozen to hundreds of thousands of domains – without compromising on performance, visibility, or ease of management.',
     reverseOrder: false,
-    removePaddingBottom: false,
     features: toFeatureStrings([
       { heading: '', description: 'Designed to handle **mass-scale domain portfolios** with high-speed infrastructure' },
       { heading: '', description: '**Bulk import, clone,** and manage thousands of redirects in one go' },
@@ -43,8 +42,6 @@ const domainParkingBlocks = [
     subTitle:
       'Ensure your parked domains continue to deliver value by maintaining redirect integrity, SEO trust signals, and a clean user experience across all traffic types.',
     reverseOrder: true,
-    removePaddingBottom: false,
-    imageBorderRadius: '0px 15px 0px 0px',
     features: toFeatureStrings([
       { heading: '', description: 'Ensure all domains redirect to **relevant, working destinations**' },
       { heading: '', description: 'Protect expired or unused domains from **broken links and lost SEO equity**' },
@@ -57,7 +54,6 @@ const domainParkingBlocks = [
     subTitle:
       'Skip the burden of managing internal infrastructure and instead leverage RedirHub\'s platform to achieve lower operational overhead and higher ROI on your domain investments.',
     reverseOrder: false,
-    removePaddingBottom: false,
     features: toFeatureStrings([
       { heading: '', description: 'No need to maintain your own **servers or DNS infrastructure**' },
       { heading: 'Predictable pricing', description: 'designed for high-volume redirection' },
@@ -70,8 +66,6 @@ const domainParkingBlocks = [
     subTitle:
       'Gain granular control over how domains behave with flexible redirect rules that support monetization strategies, ad traffic rotation, and intelligent fallback logic.',
     reverseOrder: true,
-    removePaddingBottom: false,
-    imageBorderRadius: '0px 15px 0px 0px',
     features: toFeatureStrings([
       { heading: 'Set fallback rules, random redirects, or rotation by region/device', description: '' },
       { heading: '', description: 'Filter traffic by **path, query, or bot signature**' },
@@ -84,7 +78,6 @@ const domainParkingBlocks = [
     subTitle:
       'Whether you manage hundreds or hundreds of thousands of domains, RedirHub\'s infrastructure is built to maintain speed, reliability, and security at every level of scale.',
     reverseOrder: false,
-    removePaddingBottom: true,
     features: toFeatureStrings([
       { heading: '', description: 'Global infrastructure with **sub-100ms redirect latency**' },
       { heading: 'Smart failover and load balancing', description: 'across distributed nodes' },
@@ -101,7 +94,6 @@ const marketingCampaignsBlocks = [
     mainTitle: 'Create Short Links for Ads',
     subTitle: 'Easily convert lengthy URLs into concise, branded links for your marketing efforts.',
     reverseOrder: false,
-    removePaddingBottom: false,
     features: toFeatureStrings([
       { heading: 'Boost Engagement:', description: 'Short, memorable links drive higher click-through rates.' },
       { heading: 'Brand Reinforcement:', description: 'Custom domains keep ads looking polished and professional.' },
@@ -112,8 +104,6 @@ const marketingCampaignsBlocks = [
     mainTitle: 'UTM Builder',
     subTitle: 'Add tracking parameters to every link to measure individual campaign performance.',
     reverseOrder: true,
-    removePaddingBottom: false,
-    imageBorderRadius: '0px 15px 0px 0px',
     features: toFeatureStrings([
       { heading: 'Consistent Tagging:', description: 'Automatically apply standard UTM parameters' },
       { heading: 'Detailed Insights:', description: 'Compare link clicks, conversions, and sources in one place.' },
@@ -124,7 +114,6 @@ const marketingCampaignsBlocks = [
     mainTitle: 'Random Redirects for A/B Split Testing',
     subTitle: 'Test multiple landing pages to see which version yields the best conversions.',
     reverseOrder: false,
-    removePaddingBottom: false,
     features: toFeatureStrings([
       { heading: 'Seamless Rotation:', description: 'Randomly direct traffic to different variations' },
       { heading: 'Actionable Data:', description: 'Identify winning headlines, designs, or offers.' },
@@ -135,8 +124,6 @@ const marketingCampaignsBlocks = [
     mainTitle: 'Track Campaign Performance',
     subTitle: 'Monitor how each campaign performs through robust analytics and real-time dashboards.',
     reverseOrder: true,
-    removePaddingBottom: true,
-    imageBorderRadius: '0px 15px 0px 0px',
     features: toFeatureStrings([
       { heading: 'Granular Stats:', description: 'View clicks, user locations, device types, and more.' },
       { heading: 'ROI Evaluation:', description: 'Pinpoint successful channels and focus resources effectively.' },
@@ -152,7 +139,6 @@ const websiteMigrationsBlocks = [
     mainTitle: 'Maintain SEO Rankings',
     subTitle: 'Ensure your website migration doesn\'t impact your visibility in search engines.',
     reverseOrder: false,
-    removePaddingBottom: false,
     features: toFeatureStrings([
       { heading: 'Preserve Traffic:', description: 'Retain your organic traffic with SEO-friendly redirects.' },
       { heading: 'Seamless Transitions:', description: 'Minimize ranking disruptions during URL changes.' },
@@ -163,8 +149,6 @@ const websiteMigrationsBlocks = [
     mainTitle: 'Bulk 301 Redirects',
     subTitle: 'Apply multiple redirects efficiently to save time and maintain consistency.',
     reverseOrder: true,
-    removePaddingBottom: false,
-    imageBorderRadius: '0px 15px 0px 0px',
     features: toFeatureStrings([
       { heading: 'Scale Easily:', description: 'Implement hundreds of redirects in seconds.' },
       { heading: 'SEO Best Practices:', description: 'Use 301 redirects to maintain authority and rankings.' },
@@ -175,7 +159,6 @@ const websiteMigrationsBlocks = [
     mainTitle: 'Match Old Pages to New URLs',
     subTitle: 'Redirect users and search engines smoothly from old pages to new destinations.',
     reverseOrder: false,
-    removePaddingBottom: true,
     features: toFeatureStrings([
       { heading: 'Accurate Mapping:', description: 'Prevent broken links with precise URL mapping.' },
       { heading: 'User Experience:', description: 'Ensure visitors seamlessly find what they\'re looking for.' },
@@ -191,7 +174,6 @@ const enterpriseSolutionsBlocks = [
     mainTitle: 'API Integration',
     subTitle: 'Automate redirect tasks programmatically for large-scale, enterprise needs.',
     reverseOrder: false,
-    removePaddingBottom: false,
     features: toFeatureStrings([
       { heading: 'Full Control:', description: 'Create, update, and delete redirects via REST APIs.' },
       { heading: 'Custom Workflows:', description: 'Integrate seamlessly with CI/CD pipelines, CRMs, or internal tools.' },
@@ -202,8 +184,6 @@ const enterpriseSolutionsBlocks = [
     mainTitle: 'Bulk Import/Export',
     subTitle: 'Process massive volumes of redirects in seconds to handle big migrations or reorganizations.',
     reverseOrder: true,
-    removePaddingBottom: false,
-    imageBorderRadius: '0px 15px 0px 0px',
     features: toFeatureStrings([
       { heading: 'Instant Scaling:', description: 'Upload or download thousands of redirect rules at once.' },
       { heading: 'Error Prevention:', description: 'Validate your CSV files before finalizing changes.' },
@@ -214,7 +194,6 @@ const enterpriseSolutionsBlocks = [
     mainTitle: 'High-Speed Global Edge Network',
     subTitle: 'Leverage a distributed infrastructure to serve redirects with minimal latency.',
     reverseOrder: false,
-    removePaddingBottom: false,
     features: toFeatureStrings([
       { heading: 'Ultra-Fast Response:', description: 'Minimize wait times for users worldwide.' },
       { heading: 'Resilient Architecture:', description: 'Reroute traffic to the nearest available node.' },
@@ -225,8 +204,6 @@ const enterpriseSolutionsBlocks = [
     mainTitle: 'Dedicated Infrastructure for 100% SLAs',
     subTitle: 'Rely on an enterprise-grade environment built for mission-critical deployments.',
     reverseOrder: true,
-    removePaddingBottom: true,
-    imageBorderRadius: '0px 15px 0px 0px',
     features: toFeatureStrings([
       { heading: 'Guaranteed Reliability:', description: 'Protect revenue and user experience with ironclad SLAs.' },
       { heading: 'Priority Support:', description: 'Access premium, round-the-clock assistance.' },
@@ -241,8 +218,6 @@ interface FeatureBlock {
   mainTitle: string
   subTitle: string
   reverseOrder: boolean
-  removePaddingBottom: boolean
-  imageBorderRadius?: string
   features: string[]
 }
 
@@ -447,8 +422,6 @@ function buildRichContent(blocks: FeatureBlock[]) {
     mainTitle: block.mainTitle,
     subTitle: block.subTitle,
     reverseOrder: block.reverseOrder,
-    removePaddingBottom: block.removePaddingBottom,
-    ...(block.imageBorderRadius ? { imageBorderRadius: block.imageBorderRadius } : {}),
     features: block.features,
   }))
 }

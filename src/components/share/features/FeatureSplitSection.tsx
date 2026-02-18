@@ -146,8 +146,6 @@ interface FeatureSplitSectionProps {
   buttonHref?: string;
   subTitleWidth?: string;
   imageWidth?: string;
-  imageBorderRadius?: string;
-  removePaddingBottom?: boolean;
 }
 export default function FeatureSplitSection({
   mainTitle,
@@ -160,8 +158,6 @@ export default function FeatureSplitSection({
   reverseOrder = false,
   subTitleWidth = "",
   imageWidth = "478px",
-  imageBorderRadius = "",
-  removePaddingBottom = false,
 }: FeatureSplitSectionProps) {
   // Determine the grid order based on the reverseOrder prop
   const listOrder = reverseOrder ? 2 : 1;
@@ -175,7 +171,7 @@ export default function FeatureSplitSection({
     <>
       <Box
         w="100%"
-        pb={removePaddingBottom ? 0 : { base: 14, md: 36 }}
+        pb={{ base: 14, md: 36 }}
         pt={0}
         px={{ base: 2, md: 6 }}
         textAlign="center"
@@ -268,7 +264,6 @@ export default function FeatureSplitSection({
                 objectPosition="top left"
                 display="block"
                 loading="lazy"
-                borderRadius={imageBorderRadius ?? ""}
               />
             </Box>
           </SimpleGrid>

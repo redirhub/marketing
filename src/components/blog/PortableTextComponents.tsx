@@ -202,8 +202,8 @@ return {
           imageSrc={imageSrc}
           imageAlt={imageAlt}
           reverseOrder={value?.reverseOrder ?? false}
-          imageBorderRadius={value?.imageBorderRadius ?? ''}
-          removePaddingBottom={value?.removePaddingBottom ?? false}
+
+
         />
       )
     },
