@@ -37,7 +37,7 @@ const featurePages = [
   {
     title: 'Create Redirects',
     slug: 'create-redirects',
-    metaTitle: 'Create Redirects - RedirHub',
+    metaTitle: 'Create Redirects',
     metaDescription: 'Create and deploy all your redirects quickly and easily with powerful redirect creation tools.',
     heroHeadline: 'Create and Deploy Redirects',
     heroSubheadline: 'Transform your link management with powerful, intuitive redirect creation tools that put you in control',
@@ -106,7 +106,7 @@ const featurePages = [
   {
     title: 'Manage Redirects',
     slug: 'manage-redirects',
-    metaTitle: 'Manage Redirects - RedirHub',
+    metaTitle: 'Manage Redirects',
     metaDescription: 'Manage all your redirects in one centralized platform with powerful tools and real-time updates.',
     heroHeadline: 'Manage Redirects',
     heroSubheadline: 'Take control of your redirect infrastructure with powerful management tools and real-time updates.',
@@ -165,7 +165,7 @@ const featurePages = [
   {
     title: 'Analyze Redirects',
     slug: 'analyze-redirects',
-    metaTitle: 'Analyze Redirects - RedirHub',
+    metaTitle: 'Analyze Redirects',
     metaDescription: 'Gain powerful insights from your redirect traffic with comprehensive analytics and real-time monitoring.',
     heroHeadline: 'Analyze Redirects',
     heroSubheadline: 'Transform your redirect data into actionable insights with comprehensive analytics and real-time monitoring.',
@@ -210,7 +210,7 @@ const featurePages = [
   {
     title: 'Team Management',
     slug: 'team-management',
-    metaTitle: 'Team Management - RedirHub',
+    metaTitle: 'Team Management',
     metaDescription: 'Collaborate securely across your organization with powerful team management tools.',
     heroHeadline: 'Team Management',
     heroSubheadline: 'Collaborate securely across your organization with powerful team management tools.',
@@ -244,7 +244,7 @@ const featurePages = [
   {
     title: 'Global Scale',
     slug: 'global-scale',
-    metaTitle: 'Global Scale - RedirHub',
+    metaTitle: 'Global Scale',
     metaDescription: 'Deliver seamless experiences across websites and domains with enterprise-grade global infrastructure.',
     heroHeadline: 'Global Scale',
     heroSubheadline: 'Deliver seamless customer experiences across your websites and domains with enterprise-grade infrastructure.',
@@ -289,7 +289,7 @@ const featurePages = [
   {
     title: 'Security & Privacy',
     slug: 'security',
-    metaTitle: 'Security & Privacy - RedirHub',
+    metaTitle: 'Security & Privacy',
     metaDescription: 'Keep all your audiences and web properties safe with enterprise-grade security features.',
     heroHeadline: 'Security & Privacy',
     heroSubheadline: 'Keep all your audiences and web properties safe with enterprise-grade security features.',

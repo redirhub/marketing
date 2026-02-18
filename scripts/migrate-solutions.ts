@@ -270,7 +270,7 @@ const solutionPages: SolutionPage[] = [
   {
     title: 'Domain Parking',
     slug: 'solutions/domain-parking',
-    metaTitle: 'Domain Parking - RedirHub',
+    metaTitle: 'Domain Parking',
     metaDescription: 'Turbocharge your domain parking business with instant redirects, global infrastructure, and the capacity to handle millions of hits per day.',
     heroHeadline: 'Turbocharge your Domain Parking Business with Redirhub',
     heroSubheadline:
@@ -311,7 +311,7 @@ const solutionPages: SolutionPage[] = [
   {
     title: 'Marketing Campaigns',
     slug: 'solutions/marketing-campaigns',
-    metaTitle: 'Marketing Campaigns - RedirHub',
+    metaTitle: 'Marketing Campaigns',
     metaDescription: 'Amplify your campaign reach with streamlined link management, data-driven A/B testing, and real-time insights.',
     heroHeadline: 'Marketing Campaigns',
     heroSubheadline:
@@ -357,7 +357,7 @@ const solutionPages: SolutionPage[] = [
   {
     title: 'Website Migrations',
     slug: 'solutions/website-migrations',
-    metaTitle: 'Website Migrations - RedirHub',
+    metaTitle: 'Website Migrations',
     metaDescription: 'Transform your website migration into a seamless process while preserving SEO and user experience.',
     heroHeadline: 'Website Migrations',
     heroSubheadline:
@@ -398,7 +398,7 @@ const solutionPages: SolutionPage[] = [
   {
     title: 'Scalable Enterprise Solutions',
     slug: 'solutions/scalable-enterprise-solutions',
-    metaTitle: 'Scalable Enterprise Solutions - RedirHub',
+    metaTitle: 'Scalable Enterprise Solutions',
     metaDescription: 'Empower your enterprise with fast, automated redirects on a global edge network—guaranteed uptime and seamless scalability.',
     heroHeadline: 'Scalable Enterprise Solutions',
     heroSubheadline:
