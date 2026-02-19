@@ -101,7 +101,7 @@ export const TabsLayout: React.FC<TabsLayoutProps> = ({
       border={border}
       boxShadow={boxShadow}
       p={p}
-      m={m}
+      my={m}
     >
       <Tabs.Root
         defaultValue={defaultValue}
