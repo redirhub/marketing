@@ -14,6 +14,7 @@ interface TabsLayoutProps {
   border?: string;
   boxShadow?: string;
   p?: BoxProps["p"];
+  m?: BoxProps["m"];
 }
 
 interface TabTriggerButtonProps {
@@ -88,6 +89,7 @@ export const TabsLayout: React.FC<TabsLayoutProps> = ({
   border = "1px solid #E4E7EC",
   boxShadow = "0px 20px 24px -4px rgba(16, 24, 40, 0.08)",
   p = { base: 3, md: 6 },
+  m = { base: 3, md: 6 },
 }) => {
   return (
     <Box
@@ -99,6 +101,7 @@ export const TabsLayout: React.FC<TabsLayoutProps> = ({
       border={border}
       boxShadow={boxShadow}
       p={p}
+      m={m}
     >
       <Tabs.Root
         defaultValue={defaultValue}
