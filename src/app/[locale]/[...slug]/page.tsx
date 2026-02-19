@@ -11,6 +11,7 @@ import { TestimonialsSection, BlogSection, FAQSection } from "@/components/secti
 import { buildCanonicalUrl, buildHreflangAlternates, buildSocialCards, generateFAQSchema } from '@/lib/utils/seo'
 import { APP_NAME } from "@/lib/utils/constants";
 import { urlFor } from '@/sanity/lib/image';
+import { getT } from "@/lib/i18n";
 
 interface PageProps {
   params: Promise<{
@@ -66,6 +67,7 @@ export async function generateMetadata({
 
 export default async function LandingPage({ params, searchParams }: PageProps) {
   const { locale, slug } = await params;
+  const t = await getT();
   const slugPath = slug.join('/');
   const searchParamsObj = await searchParams;
   const client = getClient(searchParamsObj);
@@ -142,11 +144,11 @@ export default async function LandingPage({ params, searchParams }: PageProps) {
       )}
 
       {showBlogInsight && (
-        <BlogSection locale={locale} title="Latest Insights from Our Blog" />
+        <BlogSection locale={locale} title={t("home.blog-title", "Go Through Our Blogs Today")} />
       )}
 
       {faqData.length > 0 && (
-        <FAQSection faqData={faqData} title="Frequently asked questions" />
+        <FAQSection faqData={faqData} title={t("home.faq-title", "Frequently asked questions")}  />
       )}
     </Box>
   );
