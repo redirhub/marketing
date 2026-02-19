@@ -7,10 +7,11 @@ import WhyStandsOut from "@/components/home/WhyStandsOut";
 import PowerfulFeatures from "@/components/home/PowerfulFeatures";
 import APIDocumentation from "@/components/home/APIDocumentation";
 import { BlogSection, FAQSection } from "@/components/sections";
-import { fetchFAQSetByPage } from "@/lib/services/faq";
 import { buildCanonicalUrl, buildStaticHreflangAlternates, buildSocialCards, generateFAQSchema } from '@/lib/utils/seo'
 import { allLanguages } from '@/sanity/config/i18n'
 import { getTestimonials, formatTestimonialForSlider } from "@/lib/sanity/testimonials";
+import { fetchLandingPageBySlug } from "@/lib/services/landingPages";
+import { urlFor } from "@/sanity/lib/image";
 
 export async function generateMetadata({
   params,
@@ -24,12 +25,19 @@ export async function generateMetadata({
   const canonicalUrl = buildCanonicalUrl(locale, '/')
   const hreflangAlternates = buildStaticHreflangAlternates(allLanguages, '/')
 
-  const title = t("nav.home-title", "{{n}} - Fast & Secure URL Redirect Management", { n: APP_NAME });
-  const description = t(
-    "nav.home-description",
-    "Enterprise-grade URL redirect service. Manage redirects, track analytics, and scale globally with {{n}}. Trusted by businesses worldwide.",
-    { n: APP_NAME }
-  );
+  const homePageData = await fetchLandingPageBySlug("homepage", locale);
+
+  const title = homePageData?.meta?.metaTitle
+    ?? t("nav.home-title", "{{n}} - Fast & Secure URL Redirect Management", { n: APP_NAME });
+  const description = homePageData?.meta?.metaDescription
+    ?? t(
+      "nav.home-description",
+      "Enterprise-grade URL redirect service. Manage redirects, track analytics, and scale globally with {{n}}. Trusted by businesses worldwide.",
+      { n: APP_NAME }
+    );
+  const ogImage = homePageData?.meta?.ogImage
+    ? urlFor(homePageData.meta.ogImage).width(1200).height(630).url()
+    : undefined;
 
   return {
     title,
@@ -41,6 +49,7 @@ export async function generateMetadata({
     ...buildSocialCards({
       title,
       description,
+      image: ogImage,
       type: 'website',
     }),
   };
@@ -54,18 +63,18 @@ export default async function HomePage({
   const { locale } = await params;
   const t = await getT();
 
-  // Fetch FAQs from CMS
-  const faqSet = await fetchFAQSetByPage('homepage', locale);
+  // Fetch home page content from CMS (English only — locale handled by i18n)
+  const homePageData = await fetchLandingPageBySlug("homepage", locale);
 
-  // Transform to FAQAccordion format (add 'value' field)
-  const faqData = faqSet?.faqs.map((faq, index) => ({
+  // Transform doc FAQs to FAQAccordion format (add 'value' field)
+  const faqData = homePageData?.faqs?.map((faq, index) => ({
     value: `faq-${index + 1}`,
     question: faq.question,
     answer: faq.answer,
   })) || [];
 
   // Generate FAQ Schema.org JSON-LD
-  const faqSchema = generateFAQSchema(faqSet?.faqs);
+  const faqSchema = generateFAQSchema(homePageData?.faqs);
 
   // Fetch testimonials from CMS
   const testimonialsData = await getTestimonials(locale);
@@ -81,7 +90,7 @@ export default async function HomePage({
         />
       )}
 
-      <Hero />
+      <Hero content={homePageData?.hero} />
       <WhyStandsOut />
       <ChooseUs />
       <PowerfulFeatures testimonials={testimonials} />
