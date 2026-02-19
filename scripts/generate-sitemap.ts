@@ -1,4 +1,3 @@
-#!/usr/bin/env tsx
 import { writeClient } from '@/sanity/lib/client'
 import fs from 'fs'
 import path from 'path'
