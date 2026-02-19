@@ -4,10 +4,11 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "npm run generate-locales && chakra typegen ./src/lib/theme/index.ts && next build",
+    "build": "npm run generate-locales && npm run generate-sitemap && chakra typegen ./src/lib/theme/index.ts && next build",
     "start": "next start",
     "lint": "eslint",
     "generate-locales": "node scripts/generate-locales.js",
+    "generate-sitemap": "node scripts/generate-sitemap.ts",
     "migrate:wordpress": "tsx --env-file=.env.local scripts/migrate-wordpress.ts",
     "migrate:support": "tsx --env-file=.env.local scripts/migrate-support.ts",
     "migrate:legal": "tsx --env-file=.env.local scripts/migrate-legal.ts",
