@@ -122,7 +122,7 @@ export default function InfiniteScrollChangelog({
                 {/* Content */}
                 {entry.content && (
                   <Box fontSize="md" color="gray.600" lineHeight="1.6">
-                    <PortableText value={entry.content} components={portableTextComponents()} />
+                    <PortableText value={entry.content} components={portableTextComponents(locale)} />
                   </Box>
                 )}
               </Box>

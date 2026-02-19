@@ -152,7 +152,7 @@ export default async function BlogPostPage({ params, searchParams }: BlogPostPag
                   {/* Post Content */}
                   {post.content && (
                     <Box mb={4}>
-                      <PortableText value={post.content} components={portableTextComponents()} />
+                      <PortableText value={post.content} components={portableTextComponents(locale)} />
                     </Box>
                   )}
 

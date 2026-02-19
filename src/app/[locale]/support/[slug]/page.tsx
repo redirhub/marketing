@@ -89,7 +89,7 @@ export default async function SupportSinglePage({ params, searchParams }: PagePr
             <Box fontSize="lg" lineHeight="1.8" color="#344054">
               <PortableText
                 value={article.content}
-                components={portableTextComponents()}
+                components={portableTextComponents(locale)}
               />
             </Box>
           )}

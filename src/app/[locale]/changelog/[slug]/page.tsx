@@ -93,7 +93,7 @@ export default async function ChangelogDetailPage({
             <Box fontSize="lg" lineHeight="1.8" color="#344054">
               <PortableText
                 value={entry.content}
-                components={portableTextComponents()}
+                components={portableTextComponents(locale)}
               />
             </Box>
           )}

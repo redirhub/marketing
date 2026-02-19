@@ -5,7 +5,7 @@ import { GoCheckCircle } from 'react-icons/go'
 import InlineCTA from '../sections/InlineCTA'
 import FeatureSplitSection from '@/components/share/features/FeatureSplitSection'
 
-export const portableTextComponents = (): PortableTextComponents => {
+export const portableTextComponents = (locale = 'en'): PortableTextComponents => {
 let currentHeadingIndex = -1
 
 return {
@@ -129,10 +129,13 @@ return {
       </Code>
     ),
     link: ({ value, children }) => {
-      const target = (value?.href || '').startsWith('http') ? '_blank' : undefined
+      const href = value?.href || ''
+      const isExternal = href.startsWith('http')
+      const target = isExternal ? '_blank' : undefined
+      const resolvedHref = !isExternal && locale !== 'en' ? `/${locale}${href}` : href
       return (
         <a
-          href={value?.href}
+          href={resolvedHref}
           target={target}
           rel={target === '_blank' ? 'noopener noreferrer' : undefined}
           style={{ color: '#7D65DB', textDecoration: 'underline' }}

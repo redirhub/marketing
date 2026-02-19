@@ -78,7 +78,7 @@ export default async function LegalDocumentPage({ params, searchParams }: PagePr
           <Box fontSize="lg" lineHeight="1.8" color="gray.700">
             <PortableText
               value={document.content}
-              components={portableTextComponents()}
+              components={portableTextComponents(locale)}
             />
           </Box>
         )}
