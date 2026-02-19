@@ -307,36 +307,40 @@
   ],
   "faqs": [
     {
-      "question": "How much link equity do 301 redirects actually pass?",
-      "answer": "Google's John Mueller confirmed that 301 redirects pass the same link equity as direct links—essentially 100%. The commonly cited \"90-99%\" figure accounts for potential indexing delays, not actual loss. Properly implemented 301s preserve your rankings."
+      "question": "What is a 301 redirect?",
+      "answer": "A 301 redirect is a permanent server-side instruction that tells browsers and search engines a page has moved to a new URL. Unlike a 302 (temporary), a 301 signals search engines to update their index and transfer link equity to the destination. It is the standard redirect type for site migrations, domain changes, and URL restructuring."
     },
     {
-      "question": "How long should I keep 301 redirects active?",
-      "answer": "Permanently. Google recommends keeping 301 redirects active for at least one year, but best practice is indefinitely. Backlinks can remain active for years, and removing redirects causes those links to break, losing accumulated authority."
+      "question": "How much link equity does a 301 redirect actually pass?",
+      "answer": "A properly implemented 301 redirect passes effectively 100% of link equity—the same as a direct link. Google has confirmed this. The commonly cited '90–99%' figure reflects potential indexing delays, not actual equity loss. Redirect chain prevention is critical: each additional hop dilutes the signal and adds latency."
     },
     {
-      "question": "Will 301 redirects hurt my page speed or Core Web Vitals?",
-      "answer": "RedirHub's global edge network delivers redirects in under 100ms—faster than most server response times. This minimizes latency impact. However, redirect chains (multiple hops) do slow pages down, which is why our system automatically detects and warns about chains."
+      "question": "What causes 'too many redirects' errors—and how do I fix them?",
+      "answer": "Redirect loops occur when URL A redirects to B, which redirects back to A. Redirect chains (A → B → C → D) waste crawl budget and compound latency. RedirHub automatically detects both conditions and warns you before rules go live, preventing ranking penalties before they happen."
     },
     {
-      "question": "Can I redirect an entire domain with wildcard rules?",
-      "answer": "Yes. RedirHub supports wildcard patterns that redirect all paths from olddomain.com/* to newdomain.com/* while preserving the exact path structure. This is the safest way to handle full domain migrations without manually mapping every URL."
+      "question": "What's the difference between 301 and 302 redirects for SEO?",
+      "answer": "A 301 is permanent—it signals search engines to update their index and transfers link equity to the destination. A 302 is temporary—search engines keep credit on the original URL. Using a 302 when you intend a permanent move is one of the most common and costly migration mistakes."
     },
     {
-      "question": "How quickly do search engines recognize new 301 redirects?",
-      "answer": "Search engines process 301 redirects during their next crawl of the old URL. For frequently crawled pages, this happens within days. Less popular pages may take weeks. RedirHub's monitoring shows you exactly when redirects are being followed and by which bots."
+      "question": "How long should I keep 301 redirects active after a migration?",
+      "answer": "Indefinitely. Google recommends a minimum of one year, but best practice is permanently. External backlinks can remain active for years, and removing redirects turns those links into 404 errors—permanently losing the authority they carried."
     },
     {
-      "question": "What's the difference between 301 and 308 redirects?",
-      "answer": "Both are permanent redirects, but 308 is stricter—it forces the same HTTP method (POST stays POST). For most SEO use cases, 301 is the standard choice. RedirHub supports both, and we'll recommend which to use based on your specific migration scenario."
+      "question": "Do 301 redirects hurt page speed or Core Web Vitals?",
+      "answer": "RedirHub's edge network delivers redirects in under 100ms—faster than most origin server responses. A single 301 hop has minimal performance impact. Redirect chains add cumulative latency, which is why RedirHub flags them automatically. For Core Web Vitals, a well-configured 301 is effectively invisible."
     },
     {
-      "question": "Can I track which old URLs are still receiving traffic?",
-      "answer": "Yes. RedirHub's analytics show click counts per redirect, including referrer sources and geographic data. This helps you identify which old URLs still have active backlinks or bookmarks, so you can prioritize maintaining those redirects indefinitely."
+      "question": "Can I redirect an entire domain to a new domain while preserving every URL path?",
+      "answer": "Yes. RedirHub supports full domain redirects with path preservation—every page on olddomain.com automatically maps to the same path on newdomain.com. A single rule handles all URLs, including query strings and UTM parameters, so no individual page needs to be mapped manually."
     },
     {
-      "question": "How do I import a large redirect map from Google Search Console?",
-      "answer": "Export your crawl errors from Search Console, clean the data in Google Sheets or Excel, format as CSV with 'old_url,new_url' columns, and upload to RedirHub. Our bulk import validates the mappings and warns about potential issues before going live."
+      "question": "How quickly will Google recrawl and reindex pages after a 301 redirect?",
+      "answer": "Frequently crawled pages are typically processed within days. Less popular pages may take weeks. Google treats 301s as permanent signals and updates its index accordingly. RedirHub's analytics show you which URLs are still receiving traffic and bot crawls, so you can verify recrawling is progressing."
+    },
+    {
+      "question": "How do I bulk import a redirect map from Google Search Console?",
+      "answer": "Export your crawl errors or URL list from Search Console, clean the data in Google Sheets or Excel, format as CSV with source URL and destination URL columns, and upload to RedirHub. Bulk import validates all mappings, warns about conflicts or missing destinations, and handles 10,000+ URLs in seconds."
     }
   ],
   "sections": ["contentTable", "testimonials", "blogInsight"],

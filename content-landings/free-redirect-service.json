@@ -4,12 +4,12 @@
     "current": "free-redirect-service"
   },
   "meta": {
-    "metaTitle": "Free Redirect Service with Automatic HTTPS - No Credit Card Required",
-    "metaDescription": "Eliminate 'Not Secure' browser warnings with automatic HTTPS/SSL provisioning. Free redirect service with unlimited domains, bulk CSV import, and real-time analytics. Start in 60 seconds."
+    "metaTitle": "Free Domain Redirect Service - 5 Domains Free, No Credit Card",
+    "metaDescription": "Redirect up to 5 domains for free with no credit card. Automatic HTTPS, path-based redirects, frame redirects, and 100k requests/month included. Live in under 60 seconds."
   },
   "hero": {
-    "headline": "Stop Losing Traffic to Browser Security Warnings",
-    "subheadline": "Free redirect service with automatic HTTPS/SSL that eliminates 'Connection Not Private' errors. Perfect for domain portfolios, parked domains, and startup projects.",
+    "headline": "Free Domain Redirect Service — Live in 60 Seconds",
+    "subheadline": "Point any domain to any URL with automatic HTTPS included. No server, no code, no credit card required.",
     "ctaPrimary": {
       "label": "Start Free - No Credit Card",
       "url": "/signup"
@@ -23,7 +23,7 @@
       "children": [
         {
           "_type": "span",
-          "text": "The Hidden Cost of Registrar Forwarding"
+          "text": "Why Your Registrar's Forwarding Isn't Enough"
         }
       ]
     },
@@ -33,7 +33,7 @@
       "children": [
         {
           "_type": "span",
-          "text": "Standard registrar forwarding fails when visitors type 'https://', showing browser security warnings that kill 40% of your traffic. RedirHub automatically provisions SSL certificates for every domain—eliminating warnings and preserving the value of your links."
+          "text": "Most registrar forwarding is HTTP-only. The moment a visitor types 'https://' or clicks a secure link, the browser shows a 'Connection Not Private' warning—blocking up to 40% of your traffic. RedirHub automatically provisions SSL certificates for every domain you add, so your redirects work securely over both HTTP and HTTPS without any setup."
         }
       ]
     },
@@ -43,7 +43,7 @@
       "children": [
         {
           "_type": "span",
-          "text": "What's Included in the Free Plan"
+          "text": "Free Plan — $0/month, No Credit Card"
         }
       ]
     },
@@ -54,7 +54,7 @@
       "children": [
         {
           "_type": "span",
-          "text": "Automatic zero-touch HTTPS/SSL provisioning for all domains"
+          "text": "5 source domains — redirect up to 5 of your own custom domains"
         }
       ]
     },
@@ -65,7 +65,7 @@
       "children": [
         {
           "_type": "span",
-          "text": "Unlimited 301, 302, and 307 redirects with no click limits"
+          "text": "100,000 requests/month included"
         }
       ]
     },
@@ -76,7 +76,40 @@
       "children": [
         {
           "_type": "span",
-          "text": "Bulk CSV import/export for managing domain portfolios"
+          "text": "Full HTTPS/SSL — automatic certificate provisioning for every domain"
+        }
+      ]
+    },
+    {
+      "_type": "block",
+      "style": "normal",
+      "listItem": "bullet",
+      "children": [
+        {
+          "_type": "span",
+          "text": "301, 302, and 307 redirect types supported"
+        }
+      ]
+    },
+    {
+      "_type": "block",
+      "style": "normal",
+      "listItem": "bullet",
+      "children": [
+        {
+          "_type": "span",
+          "text": "Path-based redirects — forward specific paths to different destinations"
+        }
+      ]
+    },
+    {
+      "_type": "block",
+      "style": "normal",
+      "listItem": "bullet",
+      "children": [
+        {
+          "_type": "span",
+          "text": "Frame redirects — display destination content inside your domain"
         }
       ]
     },
@@ -93,12 +126,11 @@
     },
     {
       "_type": "block",
-      "style": "normal",
-      "listItem": "bullet",
+      "style": "h3",
       "children": [
         {
           "_type": "span",
-          "text": "Global edge network delivering sub-100ms redirect response times"
+          "text": "Who Uses the Free Redirect Service"
         }
       ]
     },
@@ -109,7 +141,51 @@
       "children": [
         {
           "_type": "span",
-          "text": "99.9% uptime SLA with zero maintenance required"
+          "text": "Personal websites and portfolio pages"
+        }
+      ]
+    },
+    {
+      "_type": "block",
+      "style": "normal",
+      "listItem": "bullet",
+      "children": [
+        {
+          "_type": "span",
+          "text": "Side projects and indie apps pointing a custom domain at a hosted service"
+        }
+      ]
+    },
+    {
+      "_type": "block",
+      "style": "normal",
+      "listItem": "bullet",
+      "children": [
+        {
+          "_type": "span",
+          "text": "Old domains you want to redirect to a new website"
+        }
+      ]
+    },
+    {
+      "_type": "block",
+      "style": "normal",
+      "listItem": "bullet",
+      "children": [
+        {
+          "_type": "span",
+          "text": "Small businesses consolidating multiple domains into one site"
+        }
+      ]
+    },
+    {
+      "_type": "block",
+      "style": "normal",
+      "listItem": "bullet",
+      "children": [
+        {
+          "_type": "span",
+          "text": "Freelancers managing a handful of client or personal domains"
         }
       ]
     },
@@ -119,61 +195,7 @@
       "children": [
         {
           "_type": "span",
-          "text": "Perfect For"
-        }
-      ]
-    },
-    {
-      "_type": "block",
-      "style": "normal",
-      "listItem": "bullet",
-      "children": [
-        {
-          "_type": "span",
-          "text": "Domain investors managing parked domain portfolios"
-        }
-      ]
-    },
-    {
-      "_type": "block",
-      "style": "normal",
-      "listItem": "bullet",
-      "children": [
-        {
-          "_type": "span",
-          "text": "Startups consolidating marketing URLs and campaign links"
-        }
-      ]
-    },
-    {
-      "_type": "block",
-      "style": "normal",
-      "listItem": "bullet",
-      "children": [
-        {
-          "_type": "span",
-          "text": "Small agencies managing client redirects and vanity URLs"
-        }
-      ]
-    },
-    {
-      "_type": "block",
-      "style": "normal",
-      "listItem": "bullet",
-      "children": [
-        {
-          "_type": "span",
-          "text": "Anyone tired of manually configuring SSL certificates"
-        }
-      ]
-    },
-    {
-      "_type": "block",
-      "style": "h3",
-      "children": [
-        {
-          "_type": "span",
-          "text": "Why Developers Choose RedirHub Over DIY Solutions"
+          "text": "Simpler Than Your Registrar, More Reliable Than DIY"
         }
       ]
     },
@@ -183,35 +205,118 @@
       "children": [
         {
           "_type": "span",
-          "text": "Setting up redirects with Nginx or Apache requires server maintenance, SSL certificate renewals, and manual configuration. RedirHub handles all infrastructure automatically, letting you focus on what matters. Setup takes 60 seconds—just point your domain and we handle the rest."
+          "text": "Registrar forwarding breaks on HTTPS. Setting up Nginx yourself means managing server maintenance, SSL renewals, and config files. RedirHub handles all of that automatically. Point your domain, set your destination, and you're done—no terminal, no certificates, no ongoing maintenance."
+        }
+      ]
+    },
+    {
+      "_type": "block",
+      "style": "normal",
+      "markDefs": [
+        {
+          "_key": "link301",
+          "_type": "link",
+          "href": "/301-redirect-service"
+        }
+      ],
+      "children": [
+        {
+          "_type": "span",
+          "marks": [],
+          "text": "Moving an old domain to a new website and want to protect your search rankings? Use a 301 redirect to preserve link equity during the move. Learn more in our "
+        },
+        {
+          "_type": "span",
+          "marks": ["link301"],
+          "text": "301 redirect service guide"
+        },
+        {
+          "_type": "span",
+          "marks": [],
+          "text": "."
+        }
+      ]
+    },
+    {
+      "_type": "block",
+      "style": "normal",
+      "markDefs": [
+        {
+          "_key": "pricingLink",
+          "_type": "link",
+          "href": "/pricing"
+        }
+      ],
+      "children": [
+        {
+          "_type": "span",
+          "marks": [],
+          "text": "Want more redirects, more source domains, or team collaboration? "
+        },
+        {
+          "_type": "span",
+          "marks": ["pricingLink"],
+          "text": "See all plans on the pricing page"
+        },
+        {
+          "_type": "span",
+          "marks": [],
+          "text": ". Plans start at $10/month. The free plan includes 1 team member — upgrade anytime without losing your existing redirects."
+        }
+      ]
+    },
+    {
+      "_type": "block",
+      "style": "normal",
+      "markDefs": [
+        {
+          "_key": "signupLink",
+          "_type": "link",
+          "href": "/signup"
+        }
+      ],
+      "children": [
+        {
+          "_type": "span",
+          "marks": ["signupLink"],
+          "text": "Create your free account"
+        },
+        {
+          "_type": "span",
+          "marks": [],
+          "text": " — no server, no credit card, live in 60 seconds."
         }
       ]
     }
   ],
   "faqs": [
     {
-      "question": "How does automatic HTTPS/SSL work?",
-      "answer": "When you add a domain, RedirHub automatically provisions and renews SSL certificates using Let's Encrypt. No manual configuration required. Your redirects work perfectly over both HTTP and HTTPS, eliminating browser security warnings."
+      "question": "What's included in the free plan?",
+      "answer": "The free plan is $0/month with no credit card required. It includes 5 source domains, 100,000 requests/month, full HTTPS/SSL, path-based redirects, frame redirects, 301/302/307 redirect types, and real-time analytics. It supports 1 team member, making it ideal for personal projects and solo use."
     },
     {
-      "question": "Are there really no limits on the free plan?",
-      "answer": "Correct. The free plan includes unlimited redirects and unlimited clicks. The only limitation is that you cannot use custom branded domains—you'll use our provided redirect URLs. Upgrade to premium for custom domain support."
+      "question": "Why does my redirected domain show a 'Not Secure' warning?",
+      "answer": "Registrar forwarding is typically HTTP-only. When a visitor types 'https://' or follows a secure link, the browser shows a 'Connection Not Private' warning instead of completing the redirect. RedirHub automatically provisions SSL certificates for every domain you add, eliminating these warnings without any manual configuration."
     },
     {
-      "question": "Can I import my existing redirects from my registrar?",
-      "answer": "Yes! Use our bulk CSV import tool to upload hundreds of domains at once. Export your current forwarding rules from your registrar, format them as CSV, and import directly into RedirHub."
+      "question": "Do I need to transfer my domain to RedirHub?",
+      "answer": "No. Keep your domain at your current registrar. Just point your domain's DNS—via CNAME or nameservers—to RedirHub. Setup takes under 60 seconds, and SSL certificates provision automatically within the first hour. No domain transfer, no downtime."
     },
     {
-      "question": "What analytics are included?",
-      "answer": "Track click counts, visitor geography (country/city), referrer sources, device types (desktop/mobile/tablet), browser statistics, and timestamps. Export reports as CSV for external analysis."
+      "question": "Can I redirect my old domain to my new website?",
+      "answer": "Yes. Add your old domain to RedirHub, point its DNS to us, and set your new site as the destination. Visitors and search engines landing on the old domain will be forwarded automatically—with HTTPS working on both ends and link equity preserved if you use a 301 redirect."
     },
     {
-      "question": "How long does DNS propagation take?",
-      "answer": "After pointing your domain to RedirHub, redirects typically work within 5-15 minutes globally. SSL certificate provisioning completes automatically within the first hour. No waiting periods or manual approval steps."
+      "question": "What is a path-based redirect?",
+      "answer": "A path-based redirect lets you forward specific paths on your domain to different destinations. For example, yourdomain.com/blog can redirect to a separate blog platform while yourdomain.com redirects to your main site. The free plan includes path-based redirects across all 5 of your source domains."
     },
     {
-      "question": "Can I upgrade later without losing my redirects?",
-      "answer": "Absolutely. All your existing redirects transfer seamlessly when upgrading. Premium plans add custom domains, API access, team collaboration, wildcard support, and priority support—while keeping all your free plan redirects intact."
+      "question": "Can I change where my domain redirects to later?",
+      "answer": "Yes. Update your redirect destination anytime from the dashboard—changes go live in seconds across the global network. No DNS changes, no redeployment, no downtime. This is useful when you move your site, rebrand, or switch hosting providers."
+    },
+    {
+      "question": "Want more redirects than the free plan allows?",
+      "answer": "The free plan covers 100,000 requests/month across 5 source domains. If you need more redirects, more domains, API access, or team collaboration, paid plans start at $10/month. All your existing redirects carry over automatically when you upgrade. See the full breakdown at redirhub.com/pricing."
     }
   ],
   "sections": ["testimonials", "blogInsight"],

@@ -143,13 +143,14 @@ export default async function LandingPage({ params, searchParams }: PageProps) {
         </Box>
       )}
 
+      {faqData.length > 0 && (
+        <FAQSection faqData={faqData} title={t("home.faq-title", "Frequently asked questions")}  />
+      )}
+      
       {showBlogInsight && (
         <BlogSection locale={locale} title={t("home.blog-title", "Go Through Our Blogs Today")} />
       )}
 
-      {faqData.length > 0 && (
-        <FAQSection faqData={faqData} title={t("home.faq-title", "Frequently asked questions")}  />
-      )}
     </Box>
   );
 }

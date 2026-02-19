@@ -309,32 +309,36 @@
   ],
   "faqs": [
     {
-      "question": "How does RedirHub compare to managing redirects with Cloudflare Page Rules?",
-      "answer": "Cloudflare Page Rules have strict limits (3 on free, 125 on enterprise) and don't include bulk management or audit logs. RedirHub provides unlimited redirects, bulk CSV operations, team permissions, comprehensive analytics, and a dedicated Terraform provider—all optimized specifically for redirect infrastructure."
+      "question": "How does RedirHub compare to Cloudflare Page Rules for redirect management?",
+      "answer": "Cloudflare Page Rules cap at 3 (free) or 125 (enterprise) rules and lack bulk management, redirect-specific analytics, or audit logs. RedirHub is purpose-built for redirect infrastructure: unlimited redirects, bulk CSV operations, team permissions with RBAC, comprehensive per-redirect analytics, and a dedicated Terraform provider."
     },
     {
-      "question": "Can RedirHub handle wildcard subdomain redirects?",
-      "answer": "Yes. RedirHub supports advanced wildcard patterns like *.yourdomain.com → newdomain.com with full path and query string preservation. This is critical for migrating complex application routing without breaking deep links."
+      "question": "Does RedirHub support wildcard subdomain redirects?",
+      "answer": "Yes. RedirHub supports wildcard subdomain patterns—for example, *.yourdomain.com redirecting to a single destination—with full path and query string preservation. This covers entire subdomain families in one rule, which is critical for large-scale platform migrations or multi-tenant SaaS routing."
     },
     {
-      "question": "What is your API rate limit for enterprise plans?",
-      "answer": "Enterprise plans include 10,000 API calls per hour with burst capacity. Custom rate limits available for high-volume use cases. The API supports bulk operations, allowing you to create, update, or delete thousands of redirects in a single call."
+      "question": "What uptime SLA does RedirHub offer?",
+      "answer": "Enterprise plans include a 99.99% uptime SLA backed by a global edge network. Redirects are processed at the network edge—not a single origin server—with automatic regional failover. This removes the single point of failure inherent in self-hosted Apache or Nginx configurations."
     },
     {
-      "question": "How does SSO integration work?",
-      "answer": "RedirHub integrates with SAML 2.0 and OAuth 2.0 identity providers including Okta, Auth0, Azure AD, and Google Workspace. SSO setup completes in under one day, enabling centralized access control across your organization."
+      "question": "How do SSO and RBAC work for enterprise teams?",
+      "answer": "RedirHub integrates with SAML 2.0 and OAuth 2.0 providers including Okta, Auth0, Azure AD, and Google Workspace. SSO setup typically completes in under a day. Role-based access control assigns per-domain or per-project permissions, so marketing can manage campaign URLs independently without touching infrastructure domains. Every change is captured in audit logs."
     },
     {
-      "question": "Can we use RedirHub for customer-facing custom domains?",
-      "answer": "Absolutely. Many SaaS platforms use RedirHub to allow their customers to bring custom domains. Our API handles SSL certificate provisioning automatically—even at scale—eliminating Let's Encrypt rate limit issues."
+      "question": "Can I manage redirects programmatically via API or Terraform?",
+      "answer": "Yes. RedirHub provides a RESTful API for creating, updating, and deleting redirects programmatically—including bulk operations that handle thousands of changes in a single call. The official Terraform provider enables full infrastructure-as-code workflows, letting you manage redirect rules alongside your existing cloud infrastructure."
     },
     {
-      "question": "What happens during a redirect failure or outage?",
-      "answer": "Our global edge network automatically routes around failures with instant failover. You receive real-time webhook notifications for any 4xx/5xx errors. Detailed logs help diagnose issues within minutes, and our 99.99% SLA ensures maximum availability."
+      "question": "Can we use RedirHub to provision SSL for our customers' custom domains?",
+      "answer": "Yes. RedirHub's API handles automatic SSL certificate provisioning for custom domains at scale—including thousands of customer domains simultaneously. This avoids Let's Encrypt rate limiting issues and eliminates the manual provisioning overhead that typically blocks SaaS platforms from offering custom domain support."
     },
     {
-      "question": "Do you offer dedicated support for enterprise migrations?",
-      "answer": "Yes. Enterprise plans include dedicated onboarding, migration assistance, and priority 24/7 support via Slack or Microsoft Teams. Our team helps plan bulk migrations, reviews redirect mappings, and monitors traffic throughout the transition."
+      "question": "What happens if a redirect fails or there's a service disruption?",
+      "answer": "RedirHub's edge network automatically routes around failures with instant regional failover. Webhook notifications alert you in real time to any 4xx/5xx errors. Logs integrate with Splunk, Datadog, and other monitoring platforms. The 99.99% SLA applies to the full global network, not just a single region."
+    },
+    {
+      "question": "Do you provide migration support when moving from a legacy redirect server?",
+      "answer": "Yes. Enterprise plans include dedicated onboarding and migration assistance. Our team reviews existing redirect mappings, helps plan the bulk import, and monitors traffic throughout the cutover. Priority support is available via Slack or Microsoft Teams—not just ticket queues."
     }
   ],
   "sections": ["contentTable", "testimonials", "blogInsight"],
