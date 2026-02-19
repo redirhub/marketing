@@ -68,7 +68,7 @@ export default function LandingPageBanner({ hero }: LandingPageBannerProps) {
           )}
 
           {hero.ctaPrimary?.label && hero.ctaPrimary?.url && !showRedirectWidget && (
-            <VStack gap={2} textAlign="center" mb="10px">
+            <VStack gap={2} textAlign="center" my="10px">
               <Link href={hero.ctaPrimary.url} target={hero.ctaPrimary.url.startsWith("http") ? "_blank" : "_self"}>
                 <Button variant="primary" px="24px" py="12px" fontSize="1rem">
                   {hero.ctaPrimary.label}

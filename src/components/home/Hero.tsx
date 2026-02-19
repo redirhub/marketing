@@ -29,7 +29,7 @@ export default function Hero({ content }: HeroProps) {
   return (
     <Box pt={28} className={styles.heroContainer}>
       <Container maxW="7xl" mx="auto" px={{ base: 2, md: 2, lg: 0 }}>
-        <Flex direction="column" align="center" textAlign="center" gap={8}>
+        <Flex direction="column" align="center" textAlign="center" gap={4}>
           <Box>
             <Text as="span" bg={'header.bg.scrolled'} px={'14px'} py={'7px'} borderRadius="full" fontSize="sm" mb={4} display="inline-block" color="white" fontWeight={500}>
               {badge}
