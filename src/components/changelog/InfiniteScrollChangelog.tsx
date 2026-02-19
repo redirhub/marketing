@@ -76,9 +76,9 @@ export default function InfiniteScrollChangelog({
           const isLast = index === entries.length - 1;
 
           return (
-            <Flex key={entry._id} gap={6} position="relative" pb={isLast ? 0 : 16}>
-              {/* Date column */}
-              <Box w="120px" flexShrink={0} textAlign="right" pt={1}>
+            <Flex key={entry._id} gap={{ base: 3, md: 6 }} position="relative" pb={isLast ? 0 : 16}>
+              {/* Date column — hidden on mobile */}
+              <Box w="120px" flexShrink={0} textAlign="right" pt={1} display={{ base: "none", md: "block" }}>
                 <Text fontSize="sm" color="gray.500">
                   {formatDate(entry.publishedAt)}
                 </Text>
@@ -87,11 +87,24 @@ export default function InfiniteScrollChangelog({
               {/* Timeline dot and line */}
               <Box position="relative" w="20px" flexShrink={0}>
                 <Box w="8px" h="8px" borderRadius="full" bg="primary.600" position="absolute" left="6px" top="8px" />
-                {!isLast && <Box position="absolute" left="9px" top="16px" bottom="-64px" w="1px" bg="gray.300" />}
+                {!isLast && (
+                  <Box
+                    position="absolute"
+                    left="9px"
+                    top="16px"
+                    bottom={{ base: "-48px", md: "-64px" }}
+                    w="1px"
+                    bg="gray.300"
+                  />
+                )}
               </Box>
 
               {/* Content column */}
               <Box flex={1} pb={4}>
+                {/* Inline date — only on mobile */}
+                <Text fontSize="xs" color="gray.500" mb={1} display={{ base: "block", md: "none" }}>
+                  {formatDate(entry.publishedAt)}
+                </Text>
                 <NextLink href={href} style={{ textDecoration: "none" }}>
                   <Heading
                     as="h2"

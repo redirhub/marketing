@@ -82,7 +82,7 @@ export default async function ChangelogDetailPage({
         backHref={backHref}
         authorName={entry.author?.name}
       />
-      <Container maxW="5xl" mx="auto" px={{ base: 2, md: 2, lg: 0 }}>
+      <Container maxW="5xl" mx="auto" px={{ base: 4, md: 4, lg: 0 }}>
         <Box
           bg="white"
           p={{ base: 6, md: 12 }}

@@ -24,11 +24,12 @@ export default function ChangelogDetailBanner({
     <Box pb={{ base: 14, md: 10 }} pt={24} className={styles.container}>
       <Container maxW="7xl" mx="auto" px={{ base: 2, md: 2, lg: 0 }}>
         <Flex
-          direction="row"
-          justifyContent="space-between"
-          alignItems="center"
+          direction={{ base: "column", md: "row" }}
+          justifyContent={{ base: "flex-start", md: "space-between" }}
+          alignItems={{ base: "flex-start", md: "center" }}
+          gap={{ base: 3, md: 0 }}
           px={{ base: 0, md: 10 }}
-          mb={10}
+          mb={{ base: 5, md: 10 }}
           mt={5}
         >
           <NextLink
@@ -68,7 +69,7 @@ export default function ChangelogDetailBanner({
           <Heading
             as="h1"
             fontSize={{
-              base: "1.2rem",
+              base: "1.6rem",
               md: "2.4rem",
               lg: "3rem",
             }}
