@@ -136,7 +136,7 @@ export default function Footer({ legalLinks }: FooterProps) {
     { icon: FaYoutube, href: "https://youtube.com/@" + SOCIAL_HANDLE, label: "YouTube" },
     { icon: FaXTwitter, href: "https://twitter.com/" + SOCIAL_HANDLE, label: "X (Twitter)" },
     { icon: FaFacebook, href: "https://facebook.com/" + SOCIAL_HANDLE, label: "Facebook" },
-    { icon: FaLinkedin, href: "https://linkedin.com/" + SOCIAL_HANDLE, label: "LinkedIn" },
+    { icon: FaLinkedin, href: "https://linkedin.com/company/" + SOCIAL_HANDLE, label: "LinkedIn" },
   ];
 
   return (
