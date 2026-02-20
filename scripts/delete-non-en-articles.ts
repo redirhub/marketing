@@ -23,8 +23,8 @@ async function main() {
 
   console.log(`[delete-non-en] Fetching non-en documents of type "${type}"...`)
 
-  const docs = await writeClient.fetch<Array<{ _id: string; author?: string; locale: string }>>(
-    `*[_type == "${type}" && locale != "en"]{ _id, author, locale }`
+  const docs = await writeClient.fetch<Array<{ _id: string; author?: string; locale: string; slug?: { current: string } }>>(
+    `*[_type == "${type}" && locale != "en"]{ _id, author, locale, slug }`
   )
 
   if (docs.length === 0) {
@@ -38,6 +38,8 @@ async function main() {
   }
   console.log()
 
+  const slugsToMark: string[] = []
+
   if (isDryRun) {
     console.log(`[dry-run] Would delete ${docs.length} document(s). Re-run without --dry-run to apply.`)
     return
@@ -48,6 +50,7 @@ async function main() {
 
   for (const doc of docs) {
     try {
+      if (doc.slug?.current) slugsToMark.push(doc.slug.current)
       await writeClient.delete(doc._id)
       console.log(`[delete-non-en] ✓ Deleted ${doc._id} (${doc.author ?? 'unknown'} / ${doc.locale})`)
       deleted++
@@ -55,6 +58,19 @@ async function main() {
       console.error(`[delete-non-en-testimonials] ✗ Failed to delete ${doc._id}`, err)
       failed++
     }
+  }
+
+  if (slugsToMark.length) {
+    console.log(`[info] Marking ${slugsToMark.length} English documents as needsTranslation = true...`)
+    const transaction = writeClient.transaction()
+    for (const slug of slugsToMark) {
+      transaction.patch(
+        `*[_type == "${type}" && slug.current == "${slug}" && locale == "en"][0]`,
+        (p) => p.set({ needsTranslation: true })
+      )
+    }
+    await transaction.commit()
+    console.log(`[info] Batch update completed.`)
   }
 
   console.log(`\n[delete-non-en] Done for type "${type}". ${deleted} deleted, ${failed} failed.`)
