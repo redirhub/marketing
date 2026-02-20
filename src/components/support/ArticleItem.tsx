@@ -2,6 +2,7 @@
 
 import { Box, Text, Flex } from "@chakra-ui/react";
 import Link from "next/link";
+import { useTranslation } from "react-i18next";
 
 interface ArticleItemProps {
   title: string;
@@ -11,6 +12,8 @@ interface ArticleItemProps {
 }
 
 export function ArticleItem({ title, slug, locale, tags }: ArticleItemProps) {
+  const { t } = useTranslation();
+
   return (
     <Box
       w="full"
@@ -57,7 +60,7 @@ export function ArticleItem({ title, slug, locale, tags }: ArticleItemProps) {
                 fontWeight="400"
                 color="#d65334"
               >
-                {tags}
+                {t(`support.cat-${tags.toLowerCase()}`, tags)}
               </Text>
             </Box>
           )}
