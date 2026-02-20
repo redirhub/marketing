@@ -139,10 +139,9 @@ export default function Header({ mode = "dark" }: HeaderProps) {
             target: "blank",
           },
           {
-            label: t(`nav.features-api-access`, "API access"),
-            icon: "/assets/images/dropdown-icons/file-code.svg",
-            href: URL_API_DEV,
-            target: "blank",
+            label: t(`nav.features-whats-new`, "What's new"),
+            icon: FiRefreshCw,
+            href: localePath("/changelog"),
           },
         ],
       },
@@ -209,9 +208,10 @@ export default function Header({ mode = "dark" }: HeaderProps) {
         ],
         footer: [
           {
-            label: t(`nav.features-whats-new`, "What's new"),
-            icon: FiRefreshCw,
-            href: localePath("/changelog"),
+            label: t(`nav.features-api-access`, "API access"),
+            icon: "/assets/images/dropdown-icons/file-code.svg",
+            href: URL_API_DEV,
+            target: "blank",
           },
         ],
       },
