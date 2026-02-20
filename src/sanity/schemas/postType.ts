@@ -166,11 +166,8 @@ export const postType = defineType({
       slug: 'slug',
       media: 'image',
     },
-    async prepare({ title, locale, slug, media }) {
-      const subtitle = await prepareLocalePreview(
-        { locale, slug },
-        'post'
-      )
+    prepare({ title, locale, slug, media }) {
+      const subtitle = prepareLocalePreview({ locale, slug })
 
       return {
         title: title,

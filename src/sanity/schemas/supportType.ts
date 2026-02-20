@@ -118,13 +118,10 @@ export const supportType = defineType({
       slug: 'slug',
       tags: 'tags',
     },
-    async prepare({ title, locale, slug, tags }) {
+    prepare({ title, locale, slug, tags }) {
       const additionalInfo = tags?.length ? tags.join(', ') : undefined
 
-      const subtitle = await prepareLocalePreview(
-        { locale, slug, additionalInfo },
-        'support'
-      )
+      const subtitle = prepareLocalePreview({ locale, slug, additionalInfo })
 
       return {
         title: title,

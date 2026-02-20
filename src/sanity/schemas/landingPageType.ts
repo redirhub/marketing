@@ -377,11 +377,8 @@ export const landingPageType = defineType({
       heroImage: 'hero.heroImage',
       isActive: 'isActive',
     },
-    async prepare({ title, locale, slug, heroImage, isActive }) {
-      const subtitle = await prepareLocalePreview(
-        { locale, slug, isActive },
-        'landingPage'
-      )
+    prepare({ title, locale, slug, heroImage, isActive }) {
+      const subtitle = prepareLocalePreview({ locale, slug, isActive })
 
       return {
         title: title,

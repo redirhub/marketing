@@ -114,11 +114,8 @@ export const legalType = defineType({
       locale: 'locale',
       slug: 'slug',
     },
-    async prepare({ title, locale, slug }) {
-      const subtitle = await prepareLocalePreview(
-        { locale, slug },
-        'legal'
-      )
+    prepare({ title, locale, slug }) {
+      const subtitle = prepareLocalePreview({ locale, slug })
 
       return {
         title: title,

@@ -128,7 +128,7 @@ export const changelogType = defineType({
       description: 'description',
       authorName: 'author.name',
     },
-    async prepare({ title, locale, slug, publishedAt, description, authorName }) {
+    prepare({ title, locale, slug, publishedAt, description, authorName }) {
       const date = publishedAt
         ? new Date(publishedAt).toLocaleDateString('en-US', {
             year: 'numeric',
@@ -139,10 +139,7 @@ export const changelogType = defineType({
       const author = authorName ? ` by ${authorName}` : ''
       const additionalInfo = `${date}${author}`
 
-      const subtitle = await prepareLocalePreview(
-        { locale, slug, additionalInfo },
-        'changelog'
-      )
+      const subtitle = prepareLocalePreview({ locale, slug, additionalInfo })
 
       return {
         title: title,
