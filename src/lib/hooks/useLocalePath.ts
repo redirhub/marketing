@@ -16,6 +16,15 @@ export function useLocalePath() {
     if (locale === "en") {
       return path;
     }
-    return `/${locale}${path}`;
+
+    try {
+      // If the path is included with the domain, we need to preserve it
+      const url = new URL(path);
+      url.pathname = `/${locale}${url.pathname}`;
+      return url.toString();
+    } catch {
+      // If it's a relative path, we can simply prepend the locale
+      return `/${locale}${path}`;
+    }
   };
 }

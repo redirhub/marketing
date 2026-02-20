@@ -21,6 +21,7 @@ import {
   UptimeIcon,
   LocationsIcon,
 } from "@/components/icons";
+import { useLocalePath } from "@/lib/hooks/useLocalePath";
 
 interface StatsCardProps {
   icon: React.ReactNode;
@@ -33,6 +34,7 @@ interface StatsCardProps {
 
 export default function WhyStandsOut() {
   const { t } = useTranslation();
+  const localePath = useLocalePath();
 
   const statsData = [
     {
@@ -147,7 +149,7 @@ export default function WhyStandsOut() {
               <ChakraLink
                 as={Link}
                 textAlign={{ base: "center", md: "left" }}
-                href="https://findredirect.com/uptime"
+                href={localePath("https://findredirect.com/uptime")}
                 target="_blank"
                 fontSize={{ base: "0.9rem", md: "1rem" }}
                 color="#1C6DB6"
