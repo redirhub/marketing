@@ -13,7 +13,27 @@ export const testimonialType = defineType({
       description: 'Unique identifier for this testimonial (used for translations)',
       options: {
         source: 'author',
-        maxLength: 96,
+        isUnique: (slug, context) => {
+          const { document, getClient } = context
+          const client = getClient({ apiVersion: '2025-12-09' })
+          const locale = document?.locale || 'en'
+          const docId = document?._id || ''
+
+          // Handle both draft and published IDs
+          const publishedId = docId.replace(/^drafts\./, '')
+          const draftId = `drafts.${publishedId}`
+
+          const query = `
+            !defined(*[
+              _type == "testimonial" &&
+              slug.current == $slug &&
+              locale == $locale &&
+              !(_id in [$publishedId, $draftId])
+            ][0]._id)
+          `
+
+          return client.fetch(query, { slug, locale, publishedId, draftId })
+        },
       },
       validation: (rule) => rule.required(),
     }),
