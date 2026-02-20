@@ -27,82 +27,82 @@
       "competitors": [
         {
           "_key": "competitor-1",
+          "name": "RedirHub",
+          "description": "Clean redirect solution",
+          "highlight": true
+        },
+        {
+          "_key": "competitor-2",
           "name": "Parking Platforms",
           "description": "Sedo, Bodis, ParkingCrew",
           "highlight": false
         },
         {
-          "_key": "competitor-2",
+          "_key": "competitor-3",
           "name": "Self-Hosting",
           "description": "DIY solutions",
           "highlight": false
-        },
-        {
-          "_key": "competitor-3",
-          "name": "RedirHub",
-          "description": "Clean redirect solution",
-          "highlight": true
         }
       ],
       "rows": [
         {
           "feature": "Built for domains",
           "description": "Purpose-built for domain portfolio management",
-          "values": [{ "status": "yes" }, { "status": "no" }, { "status": "yes" }]
+          "values": [{ "status": "yes" }, { "status": "yes" }, { "status": "no" }]
         },
         {
           "feature": "Clean redirects (no ads)",
-          "values": [{ "status": "no", "label": "Ads" }, { "status": "yes" }, { "status": "yes" }]
+          "values": [{ "status": "yes" }, { "status": "no", "label": "Ads" }, { "status": "yes" }]
         },
         {
           "feature": "No JS interstitials",
-          "values": [{ "status": "no" }, { "status": "yes" }, { "status": "yes" }]
+          "values": [{ "status": "yes" }, { "status": "no" }, { "status": "yes" }]
         },
         {
           "feature": "Global edge network",
-          "values": [{ "status": "no" }, { "status": "no" }, { "status": "yes" }]
+          "values": [{ "status": "yes" }, { "status": "no" }, { "status": "no" }]
         },
         {
           "feature": "SPAM bot filtering",
           "description": "Previous unwanted traffic from bots and scrapers",
-          "values": [{ "status": "no" }, { "status": "no" }, { "status": "yes" }]
+          "values": [{ "status": "yes" }, { "status": "no" }, { "status": "no" }]
         },
         {
           "feature": "Automatic HTTPS",
           "description": "Auto-provisioned SSL certificates",
-          "values": [{ "status": "no" }, { "status": "warning", "label": "Manual" }, { "status": "yes" }]
+          "values": [{ "status": "yes" }, { "status": "no" }, { "status": "warning", "label": "Manual" }]
         },
         {
           "feature": "Bulk management",
           "description": "CSV import and bulk operations",
-          "values": [{ "status": "warning", "label": "Limited" }, { "status": "no" }, { "status": "yes" }]
+          "values": [{ "status": "yes" }, { "status": "warning", "label": "Limited" }, { "status": "no" }]
         },
         {
           "feature": "Direct buyer contact",
-          "values": [{ "status": "no" }, { "status": "yes" }, { "status": "yes" }]
+          "values": [{ "status": "yes" }, { "status": "no" }, { "status": "yes" }]
         },
         {
           "feature": "Team collaboration",
-          "values": [{ "status": "no" }, { "status": "no" }, { "status": "yes" }]
+          "values": [{ "status": "yes" }, { "status": "no" }, { "status": "no" }]
         },
         {
           "feature": "Portfolio analytics",
           "description": "Per-domain traffic insights",
           "values": [
+            { "status": "yes", "label": "Advanced" },
             { "status": "warning", "label": "Revenue only" },
-            { "status": "yes", "label": "Basic" },
-            { "status": "yes", "label": "Advanced" }
+            { "status": "yes", "label": "Basic" }
           ]
         },
         {
           "feature": "No commission fees",
           "description": "Keep 100% of revenue",
-          "values": [{ "status": "no", "label": "Take 80%+" }, { "status": "yes" }, { "status": "yes" }]
+          "values": [{ "status": "yes" }, { "status": "no", "label": "Take 80%+" }, { "status": "yes" }]
         },
         {
           "feature": "A/B testing",
           "description": "Split traffic across destinations",
-          "values": [{ "status": "no" }, { "status": "no" }, { "status": "yes" }]
+          "values": [{ "status": "yes" }, { "status": "no" }, { "status": "no" }]
         }
       ]
     },
