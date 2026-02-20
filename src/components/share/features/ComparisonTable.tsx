@@ -2,6 +2,8 @@
 
 import { Box, Container, Heading, Text, Table, Tooltip, Icon } from '@chakra-ui/react'
 import { CheckIcon, CloseIcon, WarningIcon } from '@chakra-ui/icons'
+import { t } from 'i18next'
+import { useTranslation } from 'react-i18next'
 
 interface ComparisonValue {
   status: 'yes' | 'no' | 'warning'
@@ -56,6 +58,7 @@ export default function ComparisonTable({
   rows,
   notes,
 }: ComparisonTableProps) {
+  const {t} = useTranslation();
   return (
     <Box as="section" py={{ base: 4, md: 8 }} my={8}>
       <Container maxW="7xl">
@@ -108,7 +111,7 @@ export default function ComparisonTable({
                   width="30%"
                   bg="gray.50"
                 >
-                  Feature
+                  {t('nav.feature', 'Feature')}
                 </Table.ColumnHeader>
                 {competitors.map((competitor, idx) => (
                   <Table.ColumnHeader

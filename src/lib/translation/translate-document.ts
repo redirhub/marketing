@@ -84,7 +84,12 @@ async function translateBlocks(
     messages: [
       {
         role: 'system',
-        content: `You are a professional translator. Translate the text values in the following JSON object to ${targetLanguage}. Return ONLY a valid JSON object with the same keys and translated values. Preserve formatting and do not add explanations.`,
+        content: `You are a professional translator. Translate the text values in the following JSON object to ${targetLanguage}. 
+        Translate natural language fields (content, name, feature, description, headline, label, *Title, *Text)
+        Return ONLY a valid JSON object with the same keys and translated values. 
+        Preserve formatting and do not add explanations.
+        `,
+
       },
       {
         role: 'user',
