@@ -10,6 +10,7 @@
   "hero": {
     "headline": "Turn Domains Into Traffic & Revenue — Or Connect Buyers",
     "subheadline": "Redirect domains anywhere: your main site, affiliate offer, or social profile. Serious visitors can reach you directly — no ads, no middlemen, no clutter.",
+    "badge": "✨ 800k+ domains parked with RedirHub",
     "ctaPrimary": {
       "label": "Redirect your first domain →",
       "url": "https://dash.redirhub.com/register"
@@ -113,7 +114,7 @@
       "features": [
         "**Point to any destination** main site, social profile, affiliate page, or Google Form",
         "**301 redirects preserve SEO** pass 100% link equity to your destination",
-        "**Auto-redirect** point domain and it works automatically"
+        "**Auto-redirect** just point your domain and it works"
       ]
     },
     {
@@ -122,7 +123,7 @@
       "subTitle": "Let buyers reach you directly through your for-sale page, social, or Google Form.",
       "reverseOrder": true,
       "features": [
-        "**Redirect to your for-sale page** social, or Google Form for inquiries",
+        "**Redirect to your for-sale page**, social profile, or Google Form",
         "**Direct buyer communication** no middlemen taking a cut",
         "**Track visitor interest** see who visits and where they're from"
       ]
@@ -145,7 +146,7 @@
       "reverseOrder": true,
       "features": [
         "**Global edge network** <100ms redirects with DDOS protection",
-        "**Dedicated nameservers** easy DNS setup instead of A/CNAME records",
+        "**Dedicated nameservers** easy DNS setup instead of manually A/CNAME records",
         "**Automatic HTTPS** with wildcard certificates for *.yourdomain.com",
         "**A/B test destinations** to optimize conversions"
       ]

@@ -111,6 +111,12 @@ export const landingPageType = defineType({
           description: 'Supporting text below headline',
         },
         {
+          name: 'badge',
+          type: 'string',
+          title: 'Badge Text',
+          description: 'Small badge text displayed above headline (e.g., "✨ 1M+ domains redirected daily")',
+        },
+        {
           name: 'ctaPrimary',
           type: 'object',
           title: 'Primary CTA Button',

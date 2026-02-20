@@ -37,6 +37,22 @@ export default function LandingPageBanner({ hero }: LandingPageBannerProps) {
     >
       <Container maxW="7xl" mx="auto" px={{ base: 2, md: 2, lg: 0 }}>
         <Flex direction="column" align="center" textAlign="center" gap={2}>
+          {hero.badge && (
+            <Text
+              as="span"
+              bg="header.bg.scrolled"
+              px="14px"
+              py="7px"
+              borderRadius="full"
+              fontSize="sm"
+              mb={2}
+              display="inline-block"
+              color="white"
+              fontWeight={500}
+            >
+              {hero.badge}
+            </Text>
+          )}
           <Heading
             as="h1"
             fontSize={{

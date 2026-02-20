@@ -16,7 +16,7 @@ interface HeroProps {
 export default function Hero({ content }: HeroProps) {
   const { t } = useTranslation("common");
 
-  const badge = content?.ctaPrimary?.label ?? t("home.hero-badge", "✨ 1M+ domains redirected daily");
+  const badge = content?.badge ?? t("home.hero-badge", "✨ 1M+ domains redirected daily");
   const subtitle = content?.subheadline ?? t("home.hero-subtitle", "Forward your domains instantly and manage all redirects from a real-time dashboard. Enhance your SEO with 301/302 redirects and secure every link with HTTPS.");
 
   const lines = content?.headline?.split('\n') ?? [];

@@ -227,6 +227,7 @@ export interface CTAButton {
 export interface HeroSection {
   headline: string
   subheadline?: string
+  badge?: string
   ctaPrimary?: CTAButton
   ctaNote?: string
   heroImage?: SanityImageAsset
