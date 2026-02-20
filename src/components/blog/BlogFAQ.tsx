@@ -2,6 +2,7 @@
 
 import { Accordion, Box, Heading, Text, Span } from '@chakra-ui/react'
 import { AddIcon, MinusIcon } from '@chakra-ui/icons'
+import { useTranslation } from 'react-i18next'
 
 interface FAQ {
   question: string
@@ -13,6 +14,7 @@ interface BlogFAQProps {
 }
 
 export default function BlogFAQ({ faqs }: BlogFAQProps) {
+  const { t } = useTranslation();
   return (
     <Box as="section" mt={10}>
       <Box borderTop="1px solid" borderColor="gray.200" mb={6} />
@@ -23,7 +25,7 @@ export default function BlogFAQ({ faqs }: BlogFAQProps) {
         my={8}
         color="gray.900"
       >
-        Frequently Asked Questions
+        {t("home.faq-title", "Frequently asked questions")}
       </Heading>
 
       <Accordion.Root defaultValue={['faq-0']} collapsible multiple>
