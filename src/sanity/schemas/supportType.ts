@@ -1,5 +1,6 @@
 import { defineField, defineType } from 'sanity'
-import { LANGUAGES, defaultLocale, getLocaleLabel } from '../config/i18n'
+import { LANGUAGES, defaultLocale } from '../config/i18n'
+import { prepareLocalePreview } from './utils/previewHelpers'
 
 export const supportType = defineType({
   name: 'support',
@@ -22,14 +23,13 @@ export const supportType = defineType({
         source: 'title',
         isUnique: (slug, context) => {
           const { document, getClient } = context
+          const client = getClient({ apiVersion: '2025-12-09' })
           const locale = document?.locale || 'en'
           const docId = document?._id || ''
 
           // Handle both draft and published IDs
           const publishedId = docId.replace(/^drafts\./, '')
           const draftId = `drafts.${publishedId}`
-
-          const client = getClient({ apiVersion: '2025-12-09' })
 
           const query = `
             !defined(*[
@@ -118,10 +118,17 @@ export const supportType = defineType({
       slug: 'slug',
       tags: 'tags',
     },
-    prepare({ title, locale, slug, tags }) {
+    async prepare({ title, locale, slug, tags }) {
+      const additionalInfo = tags?.length ? tags.join(', ') : undefined
+
+      const subtitle = await prepareLocalePreview(
+        { locale, slug, additionalInfo },
+        'support'
+      )
+
       return {
         title: title,
-        subtitle: `${getLocaleLabel(locale)} • ${slug?.current || slug}${tags?.length ? ` • ${tags.join(', ')}` : ''}`,
+        subtitle,
       }
     },
   },

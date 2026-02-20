@@ -1,5 +1,6 @@
 import { defineField, defineType } from 'sanity'
-import { LANGUAGES, defaultLocale, getLocaleLabel } from '../config/i18n'
+import { LANGUAGES, defaultLocale } from '../config/i18n'
+import { prepareLocalePreview } from './utils/previewHelpers'
 
 export const postType = defineType({
   name: 'post',
@@ -22,14 +23,13 @@ export const postType = defineType({
         source: 'title',
         isUnique: (slug, context) => {
           const { document, getClient } = context
+          const client = getClient({ apiVersion: '2025-12-09' })
           const locale = document?.locale || 'en'
           const docId = document?._id || ''
 
           // Handle both draft and published IDs
           const publishedId = docId.replace(/^drafts\./, '')
           const draftId = `drafts.${publishedId}`
-
-          const client = getClient({ apiVersion: '2025-12-09' })
 
           const query = `
             !defined(*[
@@ -166,10 +166,15 @@ export const postType = defineType({
       slug: 'slug',
       media: 'image',
     },
-    prepare({ title, locale, slug, media }) {
+    async prepare({ title, locale, slug, media }) {
+      const subtitle = await prepareLocalePreview(
+        { locale, slug },
+        'post'
+      )
+
       return {
         title: title,
-        subtitle: `${getLocaleLabel(locale)} • ${slug?.current || slug}`,
+        subtitle,
         media,
       }
     },

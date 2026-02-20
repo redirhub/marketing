@@ -1,5 +1,6 @@
 import { defineField, defineType } from 'sanity'
-import { LANGUAGES, defaultLocale, getLocaleLabel } from '../config/i18n'
+import { LANGUAGES, defaultLocale } from '../config/i18n'
+import { prepareLocalePreview } from './utils/previewHelpers'
 
 export const changelogType = defineType({
   name: 'changelog',
@@ -23,14 +24,13 @@ export const changelogType = defineType({
         source: 'title',
         isUnique: (slug, context) => {
           const { document, getClient } = context
+          const client = getClient({ apiVersion: '2025-12-09' })
           const locale = document?.locale || 'en'
           const docId = document?._id || ''
 
           // Handle both draft and published IDs
           const publishedId = docId.replace(/^drafts\./, '')
           const draftId = `drafts.${publishedId}`
-
-          const client = getClient({ apiVersion: '2025-12-09' })
 
           const query = `
             !defined(*[
@@ -123,11 +123,12 @@ export const changelogType = defineType({
     select: {
       title: 'title',
       locale: 'locale',
+      slug: 'slug',
       publishedAt: 'publishedAt',
       description: 'description',
       authorName: 'author.name',
     },
-    prepare({ title, locale, publishedAt, description, authorName }) {
+    async prepare({ title, locale, slug, publishedAt, description, authorName }) {
       const date = publishedAt
         ? new Date(publishedAt).toLocaleDateString('en-US', {
             year: 'numeric',
@@ -136,9 +137,16 @@ export const changelogType = defineType({
           })
         : ''
       const author = authorName ? ` by ${authorName}` : ''
+      const additionalInfo = `${date}${author}`
+
+      const subtitle = await prepareLocalePreview(
+        { locale, slug, additionalInfo },
+        'changelog'
+      )
+
       return {
         title: title,
-        subtitle: `${getLocaleLabel(locale)} • ${date}${author}`,
+        subtitle,
         description: description?.substring(0, 100),
       }
     },

@@ -1,5 +1,6 @@
 import { defineField, defineType } from 'sanity'
-import { LANGUAGES, defaultLocale, getLocaleLabel } from '../config/i18n'
+import { LANGUAGES, defaultLocale } from '../config/i18n'
+import { prepareLocalePreview } from './utils/previewHelpers'
 
 export const landingPageType = defineType({
   name: 'landingPage',
@@ -23,14 +24,14 @@ export const landingPageType = defineType({
         source: 'title',
         isUnique: (slug, context) => {
           const { document, getClient } = context
+          const client = getClient({ apiVersion: '2025-12-09' })
+
           const locale = document?.locale || 'en'
           const docId = document?._id || ''
 
           // Handle both draft and published IDs
           const publishedId = docId.replace(/^drafts\./, '')
           const draftId = `drafts.${publishedId}`
-
-          const client = getClient({ apiVersion: '2025-12-09' })
 
           const query = `
             !defined(*[
@@ -376,10 +377,15 @@ export const landingPageType = defineType({
       heroImage: 'hero.heroImage',
       isActive: 'isActive',
     },
-    prepare({ title, locale, slug, heroImage, isActive }) {
+    async prepare({ title, locale, slug, heroImage, isActive }) {
+      const subtitle = await prepareLocalePreview(
+        { locale, slug, isActive },
+        'landingPage'
+      )
+
       return {
         title: title,
-        subtitle: `${getLocaleLabel(locale)} • ${slug?.current || slug} ${!isActive ? '(Inactive)' : ''}`,
+        subtitle,
         media: heroImage,
       }
     },
