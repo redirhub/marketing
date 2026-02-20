@@ -4,6 +4,7 @@ import { urlFor } from '@/sanity/lib/image'
 import { GoCheckCircle } from 'react-icons/go'
 import InlineCTA from '../sections/InlineCTA'
 import FeatureSplitSection from '@/components/share/features/FeatureSplitSection'
+import ComparisonTable from '@/components/share/features/ComparisonTable'
 
 export const portableTextComponents = (locale = 'en'): PortableTextComponents => {
 let currentHeadingIndex = -1
@@ -207,6 +208,17 @@ return {
           reverseOrder={value?.reverseOrder ?? false}
 
 
+        />
+      )
+    },
+    comparisonTable: ({ value }) => {
+      return (
+        <ComparisonTable
+          title={value?.title}
+          description={value?.description}
+          competitors={value?.competitors ?? []}
+          rows={value?.rows ?? []}
+          notes={value?.notes}
         />
       )
     },

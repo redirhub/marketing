@@ -198,6 +198,7 @@ export const landingPageType = defineType({
             },
           ],
         },
+        { type: 'comparisonTable' },
         {
           type: 'object',
           name: 'feature',
