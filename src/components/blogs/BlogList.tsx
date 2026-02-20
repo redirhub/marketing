@@ -10,28 +10,27 @@ interface BlogListProps {
   locale?: string;
 }
 
-const BlogList = async ({ currentPage, locale = 'en' }: BlogListProps) => {
+const BlogList = async ({ currentPage, locale = "en" }: BlogListProps) => {
   const { posts, totalPages } = await fetchPaginatedPosts(locale, currentPage, 6);
 
   return (
     <>
       <Box w="100%" py={{ base: 4, md: 8 }} my={{ base: 4, md: 4 }} px={4} bg={"#fff"}>
         <Container maxW="7xl" mx="auto" px={{ base: 4, md: 0 }}>
-        {posts?.length > 0 && (
-          <SimpleGrid
-            columns={{ base: 1, md: 2, lg: 3 }}
-            gap={{ base: 6, md: 8 }}
-          >
-            {posts?.map((post: PostPreview) => (
+          {posts?.length > 0 && (
+            <SimpleGrid columns={{ base: 1, md: 2, lg: 3 }} gap={{ base: 6, md: 8 }}>
+              {posts?.map((post: PostPreview) => (
               <BlogCard
                 key={post._id}
-                imageSrc={post.image ? urlFor(post.image).width(800).height(450).url() : '/images/blog-placeholder.jpg'}
+                imageSrc={
+                  post.image ? urlFor(post.image).width(800).height(450).url() : "/images/blog-placeholder.jpg"
+                }
                 imageAlt={post.title}
                 category={post.tags?.[0]}
                 date={new Date(post.publishedAt).toLocaleDateString(locale, {
-                  year: 'numeric',
-                  month: 'long',
-                  day: 'numeric',
+                  year: "numeric",
+                  month: "long",
+                  day: "numeric",
                 })}
                 title={post.title}
                 excerpt={post.excerpt}
@@ -39,15 +38,10 @@ const BlogList = async ({ currentPage, locale = 'en' }: BlogListProps) => {
                 isBlogPage={true}
               />
             ))}
-          </SimpleGrid>
-        )}
+            </SimpleGrid>
+          )}
 
-        {posts?.length > 0 && (
-          <PaginationControls
-            currentPage={currentPage}
-            totalPages={totalPages}
-          />
-        )}
+          {posts?.length > 0 && <PaginationControls currentPage={currentPage} totalPages={totalPages} />}
         </Container>
       </Box>
     </>

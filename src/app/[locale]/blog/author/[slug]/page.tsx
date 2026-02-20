@@ -6,6 +6,7 @@ import PaginationControls from '@/components/ui/PaginationControls'
 import { urlFor } from '@/sanity/lib/image'
 import { client } from '@/sanity/lib/client'
 import { APP_NAME } from '@/lib/utils/constants'
+import { Post } from '@/types/sanity'
 
 interface AuthorPageProps {
   params: Promise<{
@@ -187,7 +188,7 @@ export default async function AuthorPage({
               columns={{ base: 1, md: 2, lg: 3 }}
               gap={{ base: 6, md: 6 }}
             >
-              {posts.map((post: any) => (
+              {posts.map((post: Post) => (
                 <BlogCard
                   key={post._id}
                   imageSrc={

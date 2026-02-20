@@ -7,6 +7,7 @@ import { urlFor } from '@/sanity/lib/image'
 import { client } from '@/sanity/lib/client'
 import { buildCanonicalUrl, buildStaticHreflangAlternates, buildSocialCards } from '@/lib/utils/seo'
 import { allLanguages } from '@/sanity/config/i18n'
+import { Post } from '@/types/sanity'
 
 interface TagPageProps {
   params: Promise<{
@@ -146,7 +147,7 @@ export default async function TagPage({ params, searchParams }: TagPageProps) {
               gap={{ base: 6, md: 6 }}
               mt={8}
             >
-              {posts.map((post: any) => (
+              {posts.map((post: Post) => (
                 <BlogCard
                   key={post._id}
                   imageSrc={

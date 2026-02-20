@@ -2,6 +2,7 @@
 
 import { Box, Image, Text, Heading } from "@chakra-ui/react";
 import { motion } from "framer-motion";
+import { t } from "i18next";
 import NextLink from "next/link";
 
 const MotionBox = motion.create(Box);
@@ -9,7 +10,7 @@ const MotionBox = motion.create(Box);
 interface BlogCardProps {
   imageSrc: string;
   imageAlt?: string;
-  category?: string;
+  category?: string | Record<string, string>;
   date?: string;
   title: string;
   excerpt?: string;
@@ -26,6 +27,11 @@ export const BlogCard = ({
   excerpt,
   link = "#",
 }: BlogCardProps) => {
+  // Normalize category - handle Sanity serialization issue
+  const categoryText = category && typeof category === 'object'
+    ? Object.values(category).join('')
+    : category;
+
   return (
     <NextLink href={link} style={{ textDecoration: 'none' }}>
       <MotionBox
@@ -77,7 +83,7 @@ export const BlogCard = ({
             color="gray.600"
             mb={3}
           >
-            {category}
+            {categoryText || t('nav.blog', 'Blog')}
           </Text>
 
         {/* Title */}

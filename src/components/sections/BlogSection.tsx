@@ -50,20 +50,12 @@ export default async function BlogSection({
           columns={{ base: 1, md: 2, lg: 3 }}
           gap={{ base: 6, md: 8 }}
         >
-          {posts.map((post: PostPreview) => {
-            // Convert tag to string if it's an object (serialization issue)
-            const category = post.tags?.[0]
-              ? typeof post.tags[0] === 'string'
-                ? post.tags[0]
-                : Object.values(post.tags[0] as any).join('')
-              : 'Blog';
-
-            return (
+          {posts.map((post: PostPreview) => (
               <BlogCard
                 key={post._id}
                 imageSrc={post.image ? urlFor(post.image).width(600).height(400).url() : '/images/blog-placeholder.jpg'}
                 imageAlt={post.title}
-                category={category}
+                category={post.tags?.[0]}
                 date={new Date(post.publishedAt).toLocaleDateString(locale, {
                   year: 'numeric',
                   month: 'long',
@@ -72,8 +64,7 @@ export default async function BlogSection({
                 title={post.title}
                 link={`/${locale}/blog/${post.slug.current}`}
               />
-            );
-          })}
+            ))}
         </SimpleGrid>
       </Box>
     </Box>
