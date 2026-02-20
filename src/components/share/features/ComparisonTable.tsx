@@ -57,7 +57,7 @@ export default function ComparisonTable({
   notes,
 }: ComparisonTableProps) {
   return (
-    <Box as="section" py={{ base: 12, md: 16 }} my={8}>
+    <Box as="section" py={{ base: 4, md: 8 }} my={8}>
       <Container maxW="7xl">
         {title && (
           <Heading
@@ -150,7 +150,7 @@ export default function ComparisonTable({
                   key={rowIdx}
                   borderBottom="1px solid"
                   borderColor="gray.200"
-                  _hover={{ bg: 'gray.50' }}
+                  _hover={{ bg: 'gray.100' }}
                   transition="background 0.15s"
                   _last={{ borderBottom: 'none' }}
                 >
