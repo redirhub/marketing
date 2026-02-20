@@ -1,17 +1,18 @@
 #!/usr/bin/env tsx
 /**
- * Script: Delete all testimonials where locale is not "en"
+ * Script: Delete all documents of a given type where locale is not "en"
  *
- * Fetches every testimonial document whose locale field is not "en"
+ * Fetches every document of the given type whose locale field is not "en"
  * and permanently deletes them from Sanity.
  *
- * Run with: npx tsx scripts/delete-non-en-testimonials.ts
+ * Run with: npx tsx scripts/delete-non-en-articles.ts
  *
- * Pass --dry-run to preview what would be deleted without making changes:
- *   npx tsx scripts/delete-non-en-testimonials.ts --dry-run
+ * Pass --dry-run to preview what would be deleted without making changes
  */
 
 import { writeClient } from '../src/sanity/lib/client'
+
+const type = process.env.TYPE || 'support'
 
 const isDryRun = process.argv.includes('--dry-run')
 
@@ -20,18 +21,18 @@ async function main() {
     console.log('[dry-run] No documents will be deleted.\n')
   }
 
-  console.log('[delete-non-en-testimonials] Fetching non-en testimonials...')
+  console.log(`[delete-non-en] Fetching non-en documents of type "${type}"...`)
 
-  const docs = await writeClient.fetch<Array<{ _id: string; author: string; locale: string }>>(
-    `*[_type == "testimonial" && locale != "en"]{ _id, author, locale }`
+  const docs = await writeClient.fetch<Array<{ _id: string; author?: string; locale: string }>>(
+    `*[_type == "${type}" && locale != "en"]{ _id, author, locale }`
   )
 
   if (docs.length === 0) {
-    console.log('No non-en testimonials found. Nothing to delete.')
+    console.log(`No non-en documents of type "${type}" found. Nothing to delete.`)
     return
   }
 
-  console.log(`Found ${docs.length} testimonial(s) to delete:\n`)
+  console.log(`Found ${docs.length} document(s) of type "${type}" to delete:\n`)
   for (const doc of docs) {
     console.log(`  - ${doc._id}  author: "${doc.author}"  locale: ${doc.locale}`)
   }
@@ -48,7 +49,7 @@ async function main() {
   for (const doc of docs) {
     try {
       await writeClient.delete(doc._id)
-      console.log(`[delete-non-en-testimonials] ✓ Deleted ${doc._id} (${doc.author} / ${doc.locale})`)
+      console.log(`[delete-non-en] ✓ Deleted ${doc._id} (${doc.author ?? 'unknown'} / ${doc.locale})`)
       deleted++
     } catch (err) {
       console.error(`[delete-non-en-testimonials] ✗ Failed to delete ${doc._id}`, err)
@@ -56,7 +57,7 @@ async function main() {
     }
   }
 
-  console.log(`\n[delete-non-en-testimonials] Done. ${deleted} deleted, ${failed} failed.`)
+  console.log(`\n[delete-non-en] Done for type "${type}". ${deleted} deleted, ${failed} failed.`)
 }
 
 main().catch((err) => {
