@@ -85,8 +85,8 @@ export default async function HomePage({
       <PowerfulFeatures />
       <TestimonialsSection locale={locale} bg="white" marginTop={0} marginBottom={24} />
       <APIDocumentation />
-      <BlogSection locale={locale} title={t("home.blog-title", "Go Through Our Blogs Today")} />
-      {/* {faqData.length > 0 && <FAQSection faqData={faqData} title={t("home.faq-title", "Frequently asked questions")} />} */}
+      <BlogSection locale={locale} />
+      <FAQSection faqs={homePageData?.faqs} />
     </>
   );
 }

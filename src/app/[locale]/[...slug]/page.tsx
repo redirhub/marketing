@@ -78,12 +78,6 @@ export default async function LandingPage({ params, searchParams }: PageProps) {
     notFound();
   }
 
-  const faqData = page.faqs?.map((faq, index) => ({
-    value: `faq-${index}`,
-    question: faq.question,
-    answer: faq.answer,
-  })) || [];
-
   const faqSchema = generateFAQSchema(page.faqs);
 
   const showTableOfContents = page.sections?.includes('contentTable');
@@ -143,12 +137,10 @@ export default async function LandingPage({ params, searchParams }: PageProps) {
         </Box>
       )}
 
-      {faqData.length > 0 && (
-        <FAQSection faqData={faqData} title={t("home.faq-title", "Frequently asked questions")}  />
-      )}
-      
+      <FAQSection faqs={page.faqs} />
+
       {showBlogInsight && (
-        <BlogSection locale={locale} title={t("home.blog-title", "Go Through Our Blogs Today")} />
+        <BlogSection locale={locale} />
       )}
 
     </Box>

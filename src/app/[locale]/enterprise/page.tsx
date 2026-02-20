@@ -1,11 +1,13 @@
 import { Metadata } from "next";
 import { getT } from "@/lib/i18n";
 import { APP_NAME } from "@/lib/utils/constants";
-import { buildCanonicalUrl, buildStaticHreflangAlternates, buildSocialCards } from "@/lib/utils/seo";
+import { buildCanonicalUrl, buildStaticHreflangAlternates, buildSocialCards, generateFAQSchema } from "@/lib/utils/seo";
 import { allLanguages } from "@/sanity/config/i18n";
 import BookADemo from "@/components/enterprise/BookADemo";
 import StandsOut from "@/components/enterprise/StandsOut";
 import LandingPageBanner from "@/components/share/banners/landingPage/LandingPageBanner";
+import { FAQSection } from "@/components/sections";
+import { fetchFAQSetByPage } from "@/lib/services/faq";
 
 export async function generateMetadata({
   params,
@@ -36,7 +38,12 @@ export async function generateMetadata({
   };
 }
 
-export default async function PricingPage() {
+export default async function EnterprisePage({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}) {
+  const { locale } = await params;
   const t = await getT();
 
   const hero = {
@@ -46,11 +53,24 @@ export default async function PricingPage() {
     heroSections: ["customerLogos"] as Array<"redirect" | "customerLogos">,
   };
 
+  // Fetch FAQs for enterprise page
+  const faqSet = await fetchFAQSetByPage('enterprise', locale);
+  const faqSchema = generateFAQSchema(faqSet?.faqs);
+
   return (
     <>
+      {/* FAQ Schema.org JSON-LD */}
+      {faqSchema && (
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
+        />
+      )}
+
       <LandingPageBanner hero={hero} />
       <BookADemo />
       <StandsOut />
+      <FAQSection faqs={faqSet?.faqs} />
     </>
   );
 }

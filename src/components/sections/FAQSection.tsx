@@ -1,24 +1,23 @@
+"use client";
+
 import { Box, Heading } from "@chakra-ui/react";
 import { FAQAccordion } from "@/components/home/FAQAccordion";
-
-interface FAQItem {
-  value: string;
-  question: string;
-  answer: string;
-}
+import { useTranslation } from "react-i18next";
+import type { FAQItem } from "@/types/sanity";
 
 interface FAQSectionProps {
-  faqData: FAQItem[];
-  title?: string;
+  faqs?: FAQItem[] | null;
   backgroundColor?: string;
 }
 
 export default function FAQSection({
-  faqData,
-  title = "Frequently asked questions",
+  faqs,
   backgroundColor = "#F2F4EF"
 }: FAQSectionProps) {
-  if (!faqData || faqData.length === 0) {
+  const { t } = useTranslation();
+
+  // Handle null, undefined, or empty arrays
+  if (!faqs || faqs.length === 0) {
     return null;
   }
 
@@ -39,9 +38,9 @@ export default function FAQSection({
         pt={{base: 6, md: 16}}
         mb={16}
       >
-        {title}
+          {t("home.faq-title", "Frequently asked questions")}
       </Heading>
-      <FAQAccordion items={faqData} />
+      <FAQAccordion items={faqs} />
     </Box>
   );
 }

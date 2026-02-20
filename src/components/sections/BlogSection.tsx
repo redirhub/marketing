@@ -1,22 +1,24 @@
+"use client";
+
 import { Box, Heading, SimpleGrid } from "@chakra-ui/react";
 import { BlogCard } from "@/components/home/BlogCard";
 import { fetchBlogPosts } from "@/lib/services/blog";
 import { urlFor } from "@/sanity/lib/image";
 import type { PostPreview } from "@/types/sanity";
+import { useTranslation } from "react-i18next";
 
 interface BlogSectionProps {
   locale: string;
-  title?: string;
   limit?: number;
   backgroundColor?: string;
 }
 
 export default async function BlogSection({
   locale,
-  title = "Latest Insights from Our Blog",
   limit = 3,
   backgroundColor = "#F2F4EF"
 }: BlogSectionProps) {
+  const { t } = useTranslation();
   const posts = await fetchBlogPosts(locale, limit);
 
   if (!posts || posts.length === 0) {
@@ -41,7 +43,7 @@ export default async function BlogSection({
           letterSpacing="0.4px"
           mb={{base: 10, md: 16}}
         >
-          {title}
+          {t("home.blog-title", "Go Through Our Blogs Today")}
         </Heading>
 
         <SimpleGrid

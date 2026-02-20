@@ -1,10 +1,12 @@
 import { Metadata } from 'next';
 import { getT } from '@/lib/i18n';
 import { APP_NAME } from '@/lib/utils/constants';
-import { buildCanonicalUrl, buildStaticHreflangAlternates, buildSocialCards } from '@/lib/utils/seo';
+import { buildCanonicalUrl, buildStaticHreflangAlternates, buildSocialCards, generateFAQSchema } from '@/lib/utils/seo';
 import { allLanguages } from '@/sanity/config/i18n';
 import PricingBanner from '@/components/share/banners/pricing/PricingBanner';
 import InteractivePricing from '@/components/pricing/InteractivePricing';
+import { FAQSection } from '@/components/sections';
+import { fetchFAQSetByPage } from '@/lib/services/faq';
 
 export async function generateMetadata({
   params,
@@ -31,17 +33,35 @@ export async function generateMetadata({
   };
 }
 
-export default async function PricingPage() {
+export default async function PricingPage({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}) {
+  const { locale } = await params;
   const t = await getT();
+
+  // Fetch FAQs for pricing page
+  const faqSet = await fetchFAQSetByPage('pricing', locale);
+  const faqSchema = generateFAQSchema(faqSet?.faqs);
 
   return (
     <>
+      {/* FAQ Schema.org JSON-LD */}
+      {faqSchema && (
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
+        />
+      )}
+
       <PricingBanner
         title={t("nav.pricing-banner-title", "Pricing")}
         mainTitle={t("nav.pricing-banner-main", "That Scales With Your Needs")}
         subtitle={t("nav.pricing-banner-subtitle", "Choose the plan that fits your needs and scale as you grow")}
       />
       <InteractivePricing />
+      <FAQSection faqs={faqSet?.faqs} />
     </>
   );
 }

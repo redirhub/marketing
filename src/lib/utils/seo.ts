@@ -3,14 +3,7 @@
  */
 
 import { APP_URL, URL_OG_IMAGE } from "./constants"
-
-/**
- * FAQ item interface for schema generation
- */
-export interface FAQItem {
-  question: string
-  answer: string
-}
+import type { FAQItem } from "@/types/sanity"
 
 /**
  * Builds a canonical URL for a given locale and path
