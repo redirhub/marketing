@@ -1,0 +1,96 @@
+{
+  "title": "Analyze Redirects",
+  "slug": {
+    "current": "analyze-redirects"
+  },
+  "meta": {
+    "metaTitle": "Redirect Traffic Analytics & Click Tracking",
+    "metaDescription": "Track clicks, unique visitors, geographic data, and device breakdown for every redirect — with real-time logs and automated weekly reports."
+  },
+  "hero": {
+    "headline": "Analyze Redirects",
+    "subheadline": "See exactly who clicks your redirects, where they come from, and when — in real time. No guesswork, no waiting for a report to run.",
+    "ctaPrimary": {
+      "label": "Get Started For Free",
+      "url": "https://dash.redirhub.com/register"
+    },
+    "ctaNote": "*No Credit Card Needed. Cancel Anytime.",
+    "bannerStyle": "default",
+    "heroSections": []
+  },
+  "content": [
+    {
+      "_type": "feature",
+      "mainTitle": "See the Full Picture Across Every Redirect",
+      "subTitle": "Total clicks, unique visitors, QR scans — everything in one dashboard so you always know what's performing and what's not.",
+      "reverseOrder": false,
+      "features": [
+        "**Total clicks:** See total hits per redirect with hourly distribution to spot traffic patterns and spikes as they happen.",
+        "**Unique visitors:** Separate returning users from first-time visitors to understand true reach, not just raw volume.",
+        "**QR scan tracking:** Monitor QR code performance separately from URL click-throughs — useful for offline campaigns and print assets."
+      ]
+    },
+    {
+      "_type": "feature",
+      "mainTitle": "Know Your Audience — Location, Device, Referrer",
+      "subTitle": "Understand who is clicking your redirects — where they are, what device they are on, and which domain is sending them.",
+      "reverseOrder": true,
+      "features": [
+        "**Geographic breakdown:** Country and city-level location data for every redirect — see where your traffic actually originates.",
+        "**Device and browser:** Mobile vs desktop split, browser breakdown — know how your audience accesses your links.",
+        "**Domain-level traffic:** Compare traffic across domains and subdomains in one view to see which properties are driving volume."
+      ]
+    },
+    {
+      "_type": "feature",
+      "mainTitle": "Real-Time Activity — No More Guessing",
+      "subTitle": "See every visit as it happens. The live log shows timestamps, locations, and device info so you catch anomalies the moment they occur.",
+      "reverseOrder": false,
+      "features": [
+        "**Live activity log:** A real-time stream of recent visits with timestamp, location, and device — updated as hits come in.",
+        "**Per-redirect detail:** Drill into any individual redirect to see its full traffic history, not just aggregate totals.",
+        "**Error visibility:** Spot redirects generating errors or unusual patterns immediately — before users report them."
+      ]
+    },
+    {
+      "_type": "feature",
+      "mainTitle": "Reports Delivered Without You Asking",
+      "subTitle": "Weekly and monthly performance summaries land in your inbox automatically. No dashboards to check, no exports to schedule.",
+      "reverseOrder": true,
+      "features": [
+        "**Scheduled email reports:** Weekly and monthly summaries of your redirect performance delivered directly to your inbox.",
+        "**Raw log pipeline:** Access full raw traffic logs for deeper analysis in your own BI tools or data warehouse.",
+        "**Export on demand:** Pull data at any time for client reports, audits, or custom analysis — no access restrictions."
+      ]
+    }
+  ],
+  "faqs": [
+    {
+      "question": "How do I track how many clicks a redirect gets?",
+      "answer": "Every redirect in RedirHub has a built-in analytics view showing total clicks, unique visitors, and hourly distribution. Open any redirect from the dashboard to see its full traffic history. For aggregate views across all redirects, the main analytics dashboard shows performance across your entire account."
+    },
+    {
+      "question": "Can I see where redirect traffic is coming from?",
+      "answer": "Yes. Each redirect tracks geographic data at country and city level, plus device type and browser breakdown. This tells you whether your traffic is coming from mobile or desktop, which regions are most active, and how your audience is distributed — without needing a separate analytics tool."
+    },
+    {
+      "question": "How do I get redirect performance reports automatically?",
+      "answer": "RedirHub sends weekly and monthly performance summaries by email — covering click totals, traffic trends, and top-performing redirects. These reports arrive automatically with no setup required. For custom reporting, raw log data can be exported in CSV format or piped to your own analytics infrastructure."
+    },
+    {
+      "question": "What data does redirect analytics track?",
+      "answer": "RedirHub tracks total clicks, unique visitors, QR code scans, geographic location (country and city), device type, browser, and recent activity timestamps for every redirect. All data is available in real time — updates appear as hits arrive, not on a delay."
+    },
+    {
+      "question": "How do I track QR code scans separately from URL clicks?",
+      "answer": "When a QR code is enabled for a redirect, scans are counted separately from direct URL clicks in the analytics view. This lets you measure the performance of offline campaign assets — print, packaging, signage — independently from your digital traffic without creating separate redirects."
+    }
+  ],
+  "sections": ["testimonials"],
+  "footerType": "with-widgets",
+  "publishedAt": "2026-02-20T00:00:00.000Z",
+  "isActive": true,
+  "onFooter": false,
+  "locale": "en",
+  "needsTranslation": true
+}

@@ -1,0 +1,119 @@
+{
+  "title": "Create Redirects",
+  "slug": {
+    "current": "create-redirects"
+  },
+  "meta": {
+    "metaTitle": "Create 301, 302 & Wildcard Redirects",
+    "metaDescription": "Create 301, 302, and wildcard redirects in seconds — with bulk CSV import, UTM parameter builder, path forwarding, and instant global deployment. No server config required."
+  },
+  "hero": {
+    "headline": "Create Redirects",
+    "subheadline": "Stop waiting on developers. Set up any redirect — from a single page forward to an entire wildcard domain — in seconds, live worldwide the moment you save.",
+    "ctaPrimary": {
+      "label": "Get Started For Free",
+      "url": "https://dash.redirhub.com/register"
+    },
+    "ctaNote": "*No Credit Card Needed. Cancel Anytime.",
+    "bannerStyle": "default",
+    "heroSections": []
+  },
+  "content": [
+    {
+      "_type": "feature",
+      "mainTitle": "Live in Seconds, Not Deployment Cycles",
+      "subTitle": "Create a redirect and it goes live across our global edge network instantly — no config files, no server restarts, no tickets to IT.",
+      "reverseOrder": false,
+      "features": [
+        "**Any redirect type:** 301 permanent, 302 temporary, 307, 308 — choose the right type for your use case without guessing.",
+        "**Real-time validation:** Broken or malformed destination URLs are flagged before you save.",
+        "**Instant propagation:** Changes go live globally the moment you hit save — no DNS wait, no deployment pipeline."
+      ]
+    },
+    {
+      "_type": "feature",
+      "mainTitle": "Flexible Rules for Any URL Structure",
+      "subTitle": "From a single page redirect to an entire domain — configure rules that match exactly how your URLs work.",
+      "reverseOrder": true,
+      "features": [
+        "**Wildcard domains:** Point an entire domain or subdomain to a new destination with one rule — *.brand.com covered in seconds.",
+        "**Page-to-page redirects:** Map specific source URLs to exact destinations, with full control over path and query string behavior.",
+        "**Path forwarding:** Preserve the full URL path automatically — so a.com/page lands at b.com/page without extra configuration.",
+        "**Query string forwarding:** Forward query parameters to the destination — so a.com/?ref=x carries through to b.com/?ref=x intact."
+      ]
+    },
+    {
+      "_type": "feature",
+      "mainTitle": "Stop Losing Campaign Attribution",
+      "subTitle": "UTM parameters stripped in a redirect chain cost you attribution data. RedirHub appends them at the infrastructure level — they cannot be dropped.",
+      "reverseOrder": false,
+      "features": [
+        "**UTM builder:** Set source, medium, campaign, term, and content once — applied to every hit through that redirect automatically.",
+        "**No manual string-building:** UTMs are configured in the dashboard, not pasted into URLs by hand — no human error, no missing parameters.",
+        "**Tagging:** Tag redirects by campaign, channel, or team for easy filtering and reporting."
+      ]
+    },
+    {
+      "_type": "feature",
+      "mainTitle": "Hundreds of Redirects in One Upload",
+      "subTitle": "When a migration or rebranding means setting up hundreds of routes at once, CSV import eliminates the manual work entirely.",
+      "reverseOrder": true,
+      "features": [
+        "**CSV import:** Upload source URL, destination, redirect type, and tags in a single file — live in one click.",
+        "**Preview before publishing:** Review every redirect before it goes live to catch mapping errors before users hit them.",
+        "**Export anytime:** Download your full redirect list for audits, migrations, or backups."
+      ]
+    },
+    {
+      "_type": "feature",
+      "mainTitle": "Full HTTPS on Every Redirect You Create",
+      "subTitle": "Every redirect — whether for one domain or a thousand — is served over HTTPS automatically. No certificate purchase, no renewal reminder.",
+      "reverseOrder": false,
+      "features": [
+        "**Wildcard SSL:** Auto-provisioned certificates cover all subdomains of a domain from day one.",
+        "**HTTP to HTTPS upgrade:** Visitors arriving over HTTP are silently upgraded — no mixed content warnings, no browser security errors.",
+        "**Custom certificates:** Upload your own SSL certificate for compliance or enterprise requirements."
+      ]
+    },
+    {
+      "_type": "feature",
+      "mainTitle": "Turn Any Redirect into a QR Code",
+      "subTitle": "Every redirect you create can generate a branded QR code — change the destination anytime without reprinting, and track scans alongside your URL analytics.",
+      "reverseOrder": true,
+      "features": [
+        "**Dynamic QR codes:** The printed code never changes — update the destination URL behind it at any time from the dashboard.",
+        "**Custom branding:** Add your logo and brand colours to every QR code — consistent identity across print and digital assets.",
+        "**Scan tracking:** Monitor scan count, location, and device breakdown separately from URL click-throughs — useful for offline campaigns and print assets."
+      ]
+    }
+  ],
+  "faqs": [
+    {
+      "question": "What is the difference between a 301 and 302 redirect?",
+      "answer": "A 301 is a permanent redirect — it tells search engines the page has moved for good, passing link equity to the new URL. A 302 is a temporary redirect — search engines keep the original URL indexed and do not transfer link equity. Use 301 for migrations and permanent URL changes. Use 302 for short-term redirects such as maintenance pages or split tests."
+    },
+    {
+      "question": "How do I set up a wildcard domain redirect?",
+      "answer": "A wildcard domain redirect routes all traffic from an entire domain or subdomain to a single destination using one rule — for example, pointing every variation of an old brand domain to your main site. In RedirHub, you add the domain with a wildcard record and set the destination URL. Automatic SSL covers all subdomains from the same rule."
+    },
+    {
+      "question": "How do I bulk upload redirects from a CSV file?",
+      "answer": "Prepare a CSV file with columns for source URL, destination URL, and redirect type. Upload it through the RedirHub dashboard and preview all entries before publishing. Broken or malformed destination URLs are flagged during the import review so you can fix mapping errors before any redirect goes live."
+    },
+    {
+      "question": "What are UTM parameters and how do I add them to a redirect?",
+      "answer": "UTM parameters are tags appended to a destination URL that tell analytics tools where a visitor came from — source, medium, campaign, term, and content. Instead of pasting them manually into every URL, RedirHub's UTM builder lets you configure them once per redirect and applies them automatically to every hit, preventing them from being stripped mid-redirect."
+    },
+    {
+      "question": "How do I redirect a domain without losing SEO?",
+      "answer": "Use a 301 permanent redirect from the old domain to the new one. This signals to search engines that the content has moved permanently and passes link equity to the destination. Ensure the redirect is served over HTTPS — an insecure hop breaks the trust signal chain. Avoid redirect chains by pointing directly to the final destination URL."
+    }
+  ],
+  "sections": ["testimonials"],
+  "footerType": "with-widgets",
+  "publishedAt": "2026-02-20T00:00:00.000Z",
+  "isActive": true,
+  "onFooter": false,
+  "locale": "en",
+  "needsTranslation": true
+}

@@ -1,0 +1,96 @@
+{
+  "title": "Global Scale",
+  "slug": {
+    "current": "global-scale"
+  },
+  "meta": {
+    "metaTitle": "Global Edge Network for Fast, Reliable URL Redirects",
+    "metaDescription": "Serve redirects from the edge closest to your users — sub-100ms latency, 99.99% uptime, automatic failover, and DDoS protection across every domain."
+  },
+  "hero": {
+    "headline": "Global Scale",
+    "subheadline": "Every redirect resolves from the edge location nearest to your user. Sub-100ms latency, worldwide — whether you manage five domains or fifty thousand.",
+    "ctaPrimary": {
+      "label": "Get Started For Free",
+      "url": "https://dash.redirhub.com/register"
+    },
+    "ctaNote": "*No Credit Card Needed. Cancel Anytime.",
+    "bannerStyle": "default",
+    "heroSections": []
+  },
+  "content": [
+    {
+      "_type": "feature",
+      "mainTitle": "Sub-100ms Redirects, Anywhere in the World",
+      "subTitle": "Redirect latency is not just a technical metric — a slow redirect loses conversions, frustrates users, and signals poor performance to search engines.",
+      "reverseOrder": false,
+      "features": [
+        "**Edge network:** Requests are served from the nearest edge location — cutting round-trip time to a minimum for users everywhere.",
+        "**Redirect to the fastest target:** When a redirect has multiple destinations, traffic is automatically routed to the fastest-responding one.",
+        "**Instant propagation:** Changes you make in the dashboard reach every edge location in seconds — not hours."
+      ]
+    },
+    {
+      "_type": "feature",
+      "mainTitle": "Scales to Any Volume Without Configuration",
+      "subTitle": "Whether you're parking ten domains or handling millions of hits a day, the infrastructure adjusts automatically — no capacity planning, no manual intervention.",
+      "reverseOrder": true,
+      "features": [
+        "**Auto-scaling:** Traffic spikes are absorbed automatically — performance stays consistent whether you're sending ten hits or ten million.",
+        "**99.99% uptime:** Redundant infrastructure across regions keeps your redirects online — even during regional outages.",
+        "**Automatic failover:** If a node becomes unavailable, traffic is rerouted instantly with no downtime for your users."
+      ]
+    },
+    {
+      "_type": "feature",
+      "mainTitle": "Every Domain Format, Every Language",
+      "subTitle": "International domains, non-Latin scripts, multilingual portfolios — all handled correctly with no encoding issues or special configuration.",
+      "reverseOrder": false,
+      "features": [
+        "**IDN support:** International domain names including non-Latin scripts are resolved and redirected correctly — no workarounds required.",
+        "**Wildcard SSL at scale:** Auto-provisioned HTTPS for every domain in your portfolio, renewed automatically with zero manual steps.",
+        "**Thousands of domains, one account:** Manage domain portfolios of any size from a single dashboard — consistent performance across all of them."
+      ]
+    },
+    {
+      "_type": "feature",
+      "mainTitle": "Infrastructure-Grade Reliability",
+      "subTitle": "DDoS protection and continuous monitoring mean your redirects stay online under attack, during traffic surges, and at any hour.",
+      "reverseOrder": true,
+      "features": [
+        "**DDoS protection:** Advanced protection keeps redirects online under distributed attack conditions — no manual response required.",
+        "**Infrastructure monitoring:** Continuous checks across the global network with instant response to any performance issue.",
+        "**Consistent SLA:** 99.99% uptime across our global network — the reliability level that enterprise and high-volume operations require."
+      ]
+    }
+  ],
+  "faqs": [
+    {
+      "question": "How does redirect latency affect SEO and conversions?",
+      "answer": "Redirect latency adds to a page's total load time — even a few hundred milliseconds increases bounce rates and signals slower performance to search engines. Google's Core Web Vitals measure load speed, and a slow redirect hop contributes negatively. Edge-based redirects resolve in sub-100ms because the request is handled by the nearest server to the user, rather than routing back to a central origin."
+    },
+    {
+      "question": "What is an edge network and why does it matter for redirects?",
+      "answer": "An edge network is a system of distributed servers positioned close to users around the world. Instead of every redirect request travelling to a central server, it is handled by the nearest edge node — dramatically reducing latency. For redirects, this means users anywhere in the world experience near-instant forwarding rather than waiting for a round trip to a distant server."
+    },
+    {
+      "question": "Can a redirect service handle millions of requests per day?",
+      "answer": "Yes. RedirHub's infrastructure auto-scales to absorb traffic spikes automatically — there is no manual capacity planning required. The edge network distributes load across global nodes, so high-traffic events such as campaign launches or viral traffic spikes do not degrade redirect performance."
+    },
+    {
+      "question": "What uptime does a redirect service guarantee?",
+      "answer": "RedirHub maintains 99.99% uptime across its global edge network, backed by redundant infrastructure and automatic failover between nodes. If a node becomes unavailable, traffic is rerouted instantly — users experience no downtime."
+    },
+    {
+      "question": "How do I redirect domains for users in different countries?",
+      "answer": "Redirect rules in RedirHub apply globally — all users, regardless of location, are forwarded by the nearest edge node. For international domain portfolios, wildcard domain redirects can point an entire domain or subdomain to a destination in one rule. IDN (International Domain Name) support ensures non-Latin domain names are handled correctly without encoding issues."
+    }
+  ],
+  "sections": ["testimonials"],
+  "footerType": "with-widgets",
+  "publishedAt": "2026-02-20T00:00:00.000Z",
+  "isActive": true,
+  "onFooter": false,
+  "locale": "en",
+  "needsTranslation": true
+}

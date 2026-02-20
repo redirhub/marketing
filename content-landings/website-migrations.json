@@ -1,0 +1,96 @@
+{
+  "title": "Website Migrations",
+  "slug": {
+    "current": "solutions/website-migrations"
+  },
+  "meta": {
+    "metaTitle": "Website Migration Redirects — Preserve SEO Rankings with 301s",
+    "metaDescription": "Manage your entire website migration with bulk 301 redirects, validated URL mapping, and post-launch monitoring — without losing search rankings or organic traffic."
+  },
+  "hero": {
+    "headline": "Website Migrations",
+    "subheadline": "A botched migration can wipe out years of SEO. Bulk 301 redirects, validated URL mapping, and post-launch monitoring keep your rankings and traffic intact through every URL change.",
+    "ctaPrimary": {
+      "label": "Get Started For Free",
+      "url": "https://dash.redirhub.com/register"
+    },
+    "ctaNote": "*No Credit Card Needed. Cancel Anytime.",
+    "bannerStyle": "default",
+    "heroSections": []
+  },
+  "content": [
+    {
+      "_type": "feature",
+      "mainTitle": "Protect Your SEO Rankings Through the Move",
+      "subTitle": "A migration without proper redirects doesn't just break links — it signals to search engines that pages no longer exist, destroying link equity built over years.",
+      "reverseOrder": false,
+      "features": [
+        "**301 permanent redirects** signal to search engines that content has moved — not disappeared — preserving link equity and rankings.",
+        "**Wildcard domain redirects** point an entire old domain or subdomain to its new home with a single rule.",
+        "**HTTPS on every redirect** every migration redirect is served over HTTPS automatically — no insecure hop in the chain."
+      ]
+    },
+    {
+      "_type": "feature",
+      "mainTitle": "Map Hundreds of Pages in One Upload",
+      "subTitle": "Manual URL mapping for large migrations invites errors. CSV import handles the heavy lifting — every source URL mapped to its correct destination at once.",
+      "reverseOrder": true,
+      "features": [
+        "**Bulk CSV import** upload your full URL mapping — source, destination, and redirect type — in a single file.",
+        "**Preview before publishing** review every redirect before it goes live and catch mapping errors before users or search engines hit them.",
+        "**Page-to-page precision** map specific source URLs to exact destinations with full control over path and query string handling."
+      ]
+    },
+    {
+      "_type": "feature",
+      "mainTitle": "Go Live With Confidence, Not Fingers Crossed",
+      "subTitle": "Before flipping the switch, validate that every redirect is correctly configured. Catch broken mappings before search engines and users do.",
+      "reverseOrder": false,
+      "features": [
+        "**Validation on import** broken or malformed destination URLs are flagged during upload — before they go live.",
+        "**Instant activation** when you're ready, redirects propagate globally in seconds — not hours.",
+        "**Disable instantly** turn off individual redirects immediately if something isn't right post-launch — no server access needed."
+      ]
+    },
+    {
+      "_type": "feature",
+      "mainTitle": "Monitor Post-Launch — Before Rankings Drop",
+      "subTitle": "Traffic loss after a migration often doesn't show up in Search Console until days later. Destination monitoring gives you visibility the moment something breaks.",
+      "reverseOrder": true,
+      "features": [
+        "**Destination health checks** automated checks alert you when a redirect destination goes down or returns an error.",
+        "**Error visibility** see which redirects are generating errors directly in your dashboard — act before Google recrawls.",
+        "**Always-on monitoring** continuous checks keep your migration redirects healthy long after launch day."
+      ]
+    }
+  ],
+  "faqs": [
+    {
+      "question": "How do I set up 301 redirects for a website migration?",
+      "answer": "Setting up 301 redirects for a migration involves mapping every old URL to its new destination, then publishing those rules so search engines and users are forwarded correctly. The most efficient method is building a URL mapping in CSV format — source URL, destination URL, redirect type — and uploading it in bulk. RedirHub publishes the full mapping globally in seconds, with validation to catch broken destinations before they go live."
+    },
+    {
+      "question": "Will my SEO be affected during migration?",
+      "answer": "Not if redirects are configured correctly. 301 permanent redirects signal to search engines that content has moved — preserving link equity and rankings. Temporary or missing redirects cause search engines to treat old pages as deleted, which drops rankings. Serving all redirects over HTTPS is equally important — an insecure hop in the chain can dilute the trust signals passed between URLs."
+    },
+    {
+      "question": "Do redirect chains hurt SEO?",
+      "answer": "Yes. Redirect chains — where a URL redirects through multiple hops before reaching its destination — dilute link equity at each step and increase page load latency. Search engines recommend keeping redirect paths to a single hop. When migrating, map every old URL directly to its final destination rather than routing through intermediate URLs. This preserves as much link equity as possible and keeps redirect speed fast."
+    },
+    {
+      "question": "Why did my traffic drop after a website migration?",
+      "answer": "Traffic drops after a migration are usually caused by missing or misconfigured redirects — old URLs returning 404 errors instead of forwarding to their new equivalents. Search engines then index those URLs as dead pages, dropping their rankings. Other causes include redirect chains diluting link equity, non-HTTPS redirects signalling insecurity, or destination URLs returning errors. Monitoring redirect health after launch catches these issues before rankings are permanently affected."
+    },
+    {
+      "question": "How fast are redirects applied during migration?",
+      "answer": "Redirects go live globally within seconds of being published — propagating across RedirHub's edge network instantly. There is no deployment pipeline or DNS propagation delay to wait for."
+    }
+  ],
+  "sections": ["testimonials"],
+  "footerType": "with-widgets",
+  "publishedAt": "2026-02-20T00:00:00.000Z",
+  "isActive": true,
+  "onFooter": false,
+  "locale": "en",
+  "needsTranslation": true
+}

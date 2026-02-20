@@ -1,0 +1,96 @@
+{
+  "title": "Manage Redirects",
+  "slug": {
+    "current": "manage-redirects"
+  },
+  "meta": {
+    "metaTitle": "URL Redirect Management Dashboard",
+    "metaDescription": "Manage all your redirects from one dashboard — search, filter, bulk edit, and monitor destination health across every domain. No server access needed."
+  },
+  "hero": {
+    "headline": "Manage Redirects",
+    "subheadline": "Your entire redirect inventory — searchable, editable, and monitored in real time. Make any change and it's live globally in seconds.",
+    "ctaPrimary": {
+      "label": "Get Started For Free",
+      "url": "https://dash.redirhub.com/register"
+    },
+    "ctaNote": "*No Credit Card Needed. Cancel Anytime.",
+    "bannerStyle": "default",
+    "heroSections": []
+  },
+  "content": [
+    {
+      "_type": "feature",
+      "mainTitle": "Find Any Redirect Instantly",
+      "subTitle": "When you're managing redirects across multiple domains and campaigns, the ability to find what you need in seconds matters more than you'd think.",
+      "reverseOrder": false,
+      "features": [
+        "**Global search:** Find any redirect by source URL, destination, tag, or domain — across your entire account.",
+        "**Smart filters:** Narrow by status, redirect type, domain, or creation date to surface exactly what you need.",
+        "**Tag-based organization:** Group redirects by project, campaign, or team — and filter down to just that group in one click."
+      ]
+    },
+    {
+      "_type": "feature",
+      "mainTitle": "Update Any Redirect Without a Deployment",
+      "subTitle": "Change a destination URL, swap a redirect type, or kill a campaign link — it's live worldwide the moment you save.",
+      "reverseOrder": true,
+      "features": [
+        "**Change destination anytime:** Update where any redirect points without disrupting the source URL or losing traffic.",
+        "**Enable or disable instantly:** Pause or reactivate redirects in one click — for seasonal campaigns, maintenance windows, or quick rollbacks.",
+        "**No server access needed:** Every update happens in the dashboard — no config files, no SSH, no waiting on IT."
+      ]
+    },
+    {
+      "_type": "feature",
+      "mainTitle": "Catch Broken Destinations Before Your Users Do",
+      "subTitle": "A redirect pointing to a dead page fails silently. Automated destination monitoring alerts you when something breaks — before it becomes a support ticket.",
+      "reverseOrder": false,
+      "features": [
+        "**Destination health checks:** Automated checks alert you when a destination URL goes down or starts returning errors.",
+        "**Fallback destinations:** Set a backup URL for any redirect — traffic is caught automatically if the primary destination fails.",
+        "**Error visibility:** See which redirects are returning errors directly in your dashboard — no manual spot-checking required."
+      ]
+    },
+    {
+      "_type": "feature",
+      "mainTitle": "Bulk Operations for the Heavy Lifting",
+      "subTitle": "When you need to act on dozens or hundreds of redirects at once, batch edits and mass actions cut the work down to seconds.",
+      "reverseOrder": true,
+      "features": [
+        "**Batch updates:** Modify destinations, types, or tags across multiple redirects in a single operation.",
+        "**Mass actions:** Enable, disable, retag, or delete multiple redirects at once — no one-by-one clicking.",
+        "**CSV export:** Download your full redirect inventory at any time for audits, client reporting, or migration handoffs."
+      ]
+    }
+  ],
+  "faqs": [
+    {
+      "question": "How do I find and fix a broken redirect?",
+      "answer": "Search for the redirect by source URL or destination in the dashboard. If the destination is returning errors, the health check indicator will flag it. Update the destination URL directly in the dashboard — the change goes live globally within seconds. Setting a fallback destination ensures traffic is never sent to a dead page while you investigate."
+    },
+    {
+      "question": "What happens if a redirect destination goes down?",
+      "answer": "If a destination URL returns an error or goes offline, the redirect will continue forwarding traffic to that broken URL unless a fallback is configured. RedirHub's destination health checks monitor your redirect destinations automatically and alert you when one fails, so you can update or redirect to a fallback before users are affected."
+    },
+    {
+      "question": "How do I disable a redirect without deleting it?",
+      "answer": "You can enable or disable any redirect with a single click from the dashboard — the redirect rule is preserved but stops forwarding traffic immediately. This is useful for pausing seasonal campaigns, maintenance windows, or rolling back a change without losing the configuration."
+    },
+    {
+      "question": "How do I organize redirects across multiple domains?",
+      "answer": "Use tags to group redirects by domain, campaign, or project — then filter your dashboard view to just that group. For team access, domain-level permissions mean each team member or client only sees the redirects relevant to their domain, keeping large multi-domain accounts manageable."
+    },
+    {
+      "question": "How do I bulk edit redirects?",
+      "answer": "Select multiple redirects using the bulk selection tool, then apply a mass action — enable, disable, retag, or delete — across all selected items at once. For destination updates at scale, export your redirect list to CSV, edit the relevant fields, and re-import the updated file."
+    }
+  ],
+  "sections": ["testimonials"],
+  "footerType": "with-widgets",
+  "publishedAt": "2026-02-20T00:00:00.000Z",
+  "isActive": true,
+  "onFooter": false,
+  "locale": "en",
+  "needsTranslation": true
+}

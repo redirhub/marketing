@@ -1,0 +1,85 @@
+{
+  "title": "Team Management",
+  "slug": {
+    "current": "team-management"
+  },
+  "meta": {
+    "metaTitle": "Team Access Control & Permissions for Redirects",
+    "metaDescription": "Invite your team, assign role-based permissions, and control access by domain — so marketers move fast and infrastructure stays protected."
+  },
+  "hero": {
+    "headline": "Team Management",
+    "subheadline": "Give every team member exactly the access they need — no more, no less. Marketers move fast, infrastructure stays protected.",
+    "ctaPrimary": {
+      "label": "Get Started For Free",
+      "url": "https://dash.redirhub.com/register"
+    },
+    "ctaNote": "*No Credit Card Needed. Cancel Anytime.",
+    "bannerStyle": "default",
+    "heroSections": []
+  },
+  "content": [
+    {
+      "_type": "feature",
+      "mainTitle": "Role-Based Access — Not Everyone Needs the Keys",
+      "subTitle": "Marketers don't need admin access. Developers don't need to approve every campaign link. Role-based permissions let each person do their job without stepping on anyone else's.",
+      "reverseOrder": false,
+      "features": [
+        "**Role-based permissions:** Define what each team member can see and change — full admin, edit access, or view-only.",
+        "**Granular domain control:** Restrict access at the domain level — a team managing one brand has no visibility into another.",
+        "**Unlimited team members:** Invite your entire team without per-seat pricing penalties scaling against you."
+      ]
+    },
+    {
+      "_type": "feature",
+      "mainTitle": "Stop Being the Bottleneck",
+      "subTitle": "Every time marketing waits on IT to create a redirect, campaign momentum is lost. The right access model lets each team move independently — without risk.",
+      "reverseOrder": true,
+      "features": [
+        "**Self-serve for non-technical teams:** Marketers and campaign managers create and update redirects themselves — no tickets, no waiting on developers.",
+        "**No shared credentials:** Every team member logs in with their own account — access is individual, traceable, and revocable instantly.",
+        "**SSO support:** Connect RedirHub to your identity provider for centralized access management across your organization."
+      ]
+    },
+    {
+      "_type": "feature",
+      "mainTitle": "Built for Agencies and Multi-Brand Teams",
+      "subTitle": "Managing redirects for multiple clients or brands from one account — with clean separation between each.",
+      "reverseOrder": false,
+      "features": [
+        "**Per-domain organization:** Redirects are organized by domain so each team or client sees only what is relevant to them.",
+        "**Centralized oversight:** One account to manage everything — delegate to teams while keeping full visibility at the top level.",
+        "**Instant access revocation:** Remove a team member's access immediately when needed — their changes remain, their access does not."
+      ]
+    }
+  ],
+  "faqs": [
+    {
+      "question": "How do I give team members access to redirect management?",
+      "answer": "Invite team members by email from the team settings in your RedirHub account. Each person gets their own login — no shared credentials. You assign a role during the invite that determines what they can see and change, from full admin access down to view-only."
+    },
+    {
+      "question": "Can different team members have different permission levels?",
+      "answer": "Yes. Role-based permissions let you assign different access levels to different team members — for example, a developer with full admin access and a marketer with the ability to create and edit redirects but not delete domains. Permissions can be updated at any time from the team settings."
+    },
+    {
+      "question": "How do I let marketing update redirects without developer access?",
+      "answer": "Assign marketers a role that allows them to create and edit redirects in the dashboard without access to domain configuration or team settings. This lets them launch and update campaign links independently — no ticket to IT, no waiting for a developer — while keeping infrastructure-level settings protected."
+    },
+    {
+      "question": "Does redirect management support SSO login?",
+      "answer": "Yes. RedirHub supports SSO (Single Sign-On), allowing your team to log in through your organization's identity provider. This centralizes access management — when a team member is offboarded in your identity system, their RedirHub access is revoked automatically."
+    },
+    {
+      "question": "How do I remove a team member's access immediately?",
+      "answer": "Remove a team member from the team settings in your account — their access is revoked instantly. Any redirects or configurations they created remain in place. This is important for offboarding — access is cut off without any disruption to live redirects."
+    }
+  ],
+  "sections": ["testimonials"],
+  "footerType": "with-widgets",
+  "publishedAt": "2026-02-20T00:00:00.000Z",
+  "isActive": true,
+  "onFooter": false,
+  "locale": "en",
+  "needsTranslation": true
+}
