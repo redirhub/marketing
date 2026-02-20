@@ -62,7 +62,7 @@ export default function SinglePageBanner({
               textTransform="capitalize"
               fontSize="16px"
             >
-              {category}
+               {t(`support.cat-${category.toLowerCase()}`, category)}
             </Box>
           </Flex>
           <Flex direction="column" align="center" textAlign="center" gap={2}>
