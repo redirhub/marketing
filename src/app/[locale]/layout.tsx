@@ -65,10 +65,8 @@ export default async function RootLayout({
   }));
 
   return (
-      <div lang={locale} suppressHydrationWarning 
-      className={inter.variable}
-      style={{ minHeight: "100vh", display: "flex", flexDirection: "column" }}
-      >
+    <html lang={locale} suppressHydrationWarning className={inter.variable}>
+      <body style={{ minHeight: "100vh", display: "flex", flexDirection: "column" }}>
         <Provider>
           <Suspense fallback={null}>
             <NProgressBar />
@@ -86,6 +84,7 @@ export default async function RootLayout({
             <FernandWidget />
           </TranslationsProvider>
         </Provider>
-      </div>
+      </body>
+    </html>
   );
 }

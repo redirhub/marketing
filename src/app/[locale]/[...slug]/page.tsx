@@ -139,7 +139,7 @@ export default async function LandingPage({ params, searchParams }: PageProps) {
 
       {showTestimonials && (
         <Box px={{ base: 3, md: 4, lg: 6 }}>
-          <TestimonialsSection marginTop={12} marginBottom={24} />
+          <TestimonialsSection locale={locale} marginTop={12} marginBottom={24} />
         </Box>
       )}
 

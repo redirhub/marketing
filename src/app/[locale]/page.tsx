@@ -6,7 +6,7 @@ import ChooseUs from "@/components/home/ChooseUs";
 import WhyStandsOut from "@/components/home/WhyStandsOut";
 import PowerfulFeatures from "@/components/home/PowerfulFeatures";
 import APIDocumentation from "@/components/home/APIDocumentation";
-import { BlogSection, FAQSection } from "@/components/sections";
+import { BlogSection, FAQSection, TestimonialsSection } from "@/components/sections";
 import { buildCanonicalUrl, buildStaticHreflangAlternates, buildSocialCards, generateFAQSchema } from '@/lib/utils/seo'
 import { allLanguages } from '@/sanity/config/i18n'
 import { getTestimonials, formatTestimonialForSlider } from "@/lib/sanity/testimonials";
@@ -66,19 +66,8 @@ export default async function HomePage({
   // Fetch home page content from CMS (English only — locale handled by i18n)
   const homePageData = await fetchLandingPageBySlug("homepage", locale);
 
-  // Transform doc FAQs to FAQAccordion format (add 'value' field)
-  const faqData = homePageData?.faqs?.map((faq, index) => ({
-    value: `faq-${index + 1}`,
-    question: faq.question,
-    answer: faq.answer,
-  })) || [];
-
   // Generate FAQ Schema.org JSON-LD
   const faqSchema = generateFAQSchema(homePageData?.faqs);
-
-  // Fetch testimonials from CMS
-  const testimonialsData = await getTestimonials(locale);
-  const testimonials = testimonialsData.map(formatTestimonialForSlider);
 
   return (
     <>
@@ -93,10 +82,11 @@ export default async function HomePage({
       <Hero content={homePageData?.hero} />
       <WhyStandsOut />
       <ChooseUs />
-      <PowerfulFeatures testimonials={testimonials} />
+      <PowerfulFeatures />
+      <TestimonialsSection locale={locale} bg="white" marginTop={0} marginBottom={24} />
       <APIDocumentation />
       <BlogSection locale={locale} title={t("home.blog-title", "Go Through Our Blogs Today")} />
-      {faqData.length > 0 && <FAQSection faqData={faqData} title={t("home.faq-title", "Frequently asked questions")} />}
+      {/* {faqData.length > 0 && <FAQSection faqData={faqData} title={t("home.faq-title", "Frequently asked questions")} />} */}
     </>
   );
 }

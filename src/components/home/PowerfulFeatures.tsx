@@ -167,11 +167,7 @@ const FeatureContent: React.FC<FeatureContentProps> = ({ data }) => {
   );
 };
 
-interface PowerfulFeaturesProps {
-  testimonials: TestimonialData[];
-}
-
-export default function PowerfulFeatures({ testimonials }: PowerfulFeaturesProps) {
+export default function PowerfulFeatures() {
   const { t } = useTranslation();
 
   const featuresData: FeatureItem[] = [
@@ -361,8 +357,6 @@ export default function PowerfulFeatures({ testimonials }: PowerfulFeaturesProps
           ))}
         />
       </Box>
-
-      <TestimonialsSlider testimonials={testimonials} />
     </Box>
   );
 }

@@ -7,12 +7,14 @@ import {
 
 interface TestimonialsSectionProps {
   locale?: string;
+  bg?: string;
   marginTop?: string | number | object;
   marginBottom?: string | number | object;
 }
 
 export default async function TestimonialsSection({
   locale = "en",
+  bg = undefined,
   marginTop = 12,
   marginBottom = 0,
 }: TestimonialsSectionProps) {
@@ -28,7 +30,7 @@ export default async function TestimonialsSection({
   }
 
   return (
-    <Box w="100%" px={{ base: 2, md: 2, lg: 0 }} mt={marginTop}>
+    <Box w="100%" px={{ base: 2, md: 2, lg: 0 }} mt={marginTop} bg={bg}>
       <TestimonialsSlider
         testimonials={testimonials}
         marginBottom={marginBottom}
