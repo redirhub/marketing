@@ -44,6 +44,15 @@ export const testimonialType = defineType({
       description: 'Company name (optional)',
     }),
     defineField({
+      name: 'link',
+      type: 'url',
+      title: 'Read More Link',
+      description: 'Optional link to full testimonial or case study (shown when quote is long)',
+      validation: (rule) => rule.uri({
+        scheme: ['http', 'https']
+      })
+    }),
+    defineField({
       name: 'avatar',
       type: 'image',
       title: 'Avatar',

@@ -277,6 +277,7 @@ export interface TestimonialDocument {
   author: string
   role?: string
   company?: string
+  link?: string
   avatar?: SanityImageAsset
   order: number
   isActive: boolean

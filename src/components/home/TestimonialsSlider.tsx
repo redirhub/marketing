@@ -8,6 +8,7 @@ import {
   Flex,
   Avatar,
   IconButton,
+  Link,
 } from "@chakra-ui/react";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
@@ -22,6 +23,7 @@ interface TestimonialData {
   name: string;
   role: string;
   company?: string;
+  link?: string;
   avatar: string;
 }
 
@@ -244,6 +246,29 @@ export default function TestimonialsSlider({ testimonials, marginBottom }: Props
                           ? `${testimonial.company} • ${testimonial.role}`
                           : testimonial.company || testimonial.role}
                       </Text>
+                      {testimonial.link && (
+                        <Link
+                          href={testimonial.link}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          display="inline-flex"
+                          alignItems="center"
+                          gap={1}
+                          mt={2}
+                          fontSize={{ base: "0.85rem", md: "0.95rem" }}
+                          fontWeight={600}
+                          color="blue.600"
+                          textAlign="left"
+                          textDecoration="none"
+                          transition="all 0.2s"
+                          _hover={{
+                            color: "blue.700",
+                          }}
+                        >
+                          <Text as="span">{t("nav.read-more", "Read more")}</Text>
+                          <Text as="span">→</Text>
+                        </Link>
+                      )}
                     </Box>
                   </Flex>
                 </Box>

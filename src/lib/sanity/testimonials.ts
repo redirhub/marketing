@@ -19,6 +19,7 @@ export async function getTestimonials(
     author,
     role,
     company,
+    link,
     avatar,
     order,
     isActive,
@@ -42,6 +43,7 @@ export function formatTestimonialForSlider(testimonial: TestimonialDocument) {
     name: testimonial.author,
     role: testimonial.role || '',
     company: testimonial.company || '',
+    link: testimonial.link || '',
     avatar: testimonial.avatar
       ? urlFor(testimonial.avatar).width(200).height(200).url()
       : '/assets/images/placeholder-avatar.png',
