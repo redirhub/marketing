@@ -12,6 +12,7 @@ import FrameImage from "./FrameImage";
 import Link from "next/link";
 import { GoCheckCircle } from "react-icons/go";
 import { URL_DASHBOARD_REGISTER } from "@/lib/utils/constants";
+import { useTranslation } from "react-i18next";
 
 interface FeatureListItemProps {
   heading: string;
@@ -121,6 +122,8 @@ export default function FeatureSplitSection({
   subTitleWidth = "",
   imageWidth = "478px",
 }: FeatureSplitSectionProps) {
+  const { t } = useTranslation();
+
   // Determine the grid order based on the reverseOrder prop
   const listOrder = reverseOrder ? 2 : 1;
   const imageOrder = reverseOrder ? 1 : 2;
@@ -204,7 +207,7 @@ export default function FeatureSplitSection({
                 my={8}
               >
                 <ActionButton
-                  label="Get Started For Free"
+                  label={t("home.features-get-started", "Get Started For Free")}
                   isPrimary
                   href={URL_DASHBOARD_REGISTER}
                 />
