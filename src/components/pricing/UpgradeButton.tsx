@@ -29,7 +29,7 @@ export function UpgradeButton({
     const recommended = plan.recommended ?? false;
     const isEnterprise = plan.level === PLAN_ENTERPRISE_LEVEL;
     const isCurrent = plan?.id === currentPlanId;
-    const isDisabled = !!plan?.isUnavailable || isCurrent;
+    const isDisabled = !!plan?.isUnavailable;
 
     const getSubscribeUrl = () => {
         if (plan.level === 0) {
