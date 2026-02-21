@@ -7,13 +7,12 @@ import DynamicSlider from "./DynamicSlider";
 import PricingPlanCard from "./PricingPlanCard";
 import { UpgradeButton } from "./UpgradeButton";
 import AddOns from "./AddOns";
-import PlansComparisonTable, { ProductTab } from "./PlansComparisonTable";
-import { pricingPlans } from "./pricingData";
+import PlansComparisonTable from "./PlansComparisonTable";
 import { getRecommendedRedirectPlan, getRedirectSliderConfig } from "./redirectPlanData";
 import { shortenUrlData } from "./shortenUrlPlanData";
 import { monitorData } from "./monitorPlanData";
 import { ProductConfig, redirectConfig, shortenConfig, monitorConfig } from "./productConfigs";
-import { mapPlanToDisplay } from "@/lib/utils/pricingHelpers";
+import { mapPlanToDisplay, DisplayPlan } from "@/lib/utils/pricingHelpers";
 import { useTranslation } from "react-i18next";
 
 
@@ -36,22 +35,19 @@ export default function InteractivePricing() {
         recommendedPlanId = monitorData.plans.find(p => p.badge === 'Popular')?.id || '';
     }
 
-    const getDisplayPlans = () => {
-        const configMap: Record<string, ProductConfig> = {
-            'redirects': redirectConfig,
-            'shorten': shortenConfig,
-            'monitor': monitorConfig
-        };
-
-        const config = configMap[activeTab];
-        if (!config) return pricingPlans;
-
-        return config.data.plans.map((plan, index, allPlans) =>
-            mapPlanToDisplay(plan, index, allPlans, config, isAnnually, hostnameValue, manualRecommendedId)
-        );
+    const configMap: Record<string, ProductConfig> = {
+        'redirects': redirectConfig,
+        'shorten': shortenConfig,
+        'monitor': monitorConfig,
     };
+    const currentConfig = configMap[activeTab] || redirectConfig;
 
-    const displayPlans = getDisplayPlans();
+    const displayPlans: DisplayPlan[] = currentConfig.data.plans.map((plan, index, allPlans) =>
+        mapPlanToDisplay(plan, index, allPlans, currentConfig, isAnnually, hostnameValue, manualRecommendedId)
+    );
+    const comparisonPlans = currentConfig.data.plans;
+    const comparisonData = currentConfig.data.comparison || [];
+    const comparisonProduct = activeTab === 'redirects' ? 'redirect' : activeTab;
 
     const tabHeader = (
         <>
@@ -76,17 +72,17 @@ export default function InteractivePricing() {
                         {displayPlans.map((plan) => (
                             <PricingPlanCard
                                 key={plan.id}
-                                plan={plan as any}
+                                plan={plan}
                                 isAnnually={isAnnually}
                                 recommended={plan.id === recommendedPlanId}
                                 everythingInPlanName={plan.everythingInPlanName}
                                 isDynamicPricing={activeTab === 'redirects'}
-                                addon={(plan as any).addon}
-                                renderCTA={({ plan, isAnnually, addon }) => (
+                                addon={plan.addon}
+                                renderCTA={({ plan: ctaPlan, isAnnually: ctaAnnually, addon: ctaAddon }) => (
                                     <UpgradeButton
-                                        plan={plan as any}
-                                        isAnnually={isAnnually}
-                                        addon={addon || null}
+                                        plan={ctaPlan}
+                                        isAnnually={ctaAnnually}
+                                        addon={ctaAddon || null}
                                     />
                                 )}
                             />
@@ -164,7 +160,26 @@ export default function InteractivePricing() {
                 headerRight={headerRight}
                 maxW="1180px"
             />
-            <PlansComparisonTable isAnnually={isAnnually} product={activeTab === 'redirects' ? 'redirect' : activeTab as ProductTab} />
+            <Box px={{ base: 4, xl: 8 }}>
+                <PlansComparisonTable
+                    plans={comparisonPlans}
+                    product={comparisonProduct}
+                    comparison={comparisonData}
+                    isAnnually={isAnnually}
+                    renderButton={(plan, context) => {
+                        const displayPlan = displayPlans.find((p) => p.id === plan.id);
+                        return (
+                            <UpgradeButton
+                                plan={plan}
+                                addon={displayPlan?.addon || null}
+                                isAnnually={isAnnually}
+                                width="fixed"
+                                mt={context === 'header' ? 1.5 : undefined}
+                            />
+                        );
+                    }}
+                />
+            </Box>
         </Box>
     );
 }

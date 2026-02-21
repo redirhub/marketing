@@ -1,5 +1,25 @@
 import { ProductConfig } from "@/components/pricing/productConfigs";
 
+export interface DisplayPlan {
+    id: string;
+    name: string;
+    priceMonthly: number | string;
+    priceAnnually: number | string;
+    range: string;
+    ctaText: string;
+    features: { text: string; included: boolean; isHighlighted: boolean }[];
+    everythingInPlanName: string | null;
+    isUnavailable: boolean;
+    recommended: boolean | undefined;
+    addon: { code: string } | null;
+    level: number;
+}
+export interface UpgradeButtonPlan {
+    id: string;
+    level?: number;
+    recommended?: boolean;
+    isUnavailable?: boolean;
+}
 // Helper function to map plans to display format
 export function mapPlanToDisplay(
     plan: any,
@@ -91,5 +111,5 @@ export function mapPlanToDisplay(
         recommended,
         addon,
         level: plan.level
-    };
+    } satisfies DisplayPlan;
 }

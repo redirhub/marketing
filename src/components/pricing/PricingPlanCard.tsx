@@ -22,9 +22,10 @@ interface PricingPlanCardProps {
     renderSwitch?: ReactNode;
 }
 
-export default function PricingPlanCard({ plan, isAnnually, minH = '245px', everythingInPlanName, addon, renderCTA, renderSwitch }: PricingPlanCardProps) {
+export default function PricingPlanCard({ plan, isAnnually, recommended: recommendedProp, minH = '245px', everythingInPlanName, addon, renderCTA, renderSwitch }: PricingPlanCardProps) {
     const { t } = useTranslation();
     const isEnterprise = (plan.level ?? 0) >= 50;
+    const isRecommended = plan.recommended ?? recommendedProp ?? false;
 
     const monthlyPrice = plan.priceMonthly ?? 0;
     const annualPrice = plan.priceAnnually ?? 0;
@@ -40,19 +41,19 @@ export default function PricingPlanCard({ plan, isAnnually, minH = '245px', ever
     return (
         <Box
             flex="1"
-            bg={plan.isUnavailable ? '#F9FAFB' : (plan.recommended ? '#FFF4ED' : 'white')}
+            bg={plan.isUnavailable ? '#F9FAFB' : (isRecommended ? '#FFF4ED' : 'white')}
             borderRadius="24px"
             border="1.8px solid"
-            borderColor={plan.isUnavailable ? '#D0D5DD' : (plan.recommended ? 'brand.500' : '#D5D7DA')}
+            borderColor={plan.isUnavailable ? '#D0D5DD' : (isRecommended ? 'brand.500' : '#D5D7DA')}
             position="relative"
             transition="all 0.3s"
-            boxShadow={plan.recommended && !plan.isUnavailable ? '0px 12px 16px -4px rgba(16, 24, 40, 0.08), 0px 4px 6px -2px rgba(16, 24, 40, 0.03)' : 'none'}
+            boxShadow={isRecommended && !plan.isUnavailable ? '0px 12px 16px -4px rgba(16, 24, 40, 0.08), 0px 4px 6px -2px rgba(16, 24, 40, 0.03)' : 'none'}
             display="flex"
             flexDirection="column"
             maxW={{ base: 'full', md: '370px' }}
             opacity={plan.isUnavailable ? 0.6 : 1}
         >
-            {plan.recommended && (
+            {isRecommended && (
                 <Badge
                     position="absolute"
                     top={3.5}

@@ -2,13 +2,13 @@ import { Icon } from '@chakra-ui/react';
 import { FiArrowRight } from 'react-icons/fi';
 import { useTranslation } from 'react-i18next';
 import { AppLink } from '../ui/AppLink';
-import { PricingPlan } from './pricingData';
 import { URL_DASHBOARD, URL_DASHBOARD_REGISTER } from '@/lib/utils/constants';
+import { UpgradeButtonPlan } from '@/lib/utils/pricingHelpers';
 
 const PLAN_ENTERPRISE_LEVEL = 50;
 
 interface UpgradeButtonProps {
-    plan: PricingPlan;
+    plan: UpgradeButtonPlan;
     badge?: string | null;
     addon: { code: string } | null;
     isAnnually: boolean;
