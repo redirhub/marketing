@@ -6,7 +6,7 @@ export interface PlanFeature {
 
 export interface PricingPlan {
   name: string;
-  id: 'basic' | 'pro' | 'enterprise';
+  id: string;
   priceMonthly: number | string;
   priceAnnually: number | string;
   range: string;
@@ -15,6 +15,8 @@ export interface PricingPlan {
   recommended?: boolean;
   everythingInPlanName?: string | null;
   level?: number;
+  isUnavailable?: boolean;
+  addon?: { code: string } | null;
 }
 
 export const pricingPlans: PricingPlan[] = [

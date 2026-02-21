@@ -5,6 +5,7 @@ import { Box, Flex, Text, Switch, HStack, Badge, SimpleGrid } from "@chakra-ui/r
 import { TabsLayout, TabTriggerButton } from "@/components/ui/TabsLayout";
 import DynamicSlider from "./DynamicSlider";
 import PricingPlanCard from "./PricingPlanCard";
+import { UpgradeButton } from "./UpgradeButton";
 import AddOns from "./AddOns";
 import PlansComparisonTable, { ProductTab } from "./PlansComparisonTable";
 import { pricingPlans } from "./pricingData";
@@ -79,9 +80,15 @@ export default function InteractivePricing() {
                                 isAnnually={isAnnually}
                                 recommended={plan.id === recommendedPlanId}
                                 everythingInPlanName={plan.everythingInPlanName}
-                                isUnavailable={(plan as any).isUnavailable}
                                 isDynamicPricing={activeTab === 'redirects'}
                                 addon={(plan as any).addon}
+                                renderCTA={({ plan, isAnnually, addon }) => (
+                                    <UpgradeButton
+                                        plan={plan as any}
+                                        isAnnually={isAnnually}
+                                        addon={addon || null}
+                                    />
+                                )}
                             />
                         ))}
                     </SimpleGrid>
