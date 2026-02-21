@@ -3,12 +3,12 @@
 import { useState } from "react";
 import { Box, Flex, Text, Switch, HStack, Badge, SimpleGrid } from "@chakra-ui/react";
 import { TabsLayout, TabTriggerButton } from "@/components/ui/TabsLayout";
-import HostnameSlider from "./HostnameSlider";
+import DynamicSlider from "./DynamicSlider";
 import PricingPlanCard from "./PricingPlanCard";
 import AddOns from "./AddOns";
 import PlansComparisonTable, { ProductTab } from "./PlansComparisonTable";
 import { pricingPlans } from "./pricingData";
-import { getRecommendedRedirectPlan } from "./redirectPlanData";
+import { getRecommendedRedirectPlan, getRedirectSliderConfig } from "./redirectPlanData";
 import { shortenUrlData } from "./shortenUrlPlanData";
 import { monitorData } from "./monitorPlanData";
 import { ProductConfig, redirectConfig, shortenConfig, monitorConfig } from "./productConfigs";
@@ -65,7 +65,7 @@ export default function InteractivePricing() {
             <Flex direction={{ base: "column", lg: "row" }} gap={8} align={{ base: "stretch", lg: "flex-start" }}>
                 <Box flex="1">
                     {activeTab === 'redirects' && (
-                        <HostnameSlider value={hostnameValue} onChange={setHostnameValue} />
+                        <DynamicSlider value={hostnameValue} onChange={setHostnameValue} sliderConfig={getRedirectSliderConfig()} />
                     )}
                     <SimpleGrid
                         columns={{ base: 1, md: 2, lg: 3, xl: 4 }}
