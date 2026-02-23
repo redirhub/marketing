@@ -5,7 +5,7 @@ import { Box, Container, Flex } from "@chakra-ui/react";
 import { useTranslation } from "react-i18next";
 import Link from "next/link";
 import { useParams, usePathname } from "next/navigation";
-import { APP_NAME, URL_DASHBOARD_LOGIN, URL_DASHBOARD_REGISTER, URL_API_DEV } from "@/lib/utils/constants";
+import { APP_NAME, URL_DASHBOARD_LOGIN, URL_DASHBOARD_REGISTER, URL_API_DEV, APP_URL } from "@/lib/utils/constants";
 import { useLocalePath } from "@/lib/hooks/useLocalePath";
 import MobileMenu from "./MobileMenu";
 import { FiRefreshCw, FiUsers } from "react-icons/fi";
@@ -254,7 +254,7 @@ export default function Header({ mode = "dark" }: HeaderProps) {
     >
       <Container maxW="7xl" mx="auto">
         <Flex alignItems="center" justify="space-between">
-          <Link href={localePath("/")}>
+          <Link href={localePath(APP_URL)}>
             <Box>
               <img
                 src={
