@@ -100,10 +100,7 @@ export default function PlansComparisonTable({
     const tableContent = (
         <Box
             background={'#F2F4EF'}
-            display={{ base: 'none', lg: 'block' }}
-            maxH={{ base: '86vh', '2xl': '82vh' }}
-            overflow="auto"
-            position="relative"
+            display={{ base: 'none', xl: 'block' }}
             css={{
                 scrollbarWidth: 'none',
                 '&::-webkit-scrollbar': { display: 'none' },
@@ -165,7 +162,8 @@ export default function PlansComparisonTable({
                                 textAlign="center"
                                 background="#F2F4EF"
                                 border={'none'}
-                                p={3}
+                                py={3}
+                                px={{ base: 0, '2xl': 3 }}
                             >
                                 <Flex direction="column" gap={1.5} background={'#F2F4EF'}>
                                     <Flex align="baseline" gap={1.5} pb={0.5} pt={1} flexWrap="wrap">
@@ -224,7 +222,7 @@ export default function PlansComparisonTable({
                             </Table.Row>
                             {rows.map((row, index) => (
                                 <Table.Row key={row.id} bg={index % 2 === 0 ? 'white' : 'transparent'} transition="background 0.2s">
-                                    <Table.Cell p={5} border={'none'} bg={index % 2 === 0 ? 'white' : 'transparent'}>
+                                    <Table.Cell px={{ base: 2, '2xl': 4 }} py={5} border={'none'} bg={index % 2 === 0 ? 'white' : 'transparent'}>
                                         <Flex align="center" gap={1}>
                                             <Text fontSize="14px" fontWeight="500" whiteSpace={'nowrap'} color="gray.700" textTransform={'capitalize'}>
                                                 {row.label}
@@ -261,7 +259,7 @@ export default function PlansComparisonTable({
                     ))}
 
                     <Table.Row bg="transparent">
-                        <Table.Cell border="none" borderTop="1px solid" borderColor="gray.300" py={6} bg="transparent" />
+                        <Table.Cell border="none" borderTop="1px solid" borderColor="gray.300"  py={{ base: 3, '2xl': 6 }} px={{ base: 2, '2xl': 4 }} bg="transparent" />
                         {plans.map((plan) => (
                             <Table.Cell
                                 key={`cta-${plan.id}`}
@@ -269,7 +267,7 @@ export default function PlansComparisonTable({
                                 border={'none'}
                                 borderTop="1px solid"
                                 borderColor="gray.300"
-                                py={6}
+                                py={{ base: 3, '2xl': 6 }} px={{ base: 2, '2xl': 4 }}
                             >
                                 {renderButton && renderButton(plan, 'footer')}
                             </Table.Cell>
@@ -281,7 +279,7 @@ export default function PlansComparisonTable({
     );
 
     return (
-        <Box w="full" mt={16} bg="#F2F4EF" borderRadius={{ base: '18px', md: '32px' }} px={{ base: 4, md: 8 }} py={12}>
+        <Box w="full" mt={16} bg="#F2F4EF" borderRadius={{ base: '18px', md: '32px' }} overflow={'clip'} px={{ base: 3, '2xl': 8 }} py={12}>
             <Heading
                 as="h2"
                 fontSize={{ base: '24px', md: '38px' }}
@@ -293,7 +291,7 @@ export default function PlansComparisonTable({
                 {t('subscription.plans-compared-heading', 'Our Plans Compared')}
             </Heading>
             <>
-                <Box display={{ base: 'block', lg: 'none' }}>
+                <Box display={{ base: 'block', xl: 'none' }}>
                     <MobilePlansComparisonTable
                         plans={plans}
                         product={product}

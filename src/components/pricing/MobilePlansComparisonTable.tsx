@@ -190,6 +190,7 @@ export function MobilePlansComparisonTable({
                                     color="gray.600"
                                     textTransform="uppercase"
                                     letterSpacing="0.05em"
+                                    whiteSpace={'nowrap'}
                                 >
                                     {category}
                                 </Text>
