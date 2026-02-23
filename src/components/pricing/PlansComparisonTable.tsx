@@ -108,7 +108,7 @@ export default function PlansComparisonTable({
         >
             <Table.Root size="md" css={{ borderCollapse: 'separate', borderSpacing: 0 }}>
                 <Table.Header>
-                    <Table.Row bg="#F2F4EF" position="sticky" top={0} zIndex={10}>
+                    <Table.Row bg="#F2F4EF" position="sticky" top={'74px'} zIndex={10}>
                         <Table.ColumnHeader
                             background="#F2F4EF"
                             border={'none'}
@@ -151,7 +151,7 @@ export default function PlansComparisonTable({
                     <Table.Row
                         bg="#F2F4EF"
                         position="sticky"
-                        top="38px"
+                        top="100px"
                         zIndex={9}
                         boxShadow="0px 2px 4px rgba(0, 0, 0, 0.05)"
                     >
