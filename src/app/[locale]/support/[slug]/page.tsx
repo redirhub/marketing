@@ -23,7 +23,7 @@ export async function generateStaticParams() {
   const articles = await fetchSupportArticles('en');
 
   // Generate paths for all locales with the same slugs
-  return articles.flatMap((article) =>
+  return articles.flatMap((article: any) =>
     allLanguages.map((locale) => ({
       locale,
       slug: article.slug.current,

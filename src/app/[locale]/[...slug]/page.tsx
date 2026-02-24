@@ -26,7 +26,7 @@ export async function generateStaticParams() {
   const pages = await fetchLandingPages('en');
 
   // Generate paths for all locales with the same slugs
-  return pages.flatMap((page) =>
+  return pages.flatMap((page: any) =>
     allLanguages.map((locale) => ({
       locale,
       slug: page.slug.current.split('/'),
