@@ -8,7 +8,6 @@ import { client } from '@/sanity/lib/client'
 import { APP_NAME } from '@/lib/utils/constants'
 import { Post } from '@/types/sanity'
 
-export const revalidate = 3600; // Revalidate every 1 hour
 
 interface AuthorPageProps {
   params: Promise<{

@@ -8,7 +8,6 @@ import { getClient } from '@/lib/preview'
 import { APP_NAME } from "@/lib/utils/constants";
 import { buildCanonicalUrl, buildHreflangAlternates, buildSocialCards } from "@/lib/utils/seo";
 
-export const revalidate = 604800; // Revalidate every 7 days
 
 interface PageProps {
   params: Promise<{

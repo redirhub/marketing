@@ -6,7 +6,6 @@ import { urlFor } from "@/sanity/lib/image";
 import type { PostPreview } from "@/types/sanity";
 import PaginationControls from "@/components/ui/PaginationControls";
 
-export const revalidate = 3600; // Revalidate every 1 hour
 
 export default async function SearchResultsPage({
     params,

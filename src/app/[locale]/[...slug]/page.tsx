@@ -13,7 +13,6 @@ import { APP_NAME } from "@/lib/utils/constants";
 import { urlFor } from '@/sanity/lib/image';
 import { getT } from "@/lib/i18n";
 
-export const revalidate = 3600; // Revalidate every 1 hour
 
 interface PageProps {
   params: Promise<{
@@ -38,18 +37,14 @@ export async function generateMetadata({
     return { title: "Not Found" };
   }
 
-  const searchParamsObj = await searchParams;
-  const client = getClient(searchParamsObj);
-  const isPreview = searchParamsObj?.version === 'drafts';
-
-  const page = await fetchLandingPageBySlug(slugPath, locale, client, isPreview);
+  const page = await fetchLandingPageBySlug(slugPath, locale);
   if (!page) {
     return { title: "Page Not Found" };
   }
 
   const canonicalUrl = buildCanonicalUrl(locale, `/${slugPath}`)
 
-  const translations = await fetchLandingPageTranslations(slugPath, client, isPreview)
+  const translations = await fetchLandingPageTranslations(slugPath)
   const hreflangAlternates = translations.length > 0
     ? buildHreflangAlternates(translations, '')
     : {}
@@ -85,11 +80,7 @@ export default async function LandingPage({ params, searchParams }: PageProps) {
     notFound();
   }
 
-  const searchParamsObj = await searchParams;
-  const client = getClient(searchParamsObj);
-  const isPreview = searchParamsObj?.version === 'drafts';
-
-  const page = await fetchLandingPageBySlug(slugPath, locale, client, isPreview);
+  const page = await fetchLandingPageBySlug(slugPath, locale);
   if (!page) {
     notFound();
   }

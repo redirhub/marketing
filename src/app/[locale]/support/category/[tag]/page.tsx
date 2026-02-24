@@ -10,7 +10,6 @@ import { buildCanonicalUrl, buildStaticHreflangAlternates } from '@/lib/utils/se
 import { allLanguages } from '@/sanity/config/i18n';
 import { denormalizeTag, formatTagForDisplay } from "@/lib/utils/tagsHelpers";
 
-export const revalidate = 1800; // Revalidate every 30 minutes
 
 interface CategoryPageProps {
   params: Promise<{
