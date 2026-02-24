@@ -8,7 +8,7 @@
     "start": "next start",
     "lint": "eslint",
     "generate-locales": "node scripts/generate-locales.js",
-    "generate-sitemap": "tsx --env-file=.env.local scripts/generate-sitemap.ts",
+    "generate-sitemap": "DOTENV_CONFIG_PATH=.env.local tsx -r dotenv/config scripts/generate-sitemap.ts",
     "migrate:wordpress": "tsx --env-file=.env.local scripts/migrate-wordpress.ts",
     "migrate:support": "tsx --env-file=.env.local scripts/migrate-support.ts",
     "migrate:legal": "tsx --env-file=.env.local scripts/migrate-legal.ts",
