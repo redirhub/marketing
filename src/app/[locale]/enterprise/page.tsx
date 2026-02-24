@@ -15,7 +15,7 @@ export async function generateMetadata({
   params: Promise<{ locale: string }>;
 }): Promise<Metadata> {
   const { locale } = await params;
-  const t = await getT();
+  const t = getT(locale);
 
   const title = t("nav.enterprise-title", "Enterprise Solutions - {{n}}", { n: APP_NAME });
   const description = t(
@@ -44,7 +44,7 @@ export default async function EnterprisePage({
   params: Promise<{ locale: string }>;
 }) {
   const { locale } = await params;
-  const t = await getT();
+  const t = getT(locale);
 
   const hero = {
     headline: t("enterprise.banner-title", "Reach Out to {{n}}", { n: APP_NAME }),
@@ -68,8 +68,8 @@ export default async function EnterprisePage({
       )}
 
       <LandingPageBanner hero={hero} />
-      <BookADemo />
-      <StandsOut />
+      <BookADemo locale={locale} />
+      <StandsOut locale={locale} />
       <FAQSection faqs={faqSet?.faqs} />
     </>
   );

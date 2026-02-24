@@ -10,14 +10,11 @@
 
 import fs from 'fs';
 import path from 'path';
-import { headers } from 'next/headers';
 
 export const i18nConfig = {
   locales: ['en', 'de', 'es', 'fr', 'it', 'pt', 'ja', 'zh', 'ko'],
   defaultLocale: 'en',
 };
-
-const headerName = 'x-locale';
 
 // Collect missing keys across requests for batched reporting
 const missingKeysMap = new Map<string, string>();
@@ -133,19 +130,21 @@ function loadTranslations(locale: string, namespaces: string[] = ['common']) {
 /**
  * Get translation function for Server Components
  *
+ * @param locale - Language locale (required)
  * @param namespace - Translation namespace (default: 'common')
  * @param options - Optional config { trackMissing: boolean }
  * @returns Translation function: (key, fallback, variables?) => string
  *
  * @example
- * const t = await getT();
+ * const t = await getT(locale);
  * t("support.title", "Support")
  * t("support.description", "Get help for {{app}}", { app: "MyApp" })
  */
-export async function getT(namespace: string = 'common', options?: { trackMissing?: boolean }) {
-  const headersList = await headers();
-  const locale = headersList.get(headerName) || i18nConfig.defaultLocale;
-
+export function getT(
+  locale: string = 'en',
+  namespace: string = 'common',
+  options?: { trackMissing?: boolean }
+) {
   const resources = loadTranslations(locale, [namespace]);
   const shouldTrackMissing = options?.trackMissing ?? true;
 

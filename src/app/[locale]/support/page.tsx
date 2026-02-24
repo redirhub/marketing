@@ -14,7 +14,7 @@ export const revalidate = 1800; // Revalidate every 30 minutes
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
   const { locale } = await params;
 
-  const t = await getT();
+  const t = getT(locale);
 
   const title = t("nav.support-title", "Support - {{n}}", { n: APP_NAME });
   const description = t("nav.support-description", "Find answers, guides, and tutorials for {{n}}. Get help with redirects, analytics, and troubleshooting.", { n: APP_NAME });
@@ -37,7 +37,7 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
 export default async function SupportPage({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params;
   const articles = await fetchSupportArticles(locale);
-  const t = await getT();
+  const t = getT(locale);
 
   return (
     <>

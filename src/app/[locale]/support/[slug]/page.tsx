@@ -28,7 +28,7 @@ export async function generateMetadata({
 }: PageProps): Promise<Metadata> {
   const { locale, slug } = await params;
   const client = getClient(await searchParams);
-  const t = await getT();
+  const t = getT(locale);
 
   const article = await fetchSupportArticleBySlug(slug, locale, client);
   if (!article) {

@@ -11,7 +11,7 @@ export const revalidate = 86400; // Revalidate every 24 hours
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
   const { locale } = await params;
-  const t = await getT();
+  const t = getT(locale);
 
   const title = t("nav.changelog-title", "Changelog - {{n}}", { n: APP_NAME });
   const description = t("nav.changelog-description", "Stay updated with the latest features, improvements, and fixes to {{n}}", { n: APP_NAME });

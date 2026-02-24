@@ -23,7 +23,7 @@ export async function generateMetadata({
   params,
 }: CategoryPageProps): Promise<Metadata> {
   const { locale, tag } = await params;
-  const t = await getT();
+  const t = getT(locale);
 
   const decodedTag = denormalizeTag(tag);
   const categoryName = formatTagForDisplay(decodedTag);
@@ -50,7 +50,7 @@ export default async function SupportCategoryPage({
   const { locale, tag } = await params;
   const decodedTag = denormalizeTag(tag);
   const articles = await fetchSupportArticlesByTag(decodedTag, locale);
-  const t = await getT();
+  const t = getT(locale);
 
   return (
     <>

@@ -1,3 +1,4 @@
+import { unstable_cache } from 'next/cache'
 import { client as defaultClient } from '@/sanity/lib/client'
 import type { SanityClient } from 'next-sanity'
 import type { ChangelogEntry } from '@/types/sanity'
@@ -51,13 +52,44 @@ export async function fetchChangelogEntries(
 }
 
 /**
- * Get single changelog entry by slug and locale
+ * Get single changelog entry by slug and locale (cached for 24 hours)
  */
-export async function fetchChangelogBySlug(
+export function fetchChangelogBySlug(
   slug: string,
   locale: string = 'en',
   client: SanityClient = defaultClient
 ): Promise<ChangelogEntry | null> {
+  if (client === defaultClient) {
+    return unstable_cache(
+      async () => {
+        const query = `*[
+          _type == "changelog" &&
+          slug.current == $slug &&
+          locale == $locale
+        ][0] {
+          _id,
+          _createdAt,
+          _updatedAt,
+          title,
+          slug,
+          description,
+          content,
+          author->{
+            _id,
+            name,
+            slug,
+            image
+          },
+          publishedAt,
+          locale
+        }`
+        return client.fetch(query, { slug, locale })
+      },
+      ['changelog', slug, locale],
+      { revalidate: 86400, tags: ['changelog'] }
+    )()
+  }
+
   const query = `*[
     _type == "changelog" &&
     slug.current == $slug &&
@@ -79,7 +111,6 @@ export async function fetchChangelogBySlug(
     publishedAt,
     locale
   }`
-
   return client.fetch(query, { slug, locale })
 }
 
