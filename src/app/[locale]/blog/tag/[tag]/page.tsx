@@ -1,8 +1,6 @@
 import { Metadata } from 'next'
 import { Box, Container, Heading, SimpleGrid, Text } from '@chakra-ui/react'
 import { BlogCard } from '@/components/home/BlogCard'
-import PaginationControls from '@/components/ui/PaginationControls'
-import { fetchPostsByTag } from '@/lib/services/blog'
 import { urlFor } from '@/sanity/lib/image'
 import { client } from '@/sanity/lib/client'
 import { buildCanonicalUrl, buildStaticHreflangAlternates, buildSocialCards } from '@/lib/utils/seo'
@@ -15,12 +13,7 @@ interface TagPageProps {
     locale: string
     tag: string
   }>
-  searchParams: Promise<{
-    page?: string
-  }>
 }
-
-const PER_PAGE = 12
 
 // Helper function to denormalize tag (convert URL slug back to tag)
 function denormalizeTag(slug: string): string {
@@ -65,39 +58,19 @@ export async function generateMetadata({
   }
 }
 
-export default async function TagPage({ params, searchParams }: TagPageProps) {
+export default async function TagPage({ params }: TagPageProps) {
   const { locale, tag: tagSlug } = await params
-  const { page } = await searchParams
 
   const tag = denormalizeTag(tagSlug)
   const displayTag = formatTagForDisplay(tag)
-  const currentPage = Number(page) || 1
 
-  // Count total posts with this tag
-  const totalCountQuery = `count(*[
-    _type == "post" &&
-    defined(slug.current) &&
-    locale == $locale &&
-    $tag in tags
-  ])`
-
-  const totalCount = await client.fetch(totalCountQuery, {
-    locale,
-    tag,
-  } as Record<string, any>)
-
-  const totalPages = Math.max(1, Math.ceil(totalCount / PER_PAGE))
-  const safePage = Math.min(currentPage, totalPages)
-  const start = (safePage - 1) * PER_PAGE
-  const end = start + PER_PAGE
-
-  // Fetch posts
+  // Fetch all posts with this tag
   const postsQuery = `*[
     _type == "post" &&
     defined(slug.current) &&
     locale == $locale &&
     $tag in tags
-  ] | order(publishedAt desc) [${start}...${end}] {
+  ] | order(publishedAt desc) {
     _id,
     title,
     slug,
@@ -170,9 +143,6 @@ export default async function TagPage({ params, searchParams }: TagPageProps) {
                 />
               ))}
             </SimpleGrid>
-
-            {/* Pagination */}
-            <PaginationControls currentPage={safePage} totalPages={totalPages} />
           </>
         )}
       </Container>

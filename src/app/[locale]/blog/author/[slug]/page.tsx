@@ -2,7 +2,6 @@ import { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 import { Box, Container, Heading, SimpleGrid, Text, VStack, Avatar } from '@chakra-ui/react'
 import { BlogCard } from '@/components/home/BlogCard'
-import PaginationControls from '@/components/ui/PaginationControls'
 import { urlFor } from '@/sanity/lib/image'
 import { client } from '@/sanity/lib/client'
 import { APP_NAME } from '@/lib/utils/constants'
@@ -14,12 +13,7 @@ interface AuthorPageProps {
     locale: string
     slug: string
   }>
-  searchParams: Promise<{
-    page?: string
-  }>
 }
-
-const PER_PAGE = 12
 
 export async function generateMetadata({
   params,
@@ -54,12 +48,8 @@ export async function generateMetadata({
 
 export default async function AuthorPage({
   params,
-  searchParams,
 }: AuthorPageProps) {
   const { locale, slug } = await params
-  const { page } = await searchParams
-
-  const currentPage = Number(page) || 1
 
   // Fetch author info
   const authorQuery = `*[
@@ -79,31 +69,13 @@ export default async function AuthorPage({
     notFound()
   }
 
-  // Count total posts by author
-  const totalCountQuery = `count(*[
-    _type == "post" &&
-    defined(slug.current) &&
-    locale == $locale &&
-    author._ref == $authorId
-  ])`
-
-  const totalCount = await client.fetch(totalCountQuery, {
-    locale,
-    authorId: author._id,
-  })
-
-  const totalPages = Math.max(1, Math.ceil(totalCount / PER_PAGE))
-  const safePage = Math.min(currentPage, totalPages)
-  const start = (safePage - 1) * PER_PAGE
-  const end = start + PER_PAGE
-
-  // Fetch posts
+  // Fetch all posts by author
   const postsQuery = `*[
     _type == "post" &&
     defined(slug.current) &&
     locale == $locale &&
     author._ref == $authorId
-  ] | order(publishedAt desc) [${start}...${end}] {
+  ] | order(publishedAt desc) {
     _id,
     title,
     slug,
@@ -123,6 +95,8 @@ export default async function AuthorPage({
     locale,
     authorId: author._id,
   })
+
+  const totalCount = posts.length
 
   return (
     <Box w="100%" py={8} bg="white">
@@ -211,9 +185,6 @@ export default async function AuthorPage({
                 />
               ))}
             </SimpleGrid>
-
-            {/* Pagination */}
-            <PaginationControls currentPage={safePage} totalPages={totalPages} />
           </>
         )}
       </Container>
