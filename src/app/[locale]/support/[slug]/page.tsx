@@ -5,7 +5,6 @@ import { Box, Container } from "@chakra-ui/react";
 import SinglePageBanner from "@/components/share/banners/support/SinglePageBanner";
 import { fetchSupportArticleBySlug, fetchSupportArticleTranslations } from "@/lib/services/support";
 import { portableTextComponents } from '@/components/blog/PortableTextComponents'
-import { getClient } from '@/lib/preview'
 import { buildCanonicalUrl, buildHreflangAlternates, buildSocialCards } from '@/lib/utils/seo'
 import { getT } from "@/lib/i18n";
 import { APP_NAME } from "@/lib/utils/constants";
@@ -16,20 +15,15 @@ interface PageProps {
     locale: string
     slug: string
   }>;
-  searchParams: Promise<{
-    version?: string
-  }>;
 }
 
 export async function generateMetadata({
   params,
-  searchParams,
 }: PageProps): Promise<Metadata> {
   const { locale, slug } = await params;
-  const client = getClient(await searchParams);
   const t = getT(locale);
 
-  const article = await fetchSupportArticleBySlug(slug, locale, client);
+  const article = await fetchSupportArticleBySlug(slug, locale);
   if (!article) {
     return { title: "Article Not Found" };
   }
@@ -38,7 +32,7 @@ export async function generateMetadata({
   const canonicalUrl = buildCanonicalUrl(locale, `/support/${slug}`)
 
   // Fetch translations for hreflang alternates
-  const translations = await fetchSupportArticleTranslations(slug, client)
+  const translations = await fetchSupportArticleTranslations(slug)
   const hreflangAlternates = translations.length > 0
     ? buildHreflangAlternates(translations, '/support')
     : {}
@@ -64,11 +58,10 @@ export async function generateMetadata({
   };
 }
 
-export default async function SupportSinglePage({ params, searchParams }: PageProps) {
+export default async function SupportSinglePage({ params }: PageProps) {
   const { locale, slug } = await params;
-  const client = getClient(await searchParams);
 
-  const article = await fetchSupportArticleBySlug(slug, locale, client);
+  const article = await fetchSupportArticleBySlug(slug, locale);
   if (!article) {
     notFound();
   }

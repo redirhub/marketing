@@ -4,7 +4,6 @@ import { PortableText } from '@portabletext/react'
 import { Box, Container, Heading } from "@chakra-ui/react";
 import { fetchLegalDocumentBySlug, fetchLegalDocumentTranslations } from "@/lib/services/legal";
 import { portableTextComponents } from '@/components/blog/PortableTextComponents'
-import { getClient } from '@/lib/preview'
 import { APP_NAME } from "@/lib/utils/constants";
 import { buildCanonicalUrl, buildHreflangAlternates, buildSocialCards } from "@/lib/utils/seo";
 
@@ -14,25 +13,20 @@ interface PageProps {
     locale: string
     slug: string
   }>;
-  searchParams: Promise<{
-    version?: string
-  }>;
 }
 
 export async function generateMetadata({
   params,
-  searchParams,
 }: PageProps): Promise<Metadata> {
   const { locale, slug } = await params;
-  const client = getClient(await searchParams);
 
-  const document = await fetchLegalDocumentBySlug(slug, locale, client);
+  const document = await fetchLegalDocumentBySlug(slug, locale);
   if (!document) {
     return { title: "Document Not Found" };
   }
 
   // Fetch translations for hreflang alternates
-  const translations = await fetchLegalDocumentTranslations(slug, client)
+  const translations = await fetchLegalDocumentTranslations(slug)
 
   const title = `${document.title} | ${APP_NAME}`;
   const description = document.title;
@@ -52,11 +46,10 @@ export async function generateMetadata({
   };
 }
 
-export default async function LegalDocumentPage({ params, searchParams }: PageProps) {
+export default async function LegalDocumentPage({ params }: PageProps) {
   const { locale, slug } = await params;
-  const client = getClient(await searchParams);
 
-  const document = await fetchLegalDocumentBySlug(slug, locale, client);
+  const document = await fetchLegalDocumentBySlug(slug, locale);
   if (!document) {
     notFound();
   }
