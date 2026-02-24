@@ -31,6 +31,13 @@ export async function generateMetadata({
 }: PageProps): Promise<Metadata> {
   const { locale, slug } = await params;
   const slugPath = slug.join('/');
+
+  // Return 404 metadata for paths with file extensions (assets)
+  const lastSegment = slug[slug.length - 1];
+  if (lastSegment && /\.[a-zA-Z0-9]+$/.test(lastSegment)) {
+    return { title: "Not Found" };
+  }
+
   const searchParamsObj = await searchParams;
   const client = getClient(searchParamsObj);
   const isPreview = searchParamsObj?.version === 'drafts';
@@ -71,6 +78,13 @@ export default async function LandingPage({ params, searchParams }: PageProps) {
   const { locale, slug } = await params;
   const t = getT(locale);
   const slugPath = slug.join('/');
+
+  // Return 404 for paths with file extensions (assets like .png, .jpg, .ico, etc.)
+  const lastSegment = slug[slug.length - 1];
+  if (lastSegment && /\.[a-zA-Z0-9]+$/.test(lastSegment)) {
+    notFound();
+  }
+
   const searchParamsObj = await searchParams;
   const client = getClient(searchParamsObj);
   const isPreview = searchParamsObj?.version === 'drafts';
