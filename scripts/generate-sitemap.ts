@@ -1,6 +1,6 @@
 import { writeClient } from '@/sanity/lib/client'
-import fs from 'fs'
 import path from 'path'
+import fs from 'fs'
 
 const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000'
 
@@ -10,6 +10,7 @@ interface SanitySlug {
 }
 
 async function generateSitemap() {
+
   const query = `*[
     (_type == "post" || _type == "landingPage") && defined(slug.current) && locale == "en"
   ] {
