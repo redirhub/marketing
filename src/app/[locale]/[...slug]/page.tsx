@@ -4,7 +4,6 @@ import { PortableText } from '@portabletext/react'
 import { Box, Container } from "@chakra-ui/react";
 import { fetchLandingPageBySlug, fetchLandingPageTranslations } from "@/lib/services/landingPages";
 import { portableTextComponents } from '@/components/blog/PortableTextComponents'
-import { getClient } from '@/lib/preview'
 import LandingPageBanner from "@/components/share/banners/landingPage/LandingPageBanner";
 import TableOfContents from "@/components/blog/TableOfContents";
 import { TestimonialsSection, BlogSection, FAQSection } from "@/components/sections";
@@ -19,14 +18,10 @@ interface PageProps {
     locale: string
     slug: string[]
   }>;
-  searchParams: Promise<{
-    version?: string
-  }>;
 }
 
 export async function generateMetadata({
   params,
-  searchParams,
 }: PageProps): Promise<Metadata> {
   const { locale, slug } = await params;
   const slugPath = slug.join('/');
@@ -69,7 +64,7 @@ export async function generateMetadata({
   };
 }
 
-export default async function LandingPage({ params, searchParams }: PageProps) {
+export default async function LandingPage({ params }: PageProps) {
   const { locale, slug } = await params;
   const t = getT(locale);
   const slugPath = slug.join('/');
