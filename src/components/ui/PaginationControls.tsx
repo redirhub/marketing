@@ -10,12 +10,14 @@ const StyledLink = Button as React.FC<any>;
 interface PaginationControlsProps {
   currentPage: number;
   totalPages: number;
+  basePath?: string;
   buttonProps?: React.ComponentProps<typeof Button>;
 }
 
 const PaginationControls: React.FC<PaginationControlsProps> = ({
   currentPage,
   totalPages,
+  basePath,
   buttonProps,
 }) => {
   const { t } = useTranslation();
@@ -91,6 +93,15 @@ const PaginationControls: React.FC<PaginationControlsProps> = ({
     lastPage = page;
   });
   const getPageUrl = (page: number) => {
+    // If basePath is provided, use path-based pagination
+    if (basePath) {
+      if (page === 1) {
+        return basePath;
+      }
+      return `${basePath}/page/${page}`;
+    }
+
+    // Fallback to query parameter pagination
     const params = new URLSearchParams(searchParams.toString());
     params.set("page", page.toString());
     return `?${params.toString()}`;
