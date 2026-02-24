@@ -6,6 +6,8 @@ import BlogBanner from "@/components/share/banners/blog/BlogBanner";
 import { buildCanonicalUrl, buildSocialCards } from "@/lib/utils/seo";
 import { allLanguages } from "@/sanity/config/i18n";
 
+export const revalidate = 3600; // Revalidate every 1 hour
+
 export async function generateMetadata({
   params,
   searchParams,

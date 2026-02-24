@@ -10,6 +10,8 @@ import { buildCanonicalUrl, buildHreflangAlternates, buildSocialCards } from '@/
 import { getT } from "@/lib/i18n";
 import { APP_NAME } from "@/lib/utils/constants";
 
+export const revalidate = 1800; // Revalidate every 30 minutes
+
 interface PageProps {
   params: Promise<{
     locale: string

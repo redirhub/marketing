@@ -4,6 +4,8 @@ import { ArticleItem } from '@/components/support/ArticleItem'
 import { fetchSupportArticlesByTag } from '@/lib/services/support'
 import SupportBanner from '@/components/share/banners/support/SupportBanner'
 
+export const revalidate = 1800; // Revalidate every 30 minutes
+
 interface TagPageProps {
   params: Promise<{
     locale: string

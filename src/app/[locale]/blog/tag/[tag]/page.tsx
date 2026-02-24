@@ -9,6 +9,8 @@ import { buildCanonicalUrl, buildStaticHreflangAlternates, buildSocialCards } fr
 import { allLanguages } from '@/sanity/config/i18n'
 import { Post } from '@/types/sanity'
 
+export const revalidate = 3600; // Revalidate every 1 hour
+
 interface TagPageProps {
   params: Promise<{
     locale: string
