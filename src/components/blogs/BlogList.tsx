@@ -8,7 +8,7 @@ import type { PostPreview } from "@/types/sanity";
 interface BlogListProps {
   currentPage: number;
   locale?: string;
-  basePath?: string;
+  basePath: string;
 }
 
 const BlogList = async ({ currentPage, locale = "en", basePath }: BlogListProps) => {
