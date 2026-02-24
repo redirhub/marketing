@@ -16,6 +16,8 @@ import InactivityPopup from '@/components/popups/InactivityPopup'
 import { APP_NAME, APP_URL } from '@/lib/utils/constants'
 import { allLanguages } from '@/sanity/config/i18n'
 
+export const revalidate = 3600; // Revalidate every 1 hour
+
 interface BlogPostPageProps {
   params: Promise<{
     locale: string

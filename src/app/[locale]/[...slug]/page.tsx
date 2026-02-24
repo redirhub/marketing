@@ -13,6 +13,8 @@ import { APP_NAME } from "@/lib/utils/constants";
 import { urlFor } from '@/sanity/lib/image';
 import { getT } from "@/lib/i18n";
 
+export const revalidate = 3600; // Revalidate every 1 hour
+
 interface PageProps {
   params: Promise<{
     locale: string

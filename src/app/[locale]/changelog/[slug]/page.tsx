@@ -10,6 +10,8 @@ import { portableTextComponents } from "@/components/blog/PortableTextComponents
 import ChangelogDetailBanner from "@/components/changelog/ChangelogDetailBanner";
 import { getT } from "@/lib/i18n";
 
+export const revalidate = 86400; // Revalidate every 24 hours
+
 interface ChangelogDetailPageProps {
   params: Promise<{
     locale: string;

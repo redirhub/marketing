@@ -7,6 +7,8 @@ import { buildCanonicalUrl, buildStaticHreflangAlternates, buildSocialCards } fr
 import { allLanguages } from '@/sanity/config/i18n';
 import { fetchLegalDocuments } from '@/lib/services/legal';
 
+export const revalidate = 604800; // Revalidate every 7 days
+
 export async function generateMetadata({
   params,
 }: {
