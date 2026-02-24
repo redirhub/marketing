@@ -2,7 +2,7 @@ import { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 import { PortableText } from '@portabletext/react'
 import { Box, Container } from '@chakra-ui/react'
-import { fetchPostBySlug, fetchRelatedPosts, calculateReadTime, fetchPostTranslations } from '@/lib/services/blog'
+import { fetchPostBySlug, fetchRelatedPosts, calculateReadTime, fetchPostTranslations, fetchBlogPosts } from '@/lib/services/blog'
 import { urlFor } from '@/sanity/lib/image'
 import { portableTextComponents } from '@/components/blog/PortableTextComponents'
 import PostHeader from '@/components/blog/PostHeader'
@@ -21,6 +21,19 @@ interface BlogPostPageProps {
     locale: string
     slug: string
   }>
+}
+
+export async function generateStaticParams() {
+  // Fetch blog posts from English only (slugs are same across all locales)
+  const posts = await fetchBlogPosts('en');
+
+  // Generate paths for all locales with the same slugs
+  return posts.flatMap((post: any) =>
+    allLanguages.map((locale) => ({
+      locale,
+      slug: post.slug.current,
+    }))
+  );
 }
 
 export async function generateMetadata({

@@ -75,3 +75,11 @@ export async function fetchSupportArticleTranslations(
   }`
   return client.fetch(query, { slug })
 }
+
+export async function fetchAllSupportTags(
+  locale: string = 'en',
+  client: SanityClient = defaultClient
+): Promise<string[]> {
+  const query = `array::unique(*[_type == "support" && locale == $locale].tags[])`
+  return client.fetch(query, { locale })
+}
