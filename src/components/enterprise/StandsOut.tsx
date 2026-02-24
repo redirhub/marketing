@@ -11,8 +11,8 @@ import { FeatureStatCard } from "./FeatureStatCard";
 import { getT } from "@/lib/i18n";
 import { APP_NAME } from "@/lib/utils/constants";
 
-const StandsOut = async () => {
-  const t = await getT();
+const StandsOut = async ({ locale }: { locale: string }) => {
+  const t = getT(locale);
   const statsData = [
     {
       icon: <MainIcon />,

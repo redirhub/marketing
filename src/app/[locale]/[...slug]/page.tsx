@@ -69,7 +69,7 @@ export async function generateMetadata({
 
 export default async function LandingPage({ params, searchParams }: PageProps) {
   const { locale, slug } = await params;
-  const t = await getT();
+  const t = getT(locale);
   const slugPath = slug.join('/');
   const searchParamsObj = await searchParams;
   const client = getClient(searchParamsObj);

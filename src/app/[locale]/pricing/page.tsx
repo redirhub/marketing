@@ -14,7 +14,7 @@ export async function generateMetadata({
   params: Promise<{ locale: string }>;
 }): Promise<Metadata> {
   const { locale } = await params;
-  const t = await getT();
+  const t = getT(locale);
 
   const title = t("nav.pricing-title", "Pricing - {{n}}", { n: APP_NAME });
   const description = t("nav.pricing-description", "Transparent pricing plans for {{n}}. From startups to enterprise. No hidden fees, cancel anytime.", { n: APP_NAME });
@@ -39,7 +39,7 @@ export default async function PricingPage({
   params: Promise<{ locale: string }>;
 }) {
   const { locale } = await params;
-  const t = await getT();
+  const t = getT(locale);
 
   // Fetch FAQs for pricing page
   const faqSet = await fetchFAQSetByPage('pricing', locale);

@@ -1,7 +1,6 @@
 import { ReactNode, Suspense } from "react";
 import { Metadata } from "next";
 import { Inter } from "next/font/google";
-import { headers } from "next/headers";
 import { Provider } from "@/components/ui/provider";
 import TranslationsProvider from "@/components/TranslationsProvider";
 import ThemeHeader from "@/components/ThemeHeader";
@@ -53,10 +52,6 @@ export default async function RootLayout({
   const { locale } = await params;
   const { resources } = await initTranslations(locale, i18nNamespaces);
 
-  const headersList = await headers();
-  const pathname = headersList.get("x-pathname") || "";
-  const hideHeaderAndFooter = pathname.includes("/rate");
-
   // Fetch legal pages for footer
   const legalPages = await fetchFooterLegalPages(locale);
   const legalLinks = legalPages.map((page) => ({
@@ -80,7 +75,7 @@ export default async function RootLayout({
             <main style={{ flex: 1, display: "flex", flexDirection: "column" }}>
               {children}
             </main>
-            {!hideHeaderAndFooter && <Footer legalLinks={legalLinks} />}
+            <Footer legalLinks={legalLinks} />
             <FernandWidget />
           </TranslationsProvider>
         </Provider>

@@ -29,7 +29,7 @@ export async function generateMetadata({
   const { locale, slug } = await params;
   const client = getClient(await searchParams);
   const entry = await fetchChangelogBySlug(slug, locale, client);
-  const t = await getT();
+  const t = getT(locale);
 
   if (!entry) {
     return {

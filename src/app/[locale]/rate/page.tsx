@@ -1,17 +1,17 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useState, Suspense } from 'react';
 import { useSearchParams } from 'next/navigation';
 import { useTranslation } from 'react-i18next';
 import { Box, VStack, HStack, Text, Button, Heading } from '@chakra-ui/react';
-import { FaStar, FaExternalLinkAlt } from 'react-icons/fa';
+import { FaStar } from 'react-icons/fa';
 import { APP_NAME } from '@/lib/utils/constants';
 
 const SENJA_URL = 'https://senja.io/p/redirhub/r/aCUxmb';
 const G2_URL = 'https://www.g2.com/products/redirhub/reviews#reviews';
 const TRUSTPILOT_URL = 'https://www.trustpilot.com/evaluate/redirhub.com';
 
-export default function RatePage() {
+function RatePageContent() {
   const { t } = useTranslation();
   const searchParams = useSearchParams();
   const [selectedRating, setSelectedRating] = useState<number | null>(null);
@@ -165,5 +165,13 @@ export default function RatePage() {
         {renderContent()}
       </Box>
     </Box>
+  );
+}
+
+export default function RatePage() {
+  return (
+    <Suspense fallback={<Box minH="100vh" bg="gray.700" />}>
+      <RatePageContent />
+    </Suspense>
   );
 }

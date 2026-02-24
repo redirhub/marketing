@@ -19,7 +19,7 @@ export async function generateMetadata({
   const { page } = await searchParams;
   const currentPage = Number(page) || 1;
 
-  const t = await getT();
+  const t = getT(locale);
 
   // Generate canonical URL with pagination support
   const basePath = "/blog";

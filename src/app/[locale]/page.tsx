@@ -19,7 +19,7 @@ export async function generateMetadata({
   params: Promise<{ locale: string }>;
 }): Promise<Metadata> {
   const { locale } = await params;
-  const t = await getT();
+  const t = getT(locale);
 
   // Generate canonical URL and hreflang alternates for home page
   const canonicalUrl = buildCanonicalUrl(locale, '/')
@@ -61,7 +61,7 @@ export default async function HomePage({
   params: Promise<{ locale: string }>;
 }) {
   const { locale } = await params;
-  const t = await getT();
+  const t = getT(locale);
 
   // Fetch home page content from CMS (English only — locale handled by i18n)
   const homePageData = await fetchLandingPageBySlug("homepage", locale);
