@@ -2,7 +2,7 @@ import { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { PortableText } from '@portabletext/react'
 import { Box, Container } from "@chakra-ui/react";
-import { fetchLandingPageBySlug, fetchLandingPageTranslations } from "@/lib/services/landingPages";
+import { fetchLandingPageBySlug, fetchLandingPageTranslations, fetchLandingPages } from "@/lib/services/landingPages";
 import { portableTextComponents } from '@/components/blog/PortableTextComponents'
 import LandingPageBanner from "@/components/share/banners/landingPage/LandingPageBanner";
 import TableOfContents from "@/components/blog/TableOfContents";
@@ -11,6 +11,7 @@ import { buildCanonicalUrl, buildHreflangAlternates, buildSocialCards, generateF
 import { APP_NAME } from "@/lib/utils/constants";
 import { urlFor } from '@/sanity/lib/image';
 import { getT } from "@/lib/i18n";
+import { allLanguages } from '@/sanity/config/i18n';
 
 
 interface PageProps {
@@ -18,6 +19,19 @@ interface PageProps {
     locale: string
     slug: string[]
   }>;
+}
+
+export async function generateStaticParams() {
+  // Fetch landing pages from English only (slugs are same across all locales)
+  const pages = await fetchLandingPages('en');
+
+  // Generate paths for all locales with the same slugs
+  return pages.flatMap((page) =>
+    allLanguages.map((locale) => ({
+      locale,
+      slug: page.slug.current.split('/'),
+    }))
+  );
 }
 
 export async function generateMetadata({

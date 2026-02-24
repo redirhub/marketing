@@ -3,11 +3,12 @@ import { notFound } from "next/navigation";
 import { PortableText } from '@portabletext/react'
 import { Box, Container } from "@chakra-ui/react";
 import SinglePageBanner from "@/components/share/banners/support/SinglePageBanner";
-import { fetchSupportArticleBySlug, fetchSupportArticleTranslations } from "@/lib/services/support";
+import { fetchSupportArticleBySlug, fetchSupportArticleTranslations, fetchSupportArticles } from "@/lib/services/support";
 import { portableTextComponents } from '@/components/blog/PortableTextComponents'
 import { buildCanonicalUrl, buildHreflangAlternates, buildSocialCards } from '@/lib/utils/seo'
 import { getT } from "@/lib/i18n";
 import { APP_NAME } from "@/lib/utils/constants";
+import { allLanguages } from '@/sanity/config/i18n';
 
 
 interface PageProps {
@@ -15,6 +16,19 @@ interface PageProps {
     locale: string
     slug: string
   }>;
+}
+
+export async function generateStaticParams() {
+  // Fetch articles from English only (slugs are same across all locales)
+  const articles = await fetchSupportArticles('en');
+
+  // Generate paths for all locales with the same slugs
+  return articles.flatMap((article) =>
+    allLanguages.map((locale) => ({
+      locale,
+      slug: article.slug.current,
+    }))
+  );
 }
 
 export async function generateMetadata({
