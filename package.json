@@ -9,13 +9,15 @@
     "lint": "eslint",
     "generate-locales": "node scripts/generate-locales.js",
     "generate-sitemap": "DOTENV_CONFIG_PATH=.env.local tsx -r dotenv/config scripts/generate-sitemap.ts",
-    "migrate:wordpress": "tsx --env-file=.env.local scripts/migrate-wordpress.ts",
-    "migrate:support": "tsx --env-file=.env.local scripts/migrate-support.ts",
-    "migrate:legal": "tsx --env-file=.env.local scripts/migrate-legal.ts",
-    "migrate:faqs": "tsx --env-file=.env.local scripts/migrate-faqs.ts",
-    "migrate:changelog": "tsx --env-file=.env.local scripts/migrate-changelog.ts",
-    "fix:faq-keys": "tsx --env-file=.env.local scripts/fix-faq-keys.ts",
-    "fix:html-entities": "tsx --env-file=.env.local scripts/fix-html-entities.ts"
+    "migrate:wordpress": "DOTENV_CONFIG_PATH=.env.local tsx -r dotenv/config scripts/migrate-wordpress.ts",
+    "migrate:support": "DOTENV_CONFIG_PATH=.env.local tsx -r dotenv/config scripts/migrate-support.ts",
+    "migrate:legal": "DOTENV_CONFIG_PATH=.env.local tsx -r dotenv/config scripts/migrate-legal.ts",
+    "migrate:faqs": "DOTENV_CONFIG_PATH=.env.local tsx -r dotenv/config scripts/migrate-faqs.ts",
+    "migrate:changelog": "DOTENV_CONFIG_PATH=.env.local tsx -r dotenv/config scripts/migrate-changelog.ts",
+    "fix:faq-keys": "DOTENV_CONFIG_PATH=.env.local tsx -r dotenv/config scripts/fix-faq-keys.ts",
+    "fix:html-entities": "DOTENV_CONFIG_PATH=.env.local tsx -r dotenv/config scripts/fix-html-entities.ts",
+    "backup": "DOTENV_CONFIG_PATH=.env.local tsx -r dotenv/config scripts/backup.ts",
+    "restore": "DOTENV_CONFIG_PATH=.env.local tsx -r dotenv/config scripts/restore.ts"
   },
   "dependencies": {
     "@chakra-ui/form-control": "^2.2.0",
