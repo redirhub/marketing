@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import { PortableText } from '@portabletext/react'
 import { Box, Container } from "@chakra-ui/react";
 import { fetchLandingPageBySlug, fetchLandingPageTranslations } from "@/lib/services/landingPages";
+import { fetchBlogPosts } from "@/lib/services/blog";
 import { portableTextComponents } from '@/components/blog/PortableTextComponents'
 import { getClient } from '@/lib/preview'
 import LandingPageBanner from "@/components/share/banners/landingPage/LandingPageBanner";
@@ -86,6 +87,9 @@ export default async function LandingPage({ params, searchParams }: PageProps) {
   const showTestimonials = page.sections?.includes('testimonials');
   const showBlogInsight = page.sections?.includes('blogInsight');
 
+  // Fetch blog posts if needed
+  const blogPosts = showBlogInsight ? await fetchBlogPosts(locale, 3) : [];
+
   return (
     <Box bg="white">
       {faqSchema && (
@@ -142,7 +146,7 @@ export default async function LandingPage({ params, searchParams }: PageProps) {
       <FAQSection faqs={page.faqs} />
 
       {showBlogInsight && (
-        <BlogSection locale={locale} />
+        <BlogSection locale={locale} posts={blogPosts} />
       )}
 
     </Box>
