@@ -34,7 +34,7 @@ async function clearSanity() {
       // Everything else gets priority 1-997 (deleted first)
     }
 
-    docs.sort((a, b) => {
+    docs.sort((a: { _id: string; _type: string }, b: { _id: string; _type: string }) => {
       const priorityA = typeOrder[a._type] || 1
       const priorityB = typeOrder[b._type] || 1
       return priorityA - priorityB
