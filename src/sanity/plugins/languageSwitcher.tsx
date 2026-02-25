@@ -70,11 +70,14 @@ function LanguageSwitcherComponent({
     )
       .then((res) => res.json())
       .then((data) => {
-        setTranslations(data || [])
+        // Ensure data is always an array
+        const translationsArray = Array.isArray(data) ? data : []
+        setTranslations(translationsArray)
         setLoading(false)
       })
       .catch((error) => {
         console.error('Error fetching translations:', error)
+        setTranslations([])
         setLoading(false)
       })
   }, [document?.slug, document?.pageSlug, documentType])
@@ -193,7 +196,9 @@ function LanguageSwitcherComponent({
                   )
                   const data = await queryResponse.json()
 
-                  setTranslations(data)
+                  // Ensure data is always an array
+                  const translationsArray = Array.isArray(data) ? data : []
+                  setTranslations(translationsArray)
                   setLoading(false)
                 }
 

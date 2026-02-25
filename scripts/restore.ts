@@ -160,13 +160,17 @@ async function restore() {
         console.log(`   Found ${documents.length} documents`)
 
         // Additional filtering: if locale specified, also filter by document.locale field
-        // Keep documents without locale field (like images) and those matching target locale
+        // Keep documents without locale field (like images, authors) and those matching target locale
         let filteredDocuments = documents
         if (targetLocale) {
           const beforeCount = documents.length
           filteredDocuments = documents.filter(doc => {
             // Keep system documents without locale (like images)
             if (!doc.locale && (doc._type === 'sanity.imageAsset' || doc._type.startsWith('sanity.'))) {
+              return true
+            }
+            // Keep authors without locale (they're shared across locales)
+            if (!doc.locale && doc._type === 'author') {
               return true
             }
             // Keep documents matching target locale
