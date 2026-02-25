@@ -11,6 +11,7 @@ import { buildCanonicalUrl, buildStaticHreflangAlternates, buildSocialCards, gen
 import { allLanguages } from '@/sanity/config/i18n'
 import { getTestimonials, formatTestimonialForSlider } from "@/lib/sanity/testimonials";
 import { fetchLandingPageBySlug } from "@/lib/services/landingPages";
+import { fetchBlogPosts } from "@/lib/services/blog";
 import { urlFor } from "@/sanity/lib/image";
 
 export async function generateMetadata({
@@ -66,6 +67,9 @@ export default async function HomePage({
   // Fetch home page content from CMS (English only — locale handled by i18n)
   const homePageData = await fetchLandingPageBySlug("homepage", locale);
 
+  // Fetch blog posts for BlogSection
+  const blogPosts = await fetchBlogPosts(locale, 3);
+
   // Generate FAQ Schema.org JSON-LD
   const faqSchema = generateFAQSchema(homePageData?.faqs);
 
@@ -85,7 +89,7 @@ export default async function HomePage({
       <PowerfulFeatures />
       <TestimonialsSection locale={locale} bg="white" marginTop={0} marginBottom={24} />
       <APIDocumentation />
-      <BlogSection locale={locale} />
+      <BlogSection locale={locale} posts={blogPosts} />
       <FAQSection faqs={homePageData?.faqs} />
     </>
   );

@@ -2,24 +2,22 @@
 
 import { Box, Heading, SimpleGrid } from "@chakra-ui/react";
 import { BlogCard } from "@/components/home/BlogCard";
-import { fetchBlogPosts } from "@/lib/services/blog";
 import { urlFor } from "@/sanity/lib/image";
 import type { PostPreview } from "@/types/sanity";
 import { useTranslation } from "react-i18next";
 
 interface BlogSectionProps {
   locale: string;
-  limit?: number;
+  posts: PostPreview[];
   backgroundColor?: string;
 }
 
-export default async function BlogSection({
+export default function BlogSection({
   locale,
-  limit = 3,
+  posts,
   backgroundColor = "#F2F4EF"
 }: BlogSectionProps) {
   const { t } = useTranslation();
-  const posts = await fetchBlogPosts(locale, limit);
 
   if (!posts || posts.length === 0) {
     return null;
