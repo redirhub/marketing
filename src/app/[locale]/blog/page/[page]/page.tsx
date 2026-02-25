@@ -1,4 +1,5 @@
 import { Metadata } from "next";
+import { notFound } from "next/navigation";
 import { getT } from "@/lib/i18n";
 import { APP_NAME } from "@/lib/utils/constants";
 import BlogList from "@/components/blogs/BlogList";
@@ -6,27 +7,39 @@ import BlogBanner from "@/components/share/banners/blog/BlogBanner";
 import { buildCanonicalUrl, buildSocialCards } from "@/lib/utils/seo";
 import { allLanguages } from "@/sanity/config/i18n";
 
+interface BlogPageProps {
+  params: Promise<{
+    locale: string;
+    page: string;
+  }>;
+}
 
 export async function generateMetadata({
   params,
-}: {
-  params: Promise<{ locale: string }>;
-}): Promise<Metadata> {
-  const { locale } = await params;
+}: BlogPageProps): Promise<Metadata> {
+  const { locale, page } = await params;
+  const currentPage = Number(page);
+
+  if (isNaN(currentPage) || currentPage < 1) {
+    return { title: "Not Found" };
+  }
+
   const t = getT(locale);
 
-  // Generate canonical URL
+  // Generate canonical URL with pagination support
   const basePath = "/blog";
-  const canonicalUrl = buildCanonicalUrl(locale, basePath);
+  const pagePath = currentPage > 1 ? `/page/${currentPage}` : "";
+  const canonicalUrl = buildCanonicalUrl(locale, `${basePath}${pagePath}`);
 
-  // Build hreflang alternates for all locales
+  // Build hreflang alternates with pagination for all locales
   const languages: Record<string, string> = {};
   allLanguages.forEach((lang) => {
+    const path = `${basePath}${pagePath}`;
     if (lang === "en") {
-      languages["en"] = basePath;
-      languages["x-default"] = basePath;
+      languages["en"] = path;
+      languages["x-default"] = path;
     } else {
-      languages[lang] = `/${lang}${basePath}`;
+      languages[lang] = `/${lang}${path}`;
     }
   });
 
@@ -47,18 +60,22 @@ export async function generateMetadata({
   };
 }
 
-export default async function BlogPage({
+export default async function BlogPaginatedPage({
   params,
-}: {
-  params: Promise<{ locale: string }>;
-}) {
-  const { locale } = await params;
+}: BlogPageProps) {
+  const { locale, page } = await params;
+  const currentPage = Number(page);
+
+  if (isNaN(currentPage) || currentPage < 1) {
+    notFound();
+  }
+
   const basePath = locale === 'en' ? '/blog' : `/${locale}/blog`;
 
   return (
     <>
       <BlogBanner />
-      <BlogList currentPage={1} locale={locale} basePath={basePath} />
+      <BlogList currentPage={currentPage} locale={locale} basePath={basePath} />
     </>
   );
 }

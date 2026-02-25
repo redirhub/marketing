@@ -7,7 +7,6 @@ import InfiniteScrollChangelog from "@/components/changelog/InfiniteScrollChange
 import { fetchChangelogEntries } from "@/lib/services/changelog";
 import { getT } from "@/lib/i18n";
 
-export const revalidate = 86400; // Revalidate every 24 hours
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
   const { locale } = await params;

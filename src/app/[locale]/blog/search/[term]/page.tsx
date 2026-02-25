@@ -1,27 +1,42 @@
 import { Box, Container, SimpleGrid, Heading, Text, Flex } from "@chakra-ui/react";
 import BlogBanner from "@/components/share/banners/blog/BlogBanner";
 import { BlogCard } from "@/components/home/BlogCard";
-import { fetchPaginatedPosts } from "@/lib/services/blog";
+import { client } from "@/sanity/lib/client";
 import { urlFor } from "@/sanity/lib/image";
 import type { PostPreview } from "@/types/sanity";
-import PaginationControls from "@/components/ui/PaginationControls";
 
-export const revalidate = 3600; // Revalidate every 1 hour
 
 export default async function SearchResultsPage({
     params,
-    searchParams,
 }: {
     params: Promise<{ locale: string; term: string }>;
-    searchParams: Promise<{ page?: string }>;
 }) {
     const { locale, term } = await params;
-    const { page } = await searchParams;
     const decodedTerm = decodeURIComponent(term);
-    const currentPage = Number(page) || 1;
-    const pageSize = 6;
 
-    const { posts, totalPages, total } = await fetchPaginatedPosts(locale, currentPage, pageSize, decodedTerm);
+    // Fetch all matching posts (no pagination)
+    const searchTerm = `*${decodedTerm}*`;
+    const query = `*[
+        _type == "post" &&
+        locale == $locale &&
+        (title match $term || excerpt match $term || $decodedTerm in tags[])
+    ] | order(publishedAt desc) {
+        _id,
+        title,
+        slug,
+        excerpt,
+        image,
+        publishedAt,
+        tags,
+        author->{
+            name,
+            image,
+            slug
+        }
+    }`;
+
+    const posts: PostPreview[] = await client.fetch(query, { locale, term: searchTerm, decodedTerm });
+    const total = posts.length;
 
     return (
         <>
@@ -77,11 +92,6 @@ export default async function SearchResultsPage({
                                     />
                                 ))}
                             </SimpleGrid>
-
-                            <PaginationControls
-                                currentPage={currentPage}
-                                totalPages={totalPages}
-                            />
                         </Box>
                     )}
                 </Container>

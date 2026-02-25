@@ -5,18 +5,30 @@ import SupportBanner from "@/components/share/banners/support/SupportBanner";
 import { Box, Flex, Heading, VStack } from "@chakra-ui/react";
 import Sidebar from "@/components/support/Sidebar";
 import { ArticleItem } from "@/components/support/ArticleItem";
-import { fetchSupportArticlesByTag } from "@/lib/services/support";
+import { fetchSupportArticlesByTag, fetchAllSupportTags } from "@/lib/services/support";
 import { buildCanonicalUrl, buildStaticHreflangAlternates } from '@/lib/utils/seo';
 import { allLanguages } from '@/sanity/config/i18n';
-import { denormalizeTag, formatTagForDisplay } from "@/lib/utils/tagsHelpers";
+import { denormalizeTag, formatTagForDisplay, normalizeTag } from "@/lib/utils/tagsHelpers";
 
-export const revalidate = 1800; // Revalidate every 30 minutes
 
 interface CategoryPageProps {
   params: Promise<{
     locale: string;
     tag: string;
   }>;
+}
+
+export async function generateStaticParams() {
+  // Fetch all unique tags from English only (tags are same across all locales)
+  const tags = await fetchAllSupportTags('en');
+
+  // Generate paths for all locales with the same tags
+  return tags.flatMap((tag: string) =>
+    allLanguages.map((locale) => ({
+      locale,
+      tag: normalizeTag(tag),
+    }))
+  );
 }
 
 export async function generateMetadata({

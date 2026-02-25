@@ -2,10 +2,9 @@ import { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { PortableText } from '@portabletext/react'
 import { Box, Container } from "@chakra-ui/react";
-import { fetchLandingPageBySlug, fetchLandingPageTranslations } from "@/lib/services/landingPages";
 import { fetchBlogPosts } from "@/lib/services/blog";
+import { fetchLandingPageBySlug, fetchLandingPageTranslations, fetchLandingPages } from "@/lib/services/landingPages";
 import { portableTextComponents } from '@/components/blog/PortableTextComponents'
-import { getClient } from '@/lib/preview'
 import LandingPageBanner from "@/components/share/banners/landingPage/LandingPageBanner";
 import TableOfContents from "@/components/blog/TableOfContents";
 import { TestimonialsSection, BlogSection, FAQSection } from "@/components/sections";
@@ -13,37 +12,49 @@ import { buildCanonicalUrl, buildHreflangAlternates, buildSocialCards, generateF
 import { APP_NAME } from "@/lib/utils/constants";
 import { urlFor } from '@/sanity/lib/image';
 import { getT } from "@/lib/i18n";
+import { allLanguages } from '@/sanity/config/i18n';
 
-export const revalidate = 3600; // Revalidate every 1 hour
 
 interface PageProps {
   params: Promise<{
     locale: string
     slug: string[]
   }>;
-  searchParams: Promise<{
-    version?: string
-  }>;
+}
+
+export async function generateStaticParams() {
+  // Fetch landing pages from English only (slugs are same across all locales)
+  const pages = await fetchLandingPages('en');
+
+  // Generate paths for all locales with the same slugs
+  return pages.flatMap((page: any) =>
+    allLanguages.map((locale) => ({
+      locale,
+      slug: page.slug.current.split('/'),
+    }))
+  );
 }
 
 export async function generateMetadata({
   params,
-  searchParams,
 }: PageProps): Promise<Metadata> {
   const { locale, slug } = await params;
   const slugPath = slug.join('/');
-  const searchParamsObj = await searchParams;
-  const client = getClient(searchParamsObj);
-  const isPreview = searchParamsObj?.version === 'drafts';
 
-  const page = await fetchLandingPageBySlug(slugPath, locale, client, isPreview);
+  // Return 404 metadata for paths with file extensions (assets)
+  const lastSegment = slug[slug.length - 1];
+  if (lastSegment && /\.[a-zA-Z0-9]+$/.test(lastSegment)) {
+    return { title: "Not Found" };
+  }
+
+  const page = await fetchLandingPageBySlug(slugPath, locale);
   if (!page) {
     return { title: "Page Not Found" };
   }
 
   const canonicalUrl = buildCanonicalUrl(locale, `/${slugPath}`)
 
-  const translations = await fetchLandingPageTranslations(slugPath, client, isPreview)
+  const translations = await fetchLandingPageTranslations(slugPath)
   const hreflangAlternates = translations.length > 0
     ? buildHreflangAlternates(translations, '')
     : {}
@@ -68,15 +79,18 @@ export async function generateMetadata({
   };
 }
 
-export default async function LandingPage({ params, searchParams }: PageProps) {
+export default async function LandingPage({ params }: PageProps) {
   const { locale, slug } = await params;
   const t = getT(locale);
   const slugPath = slug.join('/');
-  const searchParamsObj = await searchParams;
-  const client = getClient(searchParamsObj);
-  const isPreview = searchParamsObj?.version === 'drafts';
 
-  const page = await fetchLandingPageBySlug(slugPath, locale, client, isPreview);
+  // Return 404 for paths with file extensions (assets like .png, .jpg, .ico, etc.)
+  const lastSegment = slug[slug.length - 1];
+  if (lastSegment && /\.[a-zA-Z0-9]+$/.test(lastSegment)) {
+    notFound();
+  }
+
+  const page = await fetchLandingPageBySlug(slugPath, locale);
   if (!page) {
     notFound();
   }

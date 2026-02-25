@@ -2,10 +2,9 @@ import { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 import { PortableText } from '@portabletext/react'
 import { Box, Container } from '@chakra-ui/react'
-import { fetchPostBySlug, fetchRelatedPosts, calculateReadTime, fetchPostTranslations } from '@/lib/services/blog'
+import { fetchPostBySlug, fetchRelatedPosts, calculateReadTime, fetchPostTranslations, fetchBlogPosts } from '@/lib/services/blog'
 import { urlFor } from '@/sanity/lib/image'
 import { portableTextComponents } from '@/components/blog/PortableTextComponents'
-import { getClient } from '@/lib/preview'
 import PostHeader from '@/components/blog/PostHeader'
 import TableOfContents from '@/components/blog/TableOfContents'
 import AuthorBox from '@/components/blog/AuthorBox'
@@ -16,25 +15,32 @@ import InactivityPopup from '@/components/popups/InactivityPopup'
 import { APP_NAME, APP_URL } from '@/lib/utils/constants'
 import { allLanguages } from '@/sanity/config/i18n'
 
-export const revalidate = 3600; // Revalidate every 1 hour
 
 interface BlogPostPageProps {
   params: Promise<{
     locale: string
     slug: string
   }>
-  searchParams: Promise<{
-    version?: string
-  }>
+}
+
+export async function generateStaticParams() {
+  // Fetch blog posts from English only (slugs are same across all locales)
+  const posts = await fetchBlogPosts('en');
+
+  // Generate paths for all locales with the same slugs
+  return posts.flatMap((post: any) =>
+    allLanguages.map((locale) => ({
+      locale,
+      slug: post.slug.current,
+    }))
+  );
 }
 
 export async function generateMetadata({
   params,
-  searchParams,
 }: BlogPostPageProps): Promise<Metadata> {
   const { locale, slug } = await params
-  const client = getClient(await searchParams)
-  const post = await fetchPostBySlug(slug, locale, client)
+  const post = await fetchPostBySlug(slug, locale)
 
   if (!post) {
     return {
@@ -62,10 +68,9 @@ export async function generateMetadata({
   }
 }
 
-export default async function BlogPostPage({ params, searchParams }: BlogPostPageProps) {
+export default async function BlogPostPage({ params }: BlogPostPageProps) {
   const { locale, slug } = await params
-  const client = getClient(await searchParams)
-  const post = await fetchPostBySlug(slug, locale, client)
+  const post = await fetchPostBySlug(slug, locale)
 
   if (!post) {
     notFound()
@@ -73,7 +78,7 @@ export default async function BlogPostPage({ params, searchParams }: BlogPostPag
 
   const readTime = post.content ? calculateReadTime(post.content) : 1
   const relatedPosts = post.tags
-    ? await fetchRelatedPosts(post._id, post.tags, locale, 3, client)
+    ? await fetchRelatedPosts(post._id, post.tags, locale, 3)
     : []
 
   // Generate Schema.org JSON-LD

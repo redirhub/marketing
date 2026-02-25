@@ -5,30 +5,23 @@ import { Box, Container } from "@chakra-ui/react";
 import { fetchChangelogBySlug, fetchChangelogTranslations, formatDate } from "@/lib/services/changelog";
 import { APP_NAME } from "@/lib/utils/constants";
 import { buildCanonicalUrl, buildHreflangAlternates, buildSocialCards } from "@/lib/utils/seo";
-import { getClient } from "@/lib/preview";
 import { portableTextComponents } from "@/components/blog/PortableTextComponents";
 import ChangelogDetailBanner from "@/components/changelog/ChangelogDetailBanner";
 import { getT } from "@/lib/i18n";
 
-export const revalidate = 86400; // Revalidate every 24 hours
 
 interface ChangelogDetailPageProps {
   params: Promise<{
     locale: string;
     slug: string;
   }>;
-  searchParams: Promise<{
-    version?: string;
-  }>;
 }
 
 export async function generateMetadata({
   params,
-  searchParams,
 }: ChangelogDetailPageProps): Promise<Metadata> {
   const { locale, slug } = await params;
-  const client = getClient(await searchParams);
-  const entry = await fetchChangelogBySlug(slug, locale, client);
+  const entry = await fetchChangelogBySlug(slug, locale);
   const t = getT(locale);
 
   if (!entry) {
@@ -41,7 +34,7 @@ export async function generateMetadata({
   const canonicalUrl = buildCanonicalUrl(locale, `/changelog/${slug}`);
 
   // Fetch translations for hreflang alternates
-  const translations = await fetchChangelogTranslations(slug, client);
+  const translations = await fetchChangelogTranslations(slug);
   const hreflangAlternates = translations.length > 0
     ? buildHreflangAlternates(translations, '/changelog')
     : {};
@@ -64,11 +57,9 @@ export async function generateMetadata({
 
 export default async function ChangelogDetailPage({
   params,
-  searchParams,
 }: ChangelogDetailPageProps) {
   const { locale, slug } = await params;
-  const client = getClient(await searchParams);
-  const entry = await fetchChangelogBySlug(slug, locale, client);
+  const entry = await fetchChangelogBySlug(slug, locale);
 
   if (!entry) {
     notFound();

@@ -8,9 +8,10 @@ import type { PostPreview } from "@/types/sanity";
 interface BlogListProps {
   currentPage: number;
   locale?: string;
+  basePath: string;
 }
 
-const BlogList = async ({ currentPage, locale = "en" }: BlogListProps) => {
+const BlogList = async ({ currentPage, locale = "en", basePath }: BlogListProps) => {
   const { posts, totalPages } = await fetchPaginatedPosts(locale, currentPage, 6);
 
   return (
@@ -41,7 +42,7 @@ const BlogList = async ({ currentPage, locale = "en" }: BlogListProps) => {
             </SimpleGrid>
           )}
 
-          {posts?.length > 0 && <PaginationControls currentPage={currentPage} totalPages={totalPages} />}
+          {posts?.length > 0 && <PaginationControls currentPage={currentPage} totalPages={totalPages} basePath={basePath} />}
         </Container>
       </Box>
     </>

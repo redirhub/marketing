@@ -3,23 +3,23 @@
 import React from "react";
 import { Button, HStack, Text } from "@chakra-ui/react";
 import NextLink from "next/link";
-import { useSearchParams } from "next/navigation";
 import { useTranslation } from "react-i18next";
 
 const StyledLink = Button as React.FC<any>;
 interface PaginationControlsProps {
   currentPage: number;
   totalPages: number;
+  basePath: string;
   buttonProps?: React.ComponentProps<typeof Button>;
 }
 
 const PaginationControls: React.FC<PaginationControlsProps> = ({
   currentPage,
   totalPages,
+  basePath,
   buttonProps,
 }) => {
   const { t } = useTranslation();
-  const searchParams = useSearchParams();
   if (totalPages <= 1) {
     return null;
   }
@@ -91,9 +91,10 @@ const PaginationControls: React.FC<PaginationControlsProps> = ({
     lastPage = page;
   });
   const getPageUrl = (page: number) => {
-    const params = new URLSearchParams(searchParams.toString());
-    params.set("page", page.toString());
-    return `?${params.toString()}`;
+    if (page === 1) {
+      return basePath;
+    }
+    return `${basePath}/page/${page}`;
   };
 
   return (

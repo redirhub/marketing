@@ -1,10 +1,11 @@
 import { Metadata } from 'next'
 import { Box, Container, Heading, VStack, Text } from '@chakra-ui/react'
 import { ArticleItem } from '@/components/support/ArticleItem'
-import { fetchSupportArticlesByTag } from '@/lib/services/support'
+import { fetchSupportArticlesByTag, fetchAllSupportTags } from '@/lib/services/support'
 import SupportBanner from '@/components/share/banners/support/SupportBanner'
+import { denormalizeTag, formatTagForDisplay, normalizeTag } from '@/lib/utils/tagsHelpers'
+import { allLanguages } from '@/sanity/config/i18n'
 
-export const revalidate = 1800; // Revalidate every 30 minutes
 
 interface TagPageProps {
   params: Promise<{
@@ -13,22 +14,17 @@ interface TagPageProps {
   }>
 }
 
-// Helper function to denormalize tag (convert URL slug back to tag)
-function denormalizeTag(slug: string): string {
-  return decodeURIComponent(slug).replace(/-/g, ' ')
-}
+export async function generateStaticParams() {
+  // Fetch all unique tags from English only (tags are same across all locales)
+  const tags = await fetchAllSupportTags('en');
 
-// Helper function to format tag for display
-function formatTagForDisplay(tag: string): string {
-  // If non-ASCII (Chinese, etc.), use as is
-  if (/[^\x00-\x7F]/.test(tag)) {
-    return tag
-  }
-  // Otherwise capitalize first letter of each word
-  return tag
-    .split(' ')
-    .map((w) => w.charAt(0).toUpperCase() + w.slice(1))
-    .join(' ')
+  // Generate paths for all locales with the same tags
+  return tags.flatMap((tag: string) =>
+    allLanguages.map((locale) => ({
+      locale,
+      tag: normalizeTag(tag),
+    }))
+  );
 }
 
 export async function generateMetadata({

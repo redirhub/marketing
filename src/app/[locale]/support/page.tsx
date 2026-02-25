@@ -9,7 +9,6 @@ import { fetchSupportArticles } from "@/lib/services/support";
 import { buildCanonicalUrl, buildStaticHreflangAlternates, buildSocialCards } from "@/lib/utils/seo";
 import { allLanguages } from "@/sanity/config/i18n";
 
-export const revalidate = 1800; // Revalidate every 30 minutes
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
   const { locale } = await params;
