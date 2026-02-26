@@ -27,7 +27,7 @@ export default function Hero({ content }: HeroProps) {
   const mainText = h1Match?.[2] ?? t("home.hero-title2", "redirected. Instantly.");
 
   return (
-    <Box pt={28} className={styles.heroContainer}>
+    <Box pt={{ base: 20, md: 20, xl: 28 }} className={styles.heroContainer}>
       <Container maxW="7xl" mx="auto" px={{ base: 2, md: 2, lg: 0 }}>
         <Flex direction="column" align="center" textAlign="center" gap={4}>
           <Box>
