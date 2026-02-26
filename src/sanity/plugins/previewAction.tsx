@@ -10,7 +10,7 @@ const getPreviewUrl = (doc: any): string | null => {
   const locale = doc.locale || 'en'
   const slug = doc.slug?.current
 
-  const baseUrl = "/";
+  const baseUrl = "";
   const prefix = locale === defaultLocale ? `${baseUrl}` : `${baseUrl}/${locale}`
 
   switch (doc._type) {
