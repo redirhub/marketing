@@ -40,11 +40,10 @@ export function generateStaticParams() {
   return i18nConfig.locales.map((locale) => ({ locale }));
 }
 
-// Global revalidation time: 24 hours (use webhook for on-demand updates)
+// Global revalidation time: 0 for preview mode (no caching)
 
-export const revalidate =
-  Number(process.env.NEXT_PUBLIC_REVALIDATE ?? 86400);
-  
+export const revalidate = 0;
+
 const i18nNamespaces = ["common"];
 
 export default async function RootLayout({
