@@ -43,7 +43,7 @@ export function generateStaticParams() {
 // Global revalidation time: 0 for preview mode (no caching)
 
 export const revalidate = 0;
-
+  
 const i18nNamespaces = ["common"];
 
 export default async function RootLayout({
