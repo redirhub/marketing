@@ -41,8 +41,10 @@ export function generateStaticParams() {
 }
 
 // Global revalidation time: 24 hours (use webhook for on-demand updates)
-export const revalidate = 86400;
 
+export const revalidate =
+  Number(process.env.NEXT_PUBLIC_REVALIDATE ?? 86400);
+  
 const i18nNamespaces = ["common"];
 
 export default async function RootLayout({
