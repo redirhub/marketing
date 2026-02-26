@@ -1,6 +1,7 @@
 import { client as defaultClient } from '@/sanity/lib/client'
 import type { SupportArticle } from '@/types/sanity'
 import type { SanityClient } from 'next-sanity'
+import { getSupportArticleTags } from '@/lib/cache-tags'
 
 export async function fetchSupportArticles(
   locale: string = 'en',
@@ -17,7 +18,9 @@ export async function fetchSupportArticles(
     publishedAt,
     locale
   }`
-  return client.fetch(query, { locale })
+
+  const tags = getSupportArticleTags(locale);
+  return client.fetch(query, { locale }, { next: { tags } })
 }
 
 export async function fetchSupportArticleBySlug(
@@ -40,7 +43,9 @@ export async function fetchSupportArticleBySlug(
     publishedAt,
     locale
   }`
-  return client.fetch(query, { slug, locale })
+
+  const tags = getSupportArticleTags(locale);
+  return client.fetch(query, { slug, locale }, { next: { tags } })
 }
 
 export async function fetchSupportArticlesByTag(
@@ -60,7 +65,9 @@ export async function fetchSupportArticlesByTag(
     publishedAt,
     locale
   }`
-  return client.fetch(query, { tag, locale } as Record<string, any>)
+
+  const tags = getSupportArticleTags(locale);
+  return client.fetch(query, { tag, locale } as Record<string, any>, { next: { tags } })
 }
 
 export async function fetchSupportArticleTranslations(
@@ -73,7 +80,9 @@ export async function fetchSupportArticleTranslations(
     title,
     slug
   }`
-  return client.fetch(query, { slug })
+
+  const tags = getSupportArticleTags();
+  return client.fetch(query, { slug }, { next: { tags } })
 }
 
 export async function fetchAllSupportTags(

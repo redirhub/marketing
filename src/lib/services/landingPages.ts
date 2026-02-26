@@ -1,6 +1,7 @@
 import { client as defaultClient } from '@/sanity/lib/client'
 import type { LandingPage } from '@/types/sanity'
 import type { SanityClient } from 'next-sanity'
+import { getLandingPageTags } from '@/lib/cache-tags'
 
 export async function fetchLandingPages(
   locale: string = 'en',
@@ -19,7 +20,9 @@ export async function fetchLandingPages(
     publishedAt,
     locale
   }`
-  return client.fetch(query, { locale })
+
+  const tags = getLandingPageTags('', locale);
+  return client.fetch(query, { locale }, { next: { tags } })
 }
 
 export async function fetchLandingPageBySlug(
@@ -55,7 +58,9 @@ export async function fetchLandingPageBySlug(
     publishedAt,
     locale
   }`
-  return client.fetch(query, { slug, locale })
+
+  const tags = getLandingPageTags(slug, locale);
+  return client.fetch(query, { slug, locale }, { next: { tags } })
 }
 
 export async function fetchLandingPageTranslations(
@@ -70,5 +75,7 @@ export async function fetchLandingPageTranslations(
     title,
     slug
   }`
-  return client.fetch(query, { slug })
+
+  const tags = getLandingPageTags(slug);
+  return client.fetch(query, { slug }, { next: { tags } })
 }

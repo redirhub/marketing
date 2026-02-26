@@ -1,5 +1,6 @@
 import { client } from '@/sanity/lib/client'
 import type { FAQSet } from '@/types/sanity'
+import { getFAQTags } from '@/lib/cache-tags'
 
 /**
  * Fetch FAQ set for a specific page and locale
@@ -27,7 +28,8 @@ export async function fetchFAQSetByPage(
     locale
   }`
 
-  return client.fetch(query, { pageSlug, locale })
+  const tags = getFAQTags();
+  return client.fetch(query, { pageSlug, locale }, { next: { tags } })
 }
 
 /**
@@ -47,5 +49,6 @@ export async function fetchAllFAQSets(locale: string = 'en') {
     locale
   }`
 
-  return client.fetch(query, { locale })
+  const tags = getFAQTags();
+  return client.fetch(query, { locale }, { next: { tags } })
 }

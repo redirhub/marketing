@@ -2,6 +2,7 @@ import { unstable_cache } from 'next/cache'
 import { client as defaultClient } from '@/sanity/lib/client'
 import type { SanityClient } from 'next-sanity'
 import type { ChangelogEntry } from '@/types/sanity'
+import { getChangelogTags } from '@/lib/cache-tags'
 
 /**
  * Fetch changelog entries with cursor-based pagination
@@ -38,7 +39,8 @@ export async function fetchChangelogEntries(
     locale
   }`
 
-  const results = await client.fetch(query, { locale, cursor })
+  const tags = getChangelogTags(locale);
+  const results = await client.fetch(query, { locale, cursor }, { next: { tags } })
 
   // Check if there are more items
   const hasMore = results.length > limit
@@ -59,6 +61,8 @@ export function fetchChangelogBySlug(
   locale: string = 'en',
   client: SanityClient = defaultClient
 ): Promise<ChangelogEntry | null> {
+  const tags = getChangelogTags(locale);
+
   if (client === defaultClient) {
     return unstable_cache(
       async () => {
@@ -86,7 +90,7 @@ export function fetchChangelogBySlug(
         return client.fetch(query, { slug, locale })
       },
       ['changelog', slug, locale],
-      { revalidate: 86400, tags: ['changelog'] }
+      { revalidate: 86400, tags }
     )()
   }
 
@@ -111,7 +115,7 @@ export function fetchChangelogBySlug(
     publishedAt,
     locale
   }`
-  return client.fetch(query, { slug, locale })
+  return client.fetch(query, { slug, locale }, { next: { tags } })
 }
 
 /**
@@ -128,7 +132,8 @@ export async function fetchChangelogTranslations(
     slug
   }`
 
-  return client.fetch(query, { slug })
+  const tags = getChangelogTags();
+  return client.fetch(query, { slug }, { next: { tags } })
 }
 
 /**

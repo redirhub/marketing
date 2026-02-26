@@ -1,6 +1,7 @@
 import { client as defaultClient } from '@/sanity/lib/client'
 import type { Post, PostPreview } from '@/types/sanity'
 import type { SanityClient } from 'next-sanity'
+import { getBlogPostTags } from '@/lib/cache-tags'
 
 /**
  * Fetch blog posts by locale with optional limit
@@ -28,7 +29,8 @@ export async function fetchBlogPosts(
     }
   }`
 
-  return client.fetch(query, { locale })
+  const tags = getBlogPostTags(locale);
+  return client.fetch(query, { locale }, { next: { tags } })
 }
 
 /**
@@ -120,7 +122,8 @@ export async function fetchPostBySlug(
     faqs
   }`
 
-  return client.fetch(query, { slug, locale })
+  const tags = getBlogPostTags(locale);
+  return client.fetch(query, { slug, locale }, { next: { tags } })
 }
 
 /**

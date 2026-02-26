@@ -1,6 +1,7 @@
 import { client } from '@/sanity/lib/client'
 import { TestimonialDocument } from '@/types/sanity'
 import { urlFor } from '@/sanity/lib/image'
+import { getTestimonialTags } from '@/lib/cache-tags'
 
 /**
  * Fetch active testimonials for a specific locale
@@ -26,9 +27,12 @@ export async function getTestimonials(
     locale
   }`
 
-  const testimonials = await client.fetch<TestimonialDocument[]>(query, {
-    locale,
-  })
+  const tags = getTestimonialTags();
+  const testimonials = await client.fetch<TestimonialDocument[]>(
+    query,
+    { locale },
+    { next: { tags } }
+  )
 
   return testimonials
 }

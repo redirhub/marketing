@@ -1,6 +1,7 @@
 import { client as defaultClient } from '@/sanity/lib/client'
 import type { LegalDocument } from '@/types/sanity'
 import type { SanityClient } from 'next-sanity'
+import { getLegalPageTags } from '@/lib/cache-tags'
 
 export async function fetchFooterLegalPages(
   locale: string = 'en',
@@ -18,7 +19,9 @@ export async function fetchFooterLegalPages(
     locale,
     publishedAt
   }`
-  return client.fetch(query, { locale })
+
+  const tags = getLegalPageTags(locale);
+  return client.fetch(query, { locale }, { next: { tags } })
 }
 
 export async function fetchAllLegalPages(
@@ -36,7 +39,9 @@ export async function fetchAllLegalPages(
     locale,
     publishedAt
   }`
-  return client.fetch(query, { locale })
+
+  const tags = getLegalPageTags(locale);
+  return client.fetch(query, { locale }, { next: { tags } })
 }
 
 export async function fetchLegalDocuments(
@@ -54,7 +59,9 @@ export async function fetchLegalDocuments(
     locale,
     footer
   }`
-  return client.fetch(query, { locale })
+
+  const tags = getLegalPageTags(locale);
+  return client.fetch(query, { locale }, { next: { tags } })
 }
 
 export async function fetchLegalPageBySlug(
@@ -75,7 +82,9 @@ export async function fetchLegalPageBySlug(
     locale,
     publishedAt
   }`
-  return client.fetch(query, { slug, locale })
+
+  const tags = getLegalPageTags(locale);
+  return client.fetch(query, { slug, locale }, { next: { tags } })
 }
 
 export async function fetchLegalDocumentBySlug(
@@ -98,7 +107,9 @@ export async function fetchLegalDocumentBySlug(
     locale,
     footer
   }`
-  return client.fetch(query, { slug, locale })
+
+  const tags = getLegalPageTags(locale);
+  return client.fetch(query, { slug, locale }, { next: { tags } })
 }
 
 export async function fetchLegalDocumentTranslations(
@@ -112,5 +123,7 @@ export async function fetchLegalDocumentTranslations(
     slug,
     footer
   }`
-  return client.fetch(query, { slug })
+
+  const tags = getLegalPageTags();
+  return client.fetch(query, { slug }, { next: { tags } })
 }
