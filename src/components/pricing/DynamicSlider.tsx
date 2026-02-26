@@ -1,25 +1,28 @@
-"use client";
-
-import { Box, Flex, Text, HStack, useToken } from "@chakra-ui/react";
-import RcSlider from "rc-slider";
-import "rc-slider/assets/index.css";
-import { getRedirectSliderConfig } from "./redirectPlanData";
+import { Box, Flex, Text, HStack, useToken } from '@chakra-ui/react';
+import RcSlider from 'rc-slider';
+import 'rc-slider/assets/index.css';
+import { useTranslation } from 'react-i18next';
 
 interface HostnameSliderProps {
     value: number;
     onChange: (value: number) => void;
+    sliderConfig: {
+        min: number;
+        max: number;
+        ticks: { value: number; label: string }[];
+    };
 }
 
-export default function HostnameSlider({ value, onChange }: HostnameSliderProps) {
-    const sliderConfig = getRedirectSliderConfig();
-    const sliderTicks = sliderConfig.ticks;
-    const currentTick = sliderTicks.find(tick => tick.value === value) || sliderTicks[0];
+export default function DynamicSlider({ value, onChange, sliderConfig }: HostnameSliderProps) {
+    const { t } = useTranslation();
+    const sliderTicks = sliderConfig?.ticks || [];
+    const currentTick = sliderTicks.find(tick => tick.value === value) || sliderTicks[0] || { label: String(value) };
     const hostnameLabel = currentTick.label;
     const [interactiveBlue, grayTrack, primary600, grayTickLabel] = useToken('colors', [
-        'interactive.blue',
-        'gray.track',
-        'primary.600',
-        'gray.tickLabel'
+        '#1D7BAD',
+        '#E9EAEB',
+        '#1C6DB6',
+        '#717680'
     ]);
 
     const marks = sliderTicks.reduce((acc, tick, index) => {
@@ -29,12 +32,12 @@ export default function HostnameSlider({ value, onChange }: HostnameSliderProps)
 
     const currentIndex = sliderTicks.findIndex(t => t.value === value);
     const handleBeforeChange = () => {
-        document.body.style.userSelect = "none";
-        document.body.style.webkitUserSelect = "none";
+        document.body.style.userSelect = 'none';
+        document.body.style.webkitUserSelect = 'none';
     };
     const handleAfterChange = () => {
-        document.body.style.userSelect = "";
-        document.body.style.webkitUserSelect = "";
+        document.body.style.userSelect = '';
+        document.body.style.webkitUserSelect = '';
     };
     const handleChange = (newValue: number | number[]) => {
         const index = Array.isArray(newValue) ? newValue[0] : newValue;
@@ -44,36 +47,36 @@ export default function HostnameSlider({ value, onChange }: HostnameSliderProps)
     return (
         <Box w="full" py={{ base: 4, md: 8 }}>
             <Flex
-                direction={{ base: "column", md: "row" }}
-                justify={{ base: "flex-start", md: "space-between" }}
-                align={{ base: "flex-start", md: "center" }}
+                direction={{ base: 'column', md: 'row' }}
+                justify={{ base: 'flex-start', md: 'space-between' }}
+                align={{ base: 'flex-start', md: 'center' }}
                 mb={{ base: 6, md: 4 }}
                 gap={{ base: 3, md: 0 }}
             >
                 <Text
-                    fontSize={{ base: "14px", md: "16px" }}
-                    lineHeight={{ base: "20px", md: "24px" }}
+                    fontSize={{ base: '14px', md: '16px' }}
+                    lineHeight={{ base: '20px', md: '24px' }}
                     fontWeight="500"
                     color="gray.textMedium"
                 >
-                    How many hostnames do you need?
+                    {t('subscription.slider-question', 'How many {{n}} do you need?', { n: t('subscription.hostnames-label', 'hostnames') })}
                 </Text>
                 <HStack gap={{ base: 1.5, md: 2 }} align="center">
                     <Text
-                        fontSize={{ base: "24px", md: "30px" }}
-                        lineHeight={{ base: "32px", md: "38px" }}
+                        fontSize={{ base: '24px', md: '30px' }}
+                        lineHeight={{ base: '32px', md: '38px' }}
                         fontWeight="600"
                         color="gray.darkGray"
                     >
                         {hostnameLabel}
                     </Text>
                     <Text
-                        fontSize={{ base: "14px", md: "16px" }}
-                        lineHeight={{ base: "20px", md: "24px" }}
+                        fontSize={{ base: '14px', md: '16px' }}
+                        lineHeight={{ base: '20px', md: '24px' }}
                         fontWeight="500"
                         color="gray.textMedium"
                     >
-                        hostnames
+                        {t('subscription.hostnames-label', 'hostnames')}
                     </Text>
                 </HStack>
             </Flex>
@@ -130,21 +133,21 @@ export default function HostnameSlider({ value, onChange }: HostnameSliderProps)
                     -webkit-user-select: none;
                     -moz-user-select: none;
                     -ms-user-select: none;
-                }            
+                }
                 .rc-slider * {
                     box-sizing: border-box;
                     -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
-                }               
+                }
                 .rc-slider-rail {
                     border-radius: 999px;
                 }
-                
+
                 .rc-slider-track {
                     border-radius: 999px;
-                }                
+                }
                 .rc-slider-dot {
                     display: none !important;
-                }                
+                }
                 .rc-slider-handle {
                     cursor: pointer !important;
                     touch-action: pan-x;
@@ -152,30 +155,30 @@ export default function HostnameSlider({ value, onChange }: HostnameSliderProps)
                     -webkit-user-select: none;
                      will-change: transform;
                     transform: translateZ(0);
-                    transition: transform 0.15s ease; 
-                }                
+                    transition: transform 0.15s ease;
+                }
                 .rc-slider-handle:active {
                     cursor: pointer !important;
                     box-shadow: 0px 4px 16px rgba(0, 0, 0, 0.2) !important;
-                }               
+                }
                 .rc-slider-handle:hover {
                     box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.15) !important;
-                }                
+                }
                 .rc-slider-handle:focus {
                     box-shadow: 0px 4px 16px rgba(0, 0, 0, 0.2) !important;
                     outline: none;
-                }               
+                }
                 .rc-slider-handle:focus-visible {
                     box-shadow: 0px 4px 16px rgba(0, 0, 0, 0.2) !important;
                     outline: none;
                 }
-                
+
                 .rc-slider-handle-dragging.rc-slider-handle-dragging.rc-slider-handle-dragging {
                     border-color: ${primary600};
                     box-shadow: 0px 4px 16px rgba(0, 0, 0, 0.2) !important;
                     cursor: pointer !important;
                 }
-                
+
                 .rc-slider-mark-text {
                     color: ${grayTickLabel};
                     font-size: 14px;
@@ -201,10 +204,10 @@ export default function HostnameSlider({ value, onChange }: HostnameSliderProps)
                         padding-top: 10px;
                     }
                 }
-                
+
                 .rc-slider-mark-text:hover {
                     color: ${interactiveBlue} !important;
-                }               
+                }
                 .rc-slider-handle-click-focused:focus {
                     border-color: ${primary600};
                 }
