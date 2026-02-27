@@ -6,7 +6,6 @@ import { TabsLayout, TabTriggerButton } from "@/components/ui/TabsLayout";
 import DynamicSlider from "./DynamicSlider";
 import PricingPlanCard from "./PricingPlanCard";
 import { UpgradeButton } from "./UpgradeButton";
-import AddOns from "./AddOns";
 import PlansComparisonTable from "./PlansComparisonTable";
 import { getRecommendedRedirectPlan, getRedirectSliderConfig, getDynamicComparisonPlans, getDynamicComparisonData } from "./redirectPlanData";
 import { shortenUrlData } from "./shortenUrlPlanData";
@@ -14,6 +13,8 @@ import { monitorData } from "./monitorPlanData";
 import { ProductConfig, redirectConfig, shortenConfig, monitorConfig } from "./productConfigs";
 import { mapPlanToDisplay, DisplayPlan } from "@/lib/utils/pricingHelpers";
 import { useTranslation } from "react-i18next";
+import { ADDON_METADATA } from "./AddonToPlan/addOn";
+import { AddonsDisplay } from "./AddonToPlan";
 
 
 export default function InteractivePricing() {
@@ -45,6 +46,13 @@ export default function InteractivePricing() {
     const displayPlans: DisplayPlan[] = currentConfig.data.plans.map((plan, index, allPlans) =>
         mapPlanToDisplay(plan, index, allPlans, currentConfig, isAnnually, hostnameValue, manualRecommendedId)
     );
+    const addonCodes = Object.keys(ADDON_METADATA).filter(code =>
+        currentConfig.hasAddons || code === 'sso'
+    );
+    const addonsData = addonCodes.map(code => {
+        const price = ADDON_METADATA[code]?.price ?? 0;
+        return { code, price, annual_price: price * 10 };
+    });
     const comparisonPlans = currentConfig.data.plans;
     const comparisonData = currentConfig.data.comparison || [];
     const comparisonProduct = activeTab === 'redirects' ? 'redirect' : activeTab
@@ -97,8 +105,12 @@ export default function InteractivePricing() {
                             />
                         ))}
                     </SimpleGrid>
-                    {activeTab === 'redirects' && (
-                        <AddOns isAnnually={isAnnually} />
+                    {activeTab === 'redirects' && addonsData.length > 0 && (
+                        <AddonsDisplay
+                            addons={addonsData}
+                            isLoading={false}
+                            isAnnually={isAnnually}
+                        />
                     )}
                 </Box>
             </Flex>
