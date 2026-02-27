@@ -105,7 +105,7 @@ export default function InteractivePricing() {
                             />
                         ))}
                     </SimpleGrid>
-                    {activeTab === 'redirects' && addonsData.length > 0 && (
+                    {addonsData.length > 0 && (
                         <AddonsDisplay
                             addons={addonsData}
                             isLoading={false}
