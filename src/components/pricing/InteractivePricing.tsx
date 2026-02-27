@@ -7,7 +7,7 @@ import DynamicSlider from "./DynamicSlider";
 import PricingPlanCard from "./PricingPlanCard";
 import { UpgradeButton } from "./UpgradeButton";
 import PlansComparisonTable from "./PlansComparisonTable";
-import { getRecommendedRedirectPlan, getRedirectSliderConfig, getDynamicComparisonPlans, getDynamicComparisonData } from "./redirectPlanData";
+import { getRecommendedRedirectPlan, getDynamicComparisonPlans, getDynamicComparisonData, getDynamicSliderConfig } from "./redirectPlanData";
 import { shortenUrlData } from "./shortenUrlPlanData";
 import { monitorData } from "./monitorPlanData";
 import { ProductConfig, redirectConfig, shortenConfig, monitorConfig } from "./productConfigs";
@@ -21,7 +21,8 @@ export default function InteractivePricing() {
     const { t } = useTranslation();
     const [activeTab, setActiveTab] = useState("redirects");
     const [isAnnually, setIsAnnually] = useState(false);
-    const [hostnameValue, setHostnameValue] = useState(15);
+    const sliderConfig = useMemo(() => getDynamicSliderConfig(redirectConfig.data.plans as any, 'hosts'), []);
+    const [dynamicValue, setDynamicValue] = useState<number>(sliderConfig.default);
     const [manualRecommendedId, setManualRecommendedId] = useState<string | null>(null);
     const handleTabChange = (val: string) => {
         setActiveTab(val);
@@ -29,7 +30,7 @@ export default function InteractivePricing() {
     };
     let recommendedPlanId = '';
     if (activeTab === 'redirects') {
-        recommendedPlanId = getRecommendedRedirectPlan(hostnameValue);
+        recommendedPlanId = getRecommendedRedirectPlan(dynamicValue);
     } else if (activeTab === 'shorten') {
         recommendedPlanId = shortenUrlData.plans.find(p => p.badge === 'Popular')?.id || '';
     } else if (activeTab === 'monitor') {
@@ -44,7 +45,7 @@ export default function InteractivePricing() {
     const currentConfig = configMap[activeTab] || redirectConfig;
 
     const displayPlans: DisplayPlan[] = currentConfig.data.plans.map((plan, index, allPlans) =>
-        mapPlanToDisplay(plan, index, allPlans, currentConfig, isAnnually, hostnameValue, manualRecommendedId)
+        mapPlanToDisplay(plan, index, allPlans, currentConfig, isAnnually, dynamicValue, manualRecommendedId)
     );
     const addonsData = currentConfig.addons.map(code => {
         const price = ADDON_METADATA[code]?.price ?? 0;
@@ -55,13 +56,13 @@ export default function InteractivePricing() {
     const comparisonProduct = activeTab === 'redirects' ? 'redirect' : activeTab
     const dynamicComparisonPlans = useMemo(() => {
         if (activeTab !== 'redirects') return comparisonPlans;
-        return getDynamicComparisonPlans(comparisonPlans, hostnameValue, redirectConfig.getAddon);
-    }, [activeTab, comparisonPlans, hostnameValue]);
+        return getDynamicComparisonPlans(comparisonPlans, dynamicValue, redirectConfig.getAddon);
+    }, [activeTab, comparisonPlans, dynamicValue]);
 
     const dynamicComparisonData = useMemo(() => {
         if (activeTab !== 'redirects') return comparisonData;
-        return getDynamicComparisonData(comparisonData, comparisonPlans, hostnameValue, redirectConfig.getAddon);
-    }, [activeTab, comparisonData, comparisonPlans, hostnameValue]);
+        return getDynamicComparisonData(comparisonData, comparisonPlans, dynamicValue, redirectConfig.getAddon);
+    }, [activeTab, comparisonData, comparisonPlans, dynamicValue]);
 
     const tabHeader = (
         <>
@@ -75,8 +76,8 @@ export default function InteractivePricing() {
         <Box>
             <Flex direction={{ base: "column", lg: "row" }} gap={8} align={{ base: "stretch", lg: "flex-start" }}>
                 <Box flex="1">
-                    {activeTab === 'redirects' && (
-                        <DynamicSlider value={hostnameValue} onChange={setHostnameValue} sliderConfig={getRedirectSliderConfig()} />
+                    {sliderConfig.enabled && (
+                        <DynamicSlider value={dynamicValue} onChange={setDynamicValue} sliderConfig={sliderConfig} />
                     )}
                     <SimpleGrid
                         columns={{ base: 1, md: 2, lg: 3, xl: 4 }}

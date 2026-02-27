@@ -1706,45 +1706,60 @@ export const getRecommendedRedirectPlan = (hostnameCount: number): string => {
   return 'redirect-enterprise';
 };
 
-export const getRedirectSliderConfig = () => {
-  const proPlan = redirectData.plans.find(p => p.id === 'redirect-pro');
-  let proMaxHostnames = 50000;
-  if (proPlan) {
-    const baseHosts = proPlan.limits.find(l => l.id === 'hosts')?.from || 15;
-    const maxAddon = proPlan.addons.length > 0
-      ? Math.max(...proPlan.addons.map(a => a.limits.hosts))
-      : 0;
-    proMaxHostnames = baseHosts + maxAddon;
-  }
+export const getDynamicSliderConfig = (plans: RedirectPlan[], dynamic: string = 'hostnames') => {
+    if (!plans || plans.length === 0) {
+        return {
+            enabled: false,
+            default: 0,
+            min: 0,
+            max: 100,
+            ticks: [],
+        };
+    }
 
-  const maxHostnames = 100000; 
 
-  const sliderTicks = [
-    { value: 5, label: '5' },        
-    { value: 15, label: '15' },     
-    { value: 25, label: '25' },     
-    { value: 50, label: '50' },     
-    { value: 100, label: '100' },    
-    { value: 250, label: '250' },    
-    { value: 500, label: '500' },    
-    { value: 1000, label: '1K' },  
-    { value: 2500, label: '2.5K' },  
-    { value: 5000, label: '5K' }, 
-    { value: 10000, label: '10K' }, 
-    { value: 15000, label: '15K' }, 
-    { value: 25000, label: '25K' }, 
-    { value: 50000, label: '50K' },  
-    { value: 100000, label: '100K' }, 
-  ];
+    const minValue = plans[0]?.limits?.find((l) => l.id === dynamic)?.from || 1;
+    const BasicPlanValue = plans[1]?.limits?.find((l) => l.id === dynamic)?.from || 5;
 
-  return {
-    min: 5, 
-    max: maxHostnames,
-    ticks: sliderTicks,
-    proMaxHostnames, 
-  };
+    const addonValues = plans.flatMap((plan) =>
+        (plan.addons || [])
+            .map((addon) => addon?.limits?.[dynamic])
+            .filter((v): v is number => typeof v === 'number')
+    );
+
+    const doubleMaxAddonValue = Math.max(...addonValues, minValue) * 2;
+
+    const sliderTicks = Array.from(
+        new Set([minValue,BasicPlanValue, ...addonValues, doubleMaxAddonValue])
+    )
+        .sort((a, b) => a - b)
+        .map((value) => ({
+            value,
+            label: value >= 1000 ? `${value / 1000}K` : value.toString(),
+        }));
+
+    if (!sliderTicks.some((t) => t.value === Math.max(...addonValues, minValue))) {
+        sliderTicks.push({
+            value: Math.max(...addonValues, minValue),
+            label: Math.max(...addonValues, minValue) >= 1000 ? Math.max(...addonValues, minValue) / 1000 + 'K' : Math.max(...addonValues, minValue).toString(),
+        });
+    }
+
+    const maxSliderValue = Math.max(Math.max(...addonValues, minValue), 100000);
+
+    const uniqueTicks = sliderTicks
+        .filter((v, i, a) => a.findIndex((t) => t.value === v.value) === i)
+        .filter((t) => t.value >= minValue && t.value <= maxSliderValue)
+        .sort((a, b) => a.value - b.value);
+
+    return {
+        enabled: addonValues.length > 0,
+        default: BasicPlanValue,
+        min: minValue,
+        max: maxSliderValue,
+        ticks: uniqueTicks,
+    };
 };
-
 export const getDynamicComparisonPlans = (
     comparisonPlans: RedirectPlan[],
     hostnameValue: number,
