@@ -1,9 +1,12 @@
+'use client'
+
 import { Box, Heading, Flex } from '@chakra-ui/react'
 import Link from 'next/link'
 import { FiArrowRight } from 'react-icons/fi'
 import { BlogCard } from '@/components/home/BlogCard'
 import { PostPreview } from '@/types/sanity'
 import { urlFor } from '@/sanity/lib/image'
+import { useTranslation } from 'react-i18next'
 
 interface RelatedArticlesProps {
   posts: PostPreview[]
@@ -11,13 +14,14 @@ interface RelatedArticlesProps {
 }
 
 export default function RelatedArticles({ posts, locale = 'en' }: RelatedArticlesProps) {
+  const { t } = useTranslation();
   if (!posts || posts.length === 0) return null
 
   return (
     <Box as="section" mt={16} mb={8}>
       <Flex justify="space-between" align="center" mb={4}>
         <Heading as="p" fontSize={{ base: '2xl', md: '3xl' }} fontWeight="800" color="gray.900">
-          Related Articles
+        {t("nav.related-articles", "Related Articles")}
         </Heading>
 
         <Link
@@ -33,7 +37,7 @@ export default function RelatedArticles({ posts, locale = 'en' }: RelatedArticle
             transition: 'color 0.2s',
           }}
         >
-          View All Articles
+          {t("nav.view-all-articles", "View All Articles")}
           <FiArrowRight size={18} />
         </Link>
       </Flex>
