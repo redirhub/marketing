@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import { Box, Flex, Text, Switch, HStack, Badge, SimpleGrid } from "@chakra-ui/react";
 import { TabsLayout, TabTriggerButton } from "@/components/ui/TabsLayout";
 import DynamicSlider from "./DynamicSlider";
@@ -8,7 +8,7 @@ import PricingPlanCard from "./PricingPlanCard";
 import { UpgradeButton } from "./UpgradeButton";
 import AddOns from "./AddOns";
 import PlansComparisonTable from "./PlansComparisonTable";
-import { getRecommendedRedirectPlan, getRedirectSliderConfig } from "./redirectPlanData";
+import { getRecommendedRedirectPlan, getRedirectSliderConfig, getDynamicComparisonPlans, getDynamicComparisonData } from "./redirectPlanData";
 import { shortenUrlData } from "./shortenUrlPlanData";
 import { monitorData } from "./monitorPlanData";
 import { ProductConfig, redirectConfig, shortenConfig, monitorConfig } from "./productConfigs";
@@ -47,7 +47,16 @@ export default function InteractivePricing() {
     );
     const comparisonPlans = currentConfig.data.plans;
     const comparisonData = currentConfig.data.comparison || [];
-    const comparisonProduct = activeTab === 'redirects' ? 'redirect' : activeTab;
+    const comparisonProduct = activeTab === 'redirects' ? 'redirect' : activeTab
+    const dynamicComparisonPlans = useMemo(() => {
+        if (activeTab !== 'redirects') return comparisonPlans;
+        return getDynamicComparisonPlans(comparisonPlans, hostnameValue, redirectConfig.getAddon);
+    }, [activeTab, comparisonPlans, hostnameValue]);
+
+    const dynamicComparisonData = useMemo(() => {
+        if (activeTab !== 'redirects') return comparisonData;
+        return getDynamicComparisonData(comparisonData, comparisonPlans, hostnameValue, redirectConfig.getAddon);
+    }, [activeTab, comparisonData, comparisonPlans, hostnameValue]);
 
     const tabHeader = (
         <>
@@ -162,9 +171,9 @@ export default function InteractivePricing() {
             />
             <Box px={{ base: 4, xl: 8 }}>
                 <PlansComparisonTable
-                    plans={comparisonPlans}
+                    plans={dynamicComparisonPlans}
                     product={comparisonProduct}
-                    comparison={comparisonData}
+                    comparison={dynamicComparisonData}
                     isAnnually={isAnnually}
                     renderButton={(plan, context) => {
                         const displayPlan = displayPlans.find((p) => p.id === plan.id);

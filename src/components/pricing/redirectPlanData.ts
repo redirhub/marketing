@@ -1745,6 +1745,52 @@ export const getRedirectSliderConfig = () => {
   };
 };
 
+export const getDynamicComparisonPlans = (
+    comparisonPlans: RedirectPlan[],
+    hostnameValue: number,
+    getAddon: ((plan: RedirectPlan, hostnameValue: number, minHosts: number) => RedirectAddon | null) | undefined
+): RedirectPlan[] => {
+    return comparisonPlans.map((plan) => {
+        const hostsLimit = plan.limits?.find((l) => l.id === 'hosts');
+        const minHosts = hostsLimit?.from || 0;
+        const addon = getAddon ? getAddon(plan, hostnameValue, minHosts) : null;
+        const { totalPrice } = calculatePlanPricing(plan, false, addon);
+        const { totalPrice: totalAnnualPrice } = calculatePlanPricing(plan, true, addon);
+        return {
+            ...plan,
+            price: typeof totalPrice === 'number' ? totalPrice : plan.price,
+            annual_price: typeof totalAnnualPrice === 'number' ? totalAnnualPrice : plan.annual_price,
+        };
+    });
+};
+
+export const getDynamicComparisonData = (
+    comparisonData: ComparisonRow[],
+    comparisonPlans: RedirectPlan[],
+    hostnameValue: number,
+    getAddon: ((plan: RedirectPlan, hostnameValue: number, minHosts: number) => RedirectAddon | null) | undefined
+): ComparisonRow[] => {
+    return comparisonData.map((row) => {
+        if (!['basic.hosts', 'basic.records', 'basic.visits'].includes(row.id)) return row;
+        const updatedPlans = { ...row.plans };
+        for (const plan of comparisonPlans) {
+            const hostsLimit = plan.limits?.find((l) => l.id === 'hosts');
+            const minHosts = hostsLimit?.from || 0;
+            const addon = getAddon ? getAddon(plan, hostnameValue, minHosts) : null;
+            if (!addon) continue;
+            const planId = plan.id;
+            if (row.id === 'basic.hosts' && addon.limits?.hosts) {
+                updatedPlans[planId] = { ...(updatedPlans[planId] || {}), value: `${addon.limits.hosts} source domains` };
+            } else if (row.id === 'basic.records' && planId === 'redirect-basic' && addon.metric_2) {
+                updatedPlans[planId] = { ...(updatedPlans[planId] || {}), value: `${addon.metric_2} source urls` };
+            } else if (row.id === 'basic.visits' && planId === 'redirect-basic' && addon.metric_3) {
+                updatedPlans[planId] = { ...(updatedPlans[planId] || {}), value: `${addon.metric_3} million requests / mo` };
+            }
+        }
+        return { ...row, plans: updatedPlans };
+    });
+};
+
 export const calculatePlanPricing = (plan: RedirectPlan, isAnnually: boolean, addon: RedirectAddon | null) => {
     const hostsLimit = plan.limits.find((l) => l.id === 'hosts');
     const baseHostnames = hostsLimit?.from || 0;
