@@ -46,10 +46,7 @@ export default function InteractivePricing() {
     const displayPlans: DisplayPlan[] = currentConfig.data.plans.map((plan, index, allPlans) =>
         mapPlanToDisplay(plan, index, allPlans, currentConfig, isAnnually, hostnameValue, manualRecommendedId)
     );
-    const addonCodes = Object.keys(ADDON_METADATA).filter(code =>
-        currentConfig.hasAddons || code === 'sso'
-    );
-    const addonsData = addonCodes.map(code => {
+    const addonsData = currentConfig.addons.map(code => {
         const price = ADDON_METADATA[code]?.price ?? 0;
         return { code, price, annual_price: price * 10 };
     });
