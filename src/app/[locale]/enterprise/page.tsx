@@ -69,7 +69,7 @@ export default async function EnterprisePage({
 
       <LandingPageBanner hero={hero} />
       <BookADemo locale={locale} />
-      <StandsOut locale={locale} />
+      <StandsOut />
       <FAQSection faqs={faqSet?.faqs} />
     </>
   );

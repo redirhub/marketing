@@ -1,3 +1,5 @@
+"use client";
+
 import { Box, Container, Flex, Heading } from "@chakra-ui/react";
 import {
   LocationsIcon,
@@ -8,12 +10,12 @@ import {
   UptimeIcon,
 } from "../icons";
 import { FeatureStatCard } from "./FeatureStatCard";
-import { getT } from "@/lib/i18n";
+import { useTranslation } from "react-i18next";
 import { APP_NAME } from "@/lib/utils/constants";
 import { useLocalePath } from "@/lib/hooks/useLocalePath";
 
-const StandsOut = async ({ locale }: { locale: string }) => {
-  const t = getT(locale);
+const StandsOut = () => {
+  const { t } = useTranslation();
   const localePath = useLocalePath();
 
   const statsData = [
