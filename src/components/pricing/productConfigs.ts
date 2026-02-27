@@ -5,6 +5,7 @@ import { monitorData } from './monitorPlanData';
 export interface ProductConfig {
   data: { plans: any[], comparison?: any[] };
   hasAddons: boolean;
+  addons: string[];
   getPricing: (plan: any, isAnnually: boolean, addon: any) => number | string;
   getRange: (plan: any, data: any) => string;
   getIsUnavailable?: (plan: any, hostnameValue: number, addon: any, minHosts: number, maxHosts: number | null) => boolean;
@@ -17,6 +18,7 @@ export interface ProductConfig {
 export const redirectConfig: ProductConfig = {
   data: redirectData,
   hasAddons: true,
+  addons: ['sso', 'nameserver', 'cluster'],
 
   getPricing: (plan, isAnnually, addon) => {
     const { totalPrice } = calculatePlanPricing(plan, isAnnually, addon);
@@ -80,6 +82,7 @@ export const redirectConfig: ProductConfig = {
 export const shortenConfig: ProductConfig = {
   data: shortenUrlData,
   hasAddons: false,
+  addons: ['sso', 'nameserver', 'cluster'],
 
   getPricing: (plan, isAnnually) => {
     return isAnnually ? plan.annual_price : plan.price;
@@ -94,6 +97,7 @@ export const shortenConfig: ProductConfig = {
 export const monitorConfig: ProductConfig = {
   data: monitorData,
   hasAddons: false,
+  addons: ['sso'],
 
   getPricing: (plan, isAnnually) => {
     return isAnnually ? plan.annual_price : plan.price;

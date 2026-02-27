@@ -1,26 +1,28 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import { Box, Flex, Text, Switch, HStack, Badge, SimpleGrid } from "@chakra-ui/react";
 import { TabsLayout, TabTriggerButton } from "@/components/ui/TabsLayout";
 import DynamicSlider from "./DynamicSlider";
 import PricingPlanCard from "./PricingPlanCard";
 import { UpgradeButton } from "./UpgradeButton";
-import AddOns from "./AddOns";
 import PlansComparisonTable from "./PlansComparisonTable";
-import { getRecommendedRedirectPlan, getRedirectSliderConfig } from "./redirectPlanData";
+import { getRecommendedRedirectPlan, getDynamicComparisonPlans, getDynamicComparisonData, getDynamicSliderConfig } from "./redirectPlanData";
 import { shortenUrlData } from "./shortenUrlPlanData";
 import { monitorData } from "./monitorPlanData";
 import { ProductConfig, redirectConfig, shortenConfig, monitorConfig } from "./productConfigs";
 import { mapPlanToDisplay, DisplayPlan } from "@/lib/utils/pricingHelpers";
 import { useTranslation } from "react-i18next";
+import { ADDON_METADATA } from "./AddonToPlan/addOn";
+import { AddonsDisplay } from "./AddonToPlan";
 
 
 export default function InteractivePricing() {
     const { t } = useTranslation();
     const [activeTab, setActiveTab] = useState("redirects");
     const [isAnnually, setIsAnnually] = useState(false);
-    const [hostnameValue, setHostnameValue] = useState(15);
+    const sliderConfig = useMemo(() => getDynamicSliderConfig(redirectConfig.data.plans as any, 'hosts'), []);
+    const [dynamicValue, setDynamicValue] = useState<number>(sliderConfig.default);
     const [manualRecommendedId, setManualRecommendedId] = useState<string | null>(null);
     const handleTabChange = (val: string) => {
         setActiveTab(val);
@@ -28,7 +30,7 @@ export default function InteractivePricing() {
     };
     let recommendedPlanId = '';
     if (activeTab === 'redirects') {
-        recommendedPlanId = getRecommendedRedirectPlan(hostnameValue);
+        recommendedPlanId = getRecommendedRedirectPlan(dynamicValue);
     } else if (activeTab === 'shorten') {
         recommendedPlanId = shortenUrlData.plans.find(p => p.badge === 'Popular')?.id || '';
     } else if (activeTab === 'monitor') {
@@ -43,11 +45,24 @@ export default function InteractivePricing() {
     const currentConfig = configMap[activeTab] || redirectConfig;
 
     const displayPlans: DisplayPlan[] = currentConfig.data.plans.map((plan, index, allPlans) =>
-        mapPlanToDisplay(plan, index, allPlans, currentConfig, isAnnually, hostnameValue, manualRecommendedId)
+        mapPlanToDisplay(plan, index, allPlans, currentConfig, isAnnually, dynamicValue, manualRecommendedId)
     );
+    const addonsData = currentConfig.addons.map(code => {
+        const price = ADDON_METADATA[code]?.price ?? 0;
+        return { code, price, annual_price: price * 10 };
+    });
     const comparisonPlans = currentConfig.data.plans;
     const comparisonData = currentConfig.data.comparison || [];
-    const comparisonProduct = activeTab === 'redirects' ? 'redirect' : activeTab;
+    const comparisonProduct = activeTab === 'redirects' ? 'redirect' : activeTab
+    const dynamicComparisonPlans = useMemo(() => {
+        if (activeTab !== 'redirects') return comparisonPlans;
+        return getDynamicComparisonPlans(comparisonPlans, dynamicValue, redirectConfig.getAddon);
+    }, [activeTab, comparisonPlans, dynamicValue]);
+
+    const dynamicComparisonData = useMemo(() => {
+        if (activeTab !== 'redirects') return comparisonData;
+        return getDynamicComparisonData(comparisonData, comparisonPlans, dynamicValue, redirectConfig.getAddon);
+    }, [activeTab, comparisonData, comparisonPlans, dynamicValue]);
 
     const tabHeader = (
         <>
@@ -61,8 +76,8 @@ export default function InteractivePricing() {
         <Box>
             <Flex direction={{ base: "column", lg: "row" }} gap={8} align={{ base: "stretch", lg: "flex-start" }}>
                 <Box flex="1">
-                    {activeTab === 'redirects' && (
-                        <DynamicSlider value={hostnameValue} onChange={setHostnameValue} sliderConfig={getRedirectSliderConfig()} />
+                    {sliderConfig.enabled && (
+                        <DynamicSlider value={dynamicValue} onChange={setDynamicValue} sliderConfig={sliderConfig} />
                     )}
                     <SimpleGrid
                         columns={{ base: 1, md: 2, lg: 3, xl: 4 }}
@@ -88,8 +103,12 @@ export default function InteractivePricing() {
                             />
                         ))}
                     </SimpleGrid>
-                    {activeTab === 'redirects' && (
-                        <AddOns isAnnually={isAnnually} />
+                    {addonsData.length > 0 && (
+                        <AddonsDisplay
+                            addons={addonsData}
+                            isLoading={false}
+                            isAnnually={isAnnually}
+                        />
                     )}
                 </Box>
             </Flex>
@@ -162,9 +181,9 @@ export default function InteractivePricing() {
             />
             <Box px={{ base: 4, xl: 8 }}>
                 <PlansComparisonTable
-                    plans={comparisonPlans}
+                    plans={dynamicComparisonPlans}
                     product={comparisonProduct}
-                    comparison={comparisonData}
+                    comparison={dynamicComparisonData}
                     isAnnually={isAnnually}
                     renderButton={(plan, context) => {
                         const displayPlan = displayPlans.find((p) => p.id === plan.id);
