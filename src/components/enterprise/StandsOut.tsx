@@ -1,3 +1,5 @@
+"use client";
+
 import { Box, Container, Flex, Heading } from "@chakra-ui/react";
 import {
   LocationsIcon,
@@ -8,18 +10,21 @@ import {
   UptimeIcon,
 } from "../icons";
 import { FeatureStatCard } from "./FeatureStatCard";
-import { getT } from "@/lib/i18n";
+import { useTranslation } from "react-i18next";
 import { APP_NAME } from "@/lib/utils/constants";
+import { useLocalePath } from "@/lib/hooks/useLocalePath";
 
-const StandsOut = async ({ locale }: { locale: string }) => {
-  const t = getT(locale);
+const StandsOut = () => {
+  const { t } = useTranslation();
+  const localePath = useLocalePath();
+
   const statsData = [
     {
       icon: <MainIcon />,
       statValue: "90ms",
       title: t("enterprise.stat-rapid-title", "Rapid redirect"),
       description: t("enterprise.stat-rapid-desc", "Average redirect latency, ensuring quick, seamless user experiences"),
-      linkHref: "https://findredirect.com/uptime",
+      linkHref: localePath("https://findredirect.com/uptime"),
       linkLabel: t("enterprise.stat-rapid-link", "View real-time speed report"),
     },
     {

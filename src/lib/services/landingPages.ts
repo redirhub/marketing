@@ -2,16 +2,22 @@ import { client as defaultClient } from '@/sanity/lib/client'
 import type { LandingPage } from '@/types/sanity'
 import type { SanityClient } from 'next-sanity'
 
+// Determine if the environment is preview (development) or production
+// In production, only published content is fetched; in preview, drafts are included
+const isPreview = process.env.NODE_ENV !== 'production'
+
+// Global draft filter used in all queries
+const DRAFT_FILTER = isPreview ? '' : '&& !(_id in path("drafts.**"))'
+
 export async function fetchLandingPages(
   locale: string = 'en',
   client: SanityClient = defaultClient,
-  isPreview: boolean = false
 ) {
-  const activeFilter = isPreview ? '' : '&& isActive == true'
   const query = `*[
     _type == "landingPage" &&
-    locale == $locale
-    ${activeFilter}
+    locale == $locale && 
+    isActive == true
+    ${DRAFT_FILTER}
   ] | order(publishedAt desc) {
     _id,
     title,
@@ -26,14 +32,13 @@ export async function fetchLandingPageBySlug(
   slug: string,
   locale: string = 'en',
   client: SanityClient = defaultClient,
-  isPreview: boolean = false
 ): Promise<LandingPage | null> {
-  const activeFilter = isPreview ? '' : '&& isActive == true'
   const query = `*[
     _type == "landingPage" &&
     slug.current == $slug &&
-    locale == $locale
-    ${activeFilter}
+    locale == $locale && 
+    isActive == true
+    ${DRAFT_FILTER}
   ][0] {
     _id,
     _createdAt,
@@ -61,10 +66,8 @@ export async function fetchLandingPageBySlug(
 export async function fetchLandingPageTranslations(
   slug: string,
   client: SanityClient = defaultClient,
-  isPreview: boolean = false
 ) {
-  const activeFilter = isPreview ? '' : '&& isActive == true'
-  const query = `*[_type == "landingPage" && slug.current == $slug ${activeFilter}]{
+  const query = `*[_type == "landingPage" && slug.current == $slug && isActive == true]{
     _id,
     locale,
     title,

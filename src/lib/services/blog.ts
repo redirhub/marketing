@@ -2,6 +2,13 @@ import { client as defaultClient } from '@/sanity/lib/client'
 import type { Post, PostPreview } from '@/types/sanity'
 import type { SanityClient } from 'next-sanity'
 
+// Determine if the environment is preview (development) or production
+// In production, only published content is fetched; in preview, drafts are included
+const isPreview = process.env.NODE_ENV !== 'production'
+
+// Global draft filter used in all queries
+const DRAFT_FILTER = isPreview ? '' : '&& !(_id in path("drafts.**"))'
+
 /**
  * Fetch blog posts by locale with optional limit
  */
@@ -13,6 +20,7 @@ export async function fetchBlogPosts(
   const query = `*[
     _type == "post" &&
     locale == $locale
+    ${DRAFT_FILTER}
   ] | order(publishedAt desc) ${limit ? `[0...${limit}]` : ''} {
     _id,
     title,
@@ -52,7 +60,6 @@ export async function fetchPaginatedPosts(
     end,
     ...(term ? { term: `*${term}*` } : {}),
   }
-
   const [posts, total] = await Promise.all([
     client.fetch(
       `*[_type == "post" && locale == $locale ${filter}] | order(publishedAt desc) [$start...$end] {
@@ -98,6 +105,7 @@ export async function fetchPostBySlug(
     _type == "post" &&
     slug.current == $slug &&
     locale == $locale
+    ${DRAFT_FILTER}
   ][0] {
     _id,
     _createdAt,
@@ -136,7 +144,6 @@ export async function fetchRelatedPosts(
   if (!tags || tags.length === 0) {
     return []
   }
-
   const query = `*[
     _type == "post" &&
     _id != $postId &&

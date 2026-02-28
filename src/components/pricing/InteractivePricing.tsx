@@ -1,26 +1,28 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import { Box, Flex, Text, Switch, HStack, Badge, SimpleGrid } from "@chakra-ui/react";
 import { TabsLayout, TabTriggerButton } from "@/components/ui/TabsLayout";
-import HostnameSlider from "./HostnameSlider";
+import DynamicSlider from "./DynamicSlider";
 import PricingPlanCard from "./PricingPlanCard";
-import AddOns from "./AddOns";
-import PlansComparisonTable, { ProductTab } from "./PlansComparisonTable";
-import { pricingPlans } from "./pricingData";
-import { getRecommendedRedirectPlan } from "./redirectPlanData";
+import { UpgradeButton } from "./UpgradeButton";
+import PlansComparisonTable from "./PlansComparisonTable";
+import { getRecommendedRedirectPlan, getDynamicComparisonPlans, getDynamicComparisonData, getDynamicSliderConfig } from "./redirectPlanData";
 import { shortenUrlData } from "./shortenUrlPlanData";
 import { monitorData } from "./monitorPlanData";
 import { ProductConfig, redirectConfig, shortenConfig, monitorConfig } from "./productConfigs";
-import { mapPlanToDisplay } from "@/lib/utils/pricingHelpers";
+import { mapPlanToDisplay, DisplayPlan } from "@/lib/utils/pricingHelpers";
 import { useTranslation } from "react-i18next";
+import { ADDON_METADATA } from "./AddonToPlan/addOn";
+import { AddonsDisplay } from "./AddonToPlan";
 
 
 export default function InteractivePricing() {
     const { t } = useTranslation();
     const [activeTab, setActiveTab] = useState("redirects");
     const [isAnnually, setIsAnnually] = useState(false);
-    const [hostnameValue, setHostnameValue] = useState(15);
+    const sliderConfig = useMemo(() => getDynamicSliderConfig(redirectConfig.data.plans as any, 'hosts'), []);
+    const [dynamicValue, setDynamicValue] = useState<number>(sliderConfig.default);
     const [manualRecommendedId, setManualRecommendedId] = useState<string | null>(null);
     const handleTabChange = (val: string) => {
         setActiveTab(val);
@@ -28,29 +30,39 @@ export default function InteractivePricing() {
     };
     let recommendedPlanId = '';
     if (activeTab === 'redirects') {
-        recommendedPlanId = getRecommendedRedirectPlan(hostnameValue);
+        recommendedPlanId = getRecommendedRedirectPlan(dynamicValue);
     } else if (activeTab === 'shorten') {
         recommendedPlanId = shortenUrlData.plans.find(p => p.badge === 'Popular')?.id || '';
     } else if (activeTab === 'monitor') {
         recommendedPlanId = monitorData.plans.find(p => p.badge === 'Popular')?.id || '';
     }
 
-    const getDisplayPlans = () => {
-        const configMap: Record<string, ProductConfig> = {
-            'redirects': redirectConfig,
-            'shorten': shortenConfig,
-            'monitor': monitorConfig
-        };
-
-        const config = configMap[activeTab];
-        if (!config) return pricingPlans;
-
-        return config.data.plans.map((plan, index, allPlans) =>
-            mapPlanToDisplay(plan, index, allPlans, config, isAnnually, hostnameValue, manualRecommendedId)
-        );
+    const configMap: Record<string, ProductConfig> = {
+        'redirects': redirectConfig,
+        'shorten': shortenConfig,
+        'monitor': monitorConfig,
     };
+    const currentConfig = configMap[activeTab] || redirectConfig;
 
-    const displayPlans = getDisplayPlans();
+    const displayPlans: DisplayPlan[] = currentConfig.data.plans.map((plan, index, allPlans) =>
+        mapPlanToDisplay(plan, index, allPlans, currentConfig, isAnnually, dynamicValue, manualRecommendedId)
+    );
+    const addonsData = currentConfig.addons.map(code => {
+        const price = ADDON_METADATA[code]?.price ?? 0;
+        return { code, price, annual_price: price * 10 };
+    });
+    const comparisonPlans = currentConfig.data.plans;
+    const comparisonData = currentConfig.data.comparison || [];
+    const comparisonProduct = activeTab === 'redirects' ? 'redirect' : activeTab
+    const dynamicComparisonPlans = useMemo(() => {
+        if (activeTab !== 'redirects') return comparisonPlans;
+        return getDynamicComparisonPlans(comparisonPlans, dynamicValue, redirectConfig.getAddon);
+    }, [activeTab, comparisonPlans, dynamicValue]);
+
+    const dynamicComparisonData = useMemo(() => {
+        if (activeTab !== 'redirects') return comparisonData;
+        return getDynamicComparisonData(comparisonData, comparisonPlans, dynamicValue, redirectConfig.getAddon);
+    }, [activeTab, comparisonData, comparisonPlans, dynamicValue]);
 
     const tabHeader = (
         <>
@@ -64,8 +76,8 @@ export default function InteractivePricing() {
         <Box>
             <Flex direction={{ base: "column", lg: "row" }} gap={8} align={{ base: "stretch", lg: "flex-start" }}>
                 <Box flex="1">
-                    {activeTab === 'redirects' && (
-                        <HostnameSlider value={hostnameValue} onChange={setHostnameValue} />
+                    {sliderConfig.enabled && (
+                        <DynamicSlider value={dynamicValue} onChange={setDynamicValue} sliderConfig={sliderConfig} />
                     )}
                     <SimpleGrid
                         columns={{ base: 1, md: 2, lg: 3, xl: 4 }}
@@ -75,18 +87,28 @@ export default function InteractivePricing() {
                         {displayPlans.map((plan) => (
                             <PricingPlanCard
                                 key={plan.id}
-                                plan={plan as any}
+                                plan={plan}
                                 isAnnually={isAnnually}
                                 recommended={plan.id === recommendedPlanId}
                                 everythingInPlanName={plan.everythingInPlanName}
-                                isUnavailable={(plan as any).isUnavailable}
                                 isDynamicPricing={activeTab === 'redirects'}
-                                addon={(plan as any).addon}
+                                addon={plan.addon}
+                                renderCTA={({ plan: ctaPlan, isAnnually: ctaAnnually, addon: ctaAddon }) => (
+                                    <UpgradeButton
+                                        plan={ctaPlan}
+                                        isAnnually={ctaAnnually}
+                                        addon={ctaAddon || null}
+                                    />
+                                )}
                             />
                         ))}
                     </SimpleGrid>
-                    {activeTab === 'redirects' && (
-                        <AddOns isAnnually={isAnnually} />
+                    {addonsData.length > 0 && (
+                        <AddonsDisplay
+                            addons={addonsData}
+                            isLoading={false}
+                            isAnnually={isAnnually}
+                        />
                     )}
                 </Box>
             </Flex>
@@ -157,7 +179,26 @@ export default function InteractivePricing() {
                 headerRight={headerRight}
                 maxW="1180px"
             />
-            <PlansComparisonTable isAnnually={isAnnually} product={activeTab === 'redirects' ? 'redirect' : activeTab as ProductTab} />
+            <Box px={{ base: 4, xl: 8 }}>
+                <PlansComparisonTable
+                    plans={dynamicComparisonPlans}
+                    product={comparisonProduct}
+                    comparison={dynamicComparisonData}
+                    isAnnually={isAnnually}
+                    renderButton={(plan, context) => {
+                        const displayPlan = displayPlans.find((p) => p.id === plan.id);
+                        return (
+                            <UpgradeButton
+                                plan={plan}
+                                addon={displayPlan?.addon || null}
+                                isAnnually={isAnnually}
+                                width="fixed"
+                                mt={context === 'header' ? 1.5 : undefined}
+                            />
+                        );
+                    }}
+                />
+            </Box>
         </Box>
     );
 }

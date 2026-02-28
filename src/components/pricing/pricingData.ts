@@ -3,10 +3,22 @@ export interface PlanFeature {
   included: boolean;
   isHighlighted?: boolean;
 }
-
+export interface PlanAddon {
+  id?: string;
+  code: string;
+  type?: string;
+  description?: string;
+  price: number;
+  annual_price: number;
+  icon?: string;
+  limits?: Record<string, any>;
+}
+export interface PlanAddonCode {
+  code: string;
+}
 export interface PricingPlan {
   name: string;
-  id: 'basic' | 'pro' | 'enterprise';
+  id: string;
   priceMonthly: number | string;
   priceAnnually: number | string;
   range: string;
@@ -15,6 +27,8 @@ export interface PricingPlan {
   recommended?: boolean;
   everythingInPlanName?: string | null;
   level?: number;
+  isUnavailable?: boolean;
+  addon?: { code: string } | null;
 }
 
 export const pricingPlans: PricingPlan[] = [
@@ -73,29 +87,6 @@ export const pricingPlans: PricingPlan[] = [
   },
 ];
 
-export const addOnsData = [
-  {
-    title: "Single Sign-On (SSO)",
-    description: "Team login through your organization account using SAML authentication.",
-    priceMonthly: 200,
-    priceAnnually: 2000,
-    iconType: "sso",
-  },
-  {
-    title: "Custom Name Servers",
-    description: "Point entire domains to RedirHub using dedicated NS records for seamless DNS integration.",
-    priceMonthly: 200,
-    priceAnnually: 2000,
-    iconType: "dns",
-  },
-  {
-    title: "Dedicated Cluster",
-    description: "2 IP nodes with Auto-Redirect — any domain pointed to this server follows your preset rules automatically.",
-    priceMonthly: 800,
-    priceAnnually: 8000,
-    iconType: "cluster",
-  },
-];
 
 export const getRecommendedPlan = (sliderValue: number): string => {
   if (sliderValue < 40) return 'basic';

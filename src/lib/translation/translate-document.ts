@@ -147,17 +147,22 @@ Do not add any explanations or markdown formatting.`,
     response.choices[0].message.content || '{}'
   )
 
-  // Post-process to preserve _key fields in arrays (FAQs, etc.)
+  // Post-process to preserve _key fields in arrays of objects (FAQs, etc.)
+  // Skip this for arrays of primitive strings (like tags)
   for (const [key, value] of Object.entries(translatedFields)) {
     if (Array.isArray(value) && Array.isArray(fieldsToTranslate[key])) {
-      translatedFields[key] = value.map((item: any, index: number) => {
-        const originalItem = fieldsToTranslate[key][index]
-        return {
-          ...item,
-          ...(originalItem?._key && { _key: originalItem._key }),
-          ...(originalItem?._type && { _type: originalItem._type }),
-        }
-      })
+      const firstOriginalItem = fieldsToTranslate[key][0]
+      // Only process if array contains objects (not primitive strings)
+      if (firstOriginalItem && typeof firstOriginalItem === 'object') {
+        translatedFields[key] = value.map((item: any, index: number) => {
+          const originalItem = fieldsToTranslate[key][index]
+          return {
+            ...item,
+            ...(originalItem?._key && { _key: originalItem._key }),
+            ...(originalItem?._type && { _type: originalItem._type }),
+          }
+        })
+      }
     }
   }
 
