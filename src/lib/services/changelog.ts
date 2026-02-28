@@ -1,7 +1,13 @@
 import { unstable_cache } from 'next/cache'
-import { client as defaultClient } from '@/sanity/lib/client'
+import { client as defaultClient, draftClient } from '@/sanity/lib/client'
 import type { SanityClient } from 'next-sanity'
 import type { ChangelogEntry } from '@/types/sanity'
+
+// Determine if the environment is preview (development) or production
+// In production, only published content is fetched; in preview, drafts are included
+const isPreview = process.env.NODE_ENV !== 'production'
+const client: SanityClient = isPreview ? draftClient : defaultClient
+
 
 /**
  * Fetch changelog entries with cursor-based pagination
@@ -10,7 +16,6 @@ export async function fetchChangelogEntries(
   locale: string = 'en',
   limit: number = 10,
   cursor?: string,
-  client: SanityClient = defaultClient
 ): Promise<{ entries: ChangelogEntry[]; nextCursor: string | null }> {
   const cursorFilter = cursor
     ? `&& publishedAt < $cursor`
@@ -57,7 +62,6 @@ export async function fetchChangelogEntries(
 export function fetchChangelogBySlug(
   slug: string,
   locale: string = 'en',
-  client: SanityClient = defaultClient
 ): Promise<ChangelogEntry | null> {
   if (client === defaultClient) {
     return unstable_cache(
@@ -119,7 +123,6 @@ export function fetchChangelogBySlug(
  */
 export async function fetchChangelogTranslations(
   slug: string,
-  client: SanityClient = defaultClient
 ) {
   const query = `*[_type == "changelog" && slug.current == $slug]{
     _id,
