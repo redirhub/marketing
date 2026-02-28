@@ -145,6 +145,7 @@ export default function FeatureSplitSection({
         <Box w="100%" maxW="7xl" mx="auto" textAlign="center" mb={10}>
           <Box w="100%" maxW="7xl" mx="auto" textAlign="center">
             <Heading
+              as={"span"}
               fontSize={{ base: "1.4rem", md: "2rem", lg: "2.6rem" }}
               lineHeight={{ base: "1.4rem", md: "3rem" }}
               fontWeight={500}
