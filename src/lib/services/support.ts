@@ -1,10 +1,14 @@
-import { client as defaultClient } from '@/sanity/lib/client'
+import { client as defaultClient, draftClient } from '@/sanity/lib/client'
 import type { SupportArticle } from '@/types/sanity'
 import type { SanityClient } from 'next-sanity'
 
+// Determine if the environment is preview (development) or production
+// In production, only published content is fetched; in preview, drafts are included
+const isPreview = process.env.VERCEL_ENV !== 'production'
+const client: SanityClient = isPreview ? draftClient : defaultClient
+
 export async function fetchSupportArticles(
   locale: string = 'en',
-  client: SanityClient = defaultClient
 ) {
   const query = `*[
     _type == "support" &&
@@ -23,7 +27,6 @@ export async function fetchSupportArticles(
 export async function fetchSupportArticleBySlug(
   slug: string,
   locale: string = 'en',
-  client: SanityClient = defaultClient
 ): Promise<SupportArticle | null> {
   const query = `*[
     _type == "support" &&
@@ -46,7 +49,6 @@ export async function fetchSupportArticleBySlug(
 export async function fetchSupportArticlesByTag(
   tag: string,
   locale: string = 'en',
-  client: SanityClient = defaultClient
 ) {
   const query = `*[
     _type == "support" &&
@@ -65,7 +67,6 @@ export async function fetchSupportArticlesByTag(
 
 export async function fetchSupportArticleTranslations(
   slug: string,
-  client: SanityClient = defaultClient
 ) {
   const query = `*[_type == "support" && slug.current == $slug]{
     _id,
@@ -78,7 +79,6 @@ export async function fetchSupportArticleTranslations(
 
 export async function fetchAllSupportTags(
   locale: string = 'en',
-  client: SanityClient = defaultClient
 ): Promise<string[]> {
   const query = `array::unique(*[_type == "support" && locale == $locale].tags[])`
   return client.fetch(query, { locale })

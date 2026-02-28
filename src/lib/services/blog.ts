@@ -1,6 +1,11 @@
-import { client as defaultClient } from '@/sanity/lib/client'
+import { client as defaultClient, draftClient } from '@/sanity/lib/client'
 import type { Post, PostPreview } from '@/types/sanity'
 import type { SanityClient } from 'next-sanity'
+
+// Determine if the environment is preview (development) or production
+// In production, only published content is fetched; in preview, drafts are included
+const isPreview = process.env.VERCEL_ENV !== 'production'
+const client: SanityClient = isPreview ? draftClient : defaultClient
 
 /**
  * Fetch blog posts by locale with optional limit
@@ -8,7 +13,6 @@ import type { SanityClient } from 'next-sanity'
 export async function fetchBlogPosts(
   locale: string = 'en',
   limit?: number,
-  client: SanityClient = defaultClient
 ): Promise<PostPreview[]> {
   const query = `*[
     _type == "post" &&
@@ -39,7 +43,6 @@ export async function fetchPaginatedPosts(
   page: number = 1,
   pageSize: number = 12,
   term?: string,
-  client: SanityClient = defaultClient
 ) {
   const start = (page - 1) * pageSize
   const end = start + pageSize
@@ -52,7 +55,6 @@ export async function fetchPaginatedPosts(
     end,
     ...(term ? { term: `*${term}*` } : {}),
   }
-
   const [posts, total] = await Promise.all([
     client.fetch(
       `*[_type == "post" && locale == $locale ${filter}] | order(publishedAt desc) [$start...$end] {
@@ -92,7 +94,6 @@ export async function fetchPaginatedPosts(
 export async function fetchPostBySlug(
   slug: string,
   locale: string = 'en',
-  client: SanityClient = defaultClient
 ): Promise<Post | null> {
   const query = `*[
     _type == "post" &&
@@ -131,12 +132,10 @@ export async function fetchRelatedPosts(
   tags: string[],
   locale: string = 'en',
   limit: number = 6,
-  client: SanityClient = defaultClient
 ): Promise<PostPreview[]> {
   if (!tags || tags.length === 0) {
     return []
   }
-
   const query = `*[
     _type == "post" &&
     _id != $postId &&
@@ -167,7 +166,6 @@ export async function fetchPostsByAuthor(
   authorSlug: string,
   locale: string = 'en',
   limit?: number,
-  client: SanityClient = defaultClient
 ): Promise<PostPreview[]> {
   const query = `*[
     _type == "post" &&
@@ -198,7 +196,6 @@ export async function fetchPostsByTag(
   tag: string,
   postLocale: string = 'en',
   limit?: number,
-  client: SanityClient = defaultClient
 ): Promise<PostPreview[]> {
   const query = `*[
     _type == "post" &&
@@ -245,7 +242,6 @@ export function calculateReadTime(content: any[]): number {
  */
 export async function fetchPostTranslations(
   slug: string,
-  client: SanityClient = defaultClient
 ) {
   const query = `*[_type == "post" && slug.current == $slug]{
     _id,
@@ -262,7 +258,6 @@ export async function fetchPostTranslations(
  */
 export async function fetchAllTags(
   locale: string = 'en',
-  client: SanityClient = defaultClient
 ): Promise<string[]> {
   const query = `array::unique(*[_type == "post" && locale == $locale].tags[])`
 
