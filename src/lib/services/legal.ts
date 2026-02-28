@@ -4,7 +4,7 @@ import type { SanityClient } from 'next-sanity'
 
 // Determine if the environment is preview (development) or production
 // In production, only published content is fetched; in preview, drafts are included
-const isPreview = process.env.NODE_ENV !== 'production'
+const isPreview = process.env.VERCEL_ENV !== 'production'
 const client: SanityClient = isPreview ? draftClient : defaultClient
 
 export async function fetchFooterLegalPages(
