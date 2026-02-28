@@ -1,5 +1,11 @@
-import { client } from '@/sanity/lib/client'
+import { client as defaultClient, draftClient } from '@/sanity/lib/client'
 import type { FAQSet } from '@/types/sanity'
+import type { SanityClient } from 'next-sanity'
+
+// Determine if the environment is preview (development) or production
+// In production, only published content is fetched; in preview, drafts are included
+const isPreview = process.env.NODE_ENV !== 'production'
+const client: SanityClient = isPreview ? draftClient : defaultClient
 
 /**
  * Fetch FAQ set for a specific page and locale
